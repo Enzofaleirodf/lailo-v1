@@ -45,7 +45,7 @@ export const VehicleCard = (): JSX.Element => {
                 </span>
               </div>
 
-              <Badge className="bg-blue-light800 text-basewhite px-1 py-0.5 rounded hover:bg-blue-light800/90">
+              <Badge className="bg-blue-light800 text-basewhite px-1 py rounded hover:bg-blue-light800/90">
                 <span className="font-urbanist font-medium text-xs">
                   50% OFF
                 </span>
