@@ -47,13 +47,13 @@ export const VehicleCard = ({
             style={{
               backgroundImage: `url(${vehicleData.image})`
             }} 
-            className="w-[99px] rounded bg-cover bg-center flex-shrink-0" 
+            className="w-[120px] rounded bg-cover bg-center flex-shrink-0" 
           />
 
           <div className="flex flex-col gap-3 flex-1 min-w-0">
             <div className="flex flex-col gap-1">
               <div className="flex items-center justify-between">
-                <h3 className="font-urbanist font-semibold text-blue-light800 text-base md:text-sm text-rose-600 truncate">
+                <h3 className="font-urbanist font-semibold text-blue-light800 text-lg md:text-base text-rose-600 truncate">
                   {vehicleData.name}
                 </h3>
                 <Heart className="w-4 h-4 text-gray-500 flex-shrink-0" />
@@ -80,7 +80,7 @@ export const VehicleCard = ({
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <span className="font-urbanist font-semibold text-black text-lg md:text-base whitespace-nowrap leading-none">
+                <span className="font-urbanist font-semibold text-black text-xl md:text-lg whitespace-nowrap leading-none">
                   {vehicleData.price}
                 </span>
               </div>
