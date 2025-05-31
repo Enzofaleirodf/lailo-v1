@@ -77,7 +77,7 @@ const Index = () => {
       discount: "55% OFF",
       badges: ["Extrajudicial", "2ª Praça"],
       date: "02/06 às 10:30",
-      image: "https://images.unsplash.com/photo-1580414124179-b6480af5b65a?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/a72eb3d0-1625-45e6-8bf5-96615cf0e02a.png"
     },
     {
       name: "Ford Ka",
@@ -99,7 +99,7 @@ const Index = () => {
       discount: "42% OFF",
       badges: ["Extrajudicial", "3ª Praça"],
       date: "08/06 às 12:00",
-      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/24ecc65e-f63a-4f13-95f6-d90060a463fe.png"
     },
     {
       name: "Peugeot 208",
@@ -110,7 +110,7 @@ const Index = () => {
       discount: "33% OFF",
       badges: ["Judicial", "2ª Praça"],
       date: "10/06 às 14:15",
-      image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/f1af3d89-585e-47cd-bdbc-3a7e7a550815.png"
     }
   ];
 
