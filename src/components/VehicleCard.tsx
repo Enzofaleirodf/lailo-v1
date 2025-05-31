@@ -100,7 +100,7 @@ export const VehicleCard = ({
           </div>
         </div>
 
-        <Separator className="h-px w-full bg-gray-200" />
+        <Separator className="h-px w-full bg-gray-200 mt-8" />
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
