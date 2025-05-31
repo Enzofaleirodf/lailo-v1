@@ -63,7 +63,7 @@ export const VehicleCard = (): JSX.Element => {
               <span className="font-urbanist">Extrajudicial</span>
             </Badge>
 
-            <Badge variant="outline" className="text-gray-900 font-normal text-[10px] px-1 py-0.5 rounded border-none bg-rose-50">
+            <Badge variant="outline" className="text-gray-900 font-normal text-[10px] px-1 rounded border-none bg-rose-50 py-[4px]">
               <span className="font-urbanist font-medium">2</span>
               <span className="font-roboto font-medium">ª</span>
               <span className="font-urbanist font-medium"> Praça</span>
