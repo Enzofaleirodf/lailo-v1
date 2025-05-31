@@ -7,9 +7,9 @@ export const VehicleCard = (): JSX.Element => {
   return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto">
       <CardContent className="p-0 space-y-2">
         <div className="flex gap-2.5 items-stretch">
-          <div className="w-[88px] h-16 rounded bg-cover bg-center flex-shrink-0" style={{
+          <div style={{
           backgroundImage: "url(https://images.unsplash.com/photo-1549399686-8b3b4cadb0c6?w=200&h=120&fit=crop&crop=center)"
-        }} />
+        }} className="w-[88px] rounded bg-cover bg-center flex-shrink-0" />
 
           <div className="flex flex-col gap-3 flex-1">
             <div className="flex flex-col gap-1">
