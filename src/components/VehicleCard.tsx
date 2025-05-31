@@ -10,7 +10,7 @@ export const VehicleCard = (): JSX.Element => {
         <div className="flex gap-2.5 items-stretch">
           <div style={{
           backgroundImage: "url(/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png)"
-        }} className="w-[88px] rounded bg-cover bg-center flex-shrink-0" />
+        }} className="w-[99px] rounded bg-cover bg-center flex-shrink-0" />
 
           <div className="flex flex-col gap-3 flex-1">
             <div className="flex flex-col gap-1">
