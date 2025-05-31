@@ -49,7 +49,7 @@ export const VehicleCard = ({
                 <Heart className="w-4 h-4 text-gray-500 flex-shrink-0" />
               </div>
 
-              <div className="flex items-center gap-[8px] overflow-hidden">
+              <div className="flex items-center gap-[6px] overflow-hidden">
                 <span className="font-urbanist font-normal text-gray-500 text-[15px] md:text-[13px] whitespace-nowrap">
                   {vehicleData.color}
                 </span>
