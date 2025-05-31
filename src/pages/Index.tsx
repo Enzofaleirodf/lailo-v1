@@ -44,7 +44,7 @@ const Index = () => {
       discount: "40% OFF",
       badges: ["Judicial", "2ª Praça"],
       date: "25/05 às 11:00",
-      image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/6dabef41-e24e-404d-a5d9-8b0735f0dd33.png"
     },
     {
       name: "Chevrolet Onix",
