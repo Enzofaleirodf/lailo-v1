@@ -1,10 +1,129 @@
+
 import { VehicleCard } from "../components/VehicleCard";
+
 const Index = () => {
-  return <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        
-        <VehicleCard />
+  const vehicles = [
+    {
+      name: "Volkswagen T-Cross",
+      color: "Preto",
+      year: "2025",
+      location: "Brasília - DF",
+      price: "R$ 78.000",
+      discount: "50% OFF",
+      badges: ["Extrajudicial", "2ª Praça"],
+      date: "15/05 às 10:00",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Honda Civic",
+      color: "Prata",
+      year: "2024",
+      location: "São Paulo - SP",
+      price: "R$ 95.000",
+      discount: "30% OFF",
+      badges: ["Judicial", "1ª Praça"],
+      date: "20/05 às 14:30",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Toyota Corolla",
+      color: "Branco",
+      year: "2023",
+      location: "Rio de Janeiro - RJ",
+      price: "R$ 89.000",
+      discount: "25% OFF",
+      badges: ["Extrajudicial", "3ª Praça"],
+      date: "22/05 às 09:15",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Hyundai HB20",
+      color: "Azul",
+      year: "2024",
+      location: "Belo Horizonte - MG",
+      price: "R$ 65.000",
+      discount: "40% OFF",
+      badges: ["Judicial", "2ª Praça"],
+      date: "25/05 às 11:00",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Chevrolet Onix",
+      color: "Vermelho",
+      year: "2023",
+      location: "Fortaleza - CE",
+      price: "R$ 72.000",
+      discount: "35% OFF",
+      badges: ["Extrajudicial", "1ª Praça"],
+      date: "28/05 às 16:45",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Nissan Kicks",
+      color: "Cinza",
+      year: "2024",
+      location: "Salvador - BA",
+      price: "R$ 82.000",
+      discount: "45% OFF",
+      badges: ["Judicial", "3ª Praça"],
+      date: "30/05 às 13:20",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Renault Sandero",
+      color: "Verde",
+      year: "2023",
+      location: "Recife - PE",
+      price: "R$ 58.000",
+      discount: "55% OFF",
+      badges: ["Extrajudicial", "2ª Praça"],
+      date: "02/06 às 10:30",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Ford Ka",
+      color: "Amarelo",
+      year: "2024",
+      location: "Curitiba - PR",
+      price: "R$ 63.000",
+      discount: "38% OFF",
+      badges: ["Judicial", "1ª Praça"],
+      date: "05/06 às 15:10",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Fiat Argo",
+      color: "Laranja",
+      year: "2023",
+      location: "Porto Alegre - RS",
+      price: "R$ 69.000",
+      discount: "42% OFF",
+      badges: ["Extrajudicial", "3ª Praça"],
+      date: "08/06 às 12:00",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    },
+    {
+      name: "Peugeot 208",
+      color: "Roxo",
+      year: "2024",
+      location: "Goiânia - GO",
+      price: "R$ 75.000",
+      discount: "33% OFF",
+      badges: ["Judicial", "2ª Praça"],
+      date: "10/06 às 14:15",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md space-y-4">
+        {vehicles.map((vehicle, index) => (
+          <VehicleCard key={index} vehicle={vehicle} />
+        ))}
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
