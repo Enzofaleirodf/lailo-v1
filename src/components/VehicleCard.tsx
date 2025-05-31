@@ -60,19 +60,19 @@ export const VehicleCard = ({
               </div>
 
               <div className="flex items-center gap-[8px] overflow-hidden">
-                <span className="font-urbanist font-normal text-gray-500 text-sm md:text-xs whitespace-nowrap">
+                <span className="font-urbanist font-normal text-gray-500 text-base md:text-sm whitespace-nowrap">
                   {vehicleData.color}
                 </span>
 
                 <div className="w-0.5 h-0.5 bg-gray-500 rounded-full flex-shrink-0" />
 
-                <span className="font-urbanist font-normal text-gray-500 text-sm md:text-xs whitespace-nowrap">
+                <span className="font-urbanist font-normal text-gray-500 text-base md:text-sm whitespace-nowrap">
                   {vehicleData.year}
                 </span>
 
                 <div className="w-0.5 h-0.5 bg-gray-500 rounded-full flex-shrink-0" />
 
-                <span className="font-urbanist font-normal text-gray-500 text-sm md:text-xs whitespace-nowrap truncate">
+                <span className="font-urbanist font-normal text-gray-500 text-base md:text-sm whitespace-nowrap truncate">
                   {vehicleData.location}
                 </span>
               </div>
