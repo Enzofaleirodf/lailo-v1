@@ -1,4 +1,3 @@
-
 import { VehicleCard } from "../components/VehicleCard";
 
 const Index = () => {
@@ -23,7 +22,7 @@ const Index = () => {
       discount: "30% OFF",
       badges: ["Judicial", "1ª Praça"],
       date: "20/05 às 14:30",
-      image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/33a5ac35-f888-4a6f-9cc8-dffa1f394b1e.png"
     },
     {
       name: "Toyota Corolla",
