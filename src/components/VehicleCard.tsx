@@ -56,7 +56,7 @@ export const VehicleCard = ({
 
                 <div className="w-0.5 h-0.5 bg-gray-500 rounded-full flex-shrink-0" />
 
-                <span className="font-urbanist font-normal text-gray-500 text-[15px] md:text-[13px] whitespace-nowrap">
+                <span className="font-urbanist font-normal text-gray-500 text-[14px] md:text-[12px] whitespace-nowrap">
                   {vehicleData.year}
                 </span>
 
