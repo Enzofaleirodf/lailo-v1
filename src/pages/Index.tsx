@@ -11,7 +11,7 @@ const Index = () => {
       discount: "50% OFF",
       badges: ["Extrajudicial", "2ª Praça"],
       date: "15/05 às 10:00",
-      image: "https://images.unsplash.com/photo-1549399828-28d2d062a4c7?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/c1eac822-7357-49b8-a4ce-a14e374e1167.png"
     },
     {
       name: "Honda Civic",
