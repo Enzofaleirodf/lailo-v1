@@ -55,7 +55,7 @@ const Index = () => {
       discount: "35% OFF",
       badges: ["Extrajudicial", "1ª Praça"],
       date: "28/05 às 16:45",
-      image: "https://images.unsplash.com/photo-1494976488736-90da681ad1c0?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/3abaaf79-72ae-4e03-87ad-488329f5e234.png"
     },
     {
       name: "Nissan Kicks",
