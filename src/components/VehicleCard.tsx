@@ -42,24 +42,13 @@ export const VehicleCard = ({
 
   const vehicleData = vehicle || defaultVehicle;
   
-  // Determine color scheme based on vehicle status
-  const isJudicial = vehicleData.badges.includes("Judicial");
-  const statusTheme = isJudicial 
-    ? {
-        borderColor: "border-blue-500",
-        accentColor: "from-blue-50 to-blue-100",
-        badgeColor: "bg-blue-100 text-blue-800",
-        priceGradient: "from-blue-600 to-blue-800"
-      }
-    : {
-        borderColor: "border-rose-500", 
-        accentColor: "from-rose-50 to-rose-100",
-        badgeColor: "bg-rose-100 text-rose-800",
-        priceGradient: "from-rose-600 to-rose-800"
-      };
-
-  // Parse location for smart display
-  const [city, state] = vehicleData.location.split(" - ");
+  // Use apenas tema azul
+  const statusTheme = {
+    borderColor: "border-blue-500",
+    accentColor: "from-blue-50 to-blue-100",
+    badgeColor: "bg-blue-100 text-blue-800",
+    priceGradient: "from-blue-600 to-blue-800"
+  };
 
   return (
     <Card 
@@ -153,7 +142,7 @@ export const VehicleCard = ({
               </div>
 
               {/* Enhanced vehicle details with micro-typography */}
-              <div className="flex items-center gap-2 overflow-hidden">
+              <div className="flex items-center gap-2 overflow-hidden" style={{ marginTop: '4px' }}>
                 <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
                   {vehicleData.color}
                 </span>
@@ -163,15 +152,10 @@ export const VehicleCard = ({
                 </span>
                 <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
                 
-                {/* Smart location display */}
-                <div className="flex flex-col leading-none truncate">
-                  <span className="font-semibold text-gray-800 text-sm truncate">
-                    {city}
-                  </span>
-                  <span className="font-normal text-gray-500 text-xs">
-                    {state}
-                  </span>
-                </div>
+                {/* Location display - cidade e estado na mesma linha */}
+                <span className="font-medium text-gray-600 text-sm truncate">
+                  {vehicleData.location}
+                </span>
               </div>
             </div>
 
@@ -231,12 +215,12 @@ export const VehicleCard = ({
               </span>
             </div>
             
-            {/* Prominent CTA button */}
+            {/* Botão apenas com ícone */}
             <Button 
               className={`
                 bg-gradient-to-r ${statusTheme.priceGradient}
                 hover:from-gray-700 hover:to-gray-900
-                text-white font-semibold px-4 py-2 rounded-xl
+                text-white font-semibold p-2 rounded-xl
                 transform transition-all duration-300
                 hover:scale-110 hover:shadow-lg
                 focus:ring-4 focus:ring-blue-200 focus:outline-none
@@ -244,8 +228,7 @@ export const VehicleCard = ({
               `}
               size="sm"
             >
-              <span className="text-xs">Ver Detalhes</span>
-              <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
             </Button>
           </div>
         </div>
