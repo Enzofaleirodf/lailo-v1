@@ -115,8 +115,8 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center p-4 md:p-0">
-      <div className="w-full max-w-md space-y-4 mx-4 md:mx-0">
+    <div className="min-h-screen bg-gray-50 flex justify-center px-4">
+      <div className="w-full max-w-md space-y-4">
         {vehicles.map((vehicle, index) => (
           <VehicleCard key={index} vehicle={vehicle} />
         ))}
