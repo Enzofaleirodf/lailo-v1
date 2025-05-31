@@ -1,22 +1,15 @@
-
 import { Calendar } from "lucide-react";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
-
 export const VehicleCard = (): JSX.Element => {
-  return (
-    <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto">
+  return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto">
       <CardContent className="p-0 space-y-2">
         <div className="flex gap-2.5">
-          <div
-            className="w-[88px] h-16 rounded bg-cover bg-center flex-shrink-0"
-            style={{
-              backgroundImage:
-                "url(https://images.unsplash.com/photo-1549399686-8b3b4cadb0c6?w=200&h=120&fit=crop&crop=center)",
-            }}
-          />
+          <div style={{
+          backgroundImage: "url(https://images.unsplash.com/photo-1549399686-8b3b4cadb0c6?w=200&h=120&fit=crop&crop=center)"
+        }} className="w-[88px] h-full rounded bg-cover bg-center flex-shrink-0" />
 
           <div className="flex flex-col gap-3 flex-1">
             <div className="flex flex-col gap-1">
@@ -65,17 +58,11 @@ export const VehicleCard = (): JSX.Element => {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Badge
-              variant="outline"
-              className="bg-yellow-100 text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none"
-            >
+            <Badge variant="outline" className="bg-yellow-100 text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none">
               Extrajudicial
             </Badge>
 
-            <Badge
-              variant="outline"
-              className="bg-yellow-100 text-gray-900 font-normal text-[10px] px-1 py-0.5 rounded border-none"
-            >
+            <Badge variant="outline" className="bg-yellow-100 text-gray-900 font-normal text-[10px] px-1 py-0.5 rounded border-none">
               <span className="font-medium">2</span>
               <span className="font-roboto font-medium">ª</span>
               <span className="font-medium"> Praça</span>
@@ -90,6 +77,5 @@ export const VehicleCard = (): JSX.Element => {
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
