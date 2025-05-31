@@ -40,7 +40,7 @@ export const VehicleCard = ({
           backgroundImage: `url(${vehicleData.image})`
         }} className="w-[110px] rounded bg-cover bg-center flex-shrink-0" />
 
-          <div className="flex flex-col gap-3 flex-1 min-w-0">
+          <div className="flex flex-col gap-2 flex-1 min-w-0">
             <div className="flex flex-col gap-0">
               <div className="flex items-center justify-between">
                 <h3 className="font-urbanist font-semibold text-blue-light800 text-lg md:text-base text-rose-600 truncate">
