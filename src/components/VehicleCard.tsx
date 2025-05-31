@@ -60,13 +60,13 @@ export const VehicleCard = (): JSX.Element => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <Badge variant="outline" className="text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none bg-rose-50">
-              <span className="font-urbanist">Extrajudicial</span>
+              <span className="font-urbanist text-[12px]">Extrajudicial</span>
             </Badge>
 
             <Badge variant="outline" className="text-gray-900 font-normal text-[10px] px-1 rounded border-none bg-rose-50 py-[2px]">
-              <span className="font-urbanist font-medium">2</span>
-              <span className="font-roboto font-medium">ª</span>
-              <span className="font-urbanist font-medium"> Praça</span>
+              <span className="font-urbanist font-medium text-[12px]">2</span>
+              <span className="font-roboto font-medium text-[12px]">ª</span>
+              <span className="font-urbanist font-medium text-[12px]"> Praça</span>
             </Badge>
           </div>
 
