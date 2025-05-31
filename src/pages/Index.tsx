@@ -28,7 +28,7 @@ const Index = () => {
       name: "Toyota Corolla",
       color: "Branco",
       year: "2023",
-      location: "Rio de Janeiro - RJ",
+      location: "Brasília - DF",
       price: "R$ 89.000",
       discount: "25% OFF",
       badges: ["Extrajudicial", "3ª Praça"],
