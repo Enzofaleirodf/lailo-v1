@@ -40,7 +40,7 @@ export const VehicleCard = (): JSX.Element => {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <span className="font-urbanist font-semibold text-black text-base whitespace-nowrap">
+                <span className="font-urbanist font-semibold text-black text-base whitespace-nowrap leading-none">
                   R$ 78.000
                 </span>
               </div>
