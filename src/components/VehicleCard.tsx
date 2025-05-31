@@ -34,7 +34,7 @@ export const VehicleCard = ({
     image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
   };
   const vehicleData = vehicle || defaultVehicle;
-  return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto py-0">
+  return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto py-[12px]">
       <CardContent className="p-0 space-y-2">
         <div className="flex gap-2.5 items-stretch">
           <div style={{
