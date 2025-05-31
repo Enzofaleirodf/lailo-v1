@@ -38,7 +38,7 @@ export const VehicleCard = ({
         <div className="flex gap-2.5 items-stretch">
           <div style={{
           backgroundImage: `url(${vehicleData.image})`
-        }} className="w-[120px] rounded bg-cover bg-center flex-shrink-0" />
+        }} className="w-[110px] rounded bg-cover bg-center flex-shrink-0" />
 
           <div className="flex flex-col gap-3 flex-1 min-w-0">
             <div className="flex flex-col gap-0">
