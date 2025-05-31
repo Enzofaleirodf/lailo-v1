@@ -66,7 +66,7 @@ const Index = () => {
       discount: "45% OFF",
       badges: ["Judicial", "3ª Praça"],
       date: "30/05 às 13:20",
-      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/48c2a9c3-fb59-4a44-a931-b3f36f6891fc.png"
     },
     {
       name: "Renault Sandero",
