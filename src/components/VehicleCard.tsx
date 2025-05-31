@@ -1,11 +1,9 @@
-
 import { Calendar, ArrowUpRight } from "lucide-react";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
-
 export const VehicleCard = (): JSX.Element => {
   return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto">
       <CardContent className="p-0 space-y-2">
@@ -59,20 +57,20 @@ export const VehicleCard = (): JSX.Element => {
 
         <Separator className="h-px w-full" />
 
-        <div className="flex items-center justify-between h-8">
-          <div className="flex items-center gap-2 h-full">
-            <Badge variant="outline" className="text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none bg-rose-50 h-full flex items-center">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none bg-rose-50">
               <span className="font-urbanist">Extrajudicial</span>
             </Badge>
 
-            <Badge variant="outline" className="text-gray-900 font-normal text-[10px] px-1 py-0.5 rounded border-none bg-rose-50 h-full flex items-center">
+            <Badge variant="outline" className="text-gray-900 font-normal text-[10px] px-1 py-0.5 rounded border-none bg-rose-50">
               <span className="font-urbanist font-medium">2</span>
               <span className="font-roboto font-medium">ª</span>
-              <span className="font-urbanist font-medium"> Praça</span>
+              <span className="font-urbanist font-medium"> Praça</span>
             </Badge>
           </div>
 
-          <div className="flex items-center gap-1 h-full">
+          <div className="flex items-center gap-1">
             <Calendar className="w-3 h-3 text-gray-500" />
             <span className="font-urbanist font-medium text-gray-500 text-[10px] px-0.5 py-1">
               15/05 às 10:00
