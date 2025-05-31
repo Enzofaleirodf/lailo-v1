@@ -1,4 +1,4 @@
-import { Calendar, ArrowUpRight } from "lucide-react";
+import { Calendar, ArrowUpRight, Heart } from "lucide-react";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -14,10 +14,11 @@ export const VehicleCard = (): JSX.Element => {
 
           <div className="flex flex-col gap-3 flex-1">
             <div className="flex flex-col gap-1">
-              <div className="flex items-center">
+              <div className="flex items-center justify-between">
                 <h3 className="font-urbanist font-semibold text-blue-light800 text-sm text-rose-600">
                   Volkswagen T-Cross
                 </h3>
+                <Heart className="w-4 h-4 text-gray-500" />
               </div>
 
               <div className="flex items-center gap-[11px]">
