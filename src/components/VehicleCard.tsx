@@ -58,7 +58,7 @@ export const VehicleCard = (): JSX.Element => {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Badge variant="outline" className="text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none bg-rose-100">
+            <Badge variant="outline" className="text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none bg-rose-50">
               Extrajudicial
             </Badge>
 
