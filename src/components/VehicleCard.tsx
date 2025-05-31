@@ -1,11 +1,9 @@
-
 import { Calendar, ArrowUpRight, Heart } from "lucide-react";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
-
 interface VehicleData {
   name: string;
   color: string;
@@ -17,12 +15,12 @@ interface VehicleData {
   date: string;
   image: string;
 }
-
 interface VehicleCardProps {
   vehicle?: VehicleData;
 }
-
-export const VehicleCard = ({ vehicle }: VehicleCardProps): JSX.Element => {
+export const VehicleCard = ({
+  vehicle
+}: VehicleCardProps): JSX.Element => {
   // Default data if no vehicle prop is provided (for backward compatibility)
   const defaultVehicle: VehicleData = {
     name: "Volkswagen T-Cross",
@@ -35,19 +33,13 @@ export const VehicleCard = ({ vehicle }: VehicleCardProps): JSX.Element => {
     date: "15/05 às 10:00",
     image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
   };
-
   const vehicleData = vehicle || defaultVehicle;
-
-  return (
-    <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto">
+  return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto py-[8px]">
       <CardContent className="p-0 space-y-2">
         <div className="flex gap-2.5 items-stretch">
-          <div 
-            style={{
-              backgroundImage: `url(${vehicleData.image})`
-            }} 
-            className="w-[99px] rounded bg-cover bg-center flex-shrink-0" 
-          />
+          <div style={{
+          backgroundImage: `url(${vehicleData.image})`
+        }} className="w-[99px] rounded bg-cover bg-center flex-shrink-0" />
 
           <div className="flex flex-col gap-3 flex-1">
             <div className="flex flex-col gap-1">
@@ -119,6 +111,5 @@ export const VehicleCard = ({ vehicle }: VehicleCardProps): JSX.Element => {
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
