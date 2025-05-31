@@ -50,7 +50,7 @@ export const VehicleCard = ({
               </div>
 
               <div className="flex items-center gap-[6px] overflow-hidden">
-                <span className="font-urbanist font-normal text-gray-500 text-[15px] md:text-[13px] whitespace-nowrap">
+                <span className="font-urbanist font-normal text-gray-500 text-[14px] md:text-[12px] whitespace-nowrap">
                   {vehicleData.color}
                 </span>
 
