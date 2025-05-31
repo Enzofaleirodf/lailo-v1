@@ -84,22 +84,23 @@ export const VehicleCard = ({
             
             {/* Image overlay gradient for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            
-            {/* Status indicators */}
-            <div className="absolute top-2 left-2 flex flex-col gap-1">
-              {parseInt(vehicleData.discount) >= 40 && (
-                <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs px-2 py-1 animate-pulse">
-                  <Zap className="w-3 h-3 mr-1" />
-                  HOT
-                </Badge>
-              )}
-              {vehicleData.year === "2025" && (
-                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs px-2 py-1">
-                  <Star className="w-3 h-3 mr-1" />
-                  NEW
-                </Badge>
-              )}
-            </div>
+
+            {/* Botão de favoritar no canto superior direito da imagem */}
+            <button
+              onClick={() => setIsFavorited(!isFavorited)}
+              className={`
+                absolute top-2 right-2 p-2 rounded-full transition-all duration-300 
+                ${isFavorited 
+                  ? 'bg-red-100 text-red-500 scale-110' 
+                  : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-red-400'
+                }
+                hover:scale-125 focus:ring-4 focus:ring-red-200 focus:outline-none
+                ${isFavorited ? 'animate-bounce' : ''}
+              `}
+              aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+            >
+              <Heart className={`w-4 h-4 transition-all duration-300 ${isFavorited ? 'fill-current' : ''}`} />
+            </button>
 
             {/* Discount badge on image */}
             <div className="absolute bottom-2 right-2">
@@ -122,23 +123,6 @@ export const VehicleCard = ({
                 <h3 className="font-bold text-gray-900 text-xl md:text-lg leading-tight truncate group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-gray-600 transition-all duration-300">
                   {vehicleData.name}
                 </h3>
-                
-                {/* Enhanced interactive favorite button */}
-                <button
-                  onClick={() => setIsFavorited(!isFavorited)}
-                  className={`
-                    p-2 rounded-full transition-all duration-300 
-                    ${isFavorited 
-                      ? 'bg-red-100 text-red-500 scale-110' 
-                      : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-red-400'
-                    }
-                    hover:scale-125 focus:ring-4 focus:ring-red-200 focus:outline-none
-                    ${isFavorited ? 'animate-bounce' : ''}
-                  `}
-                  aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-                >
-                  <Heart className={`w-4 h-4 transition-all duration-300 ${isFavorited ? 'fill-current' : ''}`} />
-                </button>
               </div>
 
               {/* Enhanced vehicle details with micro-typography */}
