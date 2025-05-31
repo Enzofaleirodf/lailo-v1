@@ -1,10 +1,8 @@
-
 import { Calendar } from "lucide-react";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
-
 export const VehicleCard = (): JSX.Element => {
   return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto">
       <CardContent className="p-0 space-y-2">
@@ -16,7 +14,7 @@ export const VehicleCard = (): JSX.Element => {
           <div className="flex flex-col gap-3 flex-1">
             <div className="flex flex-col gap-1">
               <div className="flex items-center">
-                <h3 className="font-urbanist font-semibold text-blue-light800 text-sm">
+                <h3 className="font-urbanist font-semibold text-blue-light800 text-sm text-rose-600">
                   Volkswagen T-Cross
                 </h3>
               </div>
