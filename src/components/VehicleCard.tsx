@@ -1,9 +1,11 @@
+
 import { Calendar, ArrowUpRight, Heart } from "lucide-react";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
+
 interface VehicleData {
   name: string;
   color: string;
@@ -15,9 +17,11 @@ interface VehicleData {
   date: string;
   image: string;
 }
+
 interface VehicleCardProps {
   vehicle?: VehicleData;
 }
+
 export const VehicleCard = ({
   vehicle
 }: VehicleCardProps): JSX.Element => {
@@ -33,7 +37,9 @@ export const VehicleCard = ({
     date: "15/05 às 10:00",
     image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
   };
+
   const vehicleData = vehicle || defaultVehicle;
+
   return <Card className="flex flex-col p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs max-w-sm mx-auto py-[12px]">
       <CardContent className="p-0 space-y-2">
         <div className="flex gap-2.5 items-stretch">
@@ -89,14 +95,14 @@ export const VehicleCard = ({
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <Badge variant="outline" className="text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none bg-rose-50">
-              <span className="font-urbanist text-[12px]">{vehicleData.badges[0]}</span>
-            </Badge>
-
             <Badge variant="outline" className="text-gray-900 font-normal text-[10px] px-1 rounded border-none bg-rose-50 py-[2px]">
               <span className="font-urbanist font-medium text-[12px]">{vehicleData.badges[1].charAt(0)}</span>
               <span className="font-roboto font-medium text-[12px]">ª</span>
               <span className="font-urbanist font-medium text-[12px]"> Praça</span>
+            </Badge>
+
+            <Badge variant="outline" className="text-gray-900 font-medium text-[10px] px-1 py-0.5 rounded border-none bg-rose-50">
+              <span className="font-urbanist text-[12px]">{vehicleData.badges[0]}</span>
             </Badge>
           </div>
 
