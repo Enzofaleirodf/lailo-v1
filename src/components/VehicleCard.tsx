@@ -4,7 +4,6 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
-
 interface VehicleData {
   name: string;
   color: string;
@@ -16,11 +15,9 @@ interface VehicleData {
   date: string;
   image: string;
 }
-
 interface VehicleCardProps {
   vehicle?: VehicleData;
 }
-
 export const VehicleCard = ({
   vehicle
 }: VehicleCardProps): JSX.Element => {
@@ -35,39 +32,37 @@ export const VehicleCard = ({
     date: "15/05 às 10:00",
     image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
   };
-
   const vehicleData = vehicle || defaultVehicle;
-
-  return <Card className="w-full p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs py-[12px]">
+  return <Card className="w-full max-w-none p-3 bg-white rounded-xl border border-gray-200 shadow-shadows-shadow-xs py-[12px]">
       <CardContent className="p-0 space-y-2">
         <div className="flex gap-2.5 items-stretch">
           <div style={{
           backgroundImage: `url(${vehicleData.image})`
         }} className="w-[99px] rounded bg-cover bg-center flex-shrink-0" />
 
-          <div className="flex flex-col gap-3 flex-1">
+          <div className="flex flex-col gap-3 flex-1 min-w-0">
             <div className="flex flex-col gap-1">
               <div className="flex items-center justify-between">
-                <h3 className="font-urbanist font-semibold text-blue-light800 text-sm text-rose-600">
+                <h3 className="font-urbanist font-semibold text-blue-light800 text-sm text-rose-600 truncate">
                   {vehicleData.name}
                 </h3>
-                <Heart className="w-4 h-4 text-gray-500" />
+                <Heart className="w-4 h-4 text-gray-500 flex-shrink-0" />
               </div>
 
-              <div className="flex items-center gap-[11px]">
+              <div className="flex items-center gap-[8px] overflow-hidden">
                 <span className="font-urbanist font-normal text-gray-500 text-xs whitespace-nowrap">
                   {vehicleData.color}
                 </span>
 
-                <div className="w-0.5 h-0.5 bg-gray-500 rounded-full" />
+                <div className="w-0.5 h-0.5 bg-gray-500 rounded-full flex-shrink-0" />
 
                 <span className="font-urbanist font-normal text-gray-500 text-xs whitespace-nowrap">
                   {vehicleData.year}
                 </span>
 
-                <div className="w-0.5 h-0.5 bg-gray-500 rounded-full" />
+                <div className="w-0.5 h-0.5 bg-gray-500 rounded-full flex-shrink-0" />
 
-                <span className="font-urbanist font-normal text-gray-500 text-xs whitespace-nowrap">
+                <span className="font-urbanist font-normal text-gray-500 text-xs whitespace-nowrap truncate">
                   {vehicleData.location}
                 </span>
               </div>
@@ -80,7 +75,7 @@ export const VehicleCard = ({
                 </span>
               </div>
 
-              <Badge className="bg-blue-light800 text-basewhite px-1 py-0 rounded hover:bg-blue-light800/90 bg-rose-600">
+              <Badge className="bg-blue-light800 text-basewhite px-1 py-0 rounded hover:bg-blue-light800/90 bg-rose-600 flex-shrink-0">
                 <span className="font-urbanist font-medium text-xs">
                   {vehicleData.discount}
                 </span>
