@@ -47,32 +47,32 @@ export const VehicleCard = ({
             style={{
               backgroundImage: `url(${vehicleData.image})`
             }} 
-            className="w-[140px] rounded bg-cover bg-center flex-shrink-0" 
+            className="w-[120px] rounded bg-cover bg-center flex-shrink-0" 
           />
 
-          <div className="flex flex-col gap-1 flex-1 min-w-0">
+          <div className="flex flex-col gap-3 flex-1 min-w-0">
             <div className="flex flex-col gap-1">
               <div className="flex items-center justify-between">
-                <h3 className="font-urbanist font-semibold text-blue-light800 text-xl md:text-lg text-rose-600 truncate">
+                <h3 className="font-urbanist font-semibold text-blue-light800 text-lg md:text-base text-rose-600 truncate">
                   {vehicleData.name}
                 </h3>
                 <Heart className="w-4 h-4 text-gray-500 flex-shrink-0" />
               </div>
 
               <div className="flex items-center gap-[8px] overflow-hidden">
-                <span className="font-urbanist font-normal text-gray-500 text-base md:text-sm whitespace-nowrap">
+                <span className="font-urbanist font-normal text-gray-500 text-sm md:text-xs whitespace-nowrap">
                   {vehicleData.color}
                 </span>
 
                 <div className="w-0.5 h-0.5 bg-gray-500 rounded-full flex-shrink-0" />
 
-                <span className="font-urbanist font-normal text-gray-500 text-base md:text-sm whitespace-nowrap">
+                <span className="font-urbanist font-normal text-gray-500 text-sm md:text-xs whitespace-nowrap">
                   {vehicleData.year}
                 </span>
 
                 <div className="w-0.5 h-0.5 bg-gray-500 rounded-full flex-shrink-0" />
 
-                <span className="font-urbanist font-normal text-gray-500 text-base md:text-sm whitespace-nowrap truncate select-none pointer-events-none">
+                <span className="font-urbanist font-normal text-gray-500 text-sm md:text-xs whitespace-nowrap truncate">
                   {vehicleData.location}
                 </span>
               </div>
@@ -80,7 +80,7 @@ export const VehicleCard = ({
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <span className="font-urbanist font-semibold text-black text-2xl md:text-xl whitespace-nowrap leading-none">
+                <span className="font-urbanist font-semibold text-black text-xl md:text-lg whitespace-nowrap leading-none">
                   {vehicleData.price}
                 </span>
               </div>
