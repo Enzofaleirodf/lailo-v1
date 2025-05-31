@@ -75,7 +75,7 @@ export const VehicleCard = (): JSX.Element => {
             <span className="font-urbanist font-medium text-gray-500 text-[10px] px-0.5 py-[2px]">
               15/05 às 10:00
             </span>
-            <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-gray-100">
+            <Button variant="ghost" size="icon" className="h-5 w-6 hover:bg-gray-100">
               <ArrowUpRight className="w-3 h-3 text-gray-500" />
             </Button>
           </div>
