@@ -1,4 +1,5 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
@@ -100,4 +101,48 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* CSS agressivo para prevenir links automáticos */
+.no-auto-link,
+.no-auto-link *,
+[data-no-link],
+[data-no-link] *,
+.vehicle-location,
+.vehicle-location *,
+.prevent-link,
+.prevent-link * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  color: inherit !important;
+  cursor: default !important;
+  pointer-events: auto !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Prevenir detecção automática de endereços e telefones */
+span[data-address]:not(a),
+span[translate="no"]:not(a),
+.location-text:not(a),
+.address-text:not(a) {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  color: inherit !important;
+  cursor: default !important;
+}
+
+/* Forçar remoção de qualquer link automático */
+a[href^="tel:"],
+a[href^="mailto:"],
+a[href*="maps.google"],
+a[href*="google.com/maps"] {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  color: inherit !important;
+  pointer-events: none !important;
+  cursor: default !important;
 }
