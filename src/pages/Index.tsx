@@ -33,7 +33,7 @@ const Index = () => {
       discount: "25% OFF",
       badges: ["Extrajudicial", "3ª Praça"],
       date: "22/05 às 09:15",
-      image: "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?w=400&h=300&fit=crop&auto=format"
+      image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png"
     },
     {
       name: "Hyundai HB20",
