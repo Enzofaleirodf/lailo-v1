@@ -49,11 +49,12 @@ export const VehicleImage = ({
       
       {/* Badge "Novo" */}
       {showNewBadge && (
-        <div className={`absolute bg-red-500 text-white rounded-md text-xs font-bold shadow-lg ${
+        <div className={`absolute bg-red-500 text-white rounded-md font-bold shadow-lg ${
           isVertical 
-            ? "top-3 left-3 px-2 py-1" 
-            : "top-1 left-1"
-        }`}>
+            ? "top-3 left-3 px-2 py-1 text-xs" 
+            : "top-[-1px] left-[-1px] px-0.5 py-0"
+        }`}
+        style={!isVertical ? { fontSize: '10px' } : undefined}>
           Novo
         </div>
       )}
