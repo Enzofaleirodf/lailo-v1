@@ -1,3 +1,4 @@
+
 import { Calendar, ArrowUpRight, Heart, Star, Zap } from "lucide-react";
 import React, { useState } from "react";
 import { Badge } from "./ui/badge";
@@ -55,10 +56,12 @@ export const VehicleCard = ({
         group relative w-full max-w-none p-4 
         bg-gradient-to-br from-white via-gray-50 to-gray-100
         rounded-2xl border-2 ${statusTheme.borderColor}
-        shadow-lg
+        shadow-lg hover:shadow-xl
         backdrop-blur-sm
         focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
       `}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       role="article"
       aria-label={`Veículo ${vehicleData.name}`}
     >
@@ -68,7 +71,7 @@ export const VehicleCard = ({
       <CardContent className="relative p-0 space-y-4">
         <div className="flex gap-4 items-stretch">
           {/* Enhanced Image Container */}
-          <div className="relative w-[120px] h-[120px] flex-shrink-0 group/image overflow-hidden rounded-xl">
+          <div className="relative w-[120px] flex-shrink-0 group/image overflow-hidden rounded-xl">
             <div 
               style={{
                 backgroundImage: `url(${vehicleData.image})`
@@ -81,7 +84,7 @@ export const VehicleCard = ({
           </div>
 
           {/* Enhanced Content Container */}
-          <div className="flex flex-col gap-2 flex-1 min-w-0">
+          <div className="flex flex-col gap-3 flex-1 min-w-0">
             {/* Header with enhanced typography */}
             <div className="flex flex-col gap-1">
               <div className="flex items-start justify-between">
