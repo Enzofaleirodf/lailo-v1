@@ -1,5 +1,5 @@
 
-import { LayoutGrid, List } from "lucide-react";
+import { FlipHorizontal, FlipVertical } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface LayoutToggleProps {
@@ -9,24 +9,24 @@ interface LayoutToggleProps {
 
 export const LayoutToggle = ({ isVertical, onToggle }: LayoutToggleProps) => {
   return (
-    <div className="flex items-center gap-2 mb-4">
+    <div className="inline-flex -space-x-px rounded-lg shadow-sm shadow-black/5 rtl:space-x-reverse mb-4">
       <Button
+        className="rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10"
         variant={!isVertical ? "default" : "outline"}
-        size="sm"
+        size="icon"
         onClick={() => onToggle(false)}
-        className="flex items-center gap-2"
+        aria-label="Layout Horizontal"
       >
-        <List className="w-4 h-4" />
-        Horizontal
+        <FlipHorizontal size={16} strokeWidth={2} aria-hidden="true" />
       </Button>
       <Button
+        className="rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10"
         variant={isVertical ? "default" : "outline"}
-        size="sm"
+        size="icon"
         onClick={() => onToggle(true)}
-        className="flex items-center gap-2"
+        aria-label="Layout Vertical"
       >
-        <LayoutGrid className="w-4 h-4" />
-        Vertical
+        <FlipVertical size={16} strokeWidth={2} aria-hidden="true" />
       </Button>
     </div>
   );
