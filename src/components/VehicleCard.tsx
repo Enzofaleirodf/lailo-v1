@@ -56,12 +56,9 @@ export const VehicleCard = ({
         group relative w-full max-w-none p-4 
         bg-gradient-to-br from-white via-gray-50 to-gray-100
         rounded-2xl border-2 ${statusTheme.borderColor}
-        shadow-lg hover:shadow-2xl hover:shadow-gray-400/20
-        transform transition-all duration-500 ease-out
-        hover:-translate-y-2 hover:scale-[1.02]
+        shadow-lg hover:shadow-xl
         backdrop-blur-sm
         focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
-        ${isHovered ? 'shadow-2xl shadow-gray-400/30' : ''}
       `}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -79,23 +76,11 @@ export const VehicleCard = ({
               style={{
                 backgroundImage: `url(${vehicleData.image})`
               }} 
-              className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover/image:scale-110"
+              className="w-full h-full bg-cover bg-center"
             />
             
             {/* Image overlay gradient for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-
-            {/* Discount badge on image - moved to top left with orange color */}
-            <div className="absolute top-2 left-2">
-              <Badge className={`
-                bg-gradient-to-r from-orange-500 to-orange-600 text-white 
-                font-bold text-xs px-2 py-0.5 rounded-full
-                shadow-lg transform transition-transform duration-300
-                ${isHovered ? 'scale-110' : ''}
-              `}>
-                {vehicleData.discount}
-              </Badge>
-            </div>
           </div>
 
           {/* Enhanced Content Container */}
@@ -103,7 +88,7 @@ export const VehicleCard = ({
             {/* Header with enhanced typography */}
             <div className="flex flex-col gap-1">
               <div className="flex items-start justify-between">
-                <h3 className="font-bold text-gray-900 text-xl md:text-lg leading-tight truncate group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-gray-600 transition-all duration-300">
+                <h3 className="font-bold text-gray-900 text-xl md:text-lg leading-tight truncate">
                   {vehicleData.name}
                 </h3>
               </div>
@@ -126,27 +111,32 @@ export const VehicleCard = ({
               </div>
             </div>
 
-            {/* Hero price element */}
+            {/* Hero price element with discount badge */}
             <div className="flex items-center justify-between">
-              <div className="flex flex-col">
-                <span className={`
-                  font-black text-transparent bg-clip-text bg-gradient-to-r ${statusTheme.priceGradient}
-                  text-2xl md:text-xl leading-none
-                  transform transition-all duration-300
-                  ${isHovered ? 'scale-105' : ''}
-                `}>
-                  {vehicleData.price}
-                </span>
-                <span className="text-xs text-gray-500 font-medium mt-1">
-                  Lance atual
-                </span>
+              <div className="flex items-center gap-1">
+                <div className="flex flex-col">
+                  <span className={`
+                    font-black text-transparent bg-clip-text bg-gradient-to-r ${statusTheme.priceGradient}
+                    text-2xl md:text-xl leading-none
+                  `}>
+                    {vehicleData.price}
+                  </span>
+                  <span className="text-xs text-gray-500 font-medium mt-1">
+                    Lance atual
+                  </span>
+                </div>
+                
+                {/* Discount badge moved next to price */}
+                <Badge className="bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs px-2 py-0.5 rounded-full shadow-lg ml-1">
+                  {vehicleData.discount}
+                </Badge>
               </div>
             </div>
           </div>
         </div>
 
         {/* Enhanced separator with gradient */}
-        <div className={`h-px w-full bg-gradient-to-r ${statusTheme.accentColor} transition-all duration-300`} />
+        <div className={`h-px w-full bg-gradient-to-r ${statusTheme.accentColor}`} />
 
         {/* Enhanced bottom section */}
         <div className="flex items-center justify-between">
@@ -156,7 +146,6 @@ export const VehicleCard = ({
               ${statusTheme.badgeColor} border-none
               px-3 py-1 rounded-full font-semibold text-xs
               shadow-inner backdrop-blur-sm
-              transition-all duration-300 hover:scale-105
             `}>
               <span className="font-bold">{vehicleData.badges[1].charAt(0)}</span>
               <span className="font-light">ª</span>
@@ -167,7 +156,6 @@ export const VehicleCard = ({
               ${statusTheme.badgeColor} border-none
               px-3 py-1 rounded-full font-semibold text-xs
               shadow-inner backdrop-blur-sm
-              transition-all duration-300 hover:scale-105
             `}>
               {vehicleData.badges[0]}
             </Badge>
