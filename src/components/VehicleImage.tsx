@@ -30,8 +30,15 @@ export const VehicleImage = ({
         className="w-full h-full bg-cover bg-center"
       />
       
-      {/* Image overlay gradient for text readability - more transparent */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+      {/* Gradiente de cima para baixo - do topo até o meio */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/5 to-transparent" style={{
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 30%, transparent 50%)'
+      }} />
+      
+      {/* Gradiente de baixo para cima - do bottom até o meio */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/5 to-transparent" style={{
+        background: 'linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 30%, transparent 50%)'
+      }} />
       
       {/* Favorite button */}
       <button
