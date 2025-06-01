@@ -52,7 +52,7 @@ const Veiculos = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
+      <div className="min-h-screen flex w-full max-w-[1440px] mx-auto">
         <VehicleSidebar />
         
         <SidebarInset>

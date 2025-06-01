@@ -130,7 +130,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white px-3 py-3">
+    <div className="min-h-screen bg-white px-3 py-3 max-w-[1440px] mx-auto">
       <div className="w-full">
         <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
         

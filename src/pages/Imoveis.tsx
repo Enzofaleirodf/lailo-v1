@@ -49,7 +49,7 @@ const Imoveis = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white px-3 py-3">
+    <div className="min-h-screen bg-white px-3 py-3 max-w-[1440px] mx-auto">
       <div className="w-full">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
