@@ -16,8 +16,8 @@ export const VehicleBadges = ({ badges, badgeColor }: VehicleBadgesProps) => {
         shadow-inner backdrop-blur-sm font-urbanist
       `}>
         <span className="font-bold">{badges[1].charAt(0)}</span>
-        <span className="font-light">ª</span>
-        <span className="font-semibold"> Praça</span>
+        <span className="font-light font-roboto ml-0.5">ª</span>
+        <span className="font-semibold ml-1"> Praça</span>
       </Badge>
 
       <Badge className={`
