@@ -13,7 +13,7 @@ export const VehicleBadges = ({ badges, badgeColor }: VehicleBadgesProps) => {
       <Badge className={`
         ${badgeColor} border-none
         px-3 py-1 rounded-full font-semibold text-xs
-        shadow-inner backdrop-blur-sm
+        shadow-inner backdrop-blur-sm font-urbanist
       `}>
         <span className="font-bold">{badges[1].charAt(0)}</span>
         <span className="font-light">ª</span>
@@ -23,7 +23,7 @@ export const VehicleBadges = ({ badges, badgeColor }: VehicleBadgesProps) => {
       <Badge className={`
         ${badgeColor} border-none
         px-3 py-1 rounded-full font-semibold text-xs
-        shadow-inner backdrop-blur-sm
+        shadow-inner backdrop-blur-sm font-urbanist
       `}>
         {badges[0]}
       </Badge>

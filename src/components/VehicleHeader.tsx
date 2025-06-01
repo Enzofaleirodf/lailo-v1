@@ -17,8 +17,8 @@ export const VehicleHeader = ({
   isVertical = false
 }: VehicleHeaderProps) => {
   const titleClass = isVertical 
-    ? "font-bold text-gray-900 text-xl leading-tight" 
-    : "font-bold text-gray-900 text-xl md:text-lg leading-tight truncate";
+    ? "font-bold text-gray-900 text-xl leading-tight font-urbanist" 
+    : "font-bold text-gray-900 text-xl md:text-lg leading-tight truncate font-urbanist";
 
   return (
     <div className="flex flex-col gap-1">
@@ -29,7 +29,7 @@ export const VehicleHeader = ({
       </div>
 
       {/* Enhanced vehicle details with micro-typography */}
-      <div className="flex items-center gap-2 overflow-hidden" style={{ marginTop: '2px' }}>
+      <div className="flex items-center gap-2 overflow-hidden font-urbanist" style={{ marginTop: '2px' }}>
         <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
           {color}
         </span>
