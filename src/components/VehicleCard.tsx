@@ -1,4 +1,3 @@
-
 import { Calendar, ArrowUpRight, Heart, Star, Zap } from "lucide-react";
 import React, { useState } from "react";
 import { Badge } from "./ui/badge";
@@ -83,7 +82,7 @@ export const VehicleCard = ({
             {/* Favorite button */}
             <button
               onClick={() => setIsFavorited(!isFavorited)}
-              className="absolute top-2 right-2 p-2 rounded-full transition-all duration-200 hover:scale-110"
+              className="absolute top-1 right-1 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
               aria-label="Adicionar aos favoritos"
             >
               <Heart 
@@ -220,7 +219,7 @@ export const VehicleCard = ({
             {/* Favorite button */}
             <button
               onClick={() => setIsFavorited(!isFavorited)}
-              className="absolute top-2 right-2 p-2 rounded-full transition-all duration-200 hover:scale-110"
+              className="absolute top-1 right-1 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
               aria-label="Adicionar aos favoritos"
             >
               <Heart 
