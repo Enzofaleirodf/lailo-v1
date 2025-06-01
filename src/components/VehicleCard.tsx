@@ -98,7 +98,7 @@ export const VehicleCard = ({
                 badges={vehicleData.badges}
                 badgeColor={statusTheme.badgeColor}
               />
-              <VehicleDate date={vehicleData.date} />
+              <VehicleDate date={vehicleData.date} isVertical={true} />
             </div>
           </div>
         </CardContent>
@@ -155,7 +155,7 @@ export const VehicleCard = ({
             badges={vehicleData.badges}
             badgeColor={statusTheme.badgeColor}
           />
-          <VehicleDate date={vehicleData.date} />
+          <VehicleDate date={vehicleData.date} isVertical={false} />
         </div>
       </CardContent>
     </Card>

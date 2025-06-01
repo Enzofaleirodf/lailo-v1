@@ -45,6 +45,13 @@ export const VehicleImage = ({
         background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 25%, transparent 40%)'
       }} />
       
+      {/* Badge "Novo" - apenas no card vertical */}
+      {isVertical && (
+        <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-lg">
+          Novo
+        </div>
+      )}
+      
       {/* Favorite button */}
       <button
         onClick={onToggleFavorite}
