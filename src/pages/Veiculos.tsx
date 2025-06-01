@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
+import { VehicleSidebar } from "../components/VehicleSidebar";
 import { Button } from "@/components/ui/button";
+import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 
 const Veiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
@@ -49,30 +51,39 @@ const Veiculos = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white px-3 py-3">
-      <div className="w-full">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/buscador">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Voltar
-              </Link>
-            </Button>
-            <h1 className="text-2xl font-bold text-gray-900">Veículos</h1>
-          </div>
-        </div>
-
-        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <VehicleSidebar />
         
-        <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-          {vehicles.map((vehicle, index) => (
-            <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
-          ))}
-        </div>
+        <SidebarInset>
+          <div className="min-h-screen bg-white px-3 py-3">
+            <div className="w-full">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <SidebarTrigger />
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/buscador">
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Voltar
+                    </Link>
+                  </Button>
+                  <h1 className="text-2xl font-bold text-gray-900">Veículos</h1>
+                </div>
+              </div>
+
+              <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+              
+              <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+                {vehicles.map((vehicle, index) => (
+                  <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </SidebarInset>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
