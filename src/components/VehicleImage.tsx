@@ -18,7 +18,7 @@ export const VehicleImage = ({
 }: VehicleImageProps) => {
   const containerClass = isVertical 
     ? "relative w-full h-48 overflow-hidden rounded-xl" 
-    : "relative w-[150px] flex-shrink-0 group/image overflow-hidden rounded-xl";
+    : "relative aspect-[5/4] flex-shrink-0 group/image overflow-hidden rounded-xl";
 
   return (
     <div className={containerClass}>
