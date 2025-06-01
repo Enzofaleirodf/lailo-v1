@@ -29,7 +29,7 @@ export const VehicleHeader = ({
       </div>
 
       {/* Enhanced vehicle details with micro-typography */}
-      <div className="flex items-center gap-2 overflow-hidden font-urbanist" style={{ marginTop: '2px' }}>
+      <div className="flex items-center gap-2 overflow-hidden font-urbanist" style={{ marginTop: '0px' }}>
         <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
           {color}
         </span>
