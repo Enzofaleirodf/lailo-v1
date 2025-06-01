@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import { VehicleImage } from "./VehicleImage";
@@ -67,7 +68,7 @@ export const VehicleCard = ({
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
         
-        <CardContent className="relative p-0 space-y-4">
+        <CardContent className="relative p-0 space-y-3">
           <VehicleImage
             image={vehicleData.image}
             isFavorited={isFavorited}
@@ -122,7 +123,7 @@ export const VehicleCard = ({
     >
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
       
-      <CardContent className="relative p-0 space-y-4">
+      <CardContent className="relative p-0 space-y-3">
         <div className="flex gap-3 items-stretch">
           <VehicleImage
             image={vehicleData.image}
