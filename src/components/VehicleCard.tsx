@@ -79,6 +79,21 @@ export const VehicleCard = ({
             
             {/* Image overlay gradient for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+            
+            {/* Favorite button */}
+            <button
+              onClick={() => setIsFavorited(!isFavorited)}
+              className="absolute top-2 right-2 p-2 rounded-full transition-all duration-200 hover:scale-110"
+              aria-label="Adicionar aos favoritos"
+            >
+              <Heart 
+                className={`w-5 h-5 transition-colors ${
+                  isFavorited 
+                    ? 'fill-red-500 text-red-500' 
+                    : 'fill-white/80 text-white stroke-2'
+                }`}
+              />
+            </button>
           </div>
 
           {/* Enhanced Content Container - Bottom */}
@@ -201,6 +216,21 @@ export const VehicleCard = ({
             
             {/* Image overlay gradient for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+            
+            {/* Favorite button */}
+            <button
+              onClick={() => setIsFavorited(!isFavorited)}
+              className="absolute top-2 right-2 p-2 rounded-full transition-all duration-200 hover:scale-110"
+              aria-label="Adicionar aos favoritos"
+            >
+              <Heart 
+                className={`w-5 h-5 transition-colors ${
+                  isFavorited 
+                    ? 'fill-red-500 text-red-500' 
+                    : 'fill-white/80 text-white stroke-2'
+                }`}
+              />
+            </button>
           </div>
 
           {/* Enhanced Content Container */}
