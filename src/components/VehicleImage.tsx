@@ -26,7 +26,7 @@ export const VehicleImage = ({
   const heartSize = isVertical ? 24 : 20;
   const buttonClass = isVertical 
     ? "absolute top-3 right-3 w-10 h-10 p-2 rounded-full transition-all duration-200 hover:scale-110"
-    : "absolute top-[-1px] right-[-1px] p-1.5 rounded-full transition-all duration-200 hover:scale-110";
+    : "absolute top-[-3px] right-[-3px] p-1.5 rounded-full transition-all duration-200 hover:scale-110";
 
   return (
     <div className={containerClass}>
@@ -34,7 +34,7 @@ export const VehicleImage = ({
         style={{
           backgroundImage: `url(${image})`
         }} 
-        className="w-full h-full bg-cover bg-center"
+        className="w-full h-full bg-cover bg-center rounded"
       />
       
       {/* Gradiente de cima para baixo - do topo até 40% */}
@@ -52,7 +52,7 @@ export const VehicleImage = ({
         <div className={`absolute bg-red-500 text-white rounded-md font-bold shadow-lg ${
           isVertical 
             ? "top-3 left-3 px-2 py-1 text-xs" 
-            : "top-[-1px] left-[-1px] px-0.5 py-0"
+            : "top-0.5 left-[-3px] px-0.5 py-0"
         }`}
         style={!isVertical ? { fontSize: '10px' } : undefined}>
           Novo
