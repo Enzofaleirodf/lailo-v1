@@ -20,13 +20,14 @@ interface VehicleData {
 
 interface VehicleCardProps {
   vehicle?: VehicleData;
+  isVertical?: boolean;
 }
 
 export const VehicleCard = ({
-  vehicle
+  vehicle,
+  isVertical = false
 }: VehicleCardProps): JSX.Element => {
   const [isFavorited, setIsFavorited] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const defaultVehicle: VehicleData = {
     name: "Volkswagen T-Cross",
@@ -50,18 +51,137 @@ export const VehicleCard = ({
     priceGradient: "from-blue-600 to-blue-800"
   };
 
+  if (isVertical) {
+    return (
+      <Card 
+        className={`
+          group relative w-full max-w-none p-4 
+          bg-gradient-to-br from-white via-gray-50 to-gray-100
+          rounded-2xl border-2 ${statusTheme.borderColor}
+          shadow-lg backdrop-blur-sm
+          focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
+        `}
+        role="article"
+        aria-label={`Veículo ${vehicleData.name}`}
+      >
+        {/* Premium glass morphism overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl pointer-events-none" />
+        
+        <CardContent className="relative p-0 space-y-4">
+          {/* Enhanced Image Container - Top */}
+          <div className="relative w-full h-48 overflow-hidden rounded-xl">
+            <div 
+              style={{
+                backgroundImage: `url(${vehicleData.image})`
+              }} 
+              className="w-full h-full bg-cover bg-center"
+            />
+            
+            {/* Image overlay gradient for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          </div>
+
+          {/* Enhanced Content Container - Bottom */}
+          <div className="flex flex-col gap-3">
+            {/* Header with enhanced typography */}
+            <div className="flex flex-col gap-1">
+              <div className="flex items-start justify-between">
+                <h3 className="font-bold text-gray-900 text-xl leading-tight">
+                  {vehicleData.name}
+                </h3>
+              </div>
+
+              {/* Enhanced vehicle details with micro-typography */}
+              <div className="flex items-center gap-2 overflow-hidden" style={{ marginTop: '2px' }}>
+                <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
+                  {vehicleData.color}
+                </span>
+                <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
+                <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
+                  {vehicleData.year}
+                </span>
+                <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
+                
+                {/* Location display - cidade e estado na mesma linha */}
+                <span className="font-medium text-gray-600 text-sm truncate">
+                  {vehicleData.location}
+                </span>
+              </div>
+            </div>
+
+            {/* Hero price element with discount badge */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                <div className="flex flex-col">
+                  <span className={`
+                    font-black text-transparent bg-clip-text bg-gradient-to-r ${statusTheme.priceGradient}
+                    text-2xl leading-none
+                  `}>
+                    {vehicleData.price}
+                  </span>
+                  <span className="text-xs text-gray-500 font-medium mt-1">
+                    Lance atual
+                  </span>
+                </div>
+                
+                {/* Discount badge moved next to price */}
+                <Badge className="bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs px-2 py-0.5 rounded-full shadow-lg ml-1">
+                  {vehicleData.discount}
+                </Badge>
+              </div>
+            </div>
+
+            {/* Enhanced separator with gradient */}
+            <div className={`h-px w-full bg-gradient-to-r ${statusTheme.accentColor}`} />
+
+            {/* Enhanced bottom section */}
+            <div className="flex items-center justify-between">
+              {/* Status badges with neumorphism */}
+              <div className="flex items-center gap-2">
+                <Badge className={`
+                  ${statusTheme.badgeColor} border-none
+                  px-3 py-1 rounded-full font-semibold text-xs
+                  shadow-inner backdrop-blur-sm
+                `}>
+                  <span className="font-bold">{vehicleData.badges[1].charAt(0)}</span>
+                  <span className="font-light">ª</span>
+                  <span className="font-semibold"> Praça</span>
+                </Badge>
+
+                <Badge className={`
+                  ${statusTheme.badgeColor} border-none
+                  px-3 py-1 rounded-full font-semibold text-xs
+                  shadow-inner backdrop-blur-sm
+                `}>
+                  {vehicleData.badges[0]}
+                </Badge>
+              </div>
+
+              {/* Enhanced CTA section */}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 text-gray-600">
+                  <Calendar className="w-4 h-4" />
+                  <span className="font-medium text-sm">
+                    {vehicleData.date}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card 
       className={`
         group relative w-full max-w-none p-4 
         bg-gradient-to-br from-white via-gray-50 to-gray-100
         rounded-2xl border-2 ${statusTheme.borderColor}
-        shadow-lg hover:shadow-xl
-        backdrop-blur-sm
+        shadow-lg backdrop-blur-sm
         focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
       `}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       role="article"
       aria-label={`Veículo ${vehicleData.name}`}
     >

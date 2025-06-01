@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
+import { LayoutToggle } from "../components/LayoutToggle";
 
 const Index = () => {
+  const [isVertical, setIsVertical] = useState(false);
+
   const vehicles = [
     {
       name: "Volkswagen T-Cross",
@@ -116,10 +120,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white px-3 py-3">
-      <div className="w-full space-y-3">
-        {vehicles.map((vehicle, index) => (
-          <VehicleCard key={index} vehicle={vehicle} />
-        ))}
+      <div className="w-full">
+        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        
+        <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+          {vehicles.map((vehicle, index) => (
+            <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+          ))}
+        </div>
       </div>
     </div>
   );
