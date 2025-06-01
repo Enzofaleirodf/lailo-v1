@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
@@ -51,19 +52,19 @@ const Veiculos = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full max-w-[1440px] mx-auto">
-        <VehicleSidebar />
-        
-        <SidebarInset>
-          {/* Barra Superior Horizontal */}
-          <div className="h-16 bg-gray-100 border-b border-gray-200 flex items-center px-6">
-            <div className="w-full flex items-center justify-between">
-              <div className="text-gray-600">Barra Superior</div>
-              <SidebarTrigger />
-            </div>
+      <div className="min-h-screen w-full max-w-[1440px] mx-auto relative">
+        {/* Barra Superior Horizontal - passa por cima de toda a página */}
+        <div className="h-16 bg-gray-100 border-b border-gray-200 flex items-center px-6 relative z-20 w-full">
+          <div className="w-full flex items-center justify-between">
+            <div className="text-gray-600">Barra Superior</div>
+            <SidebarTrigger />
           </div>
+        </div>
 
-          <div className="min-h-screen bg-white px-3 py-3">
+        <div className="flex">
+          <VehicleSidebar />
+          
+          <div className="flex-1 min-h-screen bg-white px-3 py-3 pt-3">
             <div className="w-full">
               <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
               
@@ -74,7 +75,7 @@ const Veiculos = () => {
               </div>
             </div>
           </div>
-        </SidebarInset>
+        </div>
       </div>
     </SidebarProvider>
   );
