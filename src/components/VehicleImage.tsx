@@ -26,7 +26,7 @@ export const VehicleImage = ({
   const heartSize = isVertical ? 24 : 20;
   const buttonClass = isVertical 
     ? "absolute top-3 right-3 w-10 h-10 p-2 rounded-full transition-all duration-200 hover:scale-110"
-    : "absolute top-1 right-1 p-1.5 rounded-full transition-all duration-200 hover:scale-110";
+    : "absolute top-[-1px] right-[-1px] p-1.5 rounded-full transition-all duration-200 hover:scale-110";
 
   return (
     <div className={containerClass}>
@@ -47,9 +47,13 @@ export const VehicleImage = ({
         background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 25%, transparent 40%)'
       }} />
       
-      {/* Badge "Novo" - em alguns cards tanto verticais quanto horizontais */}
+      {/* Badge "Novo" */}
       {showNewBadge && (
-        <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-lg">
+        <div className={`absolute bg-red-500 text-white rounded-md text-xs font-bold shadow-lg ${
+          isVertical 
+            ? "top-3 left-3 px-2 py-1" 
+            : "top-1 left-1"
+        }`}>
           Novo
         </div>
       )}
