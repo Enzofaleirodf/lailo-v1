@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { ChevronsUpDown, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -10,14 +9,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { organizationDropdownItems } from "./navigationConfig";
+import {
+  ChevronsUpDown,
+  UserCog,
+  Blocks,
+  Plus,
+} from "lucide-react";
+import { variants } from "./sidebarAnimations";
 
 interface OrganizationDropdownProps {
   isCollapsed: boolean;
-  variants: any;
 }
 
-export function OrganizationDropdown({ isCollapsed, variants }: OrganizationDropdownProps) {
+export function OrganizationDropdown({ isCollapsed }: OrganizationDropdownProps) {
   return (
     <div className="flex h-[54px] w-full shrink-0 border-b p-2">
       <div className="mt-[1.5px] flex w-full">
@@ -28,7 +32,7 @@ export function OrganizationDropdown({ isCollapsed, variants }: OrganizationDrop
               size="sm"
               className="flex w-fit items-center gap-2 px-2"
             >
-              <Avatar className='rounded size-4'>
+              <Avatar className="rounded size-4">
                 <AvatarFallback>O</AvatarFallback>
               </Avatar>
               <motion.li
@@ -37,9 +41,7 @@ export function OrganizationDropdown({ isCollapsed, variants }: OrganizationDrop
               >
                 {!isCollapsed && (
                   <>
-                    <p className="text-sm font-medium">
-                      {"Organization"}
-                    </p>
+                    <p className="text-sm font-medium">{"Organization"}</p>
                     <ChevronsUpDown className="h-4 w-4 text-muted-foreground/50" />
                   </>
                 )}
@@ -47,17 +49,22 @@ export function OrganizationDropdown({ isCollapsed, variants }: OrganizationDrop
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
-            {organizationDropdownItems.map((item) => (
-              <DropdownMenuItem
-                key={item.to}
-                asChild
-                className="flex items-center gap-2"
-              >
-                <Link to={item.to}>
-                  <item.icon className="h-4 w-4" /> {item.label}
-                </Link>
-              </DropdownMenuItem>
-            ))}
+            <DropdownMenuItem
+              asChild
+              className="flex items-center gap-2"
+            >
+              <Link to="/settings/members">
+                <UserCog className="h-4 w-4" /> Manage members
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              asChild
+              className="flex items-center gap-2"
+            >
+              <Link to="/settings/integrations">
+                <Blocks className="h-4 w-4" /> Integrations
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link
                 to="/select-org"

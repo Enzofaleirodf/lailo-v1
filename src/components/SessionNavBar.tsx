@@ -10,9 +10,8 @@ import { UserAccountDropdown } from "./navigation/UserAccountDropdown";
 import {
   sidebarVariants,
   contentVariants,
-  variants,
-  transitionProps,
-  staggerVariants
+  staggerVariants,
+  transitionProps
 } from "./navigation/sidebarAnimations";
 
 export function SessionNavBar() {
@@ -21,7 +20,7 @@ export function SessionNavBar() {
   return (
     <motion.div
       className={cn(
-        "sidebar z-40 min-h-screen shrink-0 border-r",
+        "sidebar fixed left-0 z-40 h-full shrink-0 border-r",
       )}
       initial={isCollapsed ? "closed" : "open"}
       animate={isCollapsed ? "closed" : "open"}
@@ -31,14 +30,16 @@ export function SessionNavBar() {
       onMouseLeave={() => setIsCollapsed(true)}
     >
       <motion.div
-        className={`relative z-40 flex text-muted-foreground min-h-screen shrink-0 flex-col bg-white dark:bg-black transition-all justify-between`}
+        className={`relative z-40 flex text-muted-foreground h-full shrink-0 flex-col bg-white dark:bg-black transition-all`}
         variants={contentVariants}
       >
-        <motion.div variants={staggerVariants} className="flex flex-col h-full">
-          <OrganizationDropdown isCollapsed={isCollapsed} variants={variants} />
-          <NavigationMenu isCollapsed={isCollapsed} variants={variants} />
-          <UserAccountDropdown isCollapsed={isCollapsed} variants={variants} />
-        </motion.div>
+        <motion.ul variants={staggerVariants} className="flex h-full flex-col">
+          <div className="flex grow flex-col items-center">
+            <OrganizationDropdown isCollapsed={isCollapsed} />
+            <NavigationMenu isCollapsed={isCollapsed} />
+            <UserAccountDropdown isCollapsed={isCollapsed} />
+          </div>
+        </motion.ul>
       </motion.div>
     </motion.div>
   );
