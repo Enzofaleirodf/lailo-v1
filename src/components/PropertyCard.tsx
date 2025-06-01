@@ -12,8 +12,6 @@ interface PropertyData {
   area: string;
   address: string;
   cityState: string;
-  bedrooms: number;
-  bathrooms: number;
   price: string;
   discount: string;
   badges: string[];
@@ -38,8 +36,6 @@ export const PropertyCard = ({
     area: "250m²",
     address: "Rua das Flores, 123",
     cityState: "Brasília - DF",
-    bedrooms: 3,
-    bathrooms: 2,
     price: "R$ 450.000",
     discount: "30% OFF",
     badges: ["Extrajudicial", "2ª Praça"],
@@ -51,10 +47,10 @@ export const PropertyCard = ({
   const propertyData = property || defaultProperty;
   
   const statusTheme = {
-    borderColor: "border-green-500",
-    accentColor: "from-green-50 to-green-100",
-    badgeColor: "bg-green-100 text-green-800",
-    priceGradient: "from-green-600 to-green-800"
+    borderColor: "border-blue-500",
+    accentColor: "from-blue-50 to-blue-100",
+    badgeColor: "bg-blue-100 text-blue-800",
+    priceGradient: "from-blue-600 to-blue-800"
   };
 
   if (isVertical) {
@@ -65,7 +61,7 @@ export const PropertyCard = ({
           bg-gradient-to-br from-white via-gray-50 to-gray-100
           rounded-2xl border-0
           shadow-lg backdrop-blur-sm
-          focus-within:ring-4 focus-within:ring-green-200 focus-within:ring-opacity-50
+          focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
         `}
         role="article"
         aria-label={`Imóvel ${propertyData.type}`}
@@ -88,8 +84,6 @@ export const PropertyCard = ({
               area={propertyData.area}
               address={propertyData.address}
               cityState={propertyData.cityState}
-              bedrooms={propertyData.bedrooms}
-              bathrooms={propertyData.bathrooms}
               isVertical={true}
             />
 
@@ -122,7 +116,7 @@ export const PropertyCard = ({
         bg-gradient-to-br from-white via-gray-50 to-gray-100
         rounded-2xl border-0
         shadow-lg backdrop-blur-sm
-        focus-within:ring-4 focus-within:ring-green-200 focus-within:ring-opacity-50
+        focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
       `}
       role="article"
       aria-label={`Imóvel ${propertyData.type}`}
@@ -146,8 +140,6 @@ export const PropertyCard = ({
               area={propertyData.area}
               address={propertyData.address}
               cityState={propertyData.cityState}
-              bedrooms={propertyData.bedrooms}
-              bathrooms={propertyData.bathrooms}
               isVertical={false}
             />
 

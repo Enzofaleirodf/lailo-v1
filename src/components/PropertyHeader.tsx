@@ -6,8 +6,6 @@ interface PropertyHeaderProps {
   area: string;
   address: string;
   cityState: string;
-  bedrooms: number;
-  bathrooms: number;
   isVertical?: boolean;
 }
 
@@ -16,8 +14,6 @@ export const PropertyHeader = ({
   area,
   address,
   cityState,
-  bedrooms,
-  bathrooms,
   isVertical = false
 }: PropertyHeaderProps) => {
   const titleClass = isVertical 
@@ -49,17 +45,6 @@ export const PropertyHeader = ({
       <div className="flex items-center gap-2 overflow-hidden font-urbanist" style={{ marginTop: '0px' }}>
         <span className={addressTextClass}>
           {address} - {cityState}
-        </span>
-      </div>
-
-      {/* Terceira linha: Quartos e Banheiros */}
-      <div className="flex items-center gap-2 overflow-hidden font-urbanist" style={{ marginTop: '2px' }}>
-        <span className={detailsTextClass}>
-          {bedrooms} quartos
-        </span>
-        <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-        <span className={detailsTextClass}>
-          {bathrooms} banheiros
         </span>
       </div>
     </div>
