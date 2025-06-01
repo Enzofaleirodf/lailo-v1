@@ -49,7 +49,7 @@ export const VehicleImage = ({
         <Heart 
           className={`w-5 h-5 transition-colors ${
             isFavorited 
-              ? 'fill-red-500 text-red-500' 
+              ? 'fill-blue-light800 text-white stroke-2' 
               : 'fill-white/80 text-white stroke-2'
           }`}
         />
