@@ -38,18 +38,16 @@ export function NavigationMenu({ isCollapsed, variants }: NavigationMenuProps) {
   );
 
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="flex grow flex-col gap-4">
-        <ScrollArea className="h-16 grow p-2">
-          <div className={cn("flex w-full flex-col gap-1")}>
-            {renderNavigationItems(mainNavigationItems)}
-            <Separator className="w-full" />
-            {renderNavigationItems(secondaryNavigationItems)}
-            <Separator className="w-full" />
-            {renderNavigationItems(tertiaryNavigationItems)}
-          </div>
-        </ScrollArea>
-      </div>
+    <div className="flex-1 flex flex-col p-2">
+      <ScrollArea className="flex-1">
+        <div className={cn("flex w-full flex-col gap-1")}>
+          {renderNavigationItems(mainNavigationItems)}
+          <Separator className="w-full" />
+          {renderNavigationItems(secondaryNavigationItems)}
+          <Separator className="w-full" />
+          {renderNavigationItems(tertiaryNavigationItems)}
+        </div>
+      </ScrollArea>
     </div>
   );
 }

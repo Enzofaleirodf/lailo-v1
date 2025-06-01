@@ -31,16 +31,14 @@ export function SessionNavBar() {
       onMouseLeave={() => setIsCollapsed(true)}
     >
       <motion.div
-        className={`relative z-40 flex text-muted-foreground min-h-screen shrink-0 flex-col bg-white dark:bg-black transition-all`}
+        className={`relative z-40 flex text-muted-foreground min-h-screen shrink-0 flex-col bg-white dark:bg-black transition-all justify-between`}
         variants={contentVariants}
       >
-        <motion.ul variants={staggerVariants} className="flex min-h-screen flex-col">
-          <div className="flex grow flex-col items-center">
-            <OrganizationDropdown isCollapsed={isCollapsed} variants={variants} />
-            <NavigationMenu isCollapsed={isCollapsed} variants={variants} />
-            <UserAccountDropdown isCollapsed={isCollapsed} variants={variants} />
-          </div>
-        </motion.ul>
+        <motion.div variants={staggerVariants} className="flex flex-col h-full">
+          <OrganizationDropdown isCollapsed={isCollapsed} variants={variants} />
+          <NavigationMenu isCollapsed={isCollapsed} variants={variants} />
+          <UserAccountDropdown isCollapsed={isCollapsed} variants={variants} />
+        </motion.div>
       </motion.div>
     </motion.div>
   );
