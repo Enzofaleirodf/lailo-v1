@@ -8,6 +8,7 @@ interface VehicleImageProps {
   onToggleFavorite: () => void;
   vehicleName: string;
   isVertical?: boolean;
+  showNewBadge?: boolean;
 }
 
 export const VehicleImage = ({
@@ -15,10 +16,11 @@ export const VehicleImage = ({
   isFavorited,
   onToggleFavorite,
   vehicleName,
-  isVertical = false
+  isVertical = false,
+  showNewBadge = false
 }: VehicleImageProps) => {
   const containerClass = isVertical 
-    ? "relative w-full aspect-[4/3] overflow-hidden rounded-xl" 
+    ? "relative w-full aspect-[5/4] overflow-hidden rounded-xl" 
     : "relative w-[120px] flex-shrink-0 group/image overflow-hidden rounded-xl";
 
   const heartSize = isVertical ? 24 : 20;
@@ -45,8 +47,8 @@ export const VehicleImage = ({
         background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 25%, transparent 40%)'
       }} />
       
-      {/* Badge "Novo" - apenas no card vertical */}
-      {isVertical && (
+      {/* Badge "Novo" - em alguns cards tanto verticais quanto horizontais */}
+      {showNewBadge && (
         <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-lg">
           Novo
         </div>

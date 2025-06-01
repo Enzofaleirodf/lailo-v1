@@ -17,6 +17,7 @@ interface VehicleData {
   badges: string[];
   date: string;
   image: string;
+  showNewBadge?: boolean;
 }
 
 interface VehicleCardProps {
@@ -39,7 +40,8 @@ export const VehicleCard = ({
     discount: "50% OFF",
     badges: ["Extrajudicial", "2ª Praça"],
     date: "15/05 às 10:00",
-    image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png"
+    image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png",
+    showNewBadge: false
   };
 
   const vehicleData = vehicle || defaultVehicle;
@@ -73,6 +75,7 @@ export const VehicleCard = ({
             onToggleFavorite={() => setIsFavorited(!isFavorited)}
             vehicleName={vehicleData.name}
             isVertical={true}
+            showNewBadge={vehicleData.showNewBadge}
           />
 
           <div className="flex flex-col gap-3">
@@ -128,6 +131,7 @@ export const VehicleCard = ({
             onToggleFavorite={() => setIsFavorited(!isFavorited)}
             vehicleName={vehicleData.name}
             isVertical={false}
+            showNewBadge={vehicleData.showNewBadge}
           />
 
           <div className="flex flex-col gap-3 flex-1 min-w-0">
