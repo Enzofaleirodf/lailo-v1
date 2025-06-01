@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
-import { SessionNavBar } from "../components/SessionNavBar";
 
 const Index = () => {
   const [isVertical, setIsVertical] = useState(false);
@@ -131,20 +130,14 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen flex">
-      <SessionNavBar />
-      
-      <div className="flex-1 ml-12 max-w-[1440px] mx-auto">
-        <div className="bg-white px-3 py-3">
-          <div className="w-full">
-            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-            
-            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-              {vehicles.map((vehicle, index) => (
-                <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
-              ))}
-            </div>
-          </div>
+    <div className="min-h-screen bg-white px-3 py-3 max-w-[1440px] mx-auto">
+      <div className="w-full">
+        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        
+        <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+          {vehicles.map((vehicle, index) => (
+            <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+          ))}
         </div>
       </div>
     </div>

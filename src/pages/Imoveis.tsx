@@ -50,10 +50,10 @@ const Imoveis = () => {
   ];
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen w-full max-w-[1440px] mx-auto flex">
       <SessionNavBar />
       
-      <div className="flex-1 ml-12 max-w-[1440px] mx-auto">
+      <main className="flex-1 flex flex-col">
         <div className="bg-white px-3 py-3">
           <div className="w-full">
             {/* Header */}
@@ -78,7 +78,7 @@ const Imoveis = () => {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
