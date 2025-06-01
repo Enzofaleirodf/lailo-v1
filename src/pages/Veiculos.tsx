@@ -1,11 +1,11 @@
+
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { VehicleSidebar } from "../components/VehicleSidebar";
-import { Button } from "@/components/ui/button";
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { SessionNavBar } from "../components/SessionNavBar";
+
 const Veiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const vehicles = [{
@@ -42,30 +42,40 @@ const Veiculos = () => {
     image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png",
     showNewBadge: true
   }];
-  return <SidebarProvider>
-      <div className="min-h-screen w-full max-w-[1440px] mx-auto relative">
-        {/* Barra Superior Horizontal - passa por cima de toda a página */}
-        <div className="h-16 bg-gray-100 border-b border-gray-200 flex items-center px-6 relative z-20 w-full">
-          <div className="w-full flex items-center justify-between">
-            <div className="text-gray-600">Barra Superior</div>
-            
-          </div>
-        </div>
 
-        <div className="flex">
-          <VehicleSidebar />
-          
-          <div className="flex-1 min-h-screen bg-white px-3 py-3 pt-3">
-            <div className="w-full">
-              <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+  return (
+    <div className="flex h-screen w-screen flex-row">
+      <SessionNavBar />
+      <main className="flex h-screen grow flex-col overflow-auto">
+        <SidebarProvider>
+          <div className="min-h-screen w-full max-w-[1440px] mx-auto relative ml-12">
+            {/* Barra Superior Horizontal - passa por cima de toda a página */}
+            <div className="h-16 bg-gray-100 border-b border-gray-200 flex items-center px-6 relative z-20 w-full">
+              <div className="w-full flex items-center justify-between">
+                <div className="text-gray-600">Barra Superior</div>
+              </div>
+            </div>
+
+            <div className="flex">
+              <VehicleSidebar />
               
-              <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                {vehicles.map((vehicle, index) => <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />)}
+              <div className="flex-1 min-h-screen bg-white px-3 py-3 pt-3">
+                <div className="w-full">
+                  <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+                  
+                  <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+                    {vehicles.map((vehicle, index) => (
+                      <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </SidebarProvider>;
+        </SidebarProvider>
+      </main>
+    </div>
+  );
 };
+
 export default Veiculos;

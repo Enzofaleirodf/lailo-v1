@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { PropertyCard } from "../components/PropertyCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { Button } from "@/components/ui/button";
+import { SessionNavBar } from "../components/SessionNavBar";
 
 const Imoveis = () => {
   const [isVertical, setIsVertical] = useState(false);
@@ -49,29 +50,34 @@ const Imoveis = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white px-3 py-3 max-w-[1440px] mx-auto">
-      <div className="w-full">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/buscador">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Voltar
-              </Link>
-            </Button>
-            <h1 className="text-2xl font-bold text-gray-900">Imóveis</h1>
+    <div className="flex h-screen w-screen flex-row">
+      <SessionNavBar />
+      <main className="flex h-screen grow flex-col overflow-auto">
+        <div className="min-h-screen bg-white px-3 py-3 max-w-[1440px] mx-auto ml-12">
+          <div className="w-full">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/buscador">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Voltar
+                  </Link>
+                </Button>
+                <h1 className="text-2xl font-bold text-gray-900">Imóveis</h1>
+              </div>
+            </div>
+
+            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+            
+            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+              {properties.map((property, index) => (
+                <PropertyCard key={index} property={property} isVertical={isVertical} />
+              ))}
+            </div>
           </div>
         </div>
-
-        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-        
-        <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-          {properties.map((property, index) => (
-            <PropertyCard key={index} property={property} isVertical={isVertical} />
-          ))}
-        </div>
-      </div>
+      </main>
     </div>
   );
 };
