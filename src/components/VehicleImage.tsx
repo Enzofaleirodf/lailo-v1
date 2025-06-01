@@ -18,8 +18,10 @@ export const VehicleImage = ({
   isVertical = false
 }: VehicleImageProps) => {
   const containerClass = isVertical 
-    ? "relative w-full h-48 overflow-hidden rounded-xl" 
+    ? "relative w-full aspect-[4/3] overflow-hidden rounded-xl" 
     : "relative w-[120px] flex-shrink-0 group/image overflow-hidden rounded-xl";
+
+  const heartSize = isVertical ? 24 : 20;
 
   return (
     <div className={containerClass}>
@@ -47,7 +49,8 @@ export const VehicleImage = ({
         aria-label="Adicionar aos favoritos"
       >
         <Heart 
-          className={`w-5 h-5 transition-colors ${
+          size={heartSize}
+          className={`transition-colors ${
             isFavorited 
               ? 'fill-blue-light800 text-white stroke-2' 
               : 'fill-white/80 text-white stroke-2'
