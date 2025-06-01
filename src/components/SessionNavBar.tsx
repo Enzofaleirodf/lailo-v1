@@ -86,7 +86,7 @@ export function SessionNavBar() {
   return (
     <motion.div
       className={cn(
-        "sidebar z-40 h-full shrink-0 border-r",
+        "sidebar fixed left-0 top-0 z-40 h-full shrink-0 border-r bg-white",
       )}
       initial={isCollapsed ? "closed" : "open"}
       animate={isCollapsed ? "closed" : "open"}

@@ -44,10 +44,10 @@ const Veiculos = () => {
   }];
 
   return (
-    <div className="min-h-screen w-full max-w-[1440px] mx-auto flex">
+    <div className="min-h-screen flex">
       <SessionNavBar />
       
-      <main className="flex-1 flex flex-col">
+      <div className="flex-1 ml-12 max-w-[1440px] mx-auto">
         <SidebarProvider>
           {/* Barra Superior Horizontal */}
           <div className="h-16 bg-gray-100 border-b border-gray-200 flex items-center px-6 w-full">
@@ -72,7 +72,7 @@ const Veiculos = () => {
             </div>
           </div>
         </SidebarProvider>
-      </main>
+      </div>
     </div>
   );
 };
