@@ -85,10 +85,10 @@ export const VehicleCard = ({
             {/* Image overlay gradient for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
-            {/* Discount badge on image - moved to top left */}
+            {/* Discount badge on image - moved to top left with orange color */}
             <div className="absolute top-2 left-2">
               <Badge className={`
-                bg-gradient-to-r ${statusTheme.priceGradient} text-white 
+                bg-gradient-to-r from-orange-500 to-orange-600 text-white 
                 font-bold text-xs px-2 py-0.5 rounded-full
                 shadow-lg transform transition-transform duration-300
                 ${isHovered ? 'scale-110' : ''}
@@ -109,7 +109,7 @@ export const VehicleCard = ({
               </div>
 
               {/* Enhanced vehicle details with micro-typography */}
-              <div className="flex items-center gap-2 overflow-hidden" style={{ marginTop: '4px' }}>
+              <div className="flex items-center gap-2 overflow-hidden" style={{ marginTop: '2px' }}>
                 <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
                   {vehicleData.color}
                 </span>
@@ -181,22 +181,6 @@ export const VehicleCard = ({
                 {vehicleData.date}
               </span>
             </div>
-            
-            {/* Botão apenas com ícone */}
-            <Button 
-              className={`
-                bg-gradient-to-r ${statusTheme.priceGradient}
-                hover:from-gray-700 hover:to-gray-900
-                text-white font-semibold p-2 rounded-xl
-                transform transition-all duration-300
-                hover:scale-110 hover:shadow-lg
-                focus:ring-4 focus:ring-blue-200 focus:outline-none
-                group/cta
-              `}
-              size="sm"
-            >
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
-            </Button>
           </div>
         </div>
       </CardContent>
