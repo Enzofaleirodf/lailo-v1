@@ -50,7 +50,7 @@ export const PropertyCard = ({
     borderColor: "border-blue-500",
     accentColor: "from-blue-50 to-blue-100",
     badgeColor: "bg-blue-100 text-blue-800",
-    priceGradient: "from-blue-600 to-blue-800"
+    priceGradient: "text-blue-800"
   };
 
   if (isVertical) {
@@ -112,19 +112,20 @@ export const PropertyCard = ({
   return (
     <Card 
       className={`
-        group relative w-full max-w-none p-3 
+        group relative w-full max-w-none p-3 md:p-3
         bg-gradient-to-br from-white via-gray-50 to-gray-100
         rounded-2xl border-0
         shadow-lg backdrop-blur-sm
         focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
       `}
+      style={{ padding: '12px' }}
       role="article"
       aria-label={`Imóvel ${propertyData.type}`}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
       
       <CardContent className="relative p-0 space-y-3">
-        <div className="flex gap-3 items-stretch">
+        <div className="flex items-stretch" style={{ gap: '12px' }}>
           <PropertyImage
             image={propertyData.image}
             isFavorited={isFavorited}
