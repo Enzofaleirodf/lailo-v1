@@ -27,8 +27,8 @@ export const VehicleImage = ({
   
   // Container para badge e botão favoritar
   const topContainerClass = isVertical 
-    ? "absolute top-3 left-3 right-3 flex items-center justify-between pl-1.5"
-    : "absolute top-[-3px] left-[-3px] right-[-3px] flex items-center justify-between pl-1.5";
+    ? "absolute top-3 left-3 right-3 flex items-center justify-between pt-1 py-1 pl-1.5"
+    : "absolute top-[-3px] left-[-3px] right-[-3px] flex items-center justify-between pt-1 py-1 pl-1.5";
 
   const buttonClass = isVertical 
     ? "w-10 h-10 p-2 rounded-full transition-all duration-200 hover:scale-110"
