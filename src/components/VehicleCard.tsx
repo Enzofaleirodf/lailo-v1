@@ -1,9 +1,11 @@
-import { Calendar, ArrowUpRight, Heart, Star, Zap } from "lucide-react";
+
 import React, { useState } from "react";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
-import { Separator } from "./ui/separator";
+import { VehicleImage } from "./VehicleImage";
+import { VehicleHeader } from "./VehicleHeader";
+import { VehiclePrice } from "./VehiclePrice";
+import { VehicleBadges } from "./VehicleBadges";
+import { VehicleDate } from "./VehicleDate";
 
 interface VehicleData {
   name: string;
@@ -42,7 +44,6 @@ export const VehicleCard = ({
 
   const vehicleData = vehicle || defaultVehicle;
   
-  // Use apenas tema azul
   const statusTheme = {
     borderColor: "border-blue-500",
     accentColor: "from-blue-50 to-blue-100",
@@ -63,123 +64,41 @@ export const VehicleCard = ({
         role="article"
         aria-label={`Veículo ${vehicleData.name}`}
       >
-        {/* Premium glass morphism overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
         
         <CardContent className="relative p-0 space-y-4">
-          {/* Enhanced Image Container - Top */}
-          <div className="relative w-full h-48 overflow-hidden rounded-xl">
-            <div 
-              style={{
-                backgroundImage: `url(${vehicleData.image})`
-              }} 
-              className="w-full h-full bg-cover bg-center"
-            />
-            
-            {/* Image overlay gradient for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            
-            {/* Favorite button */}
-            <button
-              onClick={() => setIsFavorited(!isFavorited)}
-              className="absolute top-1 right-1 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
-              aria-label="Adicionar aos favoritos"
-            >
-              <Heart 
-                className={`w-5 h-5 transition-colors ${
-                  isFavorited 
-                    ? 'fill-red-500 text-red-500' 
-                    : 'fill-white/80 text-white stroke-2'
-                }`}
-              />
-            </button>
-          </div>
+          <VehicleImage
+            image={vehicleData.image}
+            isFavorited={isFavorited}
+            onToggleFavorite={() => setIsFavorited(!isFavorited)}
+            vehicleName={vehicleData.name}
+            isVertical={true}
+          />
 
-          {/* Enhanced Content Container - Bottom */}
           <div className="flex flex-col gap-3">
-            {/* Header with enhanced typography */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start justify-between">
-                <h3 className="font-bold text-gray-900 text-xl leading-tight">
-                  {vehicleData.name}
-                </h3>
-              </div>
+            <VehicleHeader
+              name={vehicleData.name}
+              color={vehicleData.color}
+              year={vehicleData.year}
+              location={vehicleData.location}
+              isVertical={true}
+            />
 
-              {/* Enhanced vehicle details with micro-typography */}
-              <div className="flex items-center gap-2 overflow-hidden" style={{ marginTop: '2px' }}>
-                <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
-                  {vehicleData.color}
-                </span>
-                <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-                <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
-                  {vehicleData.year}
-                </span>
-                <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-                
-                {/* Location display - cidade e estado na mesma linha */}
-                <span className="font-medium text-gray-600 text-sm truncate">
-                  {vehicleData.location}
-                </span>
-              </div>
-            </div>
+            <VehiclePrice
+              price={vehicleData.price}
+              discount={vehicleData.discount}
+              priceGradient={statusTheme.priceGradient}
+              isVertical={true}
+            />
 
-            {/* Hero price element with discount badge */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <div className="flex flex-col">
-                  <span className={`
-                    font-black text-transparent bg-clip-text bg-gradient-to-r ${statusTheme.priceGradient}
-                    text-2xl leading-none
-                  `}>
-                    {vehicleData.price}
-                  </span>
-                  <span className="text-xs text-gray-500 font-medium mt-1">
-                    Lance atual
-                  </span>
-                </div>
-                
-                {/* Discount badge moved next to price */}
-                <Badge className="bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs px-2 py-0.5 rounded-full shadow-lg ml-1">
-                  {vehicleData.discount}
-                </Badge>
-              </div>
-            </div>
-
-            {/* Enhanced separator with gradient */}
             <div className={`h-px w-full bg-gradient-to-r ${statusTheme.accentColor}`} />
 
-            {/* Enhanced bottom section */}
             <div className="flex items-center justify-between">
-              {/* Status badges with neumorphism */}
-              <div className="flex items-center gap-2">
-                <Badge className={`
-                  ${statusTheme.badgeColor} border-none
-                  px-3 py-1 rounded-full font-semibold text-xs
-                  shadow-inner backdrop-blur-sm
-                `}>
-                  <span className="font-bold">{vehicleData.badges[1].charAt(0)}</span>
-                  <span className="font-light">ª</span>
-                  <span className="font-semibold"> Praça</span>
-                </Badge>
-
-                <Badge className={`
-                  ${statusTheme.badgeColor} border-none
-                  px-3 py-1 rounded-full font-semibold text-xs
-                  shadow-inner backdrop-blur-sm
-                `}>
-                  {vehicleData.badges[0]}
-                </Badge>
-              </div>
-
-              {/* Enhanced CTA section */}
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 text-gray-600">
-                  <Calendar className="w-4 h-4" />
-                  <span className="font-medium text-sm">
-                    {vehicleData.date}
-                  </span>
-                </div>
-              </div>
+              <VehicleBadges 
+                badges={vehicleData.badges}
+                badgeColor={statusTheme.badgeColor}
+              />
+              <VehicleDate date={vehicleData.date} />
             </div>
           </div>
         </CardContent>
@@ -199,126 +118,44 @@ export const VehicleCard = ({
       role="article"
       aria-label={`Veículo ${vehicleData.name}`}
     >
-      {/* Premium glass morphism overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
       
       <CardContent className="relative p-0 space-y-4">
         <div className="flex gap-4 items-stretch">
-          {/* Enhanced Image Container */}
-          <div className="relative w-[120px] flex-shrink-0 group/image overflow-hidden rounded-xl">
-            <div 
-              style={{
-                backgroundImage: `url(${vehicleData.image})`
-              }} 
-              className="w-full h-full bg-cover bg-center"
-            />
-            
-            {/* Image overlay gradient for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            
-            {/* Favorite button */}
-            <button
-              onClick={() => setIsFavorited(!isFavorited)}
-              className="absolute top-1 right-1 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
-              aria-label="Adicionar aos favoritos"
-            >
-              <Heart 
-                className={`w-5 h-5 transition-colors ${
-                  isFavorited 
-                    ? 'fill-red-500 text-red-500' 
-                    : 'fill-white/80 text-white stroke-2'
-                }`}
-              />
-            </button>
-          </div>
+          <VehicleImage
+            image={vehicleData.image}
+            isFavorited={isFavorited}
+            onToggleFavorite={() => setIsFavorited(!isFavorited)}
+            vehicleName={vehicleData.name}
+            isVertical={false}
+          />
 
-          {/* Enhanced Content Container */}
           <div className="flex flex-col gap-3 flex-1 min-w-0">
-            {/* Header with enhanced typography */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start justify-between">
-                <h3 className="font-bold text-gray-900 text-xl md:text-lg leading-tight truncate">
-                  {vehicleData.name}
-                </h3>
-              </div>
+            <VehicleHeader
+              name={vehicleData.name}
+              color={vehicleData.color}
+              year={vehicleData.year}
+              location={vehicleData.location}
+              isVertical={false}
+            />
 
-              {/* Enhanced vehicle details with micro-typography */}
-              <div className="flex items-center gap-2 overflow-hidden" style={{ marginTop: '2px' }}>
-                <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
-                  {vehicleData.color}
-                </span>
-                <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-                <span className="font-medium text-gray-600 text-sm whitespace-nowrap">
-                  {vehicleData.year}
-                </span>
-                <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-                
-                {/* Location display - cidade e estado na mesma linha */}
-                <span className="font-medium text-gray-600 text-sm truncate">
-                  {vehicleData.location}
-                </span>
-              </div>
-            </div>
-
-            {/* Hero price element with discount badge */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <div className="flex flex-col">
-                  <span className={`
-                    font-black text-transparent bg-clip-text bg-gradient-to-r ${statusTheme.priceGradient}
-                    text-2xl md:text-xl leading-none
-                  `}>
-                    {vehicleData.price}
-                  </span>
-                  <span className="text-xs text-gray-500 font-medium mt-1">
-                    Lance atual
-                  </span>
-                </div>
-                
-                {/* Discount badge moved next to price */}
-                <Badge className="bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs px-2 py-0.5 rounded-full shadow-lg ml-1">
-                  {vehicleData.discount}
-                </Badge>
-              </div>
-            </div>
+            <VehiclePrice
+              price={vehicleData.price}
+              discount={vehicleData.discount}
+              priceGradient={statusTheme.priceGradient}
+              isVertical={false}
+            />
           </div>
         </div>
 
-        {/* Enhanced separator with gradient */}
         <div className={`h-px w-full bg-gradient-to-r ${statusTheme.accentColor}`} />
 
-        {/* Enhanced bottom section */}
         <div className="flex items-center justify-between">
-          {/* Status badges with neumorphism */}
-          <div className="flex items-center gap-2">
-            <Badge className={`
-              ${statusTheme.badgeColor} border-none
-              px-3 py-1 rounded-full font-semibold text-xs
-              shadow-inner backdrop-blur-sm
-            `}>
-              <span className="font-bold">{vehicleData.badges[1].charAt(0)}</span>
-              <span className="font-light">ª</span>
-              <span className="font-semibold"> Praça</span>
-            </Badge>
-
-            <Badge className={`
-              ${statusTheme.badgeColor} border-none
-              px-3 py-1 rounded-full font-semibold text-xs
-              shadow-inner backdrop-blur-sm
-            `}>
-              {vehicleData.badges[0]}
-            </Badge>
-          </div>
-
-          {/* Enhanced CTA section */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 text-gray-600">
-              <Calendar className="w-4 h-4" />
-              <span className="font-medium text-sm">
-                {vehicleData.date}
-              </span>
-            </div>
-          </div>
+          <VehicleBadges 
+            badges={vehicleData.badges}
+            badgeColor={statusTheme.badgeColor}
+          />
+          <VehicleDate date={vehicleData.date} />
         </div>
       </CardContent>
     </Card>
