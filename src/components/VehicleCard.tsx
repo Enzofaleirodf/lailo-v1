@@ -85,28 +85,11 @@ export const VehicleCard = ({
             {/* Image overlay gradient for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
-            {/* Botão de favoritar no canto superior direito da imagem */}
-            <button
-              onClick={() => setIsFavorited(!isFavorited)}
-              className={`
-                absolute top-2 right-2 p-2 rounded-full transition-all duration-300 
-                ${isFavorited 
-                  ? 'bg-red-100 text-red-500 scale-110' 
-                  : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-red-400'
-                }
-                hover:scale-125 focus:ring-4 focus:ring-red-200 focus:outline-none
-                ${isFavorited ? 'animate-bounce' : ''}
-              `}
-              aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-            >
-              <Heart className={`w-4 h-4 transition-all duration-300 ${isFavorited ? 'fill-current' : ''}`} />
-            </button>
-
-            {/* Discount badge on image */}
-            <div className="absolute bottom-2 right-2">
+            {/* Discount badge on image - moved to top left */}
+            <div className="absolute top-2 left-2">
               <Badge className={`
                 bg-gradient-to-r ${statusTheme.priceGradient} text-white 
-                font-bold text-sm px-3 py-1 rounded-full
+                font-bold text-xs px-2 py-0.5 rounded-full
                 shadow-lg transform transition-transform duration-300
                 ${isHovered ? 'scale-110' : ''}
               `}>
@@ -155,7 +138,7 @@ export const VehicleCard = ({
                   {vehicleData.price}
                 </span>
                 <span className="text-xs text-gray-500 font-medium mt-1">
-                  Valor do leilão
+                  Lance atual
                 </span>
               </div>
             </div>
