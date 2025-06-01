@@ -50,10 +50,11 @@ const Imoveis = () => {
   ];
 
   return (
-    <div className="flex h-screen w-screen flex-row">
+    <div className="min-h-screen w-full max-w-[1440px] mx-auto flex">
       <SessionNavBar />
-      <main className="flex h-screen grow flex-col overflow-auto">
-        <div className="min-h-screen bg-white px-3 py-3 max-w-[1440px] mx-auto ml-12">
+      
+      <main className="flex-1 flex flex-col">
+        <div className="bg-white px-3 py-3">
           <div className="w-full">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">

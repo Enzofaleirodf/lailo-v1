@@ -44,30 +44,29 @@ const Veiculos = () => {
   }];
 
   return (
-    <div className="flex h-screen w-screen flex-row">
+    <div className="min-h-screen w-full max-w-[1440px] mx-auto flex">
       <SessionNavBar />
-      <main className="flex h-screen grow flex-col overflow-auto">
+      
+      <main className="flex-1 flex flex-col">
         <SidebarProvider>
-          <div className="min-h-screen w-full max-w-[1440px] mx-auto relative ml-12">
-            {/* Barra Superior Horizontal - passa por cima de toda a página */}
-            <div className="h-16 bg-gray-100 border-b border-gray-200 flex items-center px-6 relative z-20 w-full">
-              <div className="w-full flex items-center justify-between">
-                <div className="text-gray-600">Barra Superior</div>
-              </div>
+          {/* Barra Superior Horizontal */}
+          <div className="h-16 bg-gray-100 border-b border-gray-200 flex items-center px-6 w-full">
+            <div className="w-full flex items-center justify-between">
+              <div className="text-gray-600">Barra Superior</div>
             </div>
+          </div>
 
-            <div className="flex">
-              <VehicleSidebar />
-              
-              <div className="flex-1 min-h-screen bg-white px-3 py-3 pt-3">
-                <div className="w-full">
-                  <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-                  
-                  <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                    {vehicles.map((vehicle, index) => (
-                      <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
-                    ))}
-                  </div>
+          <div className="flex flex-1">
+            <VehicleSidebar />
+            
+            <div className="flex-1 min-h-screen bg-white px-3 py-3 pt-3">
+              <div className="w-full">
+                <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+                
+                <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+                  {vehicles.map((vehicle, index) => (
+                    <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+                  ))}
                 </div>
               </div>
             </div>

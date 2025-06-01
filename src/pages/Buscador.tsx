@@ -7,10 +7,11 @@ import { SessionNavBar } from "../components/SessionNavBar";
 
 const Buscador = () => {
   return (
-    <div className="flex h-screen w-screen flex-row">
+    <div className="min-h-screen w-full max-w-[1440px] mx-auto flex">
       <SessionNavBar />
-      <main className="flex h-screen grow flex-col overflow-auto">
-        <div className="min-h-screen bg-white px-4 py-8 max-w-[1440px] mx-auto ml-12">
+      
+      <main className="flex-1 flex flex-col">
+        <div className="bg-white px-4 py-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <h1 className="text-4xl font-bold text-gray-900 mb-4">Buscador</h1>
