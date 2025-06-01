@@ -22,6 +22,9 @@ export const VehicleImage = ({
     : "relative w-[120px] flex-shrink-0 group/image overflow-hidden rounded-xl";
 
   const heartSize = isVertical ? 24 : 20;
+  const buttonClass = isVertical 
+    ? "absolute top-3 right-3 w-10 h-10 p-2 rounded-full transition-all duration-200 hover:scale-110"
+    : "absolute top-1 right-1 p-1.5 rounded-full transition-all duration-200 hover:scale-110";
 
   return (
     <div className={containerClass}>
@@ -45,7 +48,7 @@ export const VehicleImage = ({
       {/* Favorite button */}
       <button
         onClick={onToggleFavorite}
-        className="absolute top-1 right-1 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
+        className={buttonClass}
         aria-label="Adicionar aos favoritos"
       >
         <Heart 
