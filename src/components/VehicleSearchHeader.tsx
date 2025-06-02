@@ -16,7 +16,7 @@ export const VehicleSearchHeader = ({ isLoading }: VehicleSearchHeaderProps) => 
           <TabsList className="grid w-full grid-cols-2 bg-transparent p-0 h-auto gap-8">
             <TabsTrigger 
               value="imoveis" 
-              className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 text-gray-600 font-medium px-0 pb-[13px] relative border-b-4 border-transparent data-[state=active]:border-blue-600 rounded-none text-lg flex items-center gap-2"
+              className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 text-gray-600 font-medium px-4 pb-[13px] relative border-b-4 border-transparent data-[state=active]:border-blue-600 rounded-none text-lg flex items-center gap-2"
               asChild
             >
               <Link to="/buscador/imoveis">
@@ -26,7 +26,7 @@ export const VehicleSearchHeader = ({ isLoading }: VehicleSearchHeaderProps) => 
             </TabsTrigger>
             <TabsTrigger 
               value="veiculos" 
-              className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 text-gray-600 font-medium px-0 pb-[13px] relative border-b-4 border-transparent data-[state=active]:border-blue-600 rounded-none text-lg flex items-center gap-2"
+              className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 text-gray-600 font-medium px-4 pb-[13px] relative border-b-4 border-transparent data-[state=active]:border-blue-600 rounded-none text-lg flex items-center gap-2"
               asChild
             >
               <Link to="/buscador/veiculos">
