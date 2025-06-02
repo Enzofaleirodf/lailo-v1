@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
-import { VehicleSidebar } from "../components/VehicleSidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { SessionNavBar } from "../components/SessionNavBar";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -64,36 +62,30 @@ const BuscadorVeiculos = () => {
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
       <main className="flex h-screen grow flex-col overflow-auto ml-12">
-        <SidebarProvider>
-          <div className="flex flex-1">
-            <VehicleSidebar />
-            
-            <div className="flex-1 min-h-screen bg-white px-3 py-3 pt-3">
-              <div className="w-full">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <Button variant="outline" size="sm" asChild>
-                      <Link to="/">
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Voltar
-                      </Link>
-                    </Button>
-                    <h1 className="text-2xl font-bold text-gray-900">Buscar Veículos</h1>
-                  </div>
-                  {isLoading && <LoadingSpinner />}
-                </div>
-
-                <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-                
-                <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                  {vehicles.map((vehicle) => (
-                    <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
-                  ))}
-                </div>
+        <div className="min-h-screen bg-white px-6 py-6">
+          <div className="w-full">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Voltar
+                  </Link>
+                </Button>
+                <h1 className="text-2xl font-bold text-gray-900">Buscar Veículos</h1>
               </div>
+              {isLoading && <LoadingSpinner />}
+            </div>
+
+            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+            
+            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
+              {vehicles.map((vehicle) => (
+                <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
+              ))}
             </div>
           </div>
-        </SidebarProvider>
+        </div>
       </main>
     </div>
   );
