@@ -41,7 +41,7 @@ export const ColorPopover = ({ colors, selected, onSelect }: ColorPopoverProps) 
       <PopoverContent className="w-80 p-4" align="start">
         <div className="space-y-3">
           <h4 className="text-sm font-medium">Selecione uma cor</h4>
-          <div className="grid grid-cols-6 gap-3">
+          <div className="grid grid-cols-6 gap-2">
             {colors.map((color) => {
               const isSelected = selected === color.value;
               const isWhiteOrLight = ['branco', 'bege', 'prata', 'todas-cores'].includes(color.value);
@@ -58,7 +58,7 @@ export const ColorPopover = ({ colors, selected, onSelect }: ColorPopoverProps) 
                 >
                   <div
                     className={cn(
-                      "w-8 h-8 rounded-full border-2 transition-all duration-200 flex items-center justify-center",
+                      "w-6 h-6 rounded-full border-2 transition-all duration-200 flex items-center justify-center",
                       isSelected 
                         ? "border-blue-500 ring-2 ring-blue-200" 
                         : isWhiteOrLight
@@ -70,7 +70,7 @@ export const ColorPopover = ({ colors, selected, onSelect }: ColorPopoverProps) 
                     {isSelected && (
                       <Check 
                         className={cn(
-                          "w-4 h-4",
+                          "w-3 h-3",
                           isWhiteOrLight ? "text-gray-600" : "text-white"
                         )} 
                       />

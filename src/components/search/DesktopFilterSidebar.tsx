@@ -16,7 +16,7 @@ interface DesktopFilterSidebarProps {
 export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilterSidebarProps) => {
   // Estados dos filtros
   const [category, setCategory] = useState(itemType === 'property' ? 'residenciais' : 'leves');
-  const [type, setType] = useState(itemType === 'property' ? 'todos' : 'carros');
+  const [type, setType] = useState(itemType === 'property' ? 'todos' : 'carro');
   const [brand, setBrand] = useState('todas-marcas');
   const [model, setModel] = useState('todos-modelos');
   const [color, setColor] = useState('todas-cores');
@@ -30,13 +30,13 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
     if (itemType === 'property') {
       setType('todos');
     } else {
-      setType(vehicleTypes[newCategory as keyof typeof vehicleTypes]?.[0]?.value || 'carros');
+      setType(vehicleTypes[newCategory as keyof typeof vehicleTypes]?.[0]?.value || 'carro');
     }
   };
 
   const handleClearAllFilters = () => {
     setCategory(itemType === 'property' ? 'residenciais' : 'leves');
-    setType(itemType === 'property' ? 'todos' : 'carros');
+    setType(itemType === 'property' ? 'todos' : 'carro');
     setBrand('todas-marcas');
     setModel('todos-modelos');
     setColor('todas-cores');

@@ -181,7 +181,7 @@ export const modelOptions = [
 ];
 
 export const colorOptions = [
-  { value: 'todas-cores', label: 'Todas as cores', color: '#f3f4f6' },
+  { value: 'todas-cores', label: 'Todas', color: '#f3f4f6' },
   { value: 'amarelo', label: 'Amarelo', color: '#fbbf24' },
   { value: 'azul', label: 'Azul', color: '#3b82f6' },
   { value: 'bege', label: 'Bege', color: '#f5f5dc' },
