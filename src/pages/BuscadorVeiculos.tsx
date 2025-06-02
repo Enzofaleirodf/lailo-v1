@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +51,8 @@ const BuscadorVeiculos = () => {
     image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png",
     showNewBadge: true
   }];
-  return <div className="flex h-screen w-screen flex-row">
+  return (
+    <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
       
       {/* Desktop Top Bar */}
@@ -84,35 +86,47 @@ const BuscadorVeiculos = () => {
               {isLoading && <LoadingSpinner />}
             </div>
 
-            {/* Controls bar with sort dropdown and layout toggle */}
-            <div className="flex items-center justify-end gap-4 mb-4">
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="justify-between min-w-[140px]">
-                      <span className="text-left">{sortBy}</span>
-                      <ChevronDown className="h-4 w-4 ml-2" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="min-w-[140px] bg-white">
-                    {sortOptions.map(option => <DropdownMenuItem key={option} onClick={() => setSortBy(option)} className="cursor-pointer">
-                        {option}
-                      </DropdownMenuItem>)}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+            {/* Controls bar with results text and controls */}
+            <div className="flex items-center justify-between gap-4 mb-4">
+              <div className="text-sm text-gray-600">
+                Encontramos <span className="font-semibold">4.164</span> leilões em <span className="font-semibold">131</span> sites
               </div>
               
-              <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" className="justify-between min-w-[140px]">
+                        <span className="text-left">{sortBy}</span>
+                        <ChevronDown className="h-4 w-4 ml-2" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="min-w-[140px] bg-white">
+                      {sortOptions.map(option => (
+                        <DropdownMenuItem key={option} onClick={() => setSortBy(option)} className="cursor-pointer">
+                          {option}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+                
+                <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+              </div>
             </div>
             
             <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
-              {vehicles.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />)}
+              {vehicles.map(vehicle => (
+                <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
+              ))}
             </div>
           </div>
         </div>
       </main>
       <BottomNavigation />
-    </div>;
+    </div>
+  );
 };
+
 export default BuscadorVeiculos;
