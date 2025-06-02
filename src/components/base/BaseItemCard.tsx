@@ -71,7 +71,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           <BaseImage src={item.image} alt={itemType === 'vehicle' ? (item as any).name : (item as any).type} isFavorited={isItemFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={item.showNewBadge} className="w-full h-full" showFavoriteButton={false} />
         </div>
         
-        <div className="flex flex-col justify-center flex-1 min-w-0 relative\n">
+        <div className="flex flex-col flex-1 min-w-0\n">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <BaseItemHeader item={item} itemType={itemType} isVertical={false} />
