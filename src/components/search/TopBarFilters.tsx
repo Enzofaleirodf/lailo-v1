@@ -50,6 +50,10 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
 
   const handleFormatSelect = (value: string) => {
     setFormat(value);
+    // Limpar etapas quando mudar para venda direta
+    if (value === 'venda-direta') {
+      setStages([]);
+    }
   };
 
   const getSelectedOriginLabels = () => {
@@ -78,11 +82,16 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
     }
   };
 
+  const getFormatLabel = () => {
+    return formatOptions.find(opt => opt.value === format)?.label || 'Formato';
+  };
+
   return (
     <div className="flex items-start gap-4">
       {/* Filtro Formato */}
       <FilterChip
         label="Formato"
+        selectedValue={getFormatLabel()}
         isActive={format !== 'leilao'}
         onClear={() => setFormat('leilao')}
       >
@@ -137,38 +146,37 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         </div>
       </FilterChip>
 
-      {/* Filtro Etapa - só aparece se Formato = Leilão */}
-      {format === 'leilao' && (
-        <FilterChip
-          label="Etapa"
-          selectedItems={getSelectedStageLabels()}
-          isActive={stages.length > 0}
-          hasMultiple={true}
-          onClear={() => setStages([])}
-          onRemoveItem={removeStage}
-          className="relative"
-        >
-          <div className="space-y-4">
-            <h4 className="font-semibold text-gray-900 text-base">Etapa do Leilão</h4>
-            <div className="flex flex-col gap-2">
-              {stageOptions.map(option => (
-                <button
-                  key={option.value}
-                  onClick={() => handleStageToggle(option.value)}
-                  className={cn(
-                    "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
-                    stages.includes(option.value)
-                      ? "bg-blue-50 border-blue-200 text-blue-700"
-                      : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
-                  )}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
+      {/* Filtro Etapa - sempre visível, mas desabilitado quando Venda Direta */}
+      <FilterChip
+        label="Etapa"
+        selectedItems={getSelectedStageLabels()}
+        isActive={stages.length > 0}
+        isDisabled={format === 'venda-direta'}
+        hasMultiple={true}
+        onClear={() => setStages([])}
+        onRemoveItem={removeStage}
+        className="relative"
+      >
+        <div className="space-y-4">
+          <h4 className="font-semibold text-gray-900 text-base">Etapa do Leilão</h4>
+          <div className="flex flex-col gap-2">
+            {stageOptions.map(option => (
+              <button
+                key={option.value}
+                onClick={() => handleStageToggle(option.value)}
+                className={cn(
+                  "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
+                  stages.includes(option.value)
+                    ? "bg-blue-50 border-blue-200 text-blue-700"
+                    : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
+                )}
+              >
+                {option.label}
+              </button>
+            ))}
           </div>
-        </FilterChip>
-      )}
+        </div>
+      </FilterChip>
     </div>
   );
 };
