@@ -2,7 +2,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
-import { Badge } from '@/components/ui/badge';
 import { ItemType } from '../../types/search';
 
 interface TopBarFiltersProps {
@@ -49,14 +48,42 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
     );
   };
 
+  const handleFormatSelect = (value: string) => {
+    setFormat(value);
+  };
+
+  const getSelectedOriginLabels = () => {
+    return origins.map(origin => 
+      originOptions.find(opt => opt.value === origin)?.label || origin
+    );
+  };
+
+  const getSelectedStageLabels = () => {
+    return stages.map(stage => 
+      stageOptions.find(opt => opt.value === stage)?.label || stage
+    );
+  };
+
+  const removeOrigin = (label: string) => {
+    const option = originOptions.find(opt => opt.label === label);
+    if (option) {
+      setOrigins(prev => prev.filter(item => item !== option.value));
+    }
+  };
+
+  const removeStage = (label: string) => {
+    const option = stageOptions.find(opt => opt.label === label);
+    if (option) {
+      setStages(prev => prev.filter(item => item !== option.value));
+    }
+  };
+
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-start gap-4">
       {/* Filtro Formato */}
       <FilterChip
         label="Formato"
-        value={format === 'leilao' ? 'Leilão' : 'Venda Direta'}
         isActive={format !== 'leilao'}
-        autoClose={true}
         onClear={() => setFormat('leilao')}
       >
         <div className="space-y-4">
@@ -65,7 +92,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
             {formatOptions.map(option => (
               <button
                 key={option.value}
-                onClick={() => setFormat(option.value)}
+                onClick={() => handleFormatSelect(option.value)}
                 className={cn(
                   "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
                   format === option.value
@@ -83,11 +110,11 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
       {/* Filtro Origem */}
       <FilterChip
         label="Origem"
-        value={origins}
+        selectedItems={getSelectedOriginLabels()}
         isActive={origins.length > 0}
         hasMultiple={true}
         onClear={() => setOrigins([])}
-        onApply={() => console.log('Aplicar origens:', origins)}
+        onRemoveItem={removeOrigin}
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Origem do Leilão</h4>
@@ -97,7 +124,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
                 key={option.value}
                 onClick={() => handleOriginToggle(option.value)}
                 className={cn(
-                  "w-full px-4 py-3 text-center rounded-lg border transition-all duration-200 font-medium",
+                  "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
                   origins.includes(option.value)
                     ? "bg-blue-50 border-blue-200 text-blue-700"
                     : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
@@ -107,19 +134,6 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
               </button>
             ))}
           </div>
-          
-          {origins.length > 0 && (
-            <div className="pt-3 border-t border-gray-100">
-              <p className="text-sm text-gray-600 mb-2">Selecionados:</p>
-              <div className="flex flex-wrap gap-1">
-                {origins.map(origin => (
-                  <Badge key={origin} variant="secondary" className="text-xs">
-                    {originOptions.find(opt => opt.value === origin)?.label}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </FilterChip>
 
@@ -127,11 +141,12 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
       {format === 'leilao' && (
         <FilterChip
           label="Etapa"
-          value={stages}
+          selectedItems={getSelectedStageLabels()}
           isActive={stages.length > 0}
           hasMultiple={true}
           onClear={() => setStages([])}
-          onApply={() => console.log('Aplicar etapas:', stages)}
+          onRemoveItem={removeStage}
+          className="relative"
         >
           <div className="space-y-4">
             <h4 className="font-semibold text-gray-900 text-base">Etapa do Leilão</h4>
@@ -141,7 +156,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
                   key={option.value}
                   onClick={() => handleStageToggle(option.value)}
                   className={cn(
-                    "w-full px-4 py-3 text-center rounded-lg border transition-all duration-200 font-medium",
+                    "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
                     stages.includes(option.value)
                       ? "bg-blue-50 border-blue-200 text-blue-700"
                       : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
@@ -151,19 +166,6 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
                 </button>
               ))}
             </div>
-            
-            {stages.length > 0 && (
-              <div className="pt-3 border-t border-gray-100">
-                <p className="text-sm text-gray-600 mb-2">Selecionados:</p>
-                <div className="flex flex-wrap gap-1">
-                  {stages.map(stage => (
-                    <Badge key={stage} variant="secondary" className="text-xs">
-                      {stageOptions.find(opt => opt.value === stage)?.label}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </FilterChip>
       )}
