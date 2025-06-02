@@ -1,11 +1,9 @@
 
-import { Home, Building, TreePine, Factory, Car, Truck, Wrench, Waves } from 'lucide-react';
-
 export const propertyCategories = [
-  { value: 'residenciais', label: 'Residenciais', icon: <Home className="w-4 h-4" /> },
-  { value: 'comerciais', label: 'Comerciais', icon: <Building className="w-4 h-4" /> },
-  { value: 'rurais', label: 'Rurais', icon: <TreePine className="w-4 h-4" /> },
-  { value: 'industriais', label: 'Industriais', icon: <Factory className="w-4 h-4" /> },
+  { value: 'residenciais', label: 'Residenciais', icon: 'home' },
+  { value: 'comerciais', label: 'Comerciais', icon: 'building' },
+  { value: 'rurais', label: 'Rurais', icon: 'tree-pine' },
+  { value: 'industriais', label: 'Industriais', icon: 'factory' },
 ];
 
 export const propertyTypes = {
@@ -36,10 +34,10 @@ export const propertyTypes = {
 };
 
 export const vehicleCategories = [
-  { value: 'leves', label: 'Leves', icon: <Car className="w-4 h-4" /> },
-  { value: 'pesados', label: 'Pesados', icon: <Truck className="w-4 h-4" /> },
-  { value: 'maquinas', label: 'Máquinas', icon: <Wrench className="w-4 h-4" /> },
-  { value: 'aquaticos', label: 'Aquáticos', icon: <Waves className="w-4 h-4" /> },
+  { value: 'leves', label: 'Leves', icon: 'car' },
+  { value: 'pesados', label: 'Pesados', icon: 'truck' },
+  { value: 'maquinas', label: 'Máquinas', icon: 'wrench' },
+  { value: 'aquaticos', label: 'Aquáticos', icon: 'waves' },
 ];
 
 export const vehicleTypes = {
