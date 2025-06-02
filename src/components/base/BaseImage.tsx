@@ -23,7 +23,7 @@ export const BaseImage = ({
 }: BaseImageProps): JSX.Element => {
   const imageClass = className || (isVertical ? 'w-full aspect-[4/3]' : 'w-32 md:w-28 h-full');
   return <div className="h-auto aspect-[4/3] max-h-full\n">
-      <img src={src} alt={alt} loading="lazy" className="aspect-[4/3] h-full w-auto object-cover rounded-xl\n" />
+      <img src={src} alt={alt} loading="lazy" className="w-full h-auto object-cover rounded-xl" />
       
       {showNewBadge && <div className={`absolute bg-green-500 text-white text-xs font-bold rounded-md shadow-md font-urbanist ${isVertical ? 'top-2 left-2 md:px-2 md:py-1' : 'top-1 left-1 px-0.5 py-0.5'}`} style={isVertical ? {
       margin: '10px',
