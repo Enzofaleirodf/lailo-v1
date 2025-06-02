@@ -89,7 +89,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <BaseCard className="font-urbanist">
       <div className="flex gap-3 items-stretch">
-        <div className="relative flex-shrink-0 w-28">
+        <div className="relative flex-shrink-0 w-32 md:w-28">
           <BaseImage 
             src={item.image} 
             alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
