@@ -1,10 +1,9 @@
-
 export const propertyCategories = [
   { value: 'residenciais', label: 'Residenciais', icon: 'home' },
   { value: 'comerciais', label: 'Comerciais', icon: 'building' },
   { value: 'rurais', label: 'Rurais', icon: 'tree-pine' },
   { value: 'industriais', label: 'Industriais', icon: 'factory' },
-  { value: 'hospedagens', label: 'Hospedagens', icon: 'bed' },
+  { value: 'hospedagens', label: 'Hospedagens', icon: 'building' },
 ];
 
 export const propertyTypes = {
@@ -66,15 +65,15 @@ export const propertyTypes = {
 };
 
 export const vehicleCategories = [
-  { value: 'leves', label: 'Veículos Leves', icon: 'car' },
-  { value: 'pesados', label: 'Veículos Pesados', icon: 'truck' },
-  { value: 'apoio-reboque', label: 'Apoio e Reboque', icon: 'trailer' },
-  { value: 'lazer-recreacao', label: 'Lazer e Recreação', icon: 'bike' },
-  { value: 'aquaticos', label: 'Veículos Aquáticos', icon: 'waves' },
-  { value: 'aereos', label: 'Veículos Aéreos', icon: 'plane' },
-  { value: 'maquinas-agricolas', label: 'Máquinas Agrícolas', icon: 'tractor' },
+  { value: 'leves', label: 'Leves', icon: 'car' },
+  { value: 'pesados', label: 'Pesados', icon: 'truck' },
+  { value: 'apoio-reboque', label: 'Apoio', icon: 'wrench' },
+  { value: 'lazer-recreacao', label: 'Lazer', icon: 'waves' },
+  { value: 'aquaticos', label: 'Aquáticos', icon: 'waves' },
+  { value: 'aereos', label: 'Aéreos', icon: 'car' },
+  { value: 'maquinas-agricolas', label: 'Máquinas Agrícolas', icon: 'wrench' },
   { value: 'maquinas-construcao', label: 'Máquinas de Construção', icon: 'wrench' },
-  { value: 'outros', label: 'Outros', icon: 'more-horizontal' },
+  { value: 'outros', label: 'Outros', icon: 'car' },
 ];
 
 export const vehicleTypes = {

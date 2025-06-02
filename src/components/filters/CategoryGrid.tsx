@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Home, Building, TreePine, Factory, Car, Truck, Wrench, Waves } from 'lucide-react';
+import { Home, Building, TreePine, Factory, Car, Truck, Wrench, Waves, Plane, Bed } from 'lucide-react';
 
 interface CategoryOption {
   value: string;
@@ -25,6 +24,8 @@ const iconMap = {
   'truck': Truck,
   'wrench': Wrench,
   'waves': Waves,
+  'plane': Plane,
+  'bed': Bed,
 };
 
 export const CategoryGrid = ({ 

@@ -3,7 +3,7 @@ import React from 'react';
 import { ItemType } from '../../types/search';
 import { FilterSection } from './FilterSection';
 import { CategoryGrid } from './CategoryGrid';
-import { ChipSelector } from './ChipSelector';
+import { TypeCombobox } from './TypeCombobox';
 import { propertyCategories, propertyTypes, vehicleCategories, vehicleTypes } from '../../config/filterData';
 
 interface CategoryTypeFiltersProps {
@@ -33,13 +33,14 @@ export const CategoryTypeFilters = ({
       </FilterSection>
 
       <FilterSection title="Tipo">
-        <ChipSelector
+        <TypeCombobox
           options={itemType === 'property' 
             ? propertyTypes[category as keyof typeof propertyTypes] || []
             : vehicleTypes[category as keyof typeof vehicleTypes] || []
           }
           selected={type}
           onSelect={onTypeChange}
+          placeholder={`Selecione um tipo`}
         />
       </FilterSection>
     </>
