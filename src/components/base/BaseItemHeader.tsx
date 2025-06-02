@@ -14,62 +14,41 @@ export const BaseItemHeader = ({
   isVertical = false
 }: BaseItemHeaderProps) => {
   const titleClass = isVertical 
-    ? "font-bold text-gray-900 text-2xl leading-tight font-urbanist" 
-    : "font-bold text-gray-900 text-sm md:text-lg leading-tight truncate font-urbanist";
+    ? "font-semibold text-gray-900 text-lg leading-tight font-urbanist mb-1" 
+    : "font-semibold text-gray-900 text-base leading-tight truncate font-urbanist mb-1";
 
-  const detailsTextClass = isVertical 
-    ? "font-medium text-gray-600 text-base whitespace-nowrap"
-    : "font-medium text-gray-600 text-xs md:text-sm whitespace-nowrap";
-
-  const locationTextClass = isVertical 
-    ? "font-medium text-gray-600 text-base truncate"
-    : "font-medium text-gray-600 text-xs md:text-sm truncate";
+  const detailsClass = isVertical 
+    ? "text-sm text-gray-600 font-medium"
+    : "text-sm text-gray-600 font-medium";
 
   if (itemType === 'vehicle') {
     const vehicle = item as any;
     return (
-      <div className="flex flex-col">
-        <div className="flex items-start justify-between">
-          <h3 className={titleClass}>
-            {vehicle.name}
-          </h3>
-        </div>
-
-        <div className="flex items-center gap-2 overflow-hidden font-urbanist mt-1">
-          <span className={detailsTextClass}>
-            {vehicle.color}
-          </span>
-          <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-          <span className={detailsTextClass}>
-            {vehicle.year}
-          </span>
-          <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-          <span className={locationTextClass}>
-            {vehicle.location}
-          </span>
+      <div className="space-y-1">
+        <h3 className={titleClass}>
+          {vehicle.name}
+        </h3>
+        <div className="flex items-center gap-2 text-gray-500">
+          <span className={detailsClass}>{vehicle.color}</span>
+          <span className="w-1 h-1 bg-gray-300 rounded-full" />
+          <span className={detailsClass}>{vehicle.year}</span>
+          <span className="w-1 h-1 bg-gray-300 rounded-full" />
+          <span className={`${detailsClass} truncate`}>{vehicle.location}</span>
         </div>
       </div>
     );
   }
 
-  // Property - usando a mesma estrutura dos veículos
   const property = item as any;
   return (
-    <div className="flex flex-col">
-      <div className="flex items-start justify-between">
-        <h3 className={titleClass}>
-          {property.type}
-        </h3>
-      </div>
-
-      <div className="flex items-center gap-2 overflow-hidden font-urbanist mt-1">
-        <span className={detailsTextClass}>
-          {property.area}
-        </span>
-        <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-        <span className={locationTextClass}>
-          {property.location}
-        </span>
+    <div className="space-y-1">
+      <h3 className={titleClass}>
+        {property.type}
+      </h3>
+      <div className="flex items-center gap-2 text-gray-500">
+        <span className={detailsClass}>{property.area}</span>
+        <span className="w-1 h-1 bg-gray-300 rounded-full" />
+        <span className={`${detailsClass} truncate`}>{property.location}</span>
       </div>
     </div>
   );

@@ -47,8 +47,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
 
   if (isVertical) {
     return (
-      <BaseCard className="overflow-hidden font-urbanist">
-        <div className="relative">
+      <BaseCard className="overflow-hidden">
+        <div className="relative mb-3">
           <BaseImage 
             src={item.image} 
             alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -59,25 +59,23 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           />
         </div>
         
-        <div className="p-3">
+        <div className="space-y-3">
           <BaseItemHeader 
             item={item}
             itemType={itemType}
             isVertical={true}
           />
           
-          <div className="mt-2">
-            <BaseItemPrice 
-              price={item.price}
-              discount={item.discount}
-              itemType={itemType}
-              isVertical={true}
-            />
-          </div>
+          <BaseItemPrice 
+            price={item.price}
+            discount={item.discount}
+            itemType={itemType}
+            isVertical={true}
+          />
           
-          <Separator className="my-2" />
+          <Separator className="!my-3" />
           
-          <div className="flex items-center justify-between pt-2">
+          <div className="flex items-center justify-between">
             <BaseBadges badges={item.badges} />
             <BaseDate date={item.date} isVertical={true} />
           </div>
@@ -87,9 +85,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   }
 
   return (
-    <BaseCard className="font-urbanist">
-      <div className="flex gap-3 items-start min-h-0">
-        <div className="relative flex-shrink-0 w-32 md:w-28 self-stretch">
+    <BaseCard>
+      <div className="flex gap-4 items-start">
+        <div className="relative flex-shrink-0 w-28 h-20">
           <BaseImage 
             src={item.image} 
             alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -102,7 +100,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           />
         </div>
         
-        <div className="flex-1 min-w-0 relative min-h-0">
+        <div className="flex-1 min-w-0 space-y-2">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <BaseItemHeader 
@@ -115,8 +113,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             <Button
               variant="ghost"
               size="sm"
-              className={`h-6 w-6 p-0 m-0 bg-transparent hover:bg-blue-50 flex-shrink-0 ml-2 transition-all duration-200 ${
-                isItemFavorite ? 'text-blue-600 hover:text-blue-700' : 'text-gray-400 hover:text-blue-600'
+              className={`h-8 w-8 p-0 ml-3 flex-shrink-0 transition-colors ${
+                isItemFavorite ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'
               }`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -128,20 +126,18 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             </Button>
           </div>
           
-          <div className="mt-2">
-            <BaseItemPrice 
-              price={item.price}
-              discount={item.discount}
-              itemType={itemType}
-              isVertical={false}
-            />
-          </div>
+          <BaseItemPrice 
+            price={item.price}
+            discount={item.discount}
+            itemType={itemType}
+            isVertical={false}
+          />
         </div>
       </div>
       
-      <Separator className="my-2" />
+      <Separator className="!my-3" />
       
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex items-center justify-between">
         <BaseBadges badges={item.badges} />
         <BaseDate date={item.date} isVertical={false} />
       </div>

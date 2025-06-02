@@ -18,19 +18,17 @@ export const BaseCard = ({
   return (
     <Card 
       className={`
-        group relative w-full max-w-none p-3 font-urbanist
-        bg-gradient-to-br from-white via-gray-50 to-gray-100
-        rounded-2xl border-0
-        shadow-lg backdrop-blur-sm
-        focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
-        ${onClick ? 'cursor-pointer hover:shadow-xl transition-shadow' : ''}
+        group relative w-full max-w-none p-4 font-urbanist
+        bg-white border border-gray-100
+        rounded-xl shadow-sm hover:shadow-md
+        transition-all duration-200 ease-out
+        focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-200
+        ${onClick ? 'cursor-pointer hover:border-gray-200' : ''}
         ${className}
       `}
       onClick={onClick}
       role="article"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
-      
       <CardContent className="relative p-0">
         {children}
       </CardContent>
