@@ -22,7 +22,7 @@ export const BaseImage = ({
   showNewBadge = false,
   className = ""
 }: BaseImageProps): JSX.Element => {
-  const imageClass = className || (isVertical ? 'w-full aspect-[4/3]' : 'w-20 h-16 md:w-24 md:h-20');
+  const imageClass = className || (isVertical ? 'w-full aspect-[4/3]' : 'w-16 h-12 md:w-24 md:h-20');
   
   return (
     <div className={`relative ${imageClass}`}>
