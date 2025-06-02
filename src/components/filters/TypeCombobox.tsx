@@ -1,6 +1,12 @@
 
 import React from 'react';
-import { SearchableCombobox } from './SearchableCombobox';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface TypeOption {
   value: string;
@@ -23,12 +29,17 @@ export const TypeCombobox = ({
   disabled = false
 }: TypeComboboxProps) => {
   return (
-    <SearchableCombobox
-      options={options}
-      selected={selected}
-      onSelect={onSelect}
-      placeholder={placeholder}
-      disabled={disabled}
-    />
+    <Select value={selected} onValueChange={onSelect} disabled={disabled}>
+      <SelectTrigger>
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
