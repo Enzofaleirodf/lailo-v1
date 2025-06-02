@@ -1,6 +1,5 @@
 
-import { Link } from "react-router-dom";
-import { ArrowLeft, User, Settings, Heart, Bell } from "lucide-react";
+import { User, Settings, Heart, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SessionNavBar } from "../components/SessionNavBar";
@@ -33,17 +32,9 @@ const Perfil = () => {
         <div className="bg-white px-4 py-8">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Voltar
-                  </Link>
-                </Button>
-                <div className="flex items-center gap-2">
-                  <User className="w-8 h-8 text-blue-600" />
-                  <h1 className="text-3xl font-bold text-gray-900">Meu Perfil</h1>
-                </div>
+              <div className="flex items-center gap-2">
+                <User className="w-8 h-8 text-blue-600" />
+                <h1 className="text-3xl font-bold text-gray-900">Meu Perfil</h1>
               </div>
               <Button variant="outline" onClick={logout}>
                 Sair
@@ -104,17 +95,17 @@ const Perfil = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Button variant="outline" asChild>
-                    <Link to="/favoritos/imoveis">Ver Favoritos Imóveis</Link>
+                  <Button variant="outline" onClick={() => window.location.href = '/favoritos/imoveis'}>
+                    Ver Favoritos Imóveis
                   </Button>
-                  <Button variant="outline" asChild>
-                    <Link to="/favoritos/veiculos">Ver Favoritos Veículos</Link>
+                  <Button variant="outline" onClick={() => window.location.href = '/favoritos/veiculos'}>
+                    Ver Favoritos Veículos
                   </Button>
-                  <Button variant="outline" asChild>
-                    <Link to="/buscador/imoveis">Buscar Imóveis</Link>
+                  <Button variant="outline" onClick={() => window.location.href = '/buscador/imoveis'}>
+                    Buscar Imóveis
                   </Button>
-                  <Button variant="outline" asChild>
-                    <Link to="/buscador/veiculos">Buscar Veículos</Link>
+                  <Button variant="outline" onClick={() => window.location.href = '/buscador/veiculos'}>
+                    Buscar Veículos
                   </Button>
                 </div>
               </CardContent>

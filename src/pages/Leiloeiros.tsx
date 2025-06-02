@@ -1,7 +1,5 @@
 
-import { Link } from "react-router-dom";
-import { ArrowLeft, Building2, MapPin, Phone, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Building2, MapPin, Phone, Mail } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SessionNavBar } from "../components/SessionNavBar";
 
@@ -42,19 +40,9 @@ const Leiloeiros = () => {
       <main className="flex h-screen grow flex-col overflow-auto ml-12">
         <div className="bg-white px-4 py-8">
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Voltar
-                  </Link>
-                </Button>
-                <div className="flex items-center gap-2">
-                  <Building2 className="w-8 h-8 text-blue-600" />
-                  <h1 className="text-3xl font-bold text-gray-900">Leiloeiros</h1>
-                </div>
-              </div>
+            <div className="flex items-center gap-2 mb-8">
+              <Building2 className="w-8 h-8 text-blue-600" />
+              <h1 className="text-3xl font-bold text-gray-900">Leiloeiros</h1>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -89,9 +77,6 @@ const Leiloeiros = () => {
                         <span className="text-sm font-medium text-green-600">
                           {leiloeiro.activeAuctions} leilões ativos
                         </span>
-                        <Button size="sm" variant="outline">
-                          Ver Leilões
-                        </Button>
                       </div>
                     </div>
                   </CardContent>

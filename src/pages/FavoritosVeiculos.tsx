@@ -1,10 +1,8 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { BaseItemCard } from "../components/base/BaseItemCard";
 import { LayoutToggle } from "../components/LayoutToggle";
-import { Button } from "@/components/ui/button";
 import { SessionNavBar } from "../components/SessionNavBar";
 import { EmptyState } from "../components/ui/EmptyState";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
@@ -50,19 +48,11 @@ const FavoritosVeiculos = () => {
         <div className="bg-white px-3 py-3">
           <div className="w-full">
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/buscador/veiculos">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Voltar
-                  </Link>
-                </Button>
-                <div className="flex items-center gap-2">
-                  <Heart className="w-6 h-6 text-red-500" />
-                  <h1 className="text-2xl font-bold text-gray-900">
-                    Veículos Favoritos ({favoriteVehicles.length})
-                  </h1>
-                </div>
+              <div className="flex items-center gap-2">
+                <Heart className="w-6 h-6 text-red-500" />
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Veículos Favoritos ({favoriteVehicles.length})
+                </h1>
               </div>
             </div>
 

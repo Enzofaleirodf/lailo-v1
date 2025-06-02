@@ -1,12 +1,9 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Shield, Users, Car, Home, Activity, Settings } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Shield, Users, Car, Home, Activity, Settings } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SessionNavBar } from "../components/SessionNavBar";
-import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
 import { useAuthStore } from "../stores/authStore";
 
@@ -68,17 +65,9 @@ const Admin = () => {
         <div className="bg-white px-4 py-8">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Voltar
-                  </Link>
-                </Button>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-8 h-8 text-blue-600" />
-                  <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-                </div>
+              <div className="flex items-center gap-2">
+                <Shield className="w-8 h-8 text-blue-600" />
+                <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
               </div>
               <div className="text-sm text-gray-500">
                 Logado como: {user?.name || 'Administrador'}

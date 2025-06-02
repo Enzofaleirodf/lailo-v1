@@ -1,7 +1,4 @@
 
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { SessionNavBar } from "../SessionNavBar";
 import { BottomNavigation } from "../BottomNavigation";
 import { LoadingSpinner } from "../ui/LoadingSpinner";
@@ -69,7 +66,6 @@ export const SearchPageLayout = ({
       {/* Desktop Top Bar */}
       <DesktopTopBar
         title={config.title}
-        backUrl={config.backUrl}
         isLoading={isLoading}
         itemType={config.type}
         onItemTypeChange={handleItemTypeChange}
@@ -87,15 +83,7 @@ export const SearchPageLayout = ({
             {/* Mobile/Tablet header */}
             <div className="flex flex-col gap-4 mb-6 md:hidden">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to={config.backUrl}>
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Voltar
-                    </Link>
-                  </Button>
-                  <h1 className="text-xl font-bold text-gray-900">{config.title}</h1>
-                </div>
+                <h1 className="text-xl font-bold text-gray-900">{config.title}</h1>
                 {isLoading && <LoadingSpinner />}
               </div>
               
