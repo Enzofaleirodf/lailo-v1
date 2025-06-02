@@ -9,7 +9,7 @@ interface LayoutToggleProps {
 
 export const LayoutToggle = ({ isVertical, onToggle }: LayoutToggleProps) => {
   return (
-    <div className="inline-flex -space-x-px rounded-lg shadow-sm shadow-black/5 rtl:space-x-reverse mb-4">
+    <div className="inline-flex -space-x-px rounded-lg shadow-sm shadow-black/5 rtl:space-x-reverse">
       <Button
         className="rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10"
         variant={!isVertical ? "default" : "outline"}
