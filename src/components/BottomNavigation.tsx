@@ -1,20 +1,16 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Heart, Building2, User, LogIn } from "lucide-react";
+import { Home, Search, Heart, Gavel, User, LogIn } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
-import { useFavoritesStore } from "../stores/favoritesStore";
 
 export const BottomNavigation = () => {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
-  const { favorites } = useFavoritesStore();
 
   const isActive = (path: string) => {
     return location.pathname === path || location.pathname.startsWith(path);
   };
-
-  const totalFavorites = favorites.length;
 
   const navItems = [
     {
@@ -34,19 +30,18 @@ export const BottomNavigation = () => {
       icon: Heart,
       label: "Favoritos",
       active: isActive("/favoritos"),
-      badge: isAuthenticated ? totalFavorites : 0,
       requiresAuth: true
     },
     {
       to: "/leiloeiros",
-      icon: Building2,
+      icon: Gavel,
       label: "Leiloeiros",
       active: isActive("/leiloeiros")
     },
     {
       to: isAuthenticated ? "/perfil" : "/auth/login",
-      icon: User,
-      label: "Perfil",
+      icon: isAuthenticated ? User : LogIn,
+      label: isAuthenticated ? "Perfil" : "Entrar",
       active: isActive("/perfil"),
       requiresAuth: true
     }
@@ -69,16 +64,7 @@ export const BottomNavigation = () => {
                 }
               `}
             >
-              <div className="relative">
-                <Icon className="w-5 h-5 mb-1" />
-                
-                {/* Badge para favoritos */}
-                {item.badge && item.badge > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                    {item.badge > 9 ? '9+' : item.badge}
-                  </span>
-                )}
-              </div>
+              <Icon className="w-5 h-5 mb-1" />
               <span className="text-xs font-medium">{item.label}</span>
             </Link>
           );

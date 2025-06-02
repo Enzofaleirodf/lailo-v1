@@ -17,7 +17,7 @@ import {
   Car,
   Home,
   Heart,
-  Building2,
+  Gavel,
   User,
   Shield,
 } from "lucide-react";
@@ -76,7 +76,7 @@ export function NavigationMenu({ isCollapsed }: NavigationMenuProps) {
                 pathname?.includes("leiloeiros") && "bg-muted text-blue-600",
               )}
             >
-              <Building2 className="h-4 w-4" />
+              <Gavel className="h-4 w-4" />
               <motion.li variants={variants}>
                 {!isCollapsed && (
                   <p className="ml-2 text-sm font-medium">Leiloeiros</p>

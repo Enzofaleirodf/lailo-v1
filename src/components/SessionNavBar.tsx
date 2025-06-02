@@ -1,15 +1,13 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Heart, Building2, User, LogIn, LogOut } from "lucide-react";
+import { Home, Search, Heart, Gavel, User, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "../hooks/useAuth";
-import { useFavoritesStore } from "../stores/favoritesStore";
 
 export const SessionNavBar = () => {
   const location = useLocation();
   const { isAuthenticated, user, logout } = useAuth();
-  const { favorites } = useFavoritesStore();
 
   const isActive = (path: string) => {
     return location.pathname === path || location.pathname.startsWith(path);
@@ -30,7 +28,7 @@ export const SessionNavBar = () => {
     },
     {
       to: "/leiloeiros",
-      icon: Building2,
+      icon: Gavel,
       label: "Leiloeiros",
       active: isActive("/leiloeiros")
     }
@@ -41,8 +39,7 @@ export const SessionNavBar = () => {
       to: "/favoritos/veiculos",
       icon: Heart,
       label: "Favoritos",
-      active: isActive("/favoritos"),
-      badge: favorites.length
+      active: isActive("/favoritos")
     },
     {
       to: "/perfil",
@@ -105,13 +102,6 @@ export const SessionNavBar = () => {
               title={item.label}
             >
               <Icon className="w-4 h-4" />
-              
-              {/* Badge for favorites */}
-              {item.badge && item.badge > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                  {item.badge > 9 ? '9+' : item.badge}
-                </span>
-              )}
               
               {/* Tooltip */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
