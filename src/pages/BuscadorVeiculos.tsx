@@ -88,7 +88,7 @@ const BuscadorVeiculos = () => {
 
             {/* Controls bar with results text and controls */}
             <div className="flex items-center justify-between gap-4 mb-4">
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-600 text-left">
                 Encontramos <span className="font-semibold">4.164</span> leilões em <span className="font-semibold">131</span> sites
               </div>
               
