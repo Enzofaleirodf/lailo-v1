@@ -6,6 +6,7 @@ import { BaseBadges } from "./base/BaseBadges";
 import { BaseDate } from "./base/BaseDate";
 import { VehicleHeader } from "./VehicleHeader";
 import { VehiclePrice } from "./VehiclePrice";
+import { Separator } from "./ui/separator";
 import { useFavoritesStore } from "../stores/favoritesStore";
 import { showSuccess, showInfo } from "./ui/NotificationToast";
 
@@ -117,6 +118,8 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
             priceGradient="from-blue-600 to-purple-600"
             isVertical={false}
           />
+          
+          <Separator className="my-2" />
           
           <div className="flex items-center justify-between">
             <BaseBadges badges={vehicle.badges} />

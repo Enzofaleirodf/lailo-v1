@@ -6,6 +6,7 @@ import { BaseBadges } from "./base/BaseBadges";
 import { BaseDate } from "./base/BaseDate";
 import { PropertyHeader } from "./PropertyHeader";
 import { PropertyPrice } from "./PropertyPrice";
+import { Separator } from "./ui/separator";
 import { useFavoritesStore } from "../stores/favoritesStore";
 import { showSuccess, showInfo } from "./ui/NotificationToast";
 
@@ -117,6 +118,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             priceGradient="from-green-600 to-teal-600"
             isVertical={false}
           />
+          
+          <Separator className="my-2" />
           
           <div className="flex items-center justify-between">
             <BaseBadges badges={property.badges} />
