@@ -7,6 +7,11 @@ import { BottomNavigation } from "../BottomNavigation";
 import { LoadingSpinner } from "../ui/LoadingSpinner";
 import { SearchControls } from "./SearchControls";
 import { SearchResults } from "./SearchResults";
+import { SearchStatus } from "./SearchStatus";
+import { DesktopTopBar } from "./DesktopTopBar";
+import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
+import { ItemTypeToggle } from "./ItemTypeToggle";
+import { useAuctionStatus } from "../../hooks/useAuctionStatus";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
 import {
   Pagination,
@@ -26,8 +31,8 @@ interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'>
   totalPages: number;
   onPageChange: (page: number) => void;
   onClearFilters: () => void;
-  resultsCount: number;
-  sitesCount: number;
+  resultsCount?: number;
+  sitesCount?: number;
 }
 
 export const SearchPageLayout = ({
@@ -46,69 +51,95 @@ export const SearchPageLayout = ({
   onSortChange,
   sortOptions,
 }: SearchPageLayoutProps) => {
-  const resultsText = config.resultsText(resultsCount, sitesCount);
+  // Usar hook de status se os valores não forem fornecidos
+  const statusData = useAuctionStatus(items);
+  const finalResultsCount = resultsCount ?? statusData.totalAuctions;
+  const finalSitesCount = sitesCount ?? statusData.totalSites;
+  const newAuctions = statusData.newAuctions;
+
+  const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
+    const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
+    window.location.href = newPath;
+  };
 
   return (
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
       
       {/* Desktop Top Bar */}
-      <div className="hidden md:block fixed top-0 right-0 left-12 h-16 bg-white border-b border-gray-200 z-40">
-        <div className="flex items-center justify-between h-full px-6">
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to={config.backUrl}>
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Voltar
-              </Link>
-            </Button>
-            <h1 className="text-2xl font-bold text-gray-900">{config.title}</h1>
-          </div>
-          {isLoading && <LoadingSpinner />}
-        </div>
-      </div>
+      <DesktopTopBar
+        title={config.title}
+        backUrl={config.backUrl}
+        isLoading={isLoading}
+        itemType={config.type}
+        onItemTypeChange={handleItemTypeChange}
+      />
 
-      {/* Left Sidebar - Desktop only */}
-      <div className="hidden md:block fixed left-12 top-16 w-[448px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30">
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Filtros</h2>
-            <Button 
-              variant="ghost" 
-              className="text-sm text-gray-600 hover:text-gray-800 p-0 h-auto border-0 shadow-none"
-              onClick={onClearFilters}
-            >
-              Apagar filtros
-            </Button>
-          </div>
-        </div>
-      </div>
+      {/* Desktop Filter Sidebar */}
+      <DesktopFilterSidebar
+        itemType={config.type}
+        onClearFilters={onClearFilters}
+      />
 
       <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
-        <div className="min-h-screen bg-white px-6 py-6 pb-20 md:pb-6">
+        <div className="min-h-screen bg-white px-4 py-4 pb-20 md:px-6 md:py-6 md:pb-6">
           <div className="w-full">
-            {/* Mobile header - only show on mobile */}
-            <div className="flex items-center justify-between mb-6 md:hidden">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to={config.backUrl}>
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Voltar
-                  </Link>
-                </Button>
-                <h1 className="text-2xl font-bold text-gray-900">{config.title}</h1>
+            {/* Mobile/Tablet header */}
+            <div className="flex flex-col gap-4 mb-6 md:hidden">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to={config.backUrl}>
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Voltar
+                    </Link>
+                  </Button>
+                  <h1 className="text-xl font-bold text-gray-900">{config.title}</h1>
+                </div>
+                {isLoading && <LoadingSpinner />}
               </div>
-              {isLoading && <LoadingSpinner />}
+              
+              {/* Mobile Type Toggle */}
+              <div className="flex justify-center">
+                <ItemTypeToggle 
+                  currentType={config.type}
+                  onTypeChange={handleItemTypeChange}
+                />
+              </div>
             </div>
 
-            <SearchControls
-              isVertical={isVertical}
-              onToggleLayout={onToggleLayout}
-              sortBy={sortBy}
-              onSortChange={onSortChange}
-              sortOptions={sortOptions}
-              resultsText={resultsText}
-            />
+            {/* Status e Controles */}
+            <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between">
+              <SearchStatus
+                totalAuctions={finalResultsCount}
+                totalSites={finalSitesCount}
+                newAuctions={newAuctions}
+                className="text-xs md:text-sm"
+              />
+              
+              <div className="md:hidden">
+                <SearchControls
+                  isVertical={isVertical}
+                  onToggleLayout={onToggleLayout}
+                  sortBy={sortBy}
+                  onSortChange={onSortChange}
+                  sortOptions={sortOptions}
+                  resultsText=""
+                />
+              </div>
+              
+              {/* Desktop controls - só ordenação e layout */}
+              <div className="hidden md:flex items-center gap-4">
+                <SearchControls
+                  isVertical={isVertical}
+                  onToggleLayout={onToggleLayout}
+                  sortBy={sortBy}
+                  onSortChange={onSortChange}
+                  sortOptions={sortOptions}
+                  resultsText=""
+                />
+              </div>
+            </div>
             
             <SearchResults
               items={items}

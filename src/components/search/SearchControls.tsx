@@ -18,11 +18,15 @@ export const SearchControls = ({
   sortOptions,
   resultsText,
 }: SearchControlsProps) => {
+  const showResultsText = resultsText && resultsText.trim() !== '';
+
   return (
-    <div className="w-full flex items-center justify-between gap-4 mb-4">
-      <div className="flex-1 text-sm text-gray-600 text-left">
-        {resultsText}
-      </div>
+    <div className="w-full flex items-center justify-between gap-4">
+      {showResultsText && (
+        <div className="flex-1 text-sm text-gray-600 text-left">
+          {resultsText}
+        </div>
+      )}
       
       <div className="flex items-center gap-4 flex-shrink-0">
         <div className="flex items-center gap-3">

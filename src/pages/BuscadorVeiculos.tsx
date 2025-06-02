@@ -1,4 +1,3 @@
-
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { vehicleSearchConfig } from "../config/searchConfigs";
@@ -19,6 +18,7 @@ const BuscadorVeiculos = () => {
   const totalPages = 10;
   const resultsCount = 4164;
   const sitesCount = 131;
+  const newAuctions = 23; // Novos leilões hoje
 
   const vehicles: Vehicle[] = [
     {
@@ -63,7 +63,7 @@ const BuscadorVeiculos = () => {
   ];
 
   const handleClearFilters = () => {
-    console.log("Apagar filtros");
+    console.log("Resetar filtros - Veículos");
   };
 
   return (
