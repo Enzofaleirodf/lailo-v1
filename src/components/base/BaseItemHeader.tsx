@@ -15,7 +15,7 @@ export const BaseItemHeader = ({
 }: BaseItemHeaderProps) => {
   const titleClass = isVertical 
     ? "font-bold text-gray-900 text-2xl leading-tight font-urbanist" 
-    : "font-bold text-gray-900 text-lg md:text-xl leading-tight truncate font-urbanist";
+    : "font-bold text-gray-900 text-sm md:text-lg leading-tight truncate font-urbanist";
 
   const detailsTextClass = isVertical 
     ? "font-medium text-gray-600 text-base whitespace-nowrap"

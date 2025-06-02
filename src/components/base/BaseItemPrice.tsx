@@ -20,11 +20,11 @@ export const BaseItemPrice = ({
   
   const priceClass = isVertical 
     ? "font-black text-transparent bg-clip-text bg-gradient-to-r text-3xl leading-none font-urbanist" 
-    : "font-black text-transparent bg-clip-text bg-gradient-to-r text-lg md:text-2xl leading-none font-urbanist";
+    : "font-black text-transparent bg-clip-text bg-gradient-to-r text-base md:text-lg leading-none font-urbanist";
 
   const badgeClass = isVertical
     ? "bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-sm px-2 py-0.5 rounded-full shadow-lg font-urbanist"
-    : "bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs md:text-sm px-1.5 py-0.5 rounded-full shadow-lg font-urbanist";
+    : "bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs px-1 py-0.5 rounded-full shadow-lg font-urbanist";
 
   return (
     <div className="flex items-center gap-2">

@@ -40,12 +40,6 @@ export const SessionNavBar = () => {
       icon: Gavel,
       label: "Leiloeiros",
       active: isActive("/leiloeiros")
-    },
-    {
-      to: "/perfil",
-      icon: User,
-      label: "Perfil",
-      active: isActive("/perfil")
     }
   ];
 
@@ -139,41 +133,62 @@ export const SessionNavBar = () => {
                 Leiloeiros
               </div>
             </Link>
-
-            <Link
-              to="/auth/login"
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
-              title="Entrar"
-            >
-              <LogIn className="w-4 h-4" />
-              
-              {/* Tooltip */}
-              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                Entrar
-              </div>
-            </Link>
           </>
         )}
       </div>
 
-      {/* Auth Section */}
-      <div className="mt-auto">
+      {/* Auth Section - Moved to bottom */}
+      <div className="flex flex-col gap-2">
         {isAuthenticated ? (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={logout}
-            className="w-8 h-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50 group relative"
-            title="Sair"
+          <>
+            <Link
+              to="/perfil"
+              className={`
+                w-8 h-8 rounded-lg flex items-center justify-center transition-colors relative group
+                ${isActive("/perfil") 
+                  ? 'bg-blue-100 text-blue-600' 
+                  : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                }
+              `}
+              title="Perfil"
+            >
+              <User className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Perfil
+              </div>
+            </Link>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              className="w-8 h-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50 group relative"
+              title="Sair"
+            >
+              <LogOut className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Sair
+              </div>
+            </Button>
+          </>
+        ) : (
+          <Link
+            to="/auth/login"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
+            title="Entrar"
           >
-            <LogOut className="w-4 h-4" />
+            <LogIn className="w-4 h-4" />
             
             {/* Tooltip */}
             <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-              Sair
+              Entrar
             </div>
-          </Button>
-        ) : null}
+          </Link>
+        )}
       </div>
     </nav>
   );
