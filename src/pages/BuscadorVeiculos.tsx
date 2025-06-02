@@ -7,14 +7,10 @@ import { LayoutToggle } from "../components/LayoutToggle";
 import { SessionNavBar } from "../components/SessionNavBar";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { Button } from "@/components/ui/button";
-import { useFiltersStore } from "../stores/filtersStore";
-import { useFavoritesStore } from "../stores/favoritesStore";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { vehicleFilters } = useFiltersStore();
-  const { favorites } = useFavoritesStore();
 
   const vehicles = [
     {
