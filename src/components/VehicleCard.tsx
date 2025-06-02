@@ -111,8 +111,6 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
             isVertical={false}
           />
           
-          <BaseBadges badges={vehicle.badges} />
-          
           <VehiclePrice 
             price={vehicle.price}
             discount={vehicle.discount}
@@ -120,7 +118,10 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
             isVertical={false}
           />
           
-          <BaseDate date={vehicle.date} isVertical={false} />
+          <div className="flex items-center justify-between">
+            <BaseBadges badges={vehicle.badges} />
+            <BaseDate date={vehicle.date} isVertical={false} />
+          </div>
         </div>
       </div>
     </BaseCard>

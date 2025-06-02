@@ -111,8 +111,6 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             isVertical={false}
           />
           
-          <BaseBadges badges={property.badges} />
-          
           <PropertyPrice 
             price={property.price}
             discount={property.discount}
@@ -120,7 +118,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             isVertical={false}
           />
           
-          <BaseDate date={property.date} isVertical={false} />
+          <div className="flex items-center justify-between">
+            <BaseBadges badges={property.badges} />
+            <BaseDate date={property.date} isVertical={false} />
+          </div>
         </div>
       </div>
     </BaseCard>
