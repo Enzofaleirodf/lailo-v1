@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
@@ -87,34 +86,33 @@ const BuscadorVeiculos = () => {
               {isLoading && <LoadingSpinner />}
             </div>
 
-            {/* Controls bar with results text and controls */}
-            <div className="flex items-center justify-between gap-4 mb-4">
-              <div className="text-sm text-gray-600 flex-shrink-0">
-                Encontramos <span className="font-semibold">4.164</span> leilões em <span className="font-semibold">131</span> sites
+            {/* Results text - aligned to the left */}
+            <div className="text-sm text-gray-600 text-left mb-4">
+              Encontramos <span className="font-semibold">4.164</span> leilões em <span className="font-semibold">131</span> sites
+            </div>
+
+            {/* Controls bar - separate row for better control */}
+            <div className="flex items-center justify-end gap-4 mb-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="justify-between min-w-[140px]">
+                      <span className="text-left">{sortBy}</span>
+                      <ChevronDown className="h-4 w-4 ml-2" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="min-w-[140px] bg-white">
+                    {sortOptions.map(option => (
+                      <DropdownMenuItem key={option} onClick={() => setSortBy(option)} className="cursor-pointer">
+                        {option}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               
-              <div className="flex items-center gap-4 flex-shrink-0">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="justify-between min-w-[140px]">
-                        <span className="text-left">{sortBy}</span>
-                        <ChevronDown className="h-4 w-4 ml-2" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" className="min-w-[140px] bg-white">
-                      {sortOptions.map(option => (
-                        <DropdownMenuItem key={option} onClick={() => setSortBy(option)} className="cursor-pointer">
-                          {option}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-                
-                <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-              </div>
+              <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
             </div>
             
             <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
