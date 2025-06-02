@@ -12,6 +12,7 @@ const Imoveis = () => {
 
   const properties = [
     {
+      id: "property-1",
       type: "Casa Térrea",
       area: "250m²",
       address: "Rua das Flores, 123",
@@ -24,6 +25,7 @@ const Imoveis = () => {
       showNewBadge: true
     },
     {
+      id: "property-2",
       type: "Apartamento Moderno",
       area: "80m²",
       address: "Av. Paulista, 456",
@@ -36,6 +38,7 @@ const Imoveis = () => {
       showNewBadge: false
     },
     {
+      id: "property-3",
       type: "Sobrado Duplex",
       area: "180m²",
       address: "Rua das Acácias, 789",
@@ -71,8 +74,8 @@ const Imoveis = () => {
             <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
             
             <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-              {properties.map((property, index) => (
-                <PropertyCard key={index} property={property} isVertical={isVertical} />
+              {properties.map((property) => (
+                <PropertyCard key={property.id} property={property} isVertical={isVertical} />
               ))}
             </div>
           </div>
