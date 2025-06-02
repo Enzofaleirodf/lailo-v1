@@ -1,23 +1,23 @@
+
 import { useState } from "react";
-import { VehicleCard } from "../components/VehicleCard";
-import { LayoutToggle } from "../components/LayoutToggle";
-import { SessionNavBar } from "../components/SessionNavBar";
-import { BottomNavigation } from "../components/BottomNavigation";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ChevronDown } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ArrowLeft } from "lucide-react";
+import { SessionNavBar } from "../components/SessionNavBar";
+import { BottomNavigation } from "../components/BottomNavigation";
+import { VehicleSearchHeader } from "../components/VehicleSearchHeader";
+import { VehicleSearchSidebar } from "../components/VehicleSearchSidebar";
+import { VehicleSearchControls } from "../components/VehicleSearchControls";
+import { VehicleSearchResults } from "../components/VehicleSearchResults";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("Mais recentes");
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10; // Simulating total pages
-  const sortOptions = ["Mais recentes", "Menor preço", "Maior preço", "Maior desconto", "Mais próximos"];
+  const totalPages = 10;
+
   const vehicles = [
     {
       id: "search-vehicle-1",
@@ -71,46 +71,8 @@ const BuscadorVeiculos = () => {
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
       
-      {/* Desktop Top Bar */}
-      <div className="hidden md:block fixed top-0 right-0 left-12 h-16 bg-white border-b border-gray-200 z-40">
-        <div className="flex items-start justify-between h-full px-6 pt-3">
-          <Tabs defaultValue="veiculos" className="w-auto">
-            <TabsList className="grid w-full grid-cols-2 bg-transparent p-0 h-auto gap-6">
-              <TabsTrigger 
-                value="imoveis" 
-                className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 text-gray-600 font-medium px-0 pb-3 relative border-b-2 border-transparent data-[state=active]:border-blue-600 rounded-none"
-                asChild
-              >
-                <Link to="/buscador/imoveis">Imóveis</Link>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="veiculos" 
-                className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 text-gray-600 font-medium px-0 pb-3 relative border-b-2 border-transparent data-[state=active]:border-blue-600 rounded-none"
-                asChild
-              >
-                <Link to="/buscador/veiculos">Veículos</Link>
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-          {isLoading && <LoadingSpinner />}
-        </div>
-      </div>
-
-      {/* Left Sidebar - Desktop only */}
-      <div className="hidden md:block fixed left-12 top-16 w-[448px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30">
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Filtros</h2>
-            <Button 
-              variant="ghost" 
-              className="text-sm text-gray-600 hover:text-gray-800 p-0 h-auto border-0 shadow-none"
-              onClick={handleClearFilters}
-            >
-              Apagar filtros
-            </Button>
-          </div>
-        </div>
-      </div>
+      <VehicleSearchHeader isLoading={isLoading} />
+      <VehicleSearchSidebar onClearFilters={handleClearFilters} />
 
       <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
         <div className="min-h-screen bg-white px-6 py-6 pb-20 md:pb-6">
@@ -129,108 +91,20 @@ const BuscadorVeiculos = () => {
               {isLoading && <LoadingSpinner />}
             </div>
 
-            {/* Controls bar with results text on left and controls on right */}
-            <div className="w-full flex items-center justify-between gap-4 mb-4">
-              <div className="flex-1 text-sm text-gray-600 text-left">
-                Encontramos <span className="font-semibold">4.164</span> leilões em <span className="font-semibold">131</span> sites
-              </div>
-              
-              <div className="flex items-center gap-4 flex-shrink-0">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="justify-between min-w-[140px]">
-                        <span className="text-left">{sortBy}</span>
-                        <ChevronDown className="h-4 w-4 ml-2" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" className="min-w-[140px] bg-white">
-                      {sortOptions.map(option => (
-                        <DropdownMenuItem key={option} onClick={() => setSortBy(option)} className="cursor-pointer">
-                          {option}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-                
-                <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-              </div>
-            </div>
+            <VehicleSearchControls
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              isVertical={isVertical}
+              setIsVertical={setIsVertical}
+            />
             
-            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
-              {vehicles.map(vehicle => (
-                <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
-              ))}
-            </div>
-
-            {/* Pagination */}
-            <div className="mt-8 flex justify-center">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious 
-                      href="#" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (currentPage > 1) handlePageChange(currentPage - 1);
-                      }}
-                      className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                    />
-                  </PaginationItem>
-                  
-                  {[...Array(Math.min(5, totalPages))].map((_, i) => {
-                    const pageNum = i + 1;
-                    return (
-                      <PaginationItem key={pageNum}>
-                        <PaginationLink 
-                          href="#" 
-                          isActive={currentPage === pageNum}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handlePageChange(pageNum);
-                          }}
-                        >
-                          {pageNum}
-                        </PaginationLink>
-                      </PaginationItem>
-                    );
-                  })}
-                  
-                  {totalPages > 5 && (
-                    <>
-                      <PaginationItem>
-                        <PaginationEllipsis />
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink 
-                          href="#" 
-                          isActive={currentPage === totalPages}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handlePageChange(totalPages);
-                          }}
-                        >
-                          {totalPages}
-                        </PaginationLink>
-                      </PaginationItem>
-                    </>
-                  )}
-                  
-                  <PaginationItem>
-                    <PaginationNext 
-                      href="#" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (currentPage < totalPages) handlePageChange(currentPage + 1);
-                      }}
-                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
+            <VehicleSearchResults
+              vehicles={vehicles}
+              isVertical={isVertical}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </main>
