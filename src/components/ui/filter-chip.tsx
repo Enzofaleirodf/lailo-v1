@@ -30,16 +30,6 @@ export const FilterChip = ({
 }: FilterChipProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const getDisplayValue = () => {
-    if (!value) return null;
-    if (Array.isArray(value)) {
-      return value.length > 0 ? `${value.length} selecionados` : null;
-    }
-    return value;
-  };
-
-  const displayValue = getDisplayValue();
-
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
@@ -53,12 +43,12 @@ export const FilterChip = ({
     setIsExpanded(false);
   };
 
-  // Auto-close for single selects
+  // Auto-close apenas para single selects e com delay maior
   React.useEffect(() => {
     if (autoClose && !hasMultiple && value && isExpanded) {
       const timer = setTimeout(() => {
         setIsExpanded(false);
-      }, 150);
+      }, 800); // Aumentado de 150ms para 800ms
       return () => clearTimeout(timer);
     }
   }, [value, autoClose, hasMultiple, isExpanded]);
@@ -68,7 +58,9 @@ export const FilterChip = ({
       <button
         onClick={handleToggle}
         className={cn(
-          "flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 border min-w-[200px] justify-between",
+          "flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between",
+          // Largura fixa para evitar movimento
+          "w-[180px]",
           isActive
             ? "bg-blue-50 border-blue-200 text-blue-700 shadow-sm"
             : "bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:shadow-sm",
@@ -77,13 +69,9 @@ export const FilterChip = ({
       >
         <div className="flex items-center gap-2">
           <span>{label}</span>
-          {displayValue && (
-            <span className={cn(
-              "px-2 py-0.5 rounded-md text-xs font-semibold",
-              isActive ? "bg-blue-100 text-blue-800" : "bg-gray-100 text-gray-600"
-            )}>
-              {displayValue}
-            </span>
+          {/* Indicador simples para filtros ativos */}
+          {isActive && (
+            <div className="w-2 h-2 bg-blue-600 rounded-full" />
           )}
         </div>
         
