@@ -65,7 +65,7 @@ export const SearchPageLayout = ({
         onClearFilters={onClearFilters}
       />
 
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
+      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[512px]">
         <div className="min-h-screen bg-white px-4 py-4 pb-20 md:px-6 md:py-6 md:pb-6">
           <div className="w-full">
             <SearchPageHeader
