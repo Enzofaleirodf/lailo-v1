@@ -1,114 +1,83 @@
 
 import { useState } from "react";
-import { LoadingSpinner } from "../components/ui/LoadingSpinner";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { SessionNavBar } from "../components/SessionNavBar";
-import { BottomNavigation } from "../components/BottomNavigation";
+import { VehicleCard } from "../components/VehicleCard";
 import { VehicleSearchHeader } from "../components/VehicleSearchHeader";
-import { VehicleSearchSidebar } from "../components/VehicleSearchSidebar";
 import { VehicleSearchControls } from "../components/VehicleSearchControls";
 import { VehicleSearchResults } from "../components/VehicleSearchResults";
+import { BottomNavigation } from "../components/BottomNavigation";
+import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [sortBy, setSortBy] = useState("Mais recentes");
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
 
   const vehicles = [
     {
-      id: "search-vehicle-1",
-      name: "Volkswagen T-Cross",
-      color: "Preto",
-      year: "2025",
-      location: "Brasília - DF",
-      price: "R$ 78.000",
-      discount: "50% OFF",
-      badges: ["Extrajudicial", "2ª Praça"],
-      date: "15/05 às 10:00",
-      image: "/lovable-uploads/c1eac822-7357-49b8-a4ce-a14e374e1167.png",
+      id: "vehicle-1",
+      brand: "Toyota",
+      model: "Corolla XEi",
+      year: 2020,
+      price: "R$ 65.000",
+      discount: "15% OFF",
+      badges: ["Único dono", "Baixa KM"],
+      date: "15/05 às 14:00",
+      image: "https://images.unsplash.com/photo-1549824336-55a2e5f92ad3?w=400&h=300&fit=crop&auto=format",
       showNewBadge: true
-    }, {
-      id: "search-vehicle-2",
-      name: "Honda Civic",
-      color: "Prata",
-      year: "2024",
-      location: "São Paulo - SP",
-      price: "R$ 95.000",
-      discount: "30% OFF",
-      badges: ["Judicial", "1ª Praça"],
-      date: "20/05 às 14:30",
-      image: "/lovable-uploads/33a5ac35-f888-4a6f-9cc8-dffa1f394b1e.png",
+    },
+    {
+      id: "vehicle-2", 
+      brand: "Honda",
+      model: "Civic Sport",
+      year: 2019,
+      price: "R$ 72.000",
+      discount: "20% OFF",
+      badges: ["Turbo", "Manual"],
+      date: "18/05 às 10:30",
+      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=300&fit=crop&auto=format",
       showNewBadge: false
-    }, {
-      id: "search-vehicle-3",
-      name: "Toyota Corolla",
-      color: "Branco",
-      year: "2023",
-      location: "Brasília - DF",
-      price: "R$ 89.000",
-      discount: "25% OFF",
-      badges: ["Extrajudicial", "3ª Praça"],
-      date: "22/05 às 09:15",
-      image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png",
+    },
+    {
+      id: "vehicle-3",
+      brand: "Volkswagen", 
+      model: "T-Cross Sense",
+      year: 2021,
+      price: "R$ 78.000",
+      discount: "12% OFF",
+      badges: ["SUV", "Flex"],
+      date: "20/05 às 16:15",
+      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=300&fit=crop&auto=format",
       showNewBadge: true
     }
   ];
 
-  const handleClearFilters = () => {
-    console.log("Apagar filtros");
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    console.log(`Mudando para página ${page}`);
-  };
-
   return (
-    <div className="flex h-screen w-screen flex-row">
-      <SessionNavBar />
-      
-      <VehicleSearchHeader isLoading={isLoading} />
-      <VehicleSearchSidebar onClearFilters={handleClearFilters} />
-
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
-        <div className="min-h-screen bg-white px-6 py-6 pb-20 md:pb-6">
-          <div className="w-full">
-            {/* Mobile header - only show on mobile */}
-            <div className="flex items-center justify-between mb-6 md:hidden">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Voltar
-                  </Link>
-                </Button>
-                <h1 className="text-2xl font-bold text-gray-900">Buscar Veículos</h1>
-              </div>
-              {isLoading && <LoadingSpinner />}
-            </div>
-
-            <VehicleSearchControls
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              isVertical={isVertical}
-              setIsVertical={setIsVertical}
-            />
-            
-            <VehicleSearchResults
-              vehicles={vehicles}
-              isVertical={isVertical}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          </div>
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-gray-900">Buscar Veículos</h1>
+          {isLoading && <LoadingSpinner />}
         </div>
-      </main>
-      <BottomNavigation />
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 bg-gray-50 p-6">
+        <VehicleSearchControls 
+          isVertical={isVertical}
+          onToggleLayout={setIsVertical}
+          resultsCount={vehicles.length}
+        />
+        
+        <VehicleSearchResults 
+          vehicles={vehicles}
+          isVertical={isVertical}
+        />
+      </div>
+
+      {/* Mobile bottom navigation */}
+      <div className="md:hidden">
+        <BottomNavigation />
+      </div>
     </div>
   );
 };

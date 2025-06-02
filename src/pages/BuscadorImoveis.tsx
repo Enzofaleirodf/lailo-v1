@@ -1,11 +1,9 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { PropertyCard } from "../components/PropertyCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { Button } from "@/components/ui/button";
-import { SessionNavBar } from "../components/SessionNavBar";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFiltersStore } from "../stores/filtersStore";
 import { useFavoritesStore } from "../stores/favoritesStore";
@@ -74,86 +72,69 @@ const BuscadorImoveis = () => {
   ];
 
   return (
-    <div className="flex h-screen w-screen flex-row">
-      <SessionNavBar />
-      
-      {/* Desktop Top Bar */}
-      <div className="hidden md:block fixed top-0 right-0 left-12 h-16 bg-white border-b border-gray-200 z-40">
-        <div className="flex items-center justify-between h-full px-6">
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Voltar
-              </Link>
-            </Button>
-            <h1 className="text-2xl font-bold text-gray-900">Buscar Imóveis</h1>
-          </div>
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-gray-900">Buscar Imóveis</h1>
           {isLoading && <LoadingSpinner />}
         </div>
       </div>
 
-      {/* Left Sidebar - Desktop only */}
-      <div className="hidden md:block fixed left-12 top-16 w-[448px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30">
-        {/* Empty sidebar content as requested */}
-      </div>
-
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
-        <div className="bg-white px-3 py-3">
-          <div className="w-full">
-            {/* Mobile header - only show on mobile */}
-            <div className="flex items-center justify-between mb-6 md:hidden">
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Voltar
-                  </Link>
-                </Button>
-                <h1 className="text-2xl font-bold text-gray-900">Buscar Imóveis</h1>
-              </div>
-              {isLoading && <LoadingSpinner />}
-            </div>
-
-            {/* Controls bar with sort dropdown and layout toggle */}
-            <div className="flex items-center justify-end gap-3 mb-4">
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button 
-                      variant="outline" 
-                      className="justify-between min-w-[140px]"
+      {/* Content */}
+      <div className="flex-1 bg-gray-50 p-6">
+        {/* Controls bar */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="text-sm text-gray-600">
+            {properties.length} imóveis encontrados
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    className="justify-between min-w-[140px] bg-white"
+                  >
+                    <span className="text-left">{sortBy}</span>
+                    <ChevronDown className="h-4 w-4 ml-2" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="min-w-[140px] bg-white z-50">
+                  {sortOptions.map((option) => (
+                    <DropdownMenuItem 
+                      key={option}
+                      onClick={() => setSortBy(option)}
+                      className="cursor-pointer"
                     >
-                      <span className="text-left">{sortBy}</span>
-                      <ChevronDown className="h-4 w-4 ml-2" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="min-w-[140px] bg-white">
-                    {sortOptions.map((option) => (
-                      <DropdownMenuItem 
-                        key={option}
-                        onClick={() => setSortBy(option)}
-                        className="cursor-pointer"
-                      >
-                        {option}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              
-              <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+                      {option}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             
-            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-              {properties.map((property) => (
-                <PropertyCard key={property.id} property={property} isVertical={isVertical} />
-              ))}
-            </div>
+            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
           </div>
         </div>
-      </main>
+        
+        {/* Properties grid */}
+        <div className={`${
+          isVertical 
+            ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4' 
+            : 'space-y-4'
+        }`}>
+          {properties.map((property) => (
+            <PropertyCard 
+              key={property.id} 
+              property={property} 
+              isVertical={isVertical} 
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

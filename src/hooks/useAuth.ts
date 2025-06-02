@@ -1,40 +1,59 @@
 
-import { useAuthStore } from '../stores/authStore';
+import { useState, useEffect } from 'react';
+
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role?: string;
+}
 
 export const useAuth = () => {
-  const {
-    user,
-    profile,
-    isLoading,
-    isAuthenticated,
-    setUser,
-    setProfile,
-    setLoading,
-    logout,
-  } = useAuthStore();
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Função para verificar se o usuário tem acesso a uma rota protegida
-  const hasAccess = (requiredAuth: boolean = true): boolean => {
-    if (!requiredAuth) return true;
-    return isAuthenticated;
+  useEffect(() => {
+    // Simulate auth check
+    const checkAuth = () => {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, []);
+
+  const login = async (email: string, password: string) => {
+    // Simulate login
+    const mockUser = {
+      id: '1',
+      email,
+      name: email.split('@')[0],
+      role: 'user'
+    };
+    
+    setUser(mockUser);
+    localStorage.setItem('user', JSON.stringify(mockUser));
+    return mockUser;
   };
 
-  // Função para verificar se é admin (será implementada com Supabase)
-  const isAdmin = (): boolean => {
-    // TODO: Implementar verificação de admin quando Supabase estiver conectado
-    return false;
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
+  const isAdmin = () => {
+    return user?.role === 'admin';
   };
 
   return {
     user,
-    profile,
     isLoading,
-    isAuthenticated,
-    setUser,
-    setProfile,
-    setLoading,
+    isAuthenticated: !!user,
+    login,
     logout,
-    hasAccess,
-    isAdmin,
+    isAdmin
   };
 };

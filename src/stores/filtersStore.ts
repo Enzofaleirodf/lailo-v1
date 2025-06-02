@@ -1,30 +1,7 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export type ContentType = 'property' | 'vehicle';
-
-export interface PropertyFilters {
-  city: string;
-  propertyType: string[];
-  priceRange: [number, number];
-  area: [number, number];
-  rooms: number[];
-  bathrooms: number[];
-  parking: boolean;
-  furnished: boolean;
-}
-
-export interface VehicleFilters {
-  city: string;
-  brand: string[];
-  model: string[];
-  yearRange: [number, number];
-  priceRange: [number, number];
-  fuelType: string[];
-  transmission: string[];
-  color: string[];
-}
+import { PropertyFilters, VehicleFilters, ContentType } from '@/types';
 
 interface FiltersStore {
   propertyFilters: PropertyFilters;
