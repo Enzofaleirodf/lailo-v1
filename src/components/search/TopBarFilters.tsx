@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
 import { Badge } from '@/components/ui/badge';
 import { ItemType } from '../../types/search';
