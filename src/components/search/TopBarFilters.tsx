@@ -9,7 +9,7 @@ interface TopBarFiltersProps {
 }
 
 export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
-  const [format, setFormat] = React.useState('leilao');
+  const [format, setFormat] = React.useState(''); // Estado inicial vazio
   const [origins, setOrigins] = React.useState<string[]>([]);
   const [stages, setStages] = React.useState<string[]>([]);
 
@@ -85,6 +85,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
   };
 
   const getFormatLabel = () => {
+    if (!format) return 'Formato';
     return formatOptions.find(opt => opt.value === format)?.label || 'Formato';
   };
 
@@ -94,8 +95,9 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
       <FilterChip
         label="Formato"
         selectedValue={getFormatLabel()}
-        isActive={format !== 'leilao'}
-        onClear={() => setFormat('leilao')}
+        isActive={!!format} // Ativo quando qualquer formato for selecionado
+        onClear={() => setFormat('')}
+        className="w-[220px]"
       >
         {({ close }) => (
           <div className="space-y-4">
@@ -128,6 +130,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         hasMultiple={true}
         onClear={() => setOrigins([])}
         onRemoveItem={removeOrigin}
+        className="w-[380px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Origem do Leilão</h4>
@@ -159,7 +162,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         hasMultiple={true}
         onClear={() => setStages([])}
         onRemoveItem={removeStage}
-        className="relative"
+        className="w-[380px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Etapa do Leilão</h4>
