@@ -29,7 +29,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
 
   const handleFavoriteToggle = () => {
     const title = itemType === 'vehicle' ? (item as any).name : (item as any).type;
-    
+
     if (isItemFavorite) {
       removeFavorite(item.id, itemType);
       showInfo("Removido dos favoritos", title);
@@ -58,14 +58,14 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             showNewBadge={item.showNewBadge}
           />
         </div>
-        
+
         <div className="p-3">
           <BaseItemHeader 
             item={item}
             itemType={itemType}
             isVertical={true}
           />
-          
+
           <div className="mt-2">
             <BaseItemPrice 
               price={item.price}
@@ -74,9 +74,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={true}
             />
           </div>
-          
+
           <Separator className="my-2" />
-          
+
           <div className="flex items-center justify-between pt-2">
             <BaseBadges badges={item.badges} />
             <BaseDate date={item.date} isVertical={true} />
@@ -86,10 +86,12 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
     );
   }
 
+  // MODO LIST (horizontal) - imagem à esquerda, altura controlada
   return (
     <BaseCard className="font-urbanist">
-      <div className="flex gap-3 items-start min-h-0">
-        <div className="relative flex-shrink-0 w-32 md:w-28 self-stretch">
+      <div className="flex flex-col md:flex-row gap-3 items-start w-full">
+        
+        <div className="relative w-full md:w-[160px] h-auto md:h-full shrink-0 overflow-hidden">
           <BaseImage 
             src={item.image} 
             alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -97,12 +99,12 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             onToggleFavorite={handleFavoriteToggle}
             isVertical={false}
             showNewBadge={item.showNewBadge}
-            className="w-full h-full"
+            className="w-full h-auto md:h-full object-cover rounded-xl"
             showFavoriteButton={false}
           />
         </div>
-        
-        <div className="flex-1 min-w-0 relative min-h-0">
+
+        <div className="flex flex-col flex-1 min-w-0">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <BaseItemHeader 
@@ -111,7 +113,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 isVertical={false}
               />
             </div>
-            
+
             <Button
               variant="ghost"
               size="sm"
@@ -129,7 +131,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               <Heart className={`h-4 w-4 ${isItemFavorite ? 'fill-current' : ''}`} />
             </Button>
           </div>
-          
+
           <div className="mt-2">
             <BaseItemPrice 
               price={item.price}
@@ -140,9 +142,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           </div>
         </div>
       </div>
-      
+
       <Separator className="my-2" />
-      
+
       <div className="flex items-center justify-between pt-2">
         <BaseBadges badges={item.badges} />
         <BaseDate date={item.date} isVertical={false} />
