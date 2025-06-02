@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Heart } from "lucide-react";
-import { VehicleCard } from "../components/VehicleCard";
+import { BaseItemCard } from "../components/base/BaseItemCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { Button } from "@/components/ui/button";
 import { SessionNavBar } from "../components/SessionNavBar";
@@ -15,8 +15,8 @@ const FavoritosVeiculos = () => {
   const { getFavoritesByType, isLoading } = useFavoritesStore();
   const favoriteVehicles = getFavoritesByType('vehicle');
 
-  // Converter favoritos para formato do VehicleCard
-  const vehicleCards = favoriteVehicles.map(fav => ({
+  // Converter favoritos para formato do BaseItemCard
+  const vehicleItems = favoriteVehicles.map(fav => ({
     id: fav.itemId,
     name: fav.title,
     color: "N/D",
@@ -66,13 +66,18 @@ const FavoritosVeiculos = () => {
               </div>
             </div>
 
-            {vehicleCards.length > 0 ? (
+            {vehicleItems.length > 0 ? (
               <>
                 <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
                 
                 <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                  {vehicleCards.map((vehicle) => (
-                    <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
+                  {vehicleItems.map((vehicle) => (
+                    <BaseItemCard 
+                      key={vehicle.id} 
+                      item={vehicle} 
+                      itemType="vehicle"
+                      isVertical={isVertical} 
+                    />
                   ))}
                 </div>
               </>

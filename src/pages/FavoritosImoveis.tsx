@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Heart } from "lucide-react";
-import { PropertyCard } from "../components/PropertyCard";
+import { BaseItemCard } from "../components/base/BaseItemCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { Button } from "@/components/ui/button";
 import { SessionNavBar } from "../components/SessionNavBar";
@@ -15,8 +15,8 @@ const FavoritosImoveis = () => {
   const { getFavoritesByType, isLoading } = useFavoritesStore();
   const favoriteProperties = getFavoritesByType('property');
 
-  // Converter favoritos para formato do PropertyCard
-  const propertyCards = favoriteProperties.map(fav => ({
+  // Converter favoritos para formato do BaseItemCard
+  const propertyItems = favoriteProperties.map(fav => ({
     id: fav.itemId,
     type: fav.title,
     area: "N/D",
@@ -66,13 +66,18 @@ const FavoritosImoveis = () => {
               </div>
             </div>
 
-            {propertyCards.length > 0 ? (
+            {propertyItems.length > 0 ? (
               <>
                 <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
                 
                 <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                  {propertyCards.map((property) => (
-                    <PropertyCard key={property.id} property={property} isVertical={isVertical} />
+                  {propertyItems.map((property) => (
+                    <BaseItemCard 
+                      key={property.id} 
+                      item={property} 
+                      itemType="property"
+                      isVertical={isVertical} 
+                    />
                   ))}
                 </div>
               </>

@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { VehicleCard } from "../components/VehicleCard";
+import { BaseItemCard } from "../components/base/BaseItemCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { SessionNavBar } from "../components/SessionNavBar";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
@@ -193,7 +192,12 @@ const Index = () => {
             
             <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
               {vehicles.map((vehicle) => (
-                <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
+                <BaseItemCard 
+                  key={vehicle.id} 
+                  item={vehicle} 
+                  itemType="vehicle"
+                  isVertical={isVertical} 
+                />
               ))}
             </div>
           </div>
