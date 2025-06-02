@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Filter, RotateCcw } from "lucide-react";
 import { Sidebar, SidebarContent, SidebarHeader, SidebarTrigger } from "@/components/ui/sidebar";
@@ -15,7 +14,8 @@ export const VehicleSidebar = () => {
   const { vehicleFilters, setVehicleFilters, resetVehicleFilters } = useFiltersStore();
 
   const handleCityChange = (city: string) => {
-    setVehicleFilters({ city });
+    // Convert "all" back to empty string for the store
+    setVehicleFilters({ city: city === "all" ? "" : city });
   };
 
   const handleBrandToggle = (brand: string, checked: boolean) => {
@@ -82,12 +82,12 @@ export const VehicleSidebar = () => {
         {/* Cidade */}
         <div className="space-y-2">
           <Label htmlFor="city">Cidade</Label>
-          <Select value={vehicleFilters.city} onValueChange={handleCityChange}>
+          <Select value={vehicleFilters.city || "all"} onValueChange={handleCityChange}>
             <SelectTrigger>
               <SelectValue placeholder="Selecione uma cidade" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas as cidades</SelectItem>
+              <SelectItem value="all">Todas as cidades</SelectItem>
               <SelectItem value="brasilia">Brasília - DF</SelectItem>
               <SelectItem value="sao-paulo">São Paulo - SP</SelectItem>
               <SelectItem value="belo-horizonte">Belo Horizonte - MG</SelectItem>
