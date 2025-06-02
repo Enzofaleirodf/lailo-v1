@@ -118,14 +118,14 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
             priceGradient="from-blue-600 to-purple-600"
             isVertical={false}
           />
-          
-          <Separator className="my-2" />
-          
-          <div className="flex items-center justify-between">
-            <BaseBadges badges={vehicle.badges} />
-            <BaseDate date={vehicle.date} isVertical={false} />
-          </div>
         </div>
+      </div>
+      
+      <Separator className="my-2" />
+      
+      <div className="flex items-center justify-between">
+        <BaseBadges badges={vehicle.badges} />
+        <BaseDate date={vehicle.date} isVertical={false} />
       </div>
     </BaseCard>
   );

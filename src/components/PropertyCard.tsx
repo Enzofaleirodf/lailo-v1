@@ -118,14 +118,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             priceGradient="from-green-600 to-teal-600"
             isVertical={false}
           />
-          
-          <Separator className="my-2" />
-          
-          <div className="flex items-center justify-between">
-            <BaseBadges badges={property.badges} />
-            <BaseDate date={property.date} isVertical={false} />
-          </div>
         </div>
+      </div>
+      
+      <Separator className="my-2" />
+      
+      <div className="flex items-center justify-between">
+        <BaseBadges badges={property.badges} />
+        <BaseDate date={property.date} isVertical={false} />
       </div>
     </BaseCard>
   );
