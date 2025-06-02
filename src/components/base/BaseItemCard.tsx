@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -114,18 +115,16 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             <Button
               variant="ghost"
               size="sm"
-              className={
-                h-6 w-6 p-0 m-0 bg-transparent hover:bg-blue-50 flex-shrink-0 ml-2
-                transition-all duration-200
-                ${isItemFavorite ? 'text-blue-600 hover:text-blue-700' : 'text-gray-400 hover:text-blue-600'}
-              }
+              className={`h-6 w-6 p-0 m-0 bg-transparent hover:bg-blue-50 flex-shrink-0 ml-2 transition-all duration-200 ${
+                isItemFavorite ? 'text-blue-600 hover:text-blue-700' : 'text-gray-400 hover:text-blue-600'
+              }`}
               onClick={(e) => {
                 e.stopPropagation();
                 handleFavoriteToggle();
               }}
               aria-label={isItemFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
             >
-              <Heart className={h-4 w-4 ${isItemFavorite ? 'fill-current' : ''}} />
+              <Heart className={`h-4 w-4 ${isItemFavorite ? 'fill-current' : ''}`} />
             </Button>
           </div>
           
