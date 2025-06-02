@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { SessionNavBar } from "../components/SessionNavBar";
+import { BottomNavigation } from "../components/BottomNavigation";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 
@@ -57,8 +58,8 @@ const BuscadorVeiculos = () => {
   return (
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
-      <main className="flex h-screen grow flex-col overflow-auto ml-12">
-        <div className="min-h-screen bg-white px-6 py-6">
+      <main className="flex h-screen grow flex-col overflow-auto md:ml-12">
+        <div className="min-h-screen bg-white px-6 py-6 pb-20 md:pb-6">
           <div className="w-full">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
@@ -83,6 +84,7 @@ const BuscadorVeiculos = () => {
           </div>
         </div>
       </main>
+      <BottomNavigation />
     </div>
   );
 };
