@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Home, Car, ListFilter } from "lucide-react";
+import { Home, Car, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -19,8 +19,9 @@ function FilterPopover({ title, options }: { title: string; options: string[] })
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="icon" aria-label={`Filtros ${title}`}>
-          <ListFilter size={16} strokeWidth={2} aria-hidden="true" />
+        <Button variant="outline" className="h-9 px-3 gap-2" aria-label={`Filtros ${title}`}>
+          <span className="text-sm">{title}</span>
+          <ChevronDown size={16} strokeWidth={2} aria-hidden="true" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-36 p-3">
