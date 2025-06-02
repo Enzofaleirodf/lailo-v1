@@ -25,14 +25,8 @@ export const SessionNavBar = () => {
     {
       to: "/buscador/veiculos",
       icon: Search,
-      label: "Veículos",
-      active: isActive("/buscador/veiculos") || isActive("/veiculos")
-    },
-    {
-      to: "/buscador/imoveis",
-      icon: Search,
-      label: "Imóveis",
-      active: isActive("/buscador/imoveis") || isActive("/imoveis")
+      label: "Buscador",
+      active: isActive("/buscador")
     },
     {
       to: "/leiloeiros",
@@ -46,16 +40,9 @@ export const SessionNavBar = () => {
     {
       to: "/favoritos/veiculos",
       icon: Heart,
-      label: "Fav. Veículos",
-      active: isActive("/favoritos/veiculos"),
-      badge: favorites.filter(f => f.itemType === 'vehicle').length
-    },
-    {
-      to: "/favoritos/imoveis",
-      icon: Heart,
-      label: "Fav. Imóveis",
-      active: isActive("/favoritos/imoveis"),
-      badge: favorites.filter(f => f.itemType === 'property').length
+      label: "Favoritos",
+      active: isActive("/favoritos"),
+      badge: favorites.length
     },
     {
       to: "/perfil",
@@ -133,6 +120,37 @@ export const SessionNavBar = () => {
             </Link>
           );
         })}
+
+        {/* Show login prompts if not authenticated */}
+        {!isAuthenticated && (
+          <>
+            <Link
+              to="/auth/login"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
+              title="Favoritos - Faça login"
+            >
+              <Heart className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Favoritos - Faça login
+              </div>
+            </Link>
+
+            <Link
+              to="/auth/login"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
+              title="Perfil - Faça login"
+            >
+              <User className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Perfil - Faça login
+              </div>
+            </Link>
+          </>
+        )}
       </div>
 
       {/* Auth Section */}

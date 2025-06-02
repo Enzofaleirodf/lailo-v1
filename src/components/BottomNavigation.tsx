@@ -14,6 +14,8 @@ export const BottomNavigation = () => {
     return location.pathname === path || location.pathname.startsWith(path);
   };
 
+  const totalFavorites = favorites.length;
+
   const navItems = [
     {
       to: "/",
@@ -24,14 +26,8 @@ export const BottomNavigation = () => {
     {
       to: "/buscador/veiculos",
       icon: Search,
-      label: "Veículos",
-      active: isActive("/buscador/veiculos") || isActive("/veiculos")
-    },
-    {
-      to: "/buscador/imoveis",
-      icon: Search,
-      label: "Imóveis",
-      active: isActive("/buscador/imoveis") || isActive("/imoveis")
+      label: "Buscador",
+      active: isActive("/buscador")
     },
     {
       to: "/leiloeiros",
@@ -40,9 +36,6 @@ export const BottomNavigation = () => {
       active: isActive("/leiloeiros")
     }
   ];
-
-  const favoriteVehiclesCount = favorites.filter(f => f.itemType === 'vehicle').length;
-  const favoritePropertiesCount = favorites.filter(f => f.itemType === 'property').length;
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
@@ -81,9 +74,9 @@ export const BottomNavigation = () => {
           >
             <Heart className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium">Favoritos</span>
-            {(favoriteVehiclesCount + favoritePropertiesCount) > 0 && (
+            {totalFavorites > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {favoriteVehiclesCount + favoritePropertiesCount > 9 ? '9+' : favoriteVehiclesCount + favoritePropertiesCount}
+                {totalFavorites > 9 ? '9+' : totalFavorites}
               </span>
             )}
           </Link>
@@ -94,6 +87,31 @@ export const BottomNavigation = () => {
           >
             <LogIn className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium">Entrar</span>
+          </Link>
+        )}
+
+        {/* Perfil */}
+        {isAuthenticated ? (
+          <Link
+            to="/perfil"
+            className={`
+              flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-colors relative
+              ${isActive("/perfil") 
+                ? 'text-blue-600' 
+                : 'text-gray-500'
+              }
+            `}
+          >
+            <User className="w-5 h-5 mb-1" />
+            <span className="text-xs font-medium">Perfil</span>
+          </Link>
+        ) : (
+          <Link
+            to="/auth/login"
+            className="flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-colors text-gray-500"
+          >
+            <User className="w-5 h-5 mb-1" />
+            <span className="text-xs font-medium">Perfil</span>
           </Link>
         )}
       </div>
