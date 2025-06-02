@@ -21,7 +21,7 @@ export const VehiclePrice = ({
 
   const badgeClass = isVertical
     ? "bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-sm px-2 py-0.5 rounded-full shadow-lg font-urbanist"
-    : "bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs px-1.5 py-0.5 rounded-full shadow-lg font-urbanist";
+    : "bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-xs md:text-sm px-1.5 py-0.5 rounded-full shadow-lg font-urbanist";
 
   return (
     <div className="flex items-center justify-between">
