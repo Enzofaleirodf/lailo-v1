@@ -5,128 +5,135 @@ export const propertyCategories = [
   { value: 'rurais', label: 'Rurais', icon: 'tree-pine' },
   { value: 'industriais', label: 'Industriais', icon: 'factory' },
   { value: 'hospedagens', label: 'Hospedagens', icon: 'bed' },
-  { value: 'outros', label: 'Outros', icon: 'more-horizontal' },
 ];
 
 export const propertyTypes = {
   residenciais: [
     { value: 'todos', label: 'Todos' },
-    { value: 'apartamentos', label: 'Apartamentos' },
-    { value: 'casas', label: 'Casas' },
-    { value: 'condomínios', label: 'Condomínios' },
-    { value: 'conjuntos', label: 'Conjuntos' },
-    { value: 'edifícios', label: 'Edifícios' },
-    { value: 'flats', label: 'Flats' },
-    { value: 'garagens', label: 'Garagens' },
-    { value: 'mistos', label: 'Mistos' },
-    { value: 'kitnets', label: 'Kitnets' },
-    { value: 'lofts', label: 'Lofts' },
-    { value: 'lotes', label: 'Lotes' },
-    { value: 'prédios', label: 'Prédios' },
-    { value: 'sobrados', label: 'Sobrados' },
-    { value: 'studios', label: 'Studios' },
-    { value: 'terrenos', label: 'Terrenos' }
+    { value: 'apartamento', label: 'Apartamento' },
+    { value: 'casa', label: 'Casa' },
+    { value: 'cobertura', label: 'Cobertura' },
+    { value: 'condominio-residencial', label: 'Condomínio Residencial' },
+    { value: 'conjunto-residencial', label: 'Conjunto Residencial' },
+    { value: 'edificio-residencial', label: 'Edifício Residencial' },
+    { value: 'flat', label: 'Flat' },
+    { value: 'imovel-misto', label: 'Imóvel Misto' },
+    { value: 'kitnet', label: 'Kitnet' },
+    { value: 'loft', label: 'Loft' },
+    { value: 'loteamento-residencial', label: 'Loteamento Residencial' },
+    { value: 'lote-residencial', label: 'Lote Residencial' },
+    { value: 'predio-residencial', label: 'Prédio Residencial' },
+    { value: 'sobrado', label: 'Sobrado' },
+    { value: 'studio', label: 'Studio' },
+    { value: 'terreno-residencial', label: 'Terreno Residencial' },
+    { value: 'triplex', label: 'Triplex' },
+    { value: 'vagas-garagem', label: 'Vagas de Garagem' }
   ],
   comerciais: [
     { value: 'todos', label: 'Todos' },
-    { value: 'condomínios', label: 'Condomínios' },
-    { value: 'conjuntos', label: 'Conjuntos' },
-    { value: 'depósitos', label: 'Depósitos' },
-    { value: 'escritórios', label: 'Escritórios' },
-    { value: 'garagens', label: 'Garagens' },
+    { value: 'condominio-comercial', label: 'Condomínio Comercial' },
+    { value: 'conjunto-comercial', label: 'Conjunto Comercial' },
+    { value: 'deposito', label: 'Depósito' },
+    { value: 'escritorio', label: 'Escritório' },
     { value: 'lojas', label: 'Lojas' },
-    { value: 'lotes', label: 'Lotes' },
-    { value: 'prédios', label: 'Prédios' },
+    { value: 'loteamento-comercial', label: 'Loteamento Comercial' },
+    { value: 'lote-comercial', label: 'Lote Comercial' },
+    { value: 'ponto-comercial', label: 'Ponto Comercial' },
+    { value: 'predio-comercial', label: 'Prédio Comercial' },
     { value: 'salas', label: 'Salas' },
-    { value: 'terrenos', label: 'Terrenos' }
+    { value: 'terreno-comercial', label: 'Terreno Comercial' }
   ],
   rurais: [
     { value: 'todos', label: 'Todos' },
-    { value: 'chácaras', label: 'Chácaras' },
-    { value: 'fazendas', label: 'Fazendas' },
-    { value: 'sítios', label: 'Sítios' },
-    { value: 'terrenos', label: 'Terrenos' }
+    { value: 'chacara', label: 'Chácara' },
+    { value: 'fazenda', label: 'Fazenda' },
+    { value: 'loteamento-rural', label: 'Loteamento Rural' },
+    { value: 'lote-rural', label: 'Lote Rural' },
+    { value: 'sitio', label: 'Sítio' },
+    { value: 'terreno-rural', label: 'Terreno Rural' }
   ],
   industriais: [
-    { value: 'todos', label: 'Todos' },
-    { value: 'galpões', label: 'Galpões' },
-    { value: 'lotes', label: 'Lotes' },
-    { value: 'terrenos', label: 'Terrenos' }
+    { value: 'galpao', label: 'Galpão' },
+    { value: 'lote-industrial', label: 'Lote Industrial' },
+    { value: 'predio-industrial', label: 'Prédio Industrial' },
+    { value: 'terreno-industrial', label: 'Terreno Industrial' }
   ],
   hospedagens: [
-    { value: 'todos', label: 'Todos' },
-    { value: 'hotéis', label: 'Hotéis' },
-    { value: 'motéis', label: 'Motéis' },
-    { value: 'pousadas', label: 'Pousadas' }
-  ],
-  outros: [
-    { value: 'todos', label: 'Todos' }
+    { value: 'hotel', label: 'Hotel' },
+    { value: 'motel', label: 'Motel' },
+    { value: 'pousada', label: 'Pousada' }
   ]
 };
 
 export const vehicleCategories = [
-  { value: 'leves', label: 'Leves', icon: 'car' },
-  { value: 'pesados', label: 'Pesados', icon: 'truck' },
-  { value: 'apoio', label: 'Apoio', icon: 'trailer' },
-  { value: 'lazer', label: 'Lazer', icon: 'bike' },
-  { value: 'aquáticos', label: 'Aquáticos', icon: 'waves' },
-  { value: 'aéreos', label: 'Aéreos', icon: 'plane' },
-  { value: 'máquinas-agrícolas', label: 'Máquinas Agrícolas', icon: 'tractor' },
-  { value: 'máquinas-construção', label: 'Máquinas de Construção', icon: 'wrench' },
+  { value: 'leves', label: 'Veículos Leves', icon: 'car' },
+  { value: 'pesados', label: 'Veículos Pesados', icon: 'truck' },
+  { value: 'apoio-reboque', label: 'Apoio e Reboque', icon: 'trailer' },
+  { value: 'lazer-recreacao', label: 'Lazer e Recreação', icon: 'bike' },
+  { value: 'aquaticos', label: 'Veículos Aquáticos', icon: 'waves' },
+  { value: 'aereos', label: 'Veículos Aéreos', icon: 'plane' },
+  { value: 'maquinas-agricolas', label: 'Máquinas Agrícolas', icon: 'tractor' },
+  { value: 'maquinas-construcao', label: 'Máquinas de Construção', icon: 'wrench' },
   { value: 'outros', label: 'Outros', icon: 'more-horizontal' },
 ];
 
 export const vehicleTypes = {
   leves: [
-    { value: 'carros', label: 'Carros' },
-    { value: 'motos', label: 'Motos' }
+    { value: 'carro', label: 'Carro' },
+    { value: 'moto', label: 'Moto' }
   ],
   pesados: [
-    { value: 'caminhões', label: 'Caminhões' },
-    { value: 'carretas', label: 'Carretas' },
-    { value: 'cavalos-mecânicos', label: 'Cavalos Mecânicos' },
-    { value: 'micro-ônibus', label: 'Micro-ônibus' },
-    { value: 'motorhomes', label: 'Motorhomes' },
-    { value: 'ônibus', label: 'Ônibus' }
+    { value: 'caminhao', label: 'Caminhão' },
+    { value: 'carreta', label: 'Carreta' },
+    { value: 'cavalo-mecanico', label: 'Cavalo Mecânico' },
+    { value: 'micro-onibus', label: 'Micro-ônibus' },
+    { value: 'motorhome', label: 'Motorhome' },
+    { value: 'onibus', label: 'Ônibus' }
   ],
-  apoio: [
-    { value: 'reboques', label: 'Reboques' },
-    { value: 'trailers', label: 'Trailers' }
+  'apoio-reboque': [
+    { value: 'reboque-semi-reboque', label: 'Reboque e semi-reboque' },
+    { value: 'trailer', label: 'Trailer' }
   ],
-  lazer: [
-    { value: 'bicicletas', label: 'Bicicletas' },
-    { value: 'bugges', label: 'Bugges' },
-    { value: 'karts', label: 'Karts' },
-    { value: 'patinetes', label: 'Patinetes' },
-    { value: 'quadriciclos', label: 'Quadriciclos' },
-    { value: 'triciclos', label: 'Triciclos' },
-    { value: 'utvs', label: 'UTVs' }
+  'lazer-recreacao': [
+    { value: 'bicicleta', label: 'Bicicleta' },
+    { value: 'buggy', label: 'Buggy' },
+    { value: 'ciclomotor', label: 'Ciclomotor' },
+    { value: 'kart', label: 'Kart' },
+    { value: 'monociclo', label: 'Monociclo' },
+    { value: 'patinete', label: 'Patinete' },
+    { value: 'quadriciclo', label: 'Quadriciclo' },
+    { value: 'scooter', label: 'Scooter' },
+    { value: 'segway', label: 'Segway' },
+    { value: 'triciclo', label: 'Triciclo' },
+    { value: 'utv', label: 'UTV' }
   ],
-  aquáticos: [
-    { value: 'barcos', label: 'Barcos' },
-    { value: 'jet-skis', label: 'Jet Skis' },
-    { value: 'lanchas', label: 'Lanchas' }
+  aquaticos: [
+    { value: 'barco', label: 'Barco' },
+    { value: 'lancha', label: 'Lancha' },
+    { value: 'jet-ski', label: 'Jet Ski' }
   ],
-  aéreos: [
-    { value: 'aviões', label: 'Aviões' },
-    { value: 'drones', label: 'Drones' },
-    { value: 'helicópteros', label: 'Helicópteros' }
+  aereos: [
+    { value: 'aviao', label: 'Avião' },
+    { value: 'helicoptero', label: 'Helicóptero' },
+    { value: 'drone', label: 'Drone' }
   ],
-  'máquinas-agrícolas': [
-    { value: 'colheitadeiras', label: 'Colheitadeiras' },
-    { value: 'plantadeiras', label: 'Plantadeiras' },
-    { value: 'roçadeiras', label: 'Roçadeiras' },
-    { value: 'tratores', label: 'Tratores' }
+  'maquinas-agricolas': [
+    { value: 'colheitadeira', label: 'Colheitadeira' },
+    { value: 'plantadeira', label: 'Plantadeira' },
+    { value: 'trator', label: 'Trator' },
+    { value: 'rocadeira', label: 'Roçadeira' },
+    { value: 'semeadora', label: 'Semeadora' }
   ],
-  'máquinas-construção': [
-    { value: 'escavadeiras', label: 'Escavadeiras' },
-    { value: 'guindastes', label: 'Guindastes' },
-    { value: 'motoniveladoras', label: 'Motoniveladoras' },
-    { value: 'pás-carregadeiras', label: 'Pás Carregadeiras' },
-    { value: 'retroescavadeiras', label: 'Retroescavadeiras' }
+  'maquinas-construcao': [
+    { value: 'retroescavadeira', label: 'Retroescavadeira' },
+    { value: 'motoniveladora', label: 'Motoniveladora' },
+    { value: 'guindaste', label: 'Guindaste' },
+    { value: 'pa-carregadeira', label: 'Pá Carregadeira' }
   ],
   outros: [
-    { value: 'diversos', label: 'Diversos' }
+    { value: 'ambulancia', label: 'Ambulância' },
+    { value: 'sucata', label: 'Sucata' },
+    { value: 'viatura', label: 'Viatura' }
   ]
 };
 
@@ -179,7 +186,7 @@ export const colorOptions = [
 ];
 
 export const formatOptions = [
-  { value: 'leilão', label: 'Leilão' },
+  { value: 'leilao', label: 'Leilão' },
   { value: 'venda-direta', label: 'Venda Direta' }
 ];
 
@@ -187,14 +194,14 @@ export const originOptions = [
   { value: 'extrajudicial', label: 'Extrajudicial' },
   { value: 'judicial', label: 'Judicial' },
   { value: 'particular', label: 'Particular' },
-  { value: 'público', label: 'Público' }
+  { value: 'publico', label: 'Público' }
 ];
 
 export const stageOptions = [
-  { value: 'praça-única', label: 'Praça Única' },
-  { value: '1ª-praça', label: '1ª Praça' },
-  { value: '2ª-praça', label: '2ª Praça' },
-  { value: '3ª-praça', label: '3ª Praça' }
+  { value: 'praca-unica', label: 'Praça Única' },
+  { value: '1a-praca', label: '1ª Praça' },
+  { value: '2a-praca', label: '2ª Praça' },
+  { value: '3a-praca', label: '3ª Praça' }
 ];
 
 export const sortOptions = [
