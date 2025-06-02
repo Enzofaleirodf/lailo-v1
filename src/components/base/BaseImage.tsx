@@ -41,8 +41,8 @@ export const BaseImage = ({
             ? 'top-2 left-2 md:px-2 md:py-1' 
             : 'top-1 left-1 px-0.5 py-0.5'
         }`} 
-        style={isVertical ? { margin: '10px', padding: '0' } : { margin: '4px', padding: '2px' }}>
-          NOVO
+        style={isVertical ? { margin: '10px', padding: '0' } : { margin: '4px', padding: '2px 4px' }}>
+          Novo
         </div>
       )}
       

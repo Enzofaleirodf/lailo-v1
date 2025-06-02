@@ -18,7 +18,7 @@ export const BaseCard = ({
   return (
     <Card 
       className={`
-        group relative w-full max-w-none p-3 
+        group relative w-full max-w-none p-3 font-urbanist
         bg-gradient-to-br from-white via-gray-50 to-gray-100
         rounded-2xl border-0
         shadow-lg backdrop-blur-sm
