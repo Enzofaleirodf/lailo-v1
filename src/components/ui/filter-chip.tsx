@@ -75,9 +75,9 @@ export const FilterChip = ({
           {selectedItems.map((item) => (
             <div
               key={item}
-              className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-800 text-[11px] rounded-md font-medium"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-100 text-blue-800 text-[10px] rounded font-medium whitespace-nowrap"
             >
-              <span>{item}</span>
+              <span className="max-w-[60px] truncate">{item}</span>
               {onRemoveItem && (
                 <button
                   onClick={(e) => {
@@ -86,7 +86,7 @@ export const FilterChip = ({
                   }}
                   className="hover:bg-blue-200 rounded-full p-0.5 transition-colors"
                 >
-                  <X className="w-3 h-3" />
+                  <X className="w-2.5 h-2.5" />
                 </button>
               )}
             </div>
@@ -114,7 +114,7 @@ export const FilterChip = ({
         onClick={handleToggle}
         disabled={isDisabled}
         className={cn(
-          "flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 border w-[280px] justify-between min-h-[48px]",
+          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px]",
           isDisabled
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
             : isActive

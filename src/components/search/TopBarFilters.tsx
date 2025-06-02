@@ -134,7 +134,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         onClear={() => setOrigins([])}
         onRemoveItem={removeOrigin}
         onSelectAll={handleSelectAllOrigins}
-        className="w-[420px]"
+        className="w-[320px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Origem do Leilão</h4>
@@ -167,7 +167,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         onClear={() => setStages([])}
         onRemoveItem={removeStage}
         onSelectAll={handleSelectAllStages}
-        className="w-[420px]"
+        className="w-[320px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Etapa do Leilão</h4>
