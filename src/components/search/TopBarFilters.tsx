@@ -54,6 +54,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
       {/* Filtro Formato */}
       <FilterChip
         label="Formato"
+        value={format === 'leilao' ? 'Leilão' : 'Venda Direta'}
         isActive={format !== 'leilao'}
         autoClose={true}
         onClear={() => setFormat('leilao')}
@@ -82,6 +83,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
       {/* Filtro Origem */}
       <FilterChip
         label="Origem"
+        value={origins}
         isActive={origins.length > 0}
         hasMultiple={true}
         onClear={() => setOrigins([])}
@@ -95,7 +97,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
                 key={option.value}
                 onClick={() => handleOriginToggle(option.value)}
                 className={cn(
-                  "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
+                  "w-full px-4 py-3 text-center rounded-lg border transition-all duration-200 font-medium",
                   origins.includes(option.value)
                     ? "bg-blue-50 border-blue-200 text-blue-700"
                     : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
@@ -125,6 +127,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
       {format === 'leilao' && (
         <FilterChip
           label="Etapa"
+          value={stages}
           isActive={stages.length > 0}
           hasMultiple={true}
           onClear={() => setStages([])}
@@ -138,7 +141,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
                   key={option.value}
                   onClick={() => handleStageToggle(option.value)}
                   className={cn(
-                    "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
+                    "w-full px-4 py-3 text-center rounded-lg border transition-all duration-200 font-medium",
                     stages.includes(option.value)
                       ? "bg-blue-50 border-blue-200 text-blue-700"
                       : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
