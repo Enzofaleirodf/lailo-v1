@@ -112,9 +112,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
           />
           
           <BaseBadges badges={vehicle.badges} />
-        </div>
-        
-        <div className="flex flex-col justify-between items-end">
+          
           <VehiclePrice 
             price={vehicle.price}
             discount={vehicle.discount}

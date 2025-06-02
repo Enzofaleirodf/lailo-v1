@@ -112,9 +112,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           />
           
           <BaseBadges badges={property.badges} />
-        </div>
-        
-        <div className="flex flex-col justify-between items-end">
+          
           <PropertyPrice 
             price={property.price}
             discount={property.discount}
