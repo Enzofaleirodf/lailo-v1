@@ -63,7 +63,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           />
         </div>
         
-        <div className="p-3 space-y-2">
+        <div className="p-3">
           <PropertyHeader 
             type={property.type}
             area={property.area}
@@ -74,14 +74,18 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           
           <BaseBadges badges={property.badges} />
           
-          <PropertyPrice 
-            price={property.price}
-            discount={property.discount}
-            priceGradient="from-green-600 to-teal-600"
-            isVertical={true}
-          />
+          <div className="mt-2">
+            <PropertyPrice 
+              price={property.price}
+              discount={property.discount}
+              priceGradient="from-green-600 to-teal-600"
+              isVertical={true}
+            />
+          </div>
           
-          <BaseDate date={property.date} isVertical={true} />
+          <div className="mt-2">
+            <BaseDate date={property.date} isVertical={true} />
+          </div>
         </div>
       </BaseCard>
     );
