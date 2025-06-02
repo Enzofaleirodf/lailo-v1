@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
@@ -57,6 +58,14 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
     closeCallback();
   };
 
+  const handleSelectAllOrigins = () => {
+    setOrigins(originOptions.map(opt => opt.value));
+  };
+
+  const handleSelectAllStages = () => {
+    setStages(stageOptions.map(opt => opt.value));
+  };
+
   const getSelectedOriginLabels = () => {
     return origins.map(origin => 
       originOptions.find(opt => opt.value === origin)?.label || origin
@@ -84,15 +93,15 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
   };
 
   const getFormatLabel = () => {
-    if (!format) return 'Formato';
-    return formatOptions.find(opt => opt.value === format)?.label || 'Formato';
+    if (!format) return 'Selecione um formato';
+    return formatOptions.find(opt => opt.value === format)?.label || 'Selecione um formato';
   };
 
   return (
     <div className="flex items-start gap-4">
       {/* Filtro Formato */}
       <FilterChip
-        label="Formato"
+        label="Selecione um formato"
         selectedValue={format ? getFormatLabel() : undefined}
         isActive={!!format}
         onClear={() => setFormat('')}
@@ -123,12 +132,13 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
 
       {/* Filtro Origem */}
       <FilterChip
-        label="Origem"
+        label="Selecione uma origem"
         selectedItems={getSelectedOriginLabels()}
         isActive={origins.length > 0}
         hasMultiple={true}
         onClear={() => setOrigins([])}
         onRemoveItem={removeOrigin}
+        onSelectAll={handleSelectAllOrigins}
         className="w-[420px]"
       >
         <div className="space-y-4">
@@ -154,13 +164,14 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
 
       {/* Filtro Etapa - sempre visível, mas desabilitado quando Venda Direta */}
       <FilterChip
-        label="Etapa"
+        label="Selecione uma etapa"
         selectedItems={getSelectedStageLabels()}
         isActive={stages.length > 0}
         isDisabled={format === 'venda-direta'}
         hasMultiple={true}
         onClear={() => setStages([])}
         onRemoveItem={removeStage}
+        onSelectAll={handleSelectAllStages}
         className="w-[420px]"
       >
         <div className="space-y-4">

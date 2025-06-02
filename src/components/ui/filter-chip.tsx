@@ -15,6 +15,7 @@ interface FilterChipProps {
   children?: React.ReactNode | (({ close }: { close: () => void }) => React.ReactNode);
   onClear?: () => void;
   onRemoveItem?: (item: string) => void;
+  onSelectAll?: () => void;
   className?: string;
 }
 
@@ -28,6 +29,7 @@ export const FilterChip = ({
   children,
   onClear,
   onRemoveItem,
+  onSelectAll,
   className 
 }: FilterChipProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -104,6 +106,8 @@ export const FilterChip = ({
     return children;
   };
 
+  const hasSelectedItems = hasMultiple && selectedItems.length > 0;
+
   return (
     <div className="relative" ref={containerRef}>
       <button
@@ -146,27 +150,40 @@ export const FilterChip = ({
             {/* Footer apenas para múltipla seleção */}
             {hasMultiple && (
               <div className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100">
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={handleClose}
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  Fechar
-                </Button>
-                {onClear && (
+                {/* Botão à esquerda */}
+                {hasSelectedItems ? (
                   <Button 
-                    variant="outline"
+                    variant="ghost" 
                     size="sm"
                     onClick={() => {
-                      onClear();
-                      handleClose();
+                      onClear?.();
                     }}
                     className="text-gray-600 hover:text-gray-800"
                   >
                     Limpar
                   </Button>
+                ) : (
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => {
+                      onSelectAll?.();
+                    }}
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    Marcar todos
+                  </Button>
                 )}
+                
+                {/* Botão à direita */}
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  onClick={handleClose}
+                  className="text-gray-600 hover:text-gray-800 border-gray-300"
+                >
+                  Aplicar
+                </Button>
               </div>
             )}
           </motion.div>
