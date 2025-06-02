@@ -66,7 +66,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
       </BaseCard>;
   }
   return <BaseCard className="font-urbanist">
-      <div className="flex flex-col md:flex-row gap-3 items-start\n">
+      <div className="flex flex-col md:flex-row items-start gap-3 w-full\n">
         <div className="relative flex-shrink-0 w-32 md:w-28 self-stretch">
           <BaseImage src={item.image} alt={itemType === 'vehicle' ? (item as any).name : (item as any).type} isFavorited={isItemFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={item.showNewBadge} className="w-full h-full" showFavoriteButton={false} />
         </div>
