@@ -48,12 +48,14 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
     );
   };
 
-  const handleFormatSelect = (value: string) => {
+  const handleFormatSelect = (value: string, closeCallback: () => void) => {
     setFormat(value);
     // Limpar etapas quando mudar para venda direta
     if (value === 'venda-direta') {
       setStages([]);
     }
+    // Fechar automaticamente após seleção
+    closeCallback();
   };
 
   const getSelectedOriginLabels = () => {
@@ -95,25 +97,27 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         isActive={format !== 'leilao'}
         onClear={() => setFormat('leilao')}
       >
-        <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900 text-base">Formato do Leilão</h4>
-          <div className="flex flex-col gap-2">
-            {formatOptions.map(option => (
-              <button
-                key={option.value}
-                onClick={() => handleFormatSelect(option.value)}
-                className={cn(
-                  "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
-                  format === option.value
-                    ? "bg-blue-50 border-blue-200 text-blue-700"
-                    : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
-                )}
-              >
-                {option.label}
-              </button>
-            ))}
+        {({ close }) => (
+          <div className="space-y-4">
+            <h4 className="font-semibold text-gray-900 text-base">Formato do Leilão</h4>
+            <div className="flex flex-col gap-2">
+              {formatOptions.map(option => (
+                <button
+                  key={option.value}
+                  onClick={() => handleFormatSelect(option.value, close)}
+                  className={cn(
+                    "w-full px-4 py-3 text-left rounded-lg border transition-all duration-200 font-medium",
+                    format === option.value
+                      ? "bg-blue-50 border-blue-200 text-blue-700"
+                      : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
+                  )}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </FilterChip>
 
       {/* Filtro Origem */}

@@ -65,7 +65,35 @@ export const FilterChip = ({
       // Seleção única - mostrar valor selecionado
       return selectedValue;
     }
-    // Múltipla seleção ou padrão - mostrar apenas label
+    
+    if (hasMultiple && selectedItems.length > 0) {
+      // Múltipla seleção - mostrar tags no placeholder
+      return (
+        <div className="flex items-center gap-1 flex-wrap">
+          {selectedItems.map((item) => (
+            <div
+              key={item}
+              className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-md font-medium"
+            >
+              <span>{item}</span>
+              {onRemoveItem && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRemoveItem(item);
+                  }}
+                  className="hover:bg-blue-200 rounded-full p-0.5 transition-colors"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    }
+    
+    // Padrão - mostrar apenas label
     return label;
   };
 
@@ -75,7 +103,7 @@ export const FilterChip = ({
         onClick={handleToggle}
         disabled={isDisabled}
         className={cn(
-          "flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 border w-[280px] justify-between",
+          "flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 border w-[320px] justify-between min-h-[48px]",
           isDisabled
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
             : isActive
@@ -85,10 +113,7 @@ export const FilterChip = ({
         )}
       >
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <span className="whitespace-nowrap">{displayText()}</span>
-          {isActive && !isDisabled && (
-            <div className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" />
-          )}
+          {displayText()}
         </div>
         
         <ChevronDown className={cn(
@@ -105,37 +130,10 @@ export const FilterChip = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden"
+            className="absolute top-full left-0 mt-2 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[360px] overflow-hidden"
           >
             <div className="p-4">
               {children}
-              
-              {/* Tags dentro do dropdown para múltipla seleção */}
-              {hasMultiple && selectedItems.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-gray-100">
-                  <div className="flex flex-wrap gap-2">
-                    {selectedItems.map((item) => (
-                      <div
-                        key={item}
-                        className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md font-medium"
-                      >
-                        <span>{item}</span>
-                        {onRemoveItem && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onRemoveItem(item);
-                            }}
-                            className="hover:bg-blue-200 rounded-full p-0.5 transition-colors"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
             
             {/* Footer apenas para múltipla seleção */}
