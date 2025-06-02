@@ -24,9 +24,9 @@ export const DesktopTopBar = ({
       {/* Gradiente sutil de fundo */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 via-white to-purple-50/20 pointer-events-none" />
       
-      <div className="relative flex items-center justify-between h-full px-6">
-        {/* Zona esquerda - Type Toggle */}
-        <div className="flex items-center flex-shrink-0">
+      <div className="relative flex items-center h-full px-6">
+        {/* Zona esquerda - Type Toggle com largura fixa */}
+        <div className="flex items-center flex-shrink-0 min-w-[280px]">
           <ItemTypeToggle 
             currentType={itemType} 
             onTypeChange={onItemTypeChange} 
@@ -52,9 +52,12 @@ export const DesktopTopBar = ({
           )}
         </div>
 
-        {/* Zona direita - Filtros sem overflow-hidden */}
-        <div className="flex-1 flex justify-end">
-          <div className="max-w-full">
+        {/* Espaçador flexível */}
+        <div className="flex-1 min-w-0" />
+
+        {/* Zona direita - Filtros com largura fixa */}
+        <div className="flex-shrink-0">
+          <div className="relative">
             <TopBarFilters itemType={itemType} />
           </div>
         </div>
