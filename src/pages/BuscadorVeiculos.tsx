@@ -16,7 +16,32 @@ const BuscadorVeiculos = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("Mais recentes");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const totalPages = 10;
+
+  // Opções para os seletores
+  const brandOptions = [
+    { label: "Volkswagen", value: "volkswagen" },
+    { label: "Honda", value: "honda" },
+    { label: "Toyota", value: "toyota" },
+    { label: "Ford", value: "ford" },
+    { label: "Chevrolet", value: "chevrolet" },
+    { label: "Fiat", value: "fiat" },
+    { label: "Hyundai", value: "hyundai" },
+    { label: "Nissan", value: "nissan" }
+  ];
+
+  const categoryOptions = [
+    { label: "Sedan", value: "sedan" },
+    { label: "SUV", value: "suv" },
+    { label: "Hatch", value: "hatch" },
+    { label: "Pickup", value: "pickup" },
+    { label: "Conversível", value: "conversivel" },
+    { label: "Crossover", value: "crossover" },
+    { label: "Minivan", value: "minivan" },
+    { label: "Coupe", value: "coupe" }
+  ];
 
   const vehicles = [
     {
@@ -60,6 +85,8 @@ const BuscadorVeiculos = () => {
 
   const handleClearFilters = () => {
     console.log("Apagar filtros");
+    setSelectedBrands([]);
+    setSelectedCategories([]);
   };
 
   const handlePageChange = (page: number) => {
@@ -67,11 +94,29 @@ const BuscadorVeiculos = () => {
     console.log(`Mudando para página ${page}`);
   };
 
+  const handleBrandChange = (brands: string[]) => {
+    setSelectedBrands(brands);
+    console.log("Marcas selecionadas:", brands);
+  };
+
+  const handleCategoryChange = (categories: string[]) => {
+    setSelectedCategories(categories);
+    console.log("Categorias selecionadas:", categories);
+  };
+
   return (
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
       
-      <VehicleSearchHeader isLoading={isLoading} />
+      <VehicleSearchHeader 
+        isLoading={isLoading}
+        brandOptions={brandOptions}
+        categoryOptions={categoryOptions}
+        selectedBrands={selectedBrands}
+        selectedCategories={selectedCategories}
+        onBrandChange={handleBrandChange}
+        onCategoryChange={handleCategoryChange}
+      />
       <VehicleSearchSidebar onClearFilters={handleClearFilters} />
 
       <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
