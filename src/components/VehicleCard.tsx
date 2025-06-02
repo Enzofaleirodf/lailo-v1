@@ -1,6 +1,5 @@
 
 import React from "react";
-import { Heart } from "lucide-react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
 import { BaseBadges } from "./base/BaseBadges";
@@ -57,16 +56,11 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
           <BaseImage 
             src={vehicle.image} 
             alt={vehicle.name}
+            isFavorited={isVehicleFavorite}
+            onToggleFavorite={handleFavoriteToggle}
+            isVertical={true}
             showNewBadge={vehicle.showNewBadge}
           />
-          <button
-            onClick={handleFavoriteToggle}
-            className="absolute top-2 right-2 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
-          >
-            <Heart 
-              className={`w-4 h-4 ${isVehicleFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
-            />
-          </button>
         </div>
         
         <div className="p-3 space-y-2">
@@ -83,6 +77,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
           <VehiclePrice 
             price={vehicle.price}
             discount={vehicle.discount}
+            priceGradient="from-blue-600 to-purple-600"
             isVertical={true}
           />
           
@@ -98,17 +93,12 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
         <BaseImage 
           src={vehicle.image} 
           alt={vehicle.name}
+          isFavorited={isVehicleFavorite}
+          onToggleFavorite={handleFavoriteToggle}
+          isVertical={false}
           showNewBadge={vehicle.showNewBadge}
           className="w-32 h-24"
         />
-        <button
-          onClick={handleFavoriteToggle}
-          className="absolute top-1 right-1 p-1 bg-white/80 rounded-full hover:bg-white transition-colors"
-        >
-          <Heart 
-            className={`w-3 h-3 ${isVehicleFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
-          />
-        </button>
       </div>
       
       <div className="flex-1 min-w-0 space-y-2">
@@ -127,6 +117,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
         <VehiclePrice 
           price={vehicle.price}
           discount={vehicle.discount}
+          priceGradient="from-blue-600 to-purple-600"
           isVertical={false}
         />
         

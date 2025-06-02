@@ -4,26 +4,30 @@ import { Heart } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface BaseImageProps {
-  image: string;
+  src: string;
   alt: string;
   isFavorited: boolean;
   onToggleFavorite: () => void;
   isVertical: boolean;
   showNewBadge?: boolean;
+  className?: string;
 }
 
 export const BaseImage = ({
-  image,
+  src,
   alt,
   isFavorited,
   onToggleFavorite,
   isVertical,
-  showNewBadge = false
+  showNewBadge = false,
+  className = ""
 }: BaseImageProps): JSX.Element => {
+  const imageClass = className || (isVertical ? 'w-full h-32' : 'w-24 h-20');
+  
   return (
-    <div className={`relative ${isVertical ? 'w-full h-32' : 'w-24 h-20'}`}>
+    <div className={`relative ${imageClass}`}>
       <img
-        src={image}
+        src={src}
         alt={alt}
         className="w-full h-full object-cover rounded-xl"
         loading="lazy"

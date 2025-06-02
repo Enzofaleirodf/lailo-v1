@@ -1,6 +1,5 @@
 
 import React from "react";
-import { Heart } from "lucide-react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
 import { BaseBadges } from "./base/BaseBadges";
@@ -57,16 +56,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <BaseImage 
             src={property.image} 
             alt={property.type}
+            isFavorited={isPropertyFavorite}
+            onToggleFavorite={handleFavoriteToggle}
+            isVertical={true}
             showNewBadge={property.showNewBadge}
           />
-          <button
-            onClick={handleFavoriteToggle}
-            className="absolute top-2 right-2 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
-          >
-            <Heart 
-              className={`w-4 h-4 ${isPropertyFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
-            />
-          </button>
         </div>
         
         <div className="p-3 space-y-2">
@@ -83,6 +77,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <PropertyPrice 
             price={property.price}
             discount={property.discount}
+            priceGradient="from-green-600 to-teal-600"
             isVertical={true}
           />
           
@@ -98,17 +93,12 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         <BaseImage 
           src={property.image} 
           alt={property.type}
+          isFavorited={isPropertyFavorite}
+          onToggleFavorite={handleFavoriteToggle}
+          isVertical={false}
           showNewBadge={property.showNewBadge}
           className="w-32 h-24"
         />
-        <button
-          onClick={handleFavoriteToggle}
-          className="absolute top-1 right-1 p-1 bg-white/80 rounded-full hover:bg-white transition-colors"
-        >
-          <Heart 
-            className={`w-3 h-3 ${isPropertyFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
-          />
-        </button>
       </div>
       
       <div className="flex-1 min-w-0 space-y-2">
@@ -127,6 +117,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         <PropertyPrice 
           price={property.price}
           discount={property.discount}
+          priceGradient="from-green-600 to-teal-600"
           isVertical={false}
         />
         
