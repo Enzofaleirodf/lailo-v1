@@ -24,7 +24,7 @@ export const BaseImage = ({
   className = "",
   showFavoriteButton = true
 }: BaseImageProps): JSX.Element => {
-  const imageClass = className || (isVertical ? 'w-full aspect-[4/3]' : 'w-28 h-16 md:w-24 md:h-20');
+  const imageClass = className || (isVertical ? 'w-full aspect-[4/3]' : 'w-32 md:w-28 h-full');
   
   return (
     <div className={`relative ${imageClass}`}>

@@ -88,8 +88,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
 
   return (
     <BaseCard className="font-urbanist">
-      <div className="flex gap-3 items-stretch">
-        <div className="relative flex-shrink-0 w-32 md:w-28">
+      <div className="flex gap-3 items-start min-h-0">
+        <div className="relative flex-shrink-0 w-32 md:w-28 self-stretch">
           <BaseImage 
             src={item.image} 
             alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -102,7 +102,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           />
         </div>
         
-        <div className="flex-1 min-w-0 relative">
+        <div className="flex-1 min-w-0 relative min-h-0">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <BaseItemHeader 
