@@ -18,15 +18,15 @@ export const VehicleHeader = ({
 }: VehicleHeaderProps) => {
   const titleClass = isVertical 
     ? "font-bold text-gray-900 text-2xl leading-tight font-urbanist" 
-    : "font-bold text-gray-900 text-xl md:text-lg leading-tight truncate font-urbanist";
+    : "font-bold text-gray-900 text-base md:text-lg leading-tight truncate font-urbanist";
 
   const detailsTextClass = isVertical 
     ? "font-medium text-gray-600 text-base whitespace-nowrap"
-    : "font-medium text-gray-600 text-sm whitespace-nowrap";
+    : "font-medium text-gray-600 text-xs whitespace-nowrap";
 
   const locationTextClass = isVertical 
     ? "font-medium text-gray-600 text-base truncate"
-    : "font-medium text-gray-600 text-sm truncate";
+    : "font-medium text-gray-600 text-xs truncate";
 
   return (
     <div className="flex flex-col">
