@@ -48,16 +48,13 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
 
   return (
     <div className="hidden md:block fixed left-12 top-16 w-[512px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30">
-      <div className="h-full overflow-y-auto scrollbar-hide" style={{
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none'
-      }}>
-        <style jsx>{`
-          div::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-          }
-        `}</style>
+      <div 
+        className="h-full overflow-y-auto invisible-scrollbar"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}
+      >
         <div className="p-6">
           <SidebarHeader onClearFilters={handleClearAllFilters} />
 
