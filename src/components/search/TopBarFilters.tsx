@@ -130,7 +130,7 @@ export const TopBarFilters = ({
         <FilterChip label="Origem" selectedItems={getSelectedOriginLabels()} isActive={origins.length > 0} hasMultiple={true} onClear={() => setOrigins([])} onRemoveItem={removeOrigin} onSelectAll={handleSelectAllOrigins} className="w-[280px]" aria-label="Filtro de origem do leilão" id="origin-filter">
           <div className="space-y-4">
             <h4 className="font-semibold text-gray-900 text-base flex items-center gap-2">
-              <Filter className="w-4 h-4" />
+              
               Origem do Leilão
             </h4>
             <div className="flex flex-col gap-2">
