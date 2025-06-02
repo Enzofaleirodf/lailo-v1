@@ -10,6 +10,8 @@ const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("Mais recentes");
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5; // Mock total pages
 
   const vehicles = [
     {
@@ -59,6 +61,10 @@ const BuscadorVeiculos = () => {
     }
   ];
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
@@ -82,6 +88,9 @@ const BuscadorVeiculos = () => {
         <VehicleSearchResults 
           vehicles={vehicles}
           isVertical={isVertical}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
         />
       </div>
 

@@ -3,7 +3,8 @@ export interface Vehicle {
   id: string;
   brand: string;
   model: string;
-  year: number;
+  name: string;
+  year: string;
   price: string;
   discount?: string;
   badges: string[];
@@ -39,6 +40,10 @@ export interface Favorite {
   itemId: string;
   itemType: 'vehicle' | 'property';
   addedAt: string;
+  title: string;
+  price: string;
+  image: string;
+  createdAt: string;
 }
 
 export type ContentType = 'property' | 'vehicle';
