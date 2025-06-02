@@ -3,7 +3,7 @@ export const propertyCategories = [
   { value: 'comerciais', label: 'Comerciais', icon: 'building' },
   { value: 'rurais', label: 'Rurais', icon: 'tree-pine' },
   { value: 'industriais', label: 'Industriais', icon: 'factory' },
-  { value: 'hospedagens', label: 'Hospedagens', icon: 'building' },
+  { value: 'hospedagens', label: 'Hospedagens', icon: 'bed' },
 ];
 
 export const propertyTypes = {
@@ -52,12 +52,14 @@ export const propertyTypes = {
     { value: 'terreno-rural', label: 'Terreno Rural' }
   ],
   industriais: [
+    { value: 'todos', label: 'Todos' },
     { value: 'galpao', label: 'Galpão' },
     { value: 'lote-industrial', label: 'Lote Industrial' },
     { value: 'predio-industrial', label: 'Prédio Industrial' },
     { value: 'terreno-industrial', label: 'Terreno Industrial' }
   ],
   hospedagens: [
+    { value: 'todos', label: 'Todos' },
     { value: 'hotel', label: 'Hotel' },
     { value: 'motel', label: 'Motel' },
     { value: 'pousada', label: 'Pousada' }
@@ -70,7 +72,7 @@ export const vehicleCategories = [
   { value: 'apoio-reboque', label: 'Apoio', icon: 'wrench' },
   { value: 'lazer-recreacao', label: 'Lazer', icon: 'waves' },
   { value: 'aquaticos', label: 'Aquáticos', icon: 'waves' },
-  { value: 'aereos', label: 'Aéreos', icon: 'car' },
+  { value: 'aereos', label: 'Aéreos', icon: 'plane' },
   { value: 'maquinas-agricolas', label: 'Maq. Agrícolas', icon: 'wrench' },
   { value: 'maquinas-construcao', label: 'Maq. Construção', icon: 'wrench' },
   { value: 'outros', label: 'Outros', icon: 'car' },
@@ -179,9 +181,24 @@ export const modelOptions = [
 ];
 
 export const colorOptions = [
-  'Todas as cores', 'Amarelo', 'Azul', 'Bege', 'Branco', 'Bronze', 
-  'Cinza', 'Dourado', 'Grafite', 'Laranja', 'Marrom', 'Prata', 
-  'Preto', 'Rosa', 'Roxo', 'Verde', 'Vermelho', 'Vinho'
+  { value: 'todas-cores', label: 'Todas as cores', color: '#f3f4f6' },
+  { value: 'amarelo', label: 'Amarelo', color: '#fbbf24' },
+  { value: 'azul', label: 'Azul', color: '#3b82f6' },
+  { value: 'bege', label: 'Bege', color: '#f5f5dc' },
+  { value: 'branco', label: 'Branco', color: '#ffffff' },
+  { value: 'bronze', label: 'Bronze', color: '#cd7f32' },
+  { value: 'cinza', label: 'Cinza', color: '#6b7280' },
+  { value: 'dourado', label: 'Dourado', color: '#ffd700' },
+  { value: 'grafite', label: 'Grafite', color: '#2f2f2f' },
+  { value: 'laranja', label: 'Laranja', color: '#f97316' },
+  { value: 'marrom', label: 'Marrom', color: '#92400e' },
+  { value: 'prata', label: 'Prata', color: '#c0c0c0' },
+  { value: 'preto', label: 'Preto', color: '#000000' },
+  { value: 'rosa', label: 'Rosa', color: '#ec4899' },
+  { value: 'roxo', label: 'Roxo', color: '#8b5cf6' },
+  { value: 'verde', label: 'Verde', color: '#10b981' },
+  { value: 'vermelho', label: 'Vermelho', color: '#ef4444' },
+  { value: 'vinho', label: 'Vinho', color: '#7f1d1d' }
 ];
 
 export const formatOptions = [

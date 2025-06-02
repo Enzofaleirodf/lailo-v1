@@ -2,7 +2,7 @@
 import React from 'react';
 import { FilterSection } from './FilterSection';
 import { SearchableCombobox } from './SearchableCombobox';
-import { ColorGrid } from './ColorGrid';
+import { ColorPopover } from './ColorPopover';
 import { RangeSlider } from './RangeSlider';
 import { brandOptions, modelOptions, colorOptions } from '../../config/filterData';
 
@@ -30,7 +30,7 @@ export const VehicleSpecificFilters = ({
   return (
     <>
       <FilterSection title="Marca e Modelo">
-        <div className="space-y-2">
+        <div className="space-y-1">
           <SearchableCombobox
             options={brandOptions}
             selected={brand}
@@ -46,22 +46,24 @@ export const VehicleSpecificFilters = ({
           />
         </div>
       </FilterSection>
-      
+
       <FilterSection title="Cor">
-        <ColorGrid
+        <ColorPopover
           colors={colorOptions}
           selected={color}
           onSelect={onColorChange}
         />
       </FilterSection>
 
-      <FilterSection title="Ano do Veículo">
+      <FilterSection title="Ano do veículo">
         <RangeSlider
-          min={2010}
+          range={yearRange}
+          onRangeChange={onYearRangeChange}
+          min={2000}
           max={2025}
-          value={yearRange}
-          onChange={onYearRangeChange}
           step={1}
+          suffix=""
+          label="Ano"
         />
       </FilterSection>
     </>
