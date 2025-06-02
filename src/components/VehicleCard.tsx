@@ -63,7 +63,9 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
             <VehiclePrice price={vehicle.price} discount={vehicle.discount} priceGradient="from-blue-600 to-purple-600" isVertical={true} />
           </div>
           
-          <div className="mt-2 flex items-center justify-between">
+          <Separator className="my-2" />
+          
+          <div className="flex items-center justify-between pt-2">
             <BaseBadges badges={vehicle.badges} />
             <BaseDate date={vehicle.date} isVertical={true} />
           </div>

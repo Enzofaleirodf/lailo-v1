@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
@@ -81,7 +82,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             />
           </div>
           
-          <div className="mt-2 flex items-center justify-between">
+          <Separator className="my-2" />
+          
+          <div className="flex items-center justify-between pt-2">
             <BaseBadges badges={property.badges} />
             <BaseDate date={property.date} isVertical={true} />
           </div>
