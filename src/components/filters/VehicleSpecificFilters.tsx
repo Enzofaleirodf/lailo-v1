@@ -57,13 +57,12 @@ export const VehicleSpecificFilters = ({
 
       <FilterSection title="Ano do veículo">
         <RangeSlider
-          range={yearRange}
-          onRangeChange={onYearRangeChange}
+          value={yearRange}
+          onChange={onYearRangeChange}
           min={2000}
           max={2025}
           step={1}
           suffix=""
-          label="Ano"
         />
       </FilterSection>
     </>
