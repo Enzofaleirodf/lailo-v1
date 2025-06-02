@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
@@ -84,9 +85,6 @@ export const TopBarFilters = ({
       setStages(prev => prev.filter(item => item !== option.value));
     }
   };
-  const getFormatIcon = () => {
-    return format === 'leilao' ? <Gavel className="w-4 h-4" /> : <Building className="w-4 h-4" />;
-  };
   const getFilterCount = () => {
     let count = 0;
     if (format) count++;
@@ -107,7 +105,6 @@ export const TopBarFilters = ({
           close
         }) => <div className="space-y-4">
               <div className="flex items-center gap-2">
-                {format && getFormatIcon()}
                 <h4 className="font-semibold text-gray-900 text-base">Formato do Leilão</h4>
               </div>
               <div className="flex flex-col gap-2">
@@ -115,10 +112,7 @@ export const TopBarFilters = ({
               borderRadius: designTokens.borderRadius.lg,
               padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}`
             }}>
-                    <div className="flex items-center gap-2">
-                      {option.value === 'leilao' ? <Gavel className="w-4 h-4" /> : <Building className="w-4 h-4" />}
-                      {option.label}
-                    </div>
+                    {option.label}
                   </button>)}
               </div>
             </div>}
