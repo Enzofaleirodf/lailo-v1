@@ -88,40 +88,42 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
   }
 
   return (
-    <BaseCard className="flex gap-4 p-4">
-      <div className="relative flex-shrink-0">
-        <BaseImage 
-          src={vehicle.image} 
-          alt={vehicle.name}
-          isFavorited={isVehicleFavorite}
-          onToggleFavorite={handleFavoriteToggle}
-          isVertical={false}
-          showNewBadge={vehicle.showNewBadge}
-          className="w-32 h-24"
-        />
-      </div>
-      
-      <div className="flex-1 min-w-0 space-y-2">
-        <VehicleHeader 
-          name={vehicle.name}
-          color={vehicle.color}
-          year={vehicle.year}
-          location={vehicle.location}
-          isVertical={false}
-        />
+    <BaseCard className="p-4">
+      <div className="flex gap-4">
+        <div className="relative flex-shrink-0">
+          <BaseImage 
+            src={vehicle.image} 
+            alt={vehicle.name}
+            isFavorited={isVehicleFavorite}
+            onToggleFavorite={handleFavoriteToggle}
+            isVertical={false}
+            showNewBadge={vehicle.showNewBadge}
+            className="w-32 h-24"
+          />
+        </div>
         
-        <BaseBadges badges={vehicle.badges} />
-      </div>
-      
-      <div className="flex flex-col justify-between items-end">
-        <VehiclePrice 
-          price={vehicle.price}
-          discount={vehicle.discount}
-          priceGradient="from-blue-600 to-purple-600"
-          isVertical={false}
-        />
+        <div className="flex-1 min-w-0 space-y-2">
+          <VehicleHeader 
+            name={vehicle.name}
+            color={vehicle.color}
+            year={vehicle.year}
+            location={vehicle.location}
+            isVertical={false}
+          />
+          
+          <BaseBadges badges={vehicle.badges} />
+        </div>
         
-        <BaseDate date={vehicle.date} isVertical={false} />
+        <div className="flex flex-col justify-between items-end">
+          <VehiclePrice 
+            price={vehicle.price}
+            discount={vehicle.discount}
+            priceGradient="from-blue-600 to-purple-600"
+            isVertical={false}
+          />
+          
+          <BaseDate date={vehicle.date} isVertical={false} />
+        </div>
       </div>
     </BaseCard>
   );

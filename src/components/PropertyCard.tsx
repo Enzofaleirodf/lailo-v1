@@ -88,40 +88,42 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   }
 
   return (
-    <BaseCard className="flex gap-4 p-4">
-      <div className="relative flex-shrink-0">
-        <BaseImage 
-          src={property.image} 
-          alt={property.type}
-          isFavorited={isPropertyFavorite}
-          onToggleFavorite={handleFavoriteToggle}
-          isVertical={false}
-          showNewBadge={property.showNewBadge}
-          className="w-32 h-24"
-        />
-      </div>
-      
-      <div className="flex-1 min-w-0 space-y-2">
-        <PropertyHeader 
-          type={property.type}
-          area={property.area}
-          address={property.address}
-          cityState={property.cityState}
-          isVertical={false}
-        />
+    <BaseCard className="p-4">
+      <div className="flex gap-4">
+        <div className="relative flex-shrink-0">
+          <BaseImage 
+            src={property.image} 
+            alt={property.type}
+            isFavorited={isPropertyFavorite}
+            onToggleFavorite={handleFavoriteToggle}
+            isVertical={false}
+            showNewBadge={property.showNewBadge}
+            className="w-32 h-24"
+          />
+        </div>
         
-        <BaseBadges badges={property.badges} />
-      </div>
-      
-      <div className="flex flex-col justify-between items-end">
-        <PropertyPrice 
-          price={property.price}
-          discount={property.discount}
-          priceGradient="from-green-600 to-teal-600"
-          isVertical={false}
-        />
+        <div className="flex-1 min-w-0 space-y-2">
+          <PropertyHeader 
+            type={property.type}
+            area={property.area}
+            address={property.address}
+            cityState={property.cityState}
+            isVertical={false}
+          />
+          
+          <BaseBadges badges={property.badges} />
+        </div>
         
-        <BaseDate date={property.date} isVertical={false} />
+        <div className="flex flex-col justify-between items-end">
+          <PropertyPrice 
+            price={property.price}
+            discount={property.discount}
+            priceGradient="from-green-600 to-teal-600"
+            isVertical={false}
+          />
+          
+          <BaseDate date={property.date} isVertical={false} />
+        </div>
       </div>
     </BaseCard>
   );
