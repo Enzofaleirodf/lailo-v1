@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
+import { LocationFilter } from './LocationFilter';
 import { ItemType } from '../../types/search';
 
 interface TopBarFiltersProps {
@@ -93,6 +94,9 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
 
   return (
     <div className="flex items-start gap-4">
+      {/* Filtro de Localização */}
+      <LocationFilter />
+
       {/* Filtro Formato */}
       <FilterChip
         label="Selecione um formato"
