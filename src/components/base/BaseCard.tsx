@@ -31,7 +31,7 @@ export const BaseCard = ({
     >
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
       
-      <CardContent className="relative p-0 space-y-3">
+      <CardContent className="relative p-0">
         {children}
       </CardContent>
     </Card>
