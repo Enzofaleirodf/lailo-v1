@@ -58,10 +58,28 @@ const BuscadorVeiculos = () => {
   return (
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12">
+      
+      {/* Desktop Top Bar */}
+      <div className="hidden md:block fixed top-0 right-0 left-12 h-16 bg-white border-b border-gray-200 z-40">
+        <div className="flex items-center justify-between h-full px-6">
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Voltar
+              </Link>
+            </Button>
+            <h1 className="text-2xl font-bold text-gray-900">Buscar Veículos</h1>
+          </div>
+          {isLoading && <LoadingSpinner />}
+        </div>
+      </div>
+
+      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16">
         <div className="min-h-screen bg-white px-6 py-6 pb-20 md:pb-6">
           <div className="w-full">
-            <div className="flex items-center justify-between mb-6">
+            {/* Mobile header - only show on mobile */}
+            <div className="flex items-center justify-between mb-6 md:hidden">
               <div className="flex items-center gap-3">
                 <Button variant="outline" size="sm" asChild>
                   <Link to="/">
