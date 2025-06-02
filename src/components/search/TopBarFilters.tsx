@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
@@ -106,7 +105,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
   };
 
   return (
-    <div className="flex items-start gap-3 overflow-x-auto scrollbar-hide pb-2">
+    <div className="flex items-start gap-3 min-w-0">
       {/* Filtro de Localização - sempre primeiro */}
       <div className="flex-shrink-0">
         <LocationFilter />

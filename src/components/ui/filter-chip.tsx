@@ -177,7 +177,7 @@ export const FilterChip = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden"
+            className="absolute top-full left-0 mt-2 z-[9999] bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden"
             style={{
               borderRadius: designTokens.borderRadius.xl,
               boxShadow: designTokens.shadows.lg,
