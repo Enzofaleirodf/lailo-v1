@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
@@ -88,11 +89,11 @@ const BuscadorVeiculos = () => {
 
             {/* Controls bar with results text and controls */}
             <div className="flex items-center justify-between gap-4 mb-4">
-              <div className="text-sm text-gray-600 text-left">
+              <div className="text-sm text-gray-600 flex-shrink-0">
                 Encontramos <span className="font-semibold">4.164</span> leilões em <span className="font-semibold">131</span> sites
               </div>
               
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 flex-shrink-0">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
                   <DropdownMenu>
