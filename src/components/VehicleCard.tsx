@@ -73,10 +73,12 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
           <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={vehicle.showNewBadge} className="w-32 h-24" />
         </div>
         
-        <div className="flex-1 min-w-0 space-y-2">
+        <div className="flex-1 min-w-0">
           <VehicleHeader name={vehicle.name} color={vehicle.color} year={vehicle.year} location={vehicle.location} isVertical={false} />
           
-          <VehiclePrice price={vehicle.price} discount={vehicle.discount} priceGradient="from-blue-600 to-purple-600" isVertical={false} />
+          <div className="mt-1">
+            <VehiclePrice price={vehicle.price} discount={vehicle.discount} priceGradient="from-blue-600 to-purple-600" isVertical={false} />
+          </div>
         </div>
       </div>
       

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
@@ -102,7 +103,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           />
         </div>
         
-        <div className="flex-1 min-w-0 space-y-2">
+        <div className="flex-1 min-w-0">
           <PropertyHeader 
             type={property.type}
             area={property.area}
@@ -111,12 +112,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             isVertical={false}
           />
           
-          <PropertyPrice 
-            price={property.price}
-            discount={property.discount}
-            priceGradient="from-green-600 to-teal-600"
-            isVertical={false}
-          />
+          <div className="mt-1">
+            <PropertyPrice 
+              price={property.price}
+              discount={property.discount}
+              priceGradient="from-green-600 to-teal-600"
+              isVertical={false}
+            />
+          </div>
         </div>
       </div>
       
