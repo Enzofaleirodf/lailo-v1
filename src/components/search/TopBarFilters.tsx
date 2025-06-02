@@ -92,17 +92,12 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
     }
   };
 
-  const getFormatLabel = () => {
-    if (!format) return 'Selecione um formato';
-    return formatOptions.find(opt => opt.value === format)?.label || 'Selecione um formato';
-  };
-
   return (
     <div className="flex items-start gap-4">
       {/* Filtro Formato */}
       <FilterChip
         label="Selecione um formato"
-        selectedValue={format ? getFormatLabel() : undefined}
+        selectedValue={format ? formatOptions.find(opt => opt.value === format)?.label : undefined}
         isActive={!!format}
         onClear={() => setFormat('')}
         className="w-[220px]"
