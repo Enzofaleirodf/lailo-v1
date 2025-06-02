@@ -6,16 +6,19 @@ import { PropertyCard } from "../components/PropertyCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { Button } from "@/components/ui/button";
 import { SessionNavBar } from "../components/SessionNavBar";
+import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFiltersStore } from "../stores/filtersStore";
 import { useFavoritesStore } from "../stores/favoritesStore";
 
 const BuscadorImoveis = () => {
   const [isVertical, setIsVertical] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { propertyFilters } = useFiltersStore();
   const { favorites } = useFavoritesStore();
 
   const properties = [
     {
+      id: "property-1",
       type: "Casa Térrea",
       area: "250m²",
       address: "Rua das Flores, 123",
@@ -28,6 +31,7 @@ const BuscadorImoveis = () => {
       showNewBadge: true
     },
     {
+      id: "property-2",
       type: "Apartamento Moderno",
       area: "80m²",
       address: "Av. Paulista, 456",
@@ -40,6 +44,7 @@ const BuscadorImoveis = () => {
       showNewBadge: false
     },
     {
+      id: "property-3",
       type: "Sobrado Duplex",
       area: "180m²",
       address: "Rua das Acácias, 789",
@@ -69,13 +74,14 @@ const BuscadorImoveis = () => {
                 </Button>
                 <h1 className="text-2xl font-bold text-gray-900">Buscar Imóveis</h1>
               </div>
+              {isLoading && <LoadingSpinner />}
             </div>
 
             <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
             
             <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-              {properties.map((property, index) => (
-                <PropertyCard key={index} property={property} isVertical={isVertical} />
+              {properties.map((property) => (
+                <PropertyCard key={property.id} property={property} isVertical={isVertical} />
               ))}
             </div>
           </div>

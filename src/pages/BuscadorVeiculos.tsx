@@ -7,17 +7,20 @@ import { LayoutToggle } from "../components/LayoutToggle";
 import { VehicleSidebar } from "../components/VehicleSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { SessionNavBar } from "../components/SessionNavBar";
+import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { useFiltersStore } from "../stores/filtersStore";
 import { useFavoritesStore } from "../stores/favoritesStore";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { vehicleFilters } = useFiltersStore();
   const { favorites } = useFavoritesStore();
 
   const vehicles = [
     {
+      id: "search-vehicle-1",
       name: "Volkswagen T-Cross",
       color: "Preto",
       year: "2025",
@@ -30,6 +33,7 @@ const BuscadorVeiculos = () => {
       showNewBadge: true
     },
     {
+      id: "search-vehicle-2",
       name: "Honda Civic",
       color: "Prata",
       year: "2024",
@@ -42,6 +46,7 @@ const BuscadorVeiculos = () => {
       showNewBadge: false
     },
     {
+      id: "search-vehicle-3",
       name: "Toyota Corolla",
       color: "Branco",
       year: "2023",
@@ -75,13 +80,14 @@ const BuscadorVeiculos = () => {
                     </Button>
                     <h1 className="text-2xl font-bold text-gray-900">Buscar Veículos</h1>
                   </div>
+                  {isLoading && <LoadingSpinner />}
                 </div>
 
                 <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
                 
                 <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                  {vehicles.map((vehicle, index) => (
-                    <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+                  {vehicles.map((vehicle) => (
+                    <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
                   ))}
                 </div>
               </div>

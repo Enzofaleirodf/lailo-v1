@@ -1,13 +1,25 @@
+
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { SessionNavBar } from "../components/SessionNavBar";
+import { LoadingSpinner } from "../components/ui/LoadingSpinner";
+import { ErrorMessage } from "../components/ui/ErrorMessage";
+import { useFiltersStore } from "../stores/filtersStore";
+import { useFavoritesStore } from "../stores/favoritesStore";
 
 const Index = () => {
   const [isVertical, setIsVertical] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  const { vehicleFilters } = useFiltersStore();
+  const { favorites } = useFavoritesStore();
 
+  // Mock data com IDs únicos para favoritos
   const vehicles = [
     {
+      id: "vehicle-1",
       name: "Volkswagen T-Cross",
       color: "Preto",
       year: "2025",
@@ -20,6 +32,7 @@ const Index = () => {
       showNewBadge: true
     },
     {
+      id: "vehicle-2",
       name: "Honda Civic",
       color: "Prata",
       year: "2024",
@@ -32,6 +45,7 @@ const Index = () => {
       showNewBadge: false
     },
     {
+      id: "vehicle-3",
       name: "Toyota Corolla",
       color: "Branco",
       year: "2023",
@@ -44,6 +58,7 @@ const Index = () => {
       showNewBadge: true
     },
     {
+      id: "vehicle-4",
       name: "Hyundai HB20",
       color: "Azul",
       year: "2024",
@@ -56,6 +71,7 @@ const Index = () => {
       showNewBadge: false
     },
     {
+      id: "vehicle-5",
       name: "Chevrolet Onix",
       color: "Vermelho",
       year: "2023",
@@ -68,6 +84,7 @@ const Index = () => {
       showNewBadge: true
     },
     {
+      id: "vehicle-6",
       name: "Nissan Kicks",
       color: "Cinza",
       year: "2024",
@@ -80,6 +97,7 @@ const Index = () => {
       showNewBadge: false
     },
     {
+      id: "vehicle-7",
       name: "Renault Sandero",
       color: "Verde",
       year: "2023",
@@ -92,6 +110,7 @@ const Index = () => {
       showNewBadge: true
     },
     {
+      id: "vehicle-8",
       name: "Ford Ka",
       color: "Amarelo",
       year: "2024",
@@ -104,6 +123,7 @@ const Index = () => {
       showNewBadge: false
     },
     {
+      id: "vehicle-9",
       name: "Fiat Argo",
       color: "Laranja",
       year: "2023",
@@ -116,6 +136,7 @@ const Index = () => {
       showNewBadge: false
     },
     {
+      id: "vehicle-10",
       name: "Peugeot 208",
       color: "Roxo",
       year: "2024",
@@ -129,17 +150,50 @@ const Index = () => {
     }
   ];
 
+  const handleRetry = () => {
+    setError(null);
+    setIsLoading(true);
+    // Simular reload de dados
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  if (error) {
+    return (
+      <div className="flex h-screen w-screen flex-row">
+        <SessionNavBar />
+        <main className="flex h-screen grow flex-col overflow-auto ml-12">
+          <div className="bg-white px-3 py-3">
+            <ErrorMessage
+              title="Erro ao carregar veículos"
+              message={error}
+              onRetry={handleRetry}
+            />
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
       <main className="flex h-screen grow flex-col overflow-auto ml-12">
         <div className="bg-white px-3 py-3">
           <div className="w-full">
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-2xl font-bold text-gray-900">
+                Leilões em Destaque
+              </h1>
+              {isLoading && <LoadingSpinner />}
+            </div>
+
             <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
             
             <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-              {vehicles.map((vehicle, index) => (
-                <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+              {vehicles.map((vehicle) => (
+                <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
               ))}
             </div>
           </div>

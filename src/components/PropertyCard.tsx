@@ -1,13 +1,15 @@
 
 import React, { useState } from "react";
-import { Card, CardContent } from "./ui/card";
-import { PropertyImage } from "./PropertyImage";
+import { BaseCard } from "./base/BaseCard";
+import { BaseImage } from "./base/BaseImage";
+import { BaseBadges } from "./base/BaseBadges";
+import { BaseDate } from "./base/BaseDate";
 import { PropertyHeader } from "./PropertyHeader";
 import { PropertyPrice } from "./PropertyPrice";
-import { PropertyBadges } from "./PropertyBadges";
-import { PropertyDate } from "./PropertyDate";
+import { useFavoritesStore } from "../stores/favoritesStore";
 
 interface PropertyData {
+  id?: string;
   type: string;
   area: string;
   address: string;
@@ -29,9 +31,10 @@ export const PropertyCard = ({
   property,
   isVertical = false
 }: PropertyCardProps): JSX.Element => {
-  const [isFavorited, setIsFavorited] = useState(false);
+  const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
 
   const defaultProperty: PropertyData = {
+    id: "default-property",
     type: "Casa Térrea",
     area: "250m²",
     address: "Rua das Flores, 123",
@@ -45,124 +48,109 @@ export const PropertyCard = ({
   };
 
   const propertyData = property || defaultProperty;
+  const propertyId = propertyData.id || `property-${Date.now()}`;
+  const isFavorited = isFavorite(propertyId, 'property');
   
   const statusTheme = {
-    borderColor: "border-blue-500",
-    accentColor: "from-blue-50 to-blue-100",
     badgeColor: "bg-blue-100 text-blue-800",
     priceGradient: "text-blue-800"
   };
 
+  const handleToggleFavorite = () => {
+    if (isFavorited) {
+      removeFavorite(propertyId, 'property');
+    } else {
+      addFavorite({
+        itemId: propertyId,
+        itemType: 'property',
+        title: propertyData.type,
+        price: propertyData.price,
+        image: propertyData.image
+      });
+    }
+  };
+
   if (isVertical) {
     return (
-      <Card 
-        className={`
-          group relative w-full max-w-none p-3 
-          bg-gradient-to-br from-white via-gray-50 to-gray-100
-          rounded-2xl border-0
-          shadow-lg backdrop-blur-sm
-          focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
-        `}
-        role="article"
-        aria-label={`Imóvel ${propertyData.type}`}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
-        
-        <CardContent className="relative p-0 space-y-3">
-          <PropertyImage
-            image={propertyData.image}
-            isFavorited={isFavorited}
-            onToggleFavorite={() => setIsFavorited(!isFavorited)}
-            propertyType={propertyData.type}
+      <BaseCard isVertical={true}>
+        <BaseImage
+          image={propertyData.image}
+          alt={`Imóvel ${propertyData.type}`}
+          isFavorited={isFavorited}
+          onToggleFavorite={handleToggleFavorite}
+          isVertical={true}
+          showNewBadge={propertyData.showNewBadge}
+        />
+
+        <div className="flex flex-col gap-3">
+          <PropertyHeader
+            type={propertyData.type}
+            area={propertyData.area}
+            address={propertyData.address}
+            cityState={propertyData.cityState}
             isVertical={true}
-            showNewBadge={propertyData.showNewBadge}
           />
 
-          <div className="flex flex-col gap-3">
-            <PropertyHeader
-              type={propertyData.type}
-              area={propertyData.area}
-              address={propertyData.address}
-              cityState={propertyData.cityState}
-              isVertical={true}
+          <PropertyPrice
+            price={propertyData.price}
+            discount={propertyData.discount}
+            priceGradient={statusTheme.priceGradient}
+            isVertical={true}
+          />
+
+          <div className="h-px w-full bg-gradient-to-r from-blue-50 to-blue-100" />
+
+          <div className="flex items-center justify-between">
+            <BaseBadges 
+              badges={propertyData.badges}
+              badgeColor={statusTheme.badgeColor}
             />
-
-            <PropertyPrice
-              price={propertyData.price}
-              discount={propertyData.discount}
-              priceGradient={statusTheme.priceGradient}
-              isVertical={true}
-            />
-
-            <div className={`h-px w-full bg-gradient-to-r ${statusTheme.accentColor}`} />
-
-            <div className="flex items-center justify-between">
-              <PropertyBadges 
-                badges={propertyData.badges}
-                badgeColor={statusTheme.badgeColor}
-              />
-              <PropertyDate date={propertyData.date} isVertical={true} />
-            </div>
+            <BaseDate date={propertyData.date} isVertical={true} />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </BaseCard>
     );
   }
 
   return (
-    <Card 
-      className={`
-        group relative w-full max-w-none p-3 md:p-3
-        bg-gradient-to-br from-white via-gray-50 to-gray-100
-        rounded-2xl border-0
-        shadow-lg backdrop-blur-sm
-        focus-within:ring-4 focus-within:ring-blue-200 focus-within:ring-opacity-50
-      `}
-      style={{ padding: '12px' }}
-      role="article"
-      aria-label={`Imóvel ${propertyData.type}`}
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl pointer-events-none" />
-      
-      <CardContent className="relative p-0 space-y-3">
-        <div className="flex items-stretch" style={{ gap: '12px' }}>
-          <PropertyImage
-            image={propertyData.image}
-            isFavorited={isFavorited}
-            onToggleFavorite={() => setIsFavorited(!isFavorited)}
-            propertyType={propertyData.type}
+    <BaseCard isVertical={false}>
+      <div className="flex items-stretch" style={{ gap: '12px' }}>
+        <BaseImage
+          image={propertyData.image}
+          alt={`Imóvel ${propertyData.type}`}
+          isFavorited={isFavorited}
+          onToggleFavorite={handleToggleFavorite}
+          isVertical={false}
+          showNewBadge={propertyData.showNewBadge}
+        />
+
+        <div className="flex flex-col gap-3 flex-1 min-w-0">
+          <PropertyHeader
+            type={propertyData.type}
+            area={propertyData.area}
+            address={propertyData.address}
+            cityState={propertyData.cityState}
             isVertical={false}
-            showNewBadge={propertyData.showNewBadge}
           />
 
-          <div className="flex flex-col gap-3 flex-1 min-w-0">
-            <PropertyHeader
-              type={propertyData.type}
-              area={propertyData.area}
-              address={propertyData.address}
-              cityState={propertyData.cityState}
-              isVertical={false}
-            />
-
-            <PropertyPrice
-              price={propertyData.price}
-              discount={propertyData.discount}
-              priceGradient={statusTheme.priceGradient}
-              isVertical={false}
-            />
-          </div>
-        </div>
-
-        <div className={`h-px w-full bg-gradient-to-r ${statusTheme.accentColor}`} />
-
-        <div className="flex items-center justify-between">
-          <PropertyBadges 
-            badges={propertyData.badges}
-            badgeColor={statusTheme.badgeColor}
+          <PropertyPrice
+            price={propertyData.price}
+            discount={propertyData.discount}
+            priceGradient={statusTheme.priceGradient}
+            isVertical={false}
           />
-          <PropertyDate date={propertyData.date} isVertical={false} />
         </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      <div className="h-px w-full bg-gradient-to-r from-blue-50 to-blue-100" />
+
+      <div className="flex items-center justify-between">
+        <BaseBadges 
+          badges={propertyData.badges}
+          badgeColor={statusTheme.badgeColor}
+        />
+        <BaseDate date={propertyData.date} isVertical={false} />
+      </div>
+    </BaseCard>
   );
 };

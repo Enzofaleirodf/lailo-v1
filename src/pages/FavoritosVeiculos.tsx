@@ -6,28 +6,42 @@ import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { Button } from "@/components/ui/button";
 import { SessionNavBar } from "../components/SessionNavBar";
+import { EmptyState } from "../components/ui/EmptyState";
+import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
 
 const FavoritosVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
-  const { getFavoritesByType } = useFavoritesStore();
+  const { getFavoritesByType, isLoading } = useFavoritesStore();
   const favoriteVehicles = getFavoritesByType('vehicle');
 
-  // Mock data para demonstração
-  const mockVehicles = [
-    {
-      name: "Volkswagen T-Cross Favorito",
-      color: "Preto",
-      year: "2025",
-      location: "Brasília - DF",
-      price: "R$ 78.000",
-      discount: "50% OFF",
-      badges: ["Extrajudicial", "2ª Praça"],
-      date: "15/05 às 10:00",
-      image: "/lovable-uploads/c1eac822-7357-49b8-a4ce-a14e374e1167.png",
-      showNewBadge: true
-    }
-  ];
+  // Converter favoritos para formato do VehicleCard
+  const vehicleCards = favoriteVehicles.map(fav => ({
+    id: fav.itemId,
+    name: fav.title,
+    color: "N/D",
+    year: "N/D",
+    location: "N/D",
+    price: fav.price,
+    discount: "",
+    badges: ["Favorito"],
+    date: new Date(fav.createdAt).toLocaleDateString('pt-BR'),
+    image: fav.image || "/lovable-uploads/c1eac822-7357-49b8-a4ce-a14e374e1167.png",
+    showNewBadge: false
+  }));
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen w-screen flex-row">
+        <SessionNavBar />
+        <main className="flex h-screen grow flex-col overflow-auto ml-12">
+          <div className="bg-white px-3 py-3 flex justify-center items-center h-full">
+            <LoadingSpinner size="lg" />
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen w-screen flex-row">
@@ -45,30 +59,31 @@ const FavoritosVeiculos = () => {
                 </Button>
                 <div className="flex items-center gap-2">
                   <Heart className="w-6 h-6 text-red-500" />
-                  <h1 className="text-2xl font-bold text-gray-900">Veículos Favoritos</h1>
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    Veículos Favoritos ({favoriteVehicles.length})
+                  </h1>
                 </div>
               </div>
             </div>
 
-            {mockVehicles.length > 0 ? (
+            {vehicleCards.length > 0 ? (
               <>
                 <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
                 
                 <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                  {mockVehicles.map((vehicle, index) => (
-                    <VehicleCard key={index} vehicle={vehicle} isVertical={isVertical} />
+                  {vehicleCards.map((vehicle) => (
+                    <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
                   ))}
                 </div>
               </>
             ) : (
-              <div className="text-center py-12">
-                <Heart className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum veículo favoritado</h3>
-                <p className="text-gray-500 mb-4">Comece a favoritar veículos para vê-los aqui.</p>
-                <Button asChild>
-                  <Link to="/buscador/veiculos">Buscar Veículos</Link>
-                </Button>
-              </div>
+              <EmptyState
+                icon={Heart}
+                title="Nenhum veículo favoritado"
+                description="Comece a favoritar veículos para vê-los aqui."
+                actionLabel="Buscar Veículos"
+                onAction={() => window.location.href = '/buscador/veiculos'}
+              />
             )}
           </div>
         </div>
