@@ -25,12 +25,6 @@ export const SessionNavBar = () => {
       icon: Search,
       label: "Buscador",
       active: isActive("/buscador")
-    },
-    {
-      to: "/leiloeiros",
-      icon: Gavel,
-      label: "Leiloeiros",
-      active: isActive("/leiloeiros")
     }
   ];
 
@@ -40,6 +34,12 @@ export const SessionNavBar = () => {
       icon: Heart,
       label: "Favoritos",
       active: isActive("/favoritos")
+    },
+    {
+      to: "/leiloeiros",
+      icon: Gavel,
+      label: "Leiloeiros",
+      active: isActive("/leiloeiros")
     },
     {
       to: "/perfil",
@@ -130,13 +130,26 @@ export const SessionNavBar = () => {
             <Link
               to="/auth/login"
               className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
-              title="Perfil - Faça login"
+              title="Leiloeiros"
             >
-              <User className="w-4 h-4" />
+              <Gavel className="w-4 h-4" />
               
               {/* Tooltip */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                Perfil - Faça login
+                Leiloeiros
+              </div>
+            </Link>
+
+            <Link
+              to="/auth/login"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
+              title="Entrar"
+            >
+              <LogIn className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Entrar
               </div>
             </Link>
           </>
@@ -160,20 +173,7 @@ export const SessionNavBar = () => {
               Sair
             </div>
           </Button>
-        ) : (
-          <Link
-            to="/auth/login"
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
-            title="Entrar"
-          >
-            <LogIn className="w-4 h-4" />
-            
-            {/* Tooltip */}
-            <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-              Entrar
-            </div>
-          </Link>
-        )}
+        ) : null}
       </div>
     </nav>
   );
