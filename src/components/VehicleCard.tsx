@@ -8,6 +8,7 @@ import { VehiclePrice } from "./VehiclePrice";
 import { Separator } from "./ui/separator";
 import { useFavoritesStore } from "../stores/favoritesStore";
 import { showSuccess, showInfo } from "./ui/NotificationToast";
+
 interface VehicleCardProps {
   vehicle: {
     id: string;
@@ -66,7 +67,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
         </div>
       </BaseCard>;
   }
-  return <BaseCard className="p-4">
+  return <BaseCard>
       <div className="flex gap-4">
         <div className="relative flex-shrink-0">
           <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={vehicle.showNewBadge} className="w-32 h-24" />

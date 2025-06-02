@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
@@ -89,7 +88,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   }
 
   return (
-    <BaseCard className="p-4">
+    <BaseCard>
       <div className="flex gap-4">
         <div className="relative flex-shrink-0">
           <BaseImage 
