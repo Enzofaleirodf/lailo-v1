@@ -97,7 +97,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
       
       <Separator className="my-2" />
       
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex items-center justify-between pt-1">
         <BaseBadges badges={item.badges} />
         <BaseDate date={item.date} isVertical={false} />
       </div>
