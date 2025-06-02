@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
@@ -124,7 +123,6 @@ export const TopBarFilters = ({
         <FilterChip label="Origem" selectedItems={getSelectedOriginLabels()} isActive={origins.length > 0} hasMultiple={true} onClear={() => setOrigins([])} onRemoveItem={removeOrigin} onSelectAll={handleSelectAllOrigins} className="w-[280px]" aria-label="Filtro de origem do leilão" id="origin-filter">
           <div className="space-y-4">
             <h4 className="font-semibold text-gray-900 text-base flex items-center gap-2">
-              
               Origem do Leilão
             </h4>
             <div className="flex flex-col gap-2">
@@ -144,7 +142,6 @@ export const TopBarFilters = ({
         <FilterChip label="Etapa" selectedItems={getSelectedStageLabels()} isActive={stages.length > 0} isDisabled={format === 'venda-direta'} hasMultiple={true} onClear={() => setStages([])} onRemoveItem={removeStage} onSelectAll={handleSelectAllStages} className="w-[280px]" aria-label="Filtro de etapa do leilão" id="stage-filter">
           <div className="space-y-4">
             <h4 className="font-semibold text-gray-900 text-base flex items-center gap-2">
-              
               Etapa do Leilão
             </h4>
             <div className="flex flex-col gap-2">
