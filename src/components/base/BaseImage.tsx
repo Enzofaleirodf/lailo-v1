@@ -11,6 +11,7 @@ interface BaseImageProps {
   isVertical: boolean;
   showNewBadge?: boolean;
   className?: string;
+  showFavoriteButton?: boolean;
 }
 
 export const BaseImage = ({
@@ -20,7 +21,8 @@ export const BaseImage = ({
   onToggleFavorite,
   isVertical,
   showNewBadge = false,
-  className = ""
+  className = "",
+  showFavoriteButton = true
 }: BaseImageProps): JSX.Element => {
   const imageClass = className || (isVertical ? 'w-full aspect-[4/3]' : 'w-28 h-16 md:w-24 md:h-20');
   
@@ -34,28 +36,35 @@ export const BaseImage = ({
       />
       
       {showNewBadge && (
-        <div className="absolute top-2 left-2 md:px-2 md:py-1 bg-green-500 text-white text-xs font-bold rounded-md shadow-md" style={{ margin: '10px', padding: '0' }}>
+        <div className={`absolute bg-green-500 text-white text-xs font-bold rounded-md shadow-md font-urbanist ${
+          isVertical 
+            ? 'top-2 left-2 md:px-2 md:py-1' 
+            : 'top-1 left-1 px-0.5 py-0.5'
+        }`} 
+        style={isVertical ? { margin: '10px', padding: '0' } : { margin: '4px', padding: '2px' }}>
           NOVO
         </div>
       )}
       
-      <Button
-        variant="ghost"
-        size="sm"
-        className={`
-          absolute top-2 right-2
-          ${isVertical ? 'h-8 w-8 p-0 bg-white/80 backdrop-blur-sm hover:bg-white/90 rounded-full shadow-md' : 'h-6 w-6 p-0 m-0 bg-transparent hover:bg-transparent'}
-          transition-all duration-200
-          ${isFavorited ? 'text-red-500' : 'text-gray-600'}
-        `}
-        onClick={(e) => {
-          e.stopPropagation();
-          onToggleFavorite();
-        }}
-        aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-      >
-        <Heart className={`${isVertical ? 'h-4 w-4' : 'h-4 w-4'} ${isFavorited ? 'fill-current' : ''}`} />
-      </Button>
+      {showFavoriteButton && (
+        <Button
+          variant="ghost"
+          size="sm"
+          className={`
+            absolute top-2 right-2
+            ${isVertical ? 'h-8 w-8 p-0 bg-white/80 backdrop-blur-sm hover:bg-white/90 rounded-full shadow-md' : 'h-6 w-6 p-0 m-0 bg-transparent hover:bg-transparent'}
+            transition-all duration-200
+            ${isFavorited ? 'text-red-500' : 'text-gray-600'}
+          `}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleFavorite();
+          }}
+          aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+        >
+          <Heart className={`${isVertical ? 'h-4 w-4' : 'h-4 w-4'} ${isFavorited ? 'fill-current' : ''}`} />
+        </Button>
+      )}
     </div>
   );
 };

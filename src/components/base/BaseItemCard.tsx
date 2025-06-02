@@ -10,6 +10,8 @@ import { Separator } from "../ui/separator";
 import { useFavoritesStore } from "../../stores/favoritesStore";
 import { showSuccess, showInfo } from "../ui/NotificationToast";
 import { SearchItem } from "../../types/search";
+import { Heart } from "lucide-react";
+import { Button } from "../ui/button";
 
 interface BaseItemCardProps {
   item: SearchItem;
@@ -45,7 +47,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
 
   if (isVertical) {
     return (
-      <BaseCard className="overflow-hidden">
+      <BaseCard className="overflow-hidden font-urbanist">
         <div className="relative">
           <BaseImage 
             src={item.image} 
@@ -85,9 +87,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   }
 
   return (
-    <BaseCard>
+    <BaseCard className="font-urbanist">
       <div className="flex gap-3 items-stretch">
-        <div className="relative flex-shrink-0 w-20">
+        <div className="relative flex-shrink-0 w-28">
           <BaseImage 
             src={item.image} 
             alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -96,15 +98,37 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             isVertical={false}
             showNewBadge={item.showNewBadge}
             className="w-full h-full"
+            showFavoriteButton={false}
           />
         </div>
         
-        <div className="flex-1 min-w-0">
-          <BaseItemHeader 
-            item={item}
-            itemType={itemType}
-            isVertical={false}
-          />
+        <div className="flex-1 min-w-0 relative">
+          <div className="flex items-start justify-between">
+            <div className="flex-1 min-w-0">
+              <BaseItemHeader 
+                item={item}
+                itemType={itemType}
+                isVertical={false}
+              />
+            </div>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`
+                h-6 w-6 p-0 m-0 bg-transparent hover:bg-transparent flex-shrink-0 ml-2
+                transition-all duration-200
+                ${isItemFavorite ? 'text-red-500' : 'text-gray-600'}
+              `}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFavoriteToggle();
+              }}
+              aria-label={isItemFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+            >
+              <Heart className={`h-4 w-4 ${isItemFavorite ? 'fill-current' : ''}`} />
+            </Button>
+          </div>
           
           <div className="mt-2">
             <BaseItemPrice 
