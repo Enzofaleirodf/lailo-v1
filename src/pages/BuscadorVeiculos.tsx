@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
 import { SessionNavBar } from "../components/SessionNavBar";
 import { BottomNavigation } from "../components/BottomNavigation";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
