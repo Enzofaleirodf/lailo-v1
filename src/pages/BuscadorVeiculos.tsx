@@ -8,11 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("Mais recentes");
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 10; // Simulating total pages
   const sortOptions = ["Mais recentes", "Menor preço", "Maior preço", "Maior desconto", "Mais próximos"];
   const vehicles = [
     {
@@ -56,6 +59,11 @@ const BuscadorVeiculos = () => {
 
   const handleClearFilters = () => {
     console.log("Apagar filtros");
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    console.log(`Mudando para página ${page}`);
   };
 
   return (
@@ -138,6 +146,73 @@ const BuscadorVeiculos = () => {
               {vehicles.map(vehicle => (
                 <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
               ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="mt-8 flex justify-center">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage > 1) handlePageChange(currentPage - 1);
+                      }}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                    />
+                  </PaginationItem>
+                  
+                  {[...Array(Math.min(5, totalPages))].map((_, i) => {
+                    const pageNum = i + 1;
+                    return (
+                      <PaginationItem key={pageNum}>
+                        <PaginationLink 
+                          href="#" 
+                          isActive={currentPage === pageNum}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handlePageChange(pageNum);
+                          }}
+                        >
+                          {pageNum}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+                  
+                  {totalPages > 5 && (
+                    <>
+                      <PaginationItem>
+                        <PaginationEllipsis />
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink 
+                          href="#" 
+                          isActive={currentPage === totalPages}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handlePageChange(totalPages);
+                          }}
+                        >
+                          {totalPages}
+                        </PaginationLink>
+                      </PaginationItem>
+                    </>
+                  )}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                      }}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
             </div>
           </div>
         </div>
