@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Home, Building, TreePine, Factory, Car, Truck, Wrench, Waves, Plane, Bed } from 'lucide-react';
@@ -45,7 +46,7 @@ export const CategoryGrid = ({
             key={option.value}
             onClick={() => onSelect(option.value)}
             className={cn(
-              "flex items-center gap-2 p-4 border rounded-lg transition-all duration-200 font-medium text-left justify-start",
+              "flex items-center gap-2 px-3 py-3 border rounded-lg transition-all duration-200 font-medium text-left justify-start",
               selected === option.value
                 ? "bg-blue-50 border-blue-200 text-blue-700"
                 : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
@@ -59,3 +60,4 @@ export const CategoryGrid = ({
     </div>
   );
 };
+
