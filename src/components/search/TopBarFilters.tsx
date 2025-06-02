@@ -94,8 +94,8 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
       {/* Filtro Formato */}
       <FilterChip
         label="Formato"
-        selectedValue={getFormatLabel()}
-        isActive={!!format} // Ativo quando qualquer formato for selecionado
+        selectedValue={format ? getFormatLabel() : undefined}
+        isActive={!!format}
         onClear={() => setFormat('')}
         className="w-[220px]"
       >
@@ -130,7 +130,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         hasMultiple={true}
         onClear={() => setOrigins([])}
         onRemoveItem={removeOrigin}
-        className="w-[380px]"
+        className="w-[480px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Origem do Leilão</h4>
@@ -162,7 +162,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         hasMultiple={true}
         onClear={() => setStages([])}
         onRemoveItem={removeStage}
-        className="w-[380px]"
+        className="w-[480px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Etapa do Leilão</h4>
