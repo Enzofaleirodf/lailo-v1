@@ -71,11 +71,11 @@ export const FilterChip = ({
     if (hasMultiple && selectedItems.length > 0) {
       // Múltipla seleção - mostrar tags no placeholder
       return (
-        <div className="flex items-center gap-1 flex-wrap">
+        <div className="flex items-center gap-0.5 flex-wrap">
           {selectedItems.map((item) => (
             <div
               key={item}
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-100 text-blue-800 text-[10px] rounded font-medium whitespace-nowrap"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-100 text-blue-800 text-[10px] rounded font-medium whitespace-nowrap mr-0.5"
             >
               <span className="max-w-[60px] truncate">{item}</span>
               {onRemoveItem && (
