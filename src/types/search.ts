@@ -21,8 +21,7 @@ export interface Vehicle extends BaseItem {
 export interface Property extends BaseItem {
   type: string;
   area: string;
-  address: string;
-  cityState: string;
+  location: string;
 }
 
 export type SearchItem = Vehicle | Property;
