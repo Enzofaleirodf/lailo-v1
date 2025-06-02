@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
@@ -67,7 +68,12 @@ const BuscadorVeiculos = () => {
         </div>
       </div>
 
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16">
+      {/* Left Sidebar - Desktop only */}
+      <div className="hidden md:block fixed left-12 top-16 w-[448px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30">
+        {/* Empty sidebar content as requested */}
+      </div>
+
+      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
         <div className="min-h-screen bg-white px-6 py-6 pb-20 md:pb-6">
           <div className="w-full">
             {/* Mobile header - only show on mobile */}
