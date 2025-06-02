@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { Home, Car } from 'lucide-react';
+import { SegmentedControl } from '../ui/segmented-control';
 import { ItemType } from '../../types/search';
 
 interface ItemTypeToggleProps {
@@ -9,24 +10,24 @@ interface ItemTypeToggleProps {
 }
 
 export const ItemTypeToggle = ({ currentType, onTypeChange }: ItemTypeToggleProps) => {
+  const options = [
+    {
+      value: 'property' as const,
+      label: 'Imóveis',
+      icon: <Home className="w-4 h-4" />
+    },
+    {
+      value: 'vehicle' as const,
+      label: 'Veículos',
+      icon: <Car className="w-4 h-4" />
+    }
+  ];
+
   return (
-    <div className="flex items-center bg-gray-100 p-1 rounded-lg">
-      <Button
-        variant={currentType === 'property' ? 'default' : 'ghost'}
-        size="sm"
-        className="px-4 py-2 text-sm font-medium rounded-md"
-        onClick={() => onTypeChange('property')}
-      >
-        Imóveis
-      </Button>
-      <Button
-        variant={currentType === 'vehicle' ? 'default' : 'ghost'}
-        size="sm"
-        className="px-4 py-2 text-sm font-medium rounded-md"
-        onClick={() => onTypeChange('vehicle')}
-      >
-        Veículos
-      </Button>
-    </div>
+    <SegmentedControl
+      options={options}
+      value={currentType}
+      onValueChange={onTypeChange as (value: string) => void}
+    />
   );
 };
