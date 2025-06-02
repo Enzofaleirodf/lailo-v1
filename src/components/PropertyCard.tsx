@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
@@ -90,7 +89,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
   return (
     <BaseCard>
-      <div className="flex gap-4 items-start">
+      <div className="flex gap-4 items-stretch">
         <div className="relative flex-shrink-0 w-32">
           <BaseImage 
             src={property.image} 
@@ -99,7 +98,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             onToggleFavorite={handleFavoriteToggle}
             isVertical={false}
             showNewBadge={property.showNewBadge}
-            className="w-full h-auto"
+            className="w-full h-full"
           />
         </div>
         
@@ -112,7 +111,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             isVertical={false}
           />
           
-          <div className="mt-3">
+          <div className="mt-2">
             <PropertyPrice 
               price={property.price}
               discount={property.discount}
