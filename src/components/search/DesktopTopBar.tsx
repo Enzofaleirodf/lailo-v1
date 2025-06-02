@@ -52,9 +52,9 @@ export const DesktopTopBar = ({
           )}
         </div>
 
-        {/* Zona direita - Filtros com scroll horizontal responsivo */}
-        <div className="flex-1 flex justify-end overflow-hidden">
-          <div className="max-w-full overflow-x-auto scrollbar-hide">
+        {/* Zona direita - Filtros sem overflow-hidden */}
+        <div className="flex-1 flex justify-end">
+          <div className="max-w-full">
             <TopBarFilters itemType={itemType} />
           </div>
         </div>
