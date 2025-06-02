@@ -17,7 +17,7 @@ export const VehiclePrice = ({
 }: VehiclePriceProps) => {
   const priceClass = isVertical 
     ? "font-black text-transparent bg-clip-text bg-gradient-to-r text-3xl leading-none font-urbanist" 
-    : "font-black text-transparent bg-clip-text bg-gradient-to-r text-lg md:text-xl leading-none font-urbanist";
+    : "font-black text-transparent bg-clip-text bg-gradient-to-r text-lg md:text-2xl leading-none font-urbanist";
 
   const badgeClass = isVertical
     ? "bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold text-sm px-2 py-0.5 rounded-full shadow-lg font-urbanist"
