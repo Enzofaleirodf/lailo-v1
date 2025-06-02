@@ -73,7 +73,7 @@ export const FilterChip = ({
           {selectedItems.map((item) => (
             <div
               key={item}
-              className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-md font-medium"
+              className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-800 text-[11px] rounded-md font-medium"
             >
               <span>{item}</span>
               {onRemoveItem && (
