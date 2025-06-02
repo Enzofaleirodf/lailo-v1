@@ -47,43 +47,55 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
   };
 
   return (
-    <div className="hidden md:block fixed left-12 top-16 w-[512px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30 overflow-y-auto">
-      <div className="p-6">
-        <SidebarHeader onClearFilters={handleClearAllFilters} />
+    <div className="hidden md:block fixed left-12 top-16 w-[512px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30">
+      <div className="h-full overflow-y-auto scrollbar-hide" style={{
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none'
+      }}>
+        <style jsx>{`
+          div::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+          }
+        `}</style>
+        <div className="p-6">
+          <SidebarHeader onClearFilters={handleClearAllFilters} />
 
-        <div className="space-y-8">
-          <CategoryTypeFilters
-            itemType={itemType}
-            category={category}
-            type={type}
-            onCategoryChange={handleCategoryChange}
-            onTypeChange={setType}
-          />
-
-          {itemType === 'vehicle' && (
-            <VehicleSpecificFilters
-              brand={brand}
-              model={model}
-              color={color}
-              yearRange={yearRange}
-              onBrandChange={setBrand}
-              onModelChange={setModel}
-              onColorChange={setColor}
-              onYearRangeChange={setYearRange}
+          <div className="space-y-8">
+            <CategoryTypeFilters
+              itemType={itemType}
+              category={category}
+              type={type}
+              onCategoryChange={handleCategoryChange}
+              onTypeChange={setType}
             />
-          )}
 
-          {itemType === 'property' && (
-            <PropertySpecificFilters
-              areaRange={areaRange}
-              onAreaRangeChange={setAreaRange}
+            {itemType === 'vehicle' && (
+              <VehicleSpecificFilters
+                brand={brand}
+                model={model}
+                color={color}
+                yearRange={yearRange}
+                vehicleType={type}
+                onBrandChange={setBrand}
+                onModelChange={setModel}
+                onColorChange={setColor}
+                onYearRangeChange={setYearRange}
+              />
+            )}
+
+            {itemType === 'property' && (
+              <PropertySpecificFilters
+                areaRange={areaRange}
+                onAreaRangeChange={setAreaRange}
+              />
+            )}
+
+            <PriceFilter
+              priceRange={priceRange}
+              onPriceRangeChange={setPriceRange}
             />
-          )}
-
-          <PriceFilter
-            priceRange={priceRange}
-            onPriceRangeChange={setPriceRange}
-          />
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 
-
 /* Ocultar scrollbar mantendo funcionalidade */
 .scrollbar-hide {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
@@ -60,9 +59,20 @@
   }
 }
 
+/* Barra de rolagem completamente invisível */
+.invisible-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
 /* Estilos customizados para barras de rolagem quase invisíveis */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 2px;
+  width: 0px;
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -70,17 +80,16 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  background: transparent;
+  border-radius: 0px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
 }
 
 /* Firefox scrollbar */
 .custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
 }
-
