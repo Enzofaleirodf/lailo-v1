@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   Pagination,
   PaginationContent,
@@ -49,6 +50,7 @@ export const SearchPagination = ({
     <div className="mt-6 md:mt-8 flex justify-center">
       <Pagination>
         <PaginationContent className="gap-1">
+          {/* Botão Anterior - Mobile: só chevron, Desktop: texto + chevron */}
           <PaginationItem>
             <PaginationPrevious 
               href="#" 
@@ -57,11 +59,14 @@ export const SearchPagination = ({
                 if (currentPage > 1) onPageChange(currentPage - 1);
               }}
               className={`${currentPage === 1 ? "pointer-events-none opacity-50" : ""} text-xs md:text-sm px-2 md:px-3`}
-            />
+            >
+              <ChevronLeft className="h-4 w-4" />
+              <span className="hidden md:inline ml-1">Anterior</span>
+            </PaginationPrevious>
           </PaginationItem>
           
-          {/* Primeira página se não estiver visível */}
-          {showStartEllipsis && (
+          {/* Primeira página se não estiver visível - Ocultar no mobile se muito distante */}
+          {showStartEllipsis && !isMobile && (
             <>
               <PaginationItem>
                 <PaginationLink 
@@ -98,8 +103,8 @@ export const SearchPagination = ({
             </PaginationItem>
           ))}
           
-          {/* Última página se não estiver visível */}
-          {showEndEllipsis && (
+          {/* Última página se não estiver visível - Ocultar no mobile se muito distante */}
+          {showEndEllipsis && !isMobile && (
             <>
               <PaginationItem>
                 <PaginationEllipsis className="w-8 h-8 md:w-10 md:h-10" />
@@ -119,6 +124,7 @@ export const SearchPagination = ({
             </>
           )}
           
+          {/* Botão Próximo - Mobile: só chevron, Desktop: texto + chevron */}
           <PaginationItem>
             <PaginationNext 
               href="#" 
@@ -127,7 +133,10 @@ export const SearchPagination = ({
                 if (currentPage < totalPages) onPageChange(currentPage + 1);
               }}
               className={`${currentPage === totalPages ? "pointer-events-none opacity-50" : ""} text-xs md:text-sm px-2 md:px-3`}
-            />
+            >
+              <span className="hidden md:inline mr-1">Próximo</span>
+              <ChevronRight className="h-4 w-4" />
+            </PaginationNext>
           </PaginationItem>
         </PaginationContent>
       </Pagination>
