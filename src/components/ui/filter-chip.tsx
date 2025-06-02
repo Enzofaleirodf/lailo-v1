@@ -12,7 +12,7 @@ interface FilterChipProps {
   isActive?: boolean;
   isDisabled?: boolean;
   hasMultiple?: boolean;
-  children?: React.ReactNode;
+  children?: React.ReactNode | (({ close }: { close: () => void }) => React.ReactNode);
   onClear?: () => void;
   onRemoveItem?: (item: string) => void;
   className?: string;
@@ -97,13 +97,20 @@ export const FilterChip = ({
     return label;
   };
 
+  const renderChildren = () => {
+    if (typeof children === 'function') {
+      return children({ close: handleClose });
+    }
+    return children;
+  };
+
   return (
     <div className="relative" ref={containerRef}>
       <button
         onClick={handleToggle}
         disabled={isDisabled}
         className={cn(
-          "flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 border w-[320px] justify-between min-h-[48px]",
+          "flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 border w-[280px] justify-between min-h-[48px]",
           isDisabled
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
             : isActive
@@ -130,10 +137,10 @@ export const FilterChip = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[360px] overflow-hidden"
+            className="absolute top-full left-0 mt-2 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden"
           >
             <div className="p-4">
-              {children}
+              {renderChildren()}
             </div>
             
             {/* Footer apenas para múltipla seleção */}
