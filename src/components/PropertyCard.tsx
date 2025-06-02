@@ -1,5 +1,6 @@
 
-import React, { useState } from "react";
+import React from "react";
+import { Heart } from "lucide-react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
 import { BaseBadges } from "./base/BaseBadges";
@@ -7,149 +8,129 @@ import { BaseDate } from "./base/BaseDate";
 import { PropertyHeader } from "./PropertyHeader";
 import { PropertyPrice } from "./PropertyPrice";
 import { useFavoritesStore } from "../stores/favoritesStore";
-
-interface PropertyData {
-  id?: string;
-  type: string;
-  area: string;
-  address: string;
-  cityState: string;
-  price: string;
-  discount: string;
-  badges: string[];
-  date: string;
-  image: string;
-  showNewBadge?: boolean;
-}
+import { showSuccess, showInfo } from "./ui/NotificationToast";
 
 interface PropertyCardProps {
-  property?: PropertyData;
+  property: {
+    id: string;
+    type: string;
+    area: string;
+    address: string;
+    cityState: string;
+    price: string;
+    discount: string;
+    badges: string[];
+    date: string;
+    image: string;
+    showNewBadge: boolean;
+  };
   isVertical?: boolean;
 }
 
-export const PropertyCard = ({
-  property,
-  isVertical = false
-}: PropertyCardProps): JSX.Element => {
+export const PropertyCard: React.FC<PropertyCardProps> = ({ 
+  property, 
+  isVertical = false 
+}) => {
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+  const isPropertyFavorite = isFavorite(property.id, 'property');
 
-  const defaultProperty: PropertyData = {
-    id: "default-property",
-    type: "Casa Térrea",
-    area: "250m²",
-    address: "Rua das Flores, 123",
-    cityState: "Brasília - DF",
-    price: "R$ 450.000",
-    discount: "30% OFF",
-    badges: ["Extrajudicial", "2ª Praça"],
-    date: "15/05 às 10:00",
-    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop&auto=format",
-    showNewBadge: false
-  };
-
-  const propertyData = property || defaultProperty;
-  const propertyId = propertyData.id || `property-${Date.now()}`;
-  const isFavorited = isFavorite(propertyId, 'property');
-  
-  const statusTheme = {
-    badgeColor: "bg-blue-100 text-blue-800",
-    priceGradient: "text-blue-800"
-  };
-
-  const handleToggleFavorite = () => {
-    if (isFavorited) {
-      removeFavorite(propertyId, 'property');
+  const handleFavoriteToggle = () => {
+    if (isPropertyFavorite) {
+      removeFavorite(property.id, 'property');
+      showInfo("Removido dos favoritos", property.type);
     } else {
       addFavorite({
-        itemId: propertyId,
+        itemId: property.id,
         itemType: 'property',
-        title: propertyData.type,
-        price: propertyData.price,
-        image: propertyData.image
+        title: property.type,
+        price: property.price,
+        image: property.image
       });
+      showSuccess("Adicionado aos favoritos", property.type);
     }
   };
 
   if (isVertical) {
     return (
-      <BaseCard isVertical={true}>
-        <BaseImage
-          image={propertyData.image}
-          alt={`Imóvel ${propertyData.type}`}
-          isFavorited={isFavorited}
-          onToggleFavorite={handleToggleFavorite}
-          isVertical={true}
-          showNewBadge={propertyData.showNewBadge}
-        />
-
-        <div className="flex flex-col gap-3">
-          <PropertyHeader
-            type={propertyData.type}
-            area={propertyData.area}
-            address={propertyData.address}
-            cityState={propertyData.cityState}
-            isVertical={true}
+      <BaseCard className="overflow-hidden">
+        <div className="relative">
+          <BaseImage 
+            src={property.image} 
+            alt={property.type}
+            showNewBadge={property.showNewBadge}
           />
-
-          <PropertyPrice
-            price={propertyData.price}
-            discount={propertyData.discount}
-            priceGradient={statusTheme.priceGradient}
-            isVertical={true}
-          />
-
-          <div className="h-px w-full bg-gradient-to-r from-blue-50 to-blue-100" />
-
-          <div className="flex items-center justify-between">
-            <BaseBadges 
-              badges={propertyData.badges}
-              badgeColor={statusTheme.badgeColor}
+          <button
+            onClick={handleFavoriteToggle}
+            className="absolute top-2 right-2 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
+          >
+            <Heart 
+              className={`w-4 h-4 ${isPropertyFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
             />
-            <BaseDate date={propertyData.date} isVertical={true} />
-          </div>
+          </button>
+        </div>
+        
+        <div className="p-3 space-y-2">
+          <PropertyHeader 
+            type={property.type}
+            area={property.area}
+            address={property.address}
+            cityState={property.cityState}
+            isVertical={true}
+          />
+          
+          <BaseBadges badges={property.badges} />
+          
+          <PropertyPrice 
+            price={property.price}
+            discount={property.discount}
+            isVertical={true}
+          />
+          
+          <BaseDate date={property.date} isVertical={true} />
         </div>
       </BaseCard>
     );
   }
 
   return (
-    <BaseCard isVertical={false}>
-      <div className="flex items-stretch" style={{ gap: '12px' }}>
-        <BaseImage
-          image={propertyData.image}
-          alt={`Imóvel ${propertyData.type}`}
-          isFavorited={isFavorited}
-          onToggleFavorite={handleToggleFavorite}
-          isVertical={false}
-          showNewBadge={propertyData.showNewBadge}
+    <BaseCard className="flex gap-4 p-4">
+      <div className="relative flex-shrink-0">
+        <BaseImage 
+          src={property.image} 
+          alt={property.type}
+          showNewBadge={property.showNewBadge}
+          className="w-32 h-24"
         />
-
-        <div className="flex flex-col gap-3 flex-1 min-w-0">
-          <PropertyHeader
-            type={propertyData.type}
-            area={propertyData.area}
-            address={propertyData.address}
-            cityState={propertyData.cityState}
-            isVertical={false}
+        <button
+          onClick={handleFavoriteToggle}
+          className="absolute top-1 right-1 p-1 bg-white/80 rounded-full hover:bg-white transition-colors"
+        >
+          <Heart 
+            className={`w-3 h-3 ${isPropertyFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
           />
-
-          <PropertyPrice
-            price={propertyData.price}
-            discount={propertyData.discount}
-            priceGradient={statusTheme.priceGradient}
-            isVertical={false}
-          />
-        </div>
+        </button>
       </div>
-
-      <div className="h-px w-full bg-gradient-to-r from-blue-50 to-blue-100" />
-
-      <div className="flex items-center justify-between">
-        <BaseBadges 
-          badges={propertyData.badges}
-          badgeColor={statusTheme.badgeColor}
+      
+      <div className="flex-1 min-w-0 space-y-2">
+        <PropertyHeader 
+          type={property.type}
+          area={property.area}
+          address={property.address}
+          cityState={property.cityState}
+          isVertical={false}
         />
-        <BaseDate date={propertyData.date} isVertical={false} />
+        
+        <BaseBadges badges={property.badges} />
+      </div>
+      
+      <div className="flex flex-col justify-between items-end">
+        <PropertyPrice 
+          price={property.price}
+          discount={property.discount}
+          isVertical={false}
+        />
+        
+        <BaseDate date={property.date} isVertical={false} />
       </div>
     </BaseCard>
   );

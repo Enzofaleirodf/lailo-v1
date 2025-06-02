@@ -1,100 +1,134 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, LogIn } from "lucide-react";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "../../hooks/useAuth";
+import { showSuccess, showError } from "../../components/ui/NotificationToast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useAuth();
+  const { setUser, setProfile } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // TODO: Implementar login real com Supabase
-    setTimeout(() => {
-      // Mock login
-      setUser({
-        id: '1',
-        email: email,
-        name: 'Usuário Teste'
-      });
+    // Simular login (substitua por lógica real quando integrar Supabase)
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simular delay
+
+      if (email === "admin@test.com" && password === "123456") {
+        const mockUser = {
+          id: "1",
+          email: email,
+          name: "Usuário Admin"
+        };
+
+        const mockProfile = {
+          id: "1",
+          userId: "1",
+          name: "Usuário Admin",
+          email: email,
+          phone: "(61) 99999-9999",
+          preferences: {
+            notifications: true,
+            emailUpdates: true,
+            favoriteCategories: ["vehicles", "properties"]
+          },
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+
+        setUser(mockUser);
+        setProfile(mockProfile);
+        showSuccess("Login realizado com sucesso!", `Bem-vindo, ${mockUser.name}`);
+        navigate("/");
+      } else {
+        showError("Erro no login", "Email ou senha incorretos");
+      }
+    } catch (error) {
+      showError("Erro no login", "Tente novamente mais tarde");
+    } finally {
       setIsLoading(false);
-      navigate('/');
-    }, 1000);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center mb-6">
-          <Button variant="outline" size="sm" asChild>
-            <Link to="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Voltar
-            </Link>
-          </Button>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center gap-2 text-2xl">
+            <LogIn className="w-6 h-6 text-blue-600" />
+            Entrar
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="seu@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-        <Card>
-          <CardHeader className="text-center">
-            <LogIn className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-            <CardTitle className="text-2xl font-bold">Login</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder="seu@email.com"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="password">Senha</Label>
+            <div className="space-y-2">
+              <Label htmlFor="password">Senha</Label>
+              <div className="relative">
                 <Input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Sua senha"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="********"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
-
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
-                {isLoading ? "Entrando..." : "Entrar"}
-              </Button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Não tem uma conta?{" "}
-                <Link to="/auth/sign-up" className="text-blue-600 hover:underline">
-                  Cadastre-se
-                </Link>
-              </p>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? "Entrando..." : "Entrar"}
+            </Button>
+          </form>
+
+          <div className="mt-6 text-center space-y-2">
+            <p className="text-sm text-gray-600">
+              Não tem uma conta?{" "}
+              <Link to="/auth/sign-up" className="text-blue-600 hover:underline">
+                Criar conta
+              </Link>
+            </p>
+            <Link to="/" className="text-sm text-gray-500 hover:underline">
+              Voltar ao início
+            </Link>
+          </div>
+
+          <div className="mt-4 p-3 bg-blue-50 rounded-md">
+            <p className="text-xs text-blue-600 text-center">
+              <strong>Teste:</strong> admin@test.com / 123456
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

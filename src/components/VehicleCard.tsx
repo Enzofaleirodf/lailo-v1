@@ -1,5 +1,6 @@
 
-import React, { useState } from "react";
+import React from "react";
+import { Heart } from "lucide-react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
 import { BaseBadges } from "./base/BaseBadges";
@@ -7,149 +8,129 @@ import { BaseDate } from "./base/BaseDate";
 import { VehicleHeader } from "./VehicleHeader";
 import { VehiclePrice } from "./VehiclePrice";
 import { useFavoritesStore } from "../stores/favoritesStore";
-
-interface VehicleData {
-  id?: string;
-  name: string;
-  color: string;
-  year: string;
-  location: string;
-  price: string;
-  discount: string;
-  badges: string[];
-  date: string;
-  image: string;
-  showNewBadge?: boolean;
-}
+import { showSuccess, showInfo } from "./ui/NotificationToast";
 
 interface VehicleCardProps {
-  vehicle?: VehicleData;
+  vehicle: {
+    id: string;
+    name: string;
+    color: string;
+    year: string;
+    location: string;
+    price: string;
+    discount: string;
+    badges: string[];
+    date: string;
+    image: string;
+    showNewBadge: boolean;
+  };
   isVertical?: boolean;
 }
 
-export const VehicleCard = ({
-  vehicle,
-  isVertical = false
-}: VehicleCardProps): JSX.Element => {
+export const VehicleCard: React.FC<VehicleCardProps> = ({ 
+  vehicle, 
+  isVertical = false 
+}) => {
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+  const isVehicleFavorite = isFavorite(vehicle.id, 'vehicle');
 
-  const defaultVehicle: VehicleData = {
-    id: "default-vehicle",
-    name: "Volkswagen T-Cross",
-    color: "Preto",
-    year: "2025",
-    location: "Brasília - DF",
-    price: "R$ 78.000",
-    discount: "50% OFF",
-    badges: ["Extrajudicial", "2ª Praça"],
-    date: "15/05 às 10:00",
-    image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png",
-    showNewBadge: false
-  };
-
-  const vehicleData = vehicle || defaultVehicle;
-  const vehicleId = vehicleData.id || `vehicle-${Date.now()}`;
-  const isFavorited = isFavorite(vehicleId, 'vehicle');
-  
-  const statusTheme = {
-    badgeColor: "bg-blue-100 text-blue-800",
-    priceGradient: "from-blue-600 to-blue-800"
-  };
-
-  const handleToggleFavorite = () => {
-    if (isFavorited) {
-      removeFavorite(vehicleId, 'vehicle');
+  const handleFavoriteToggle = () => {
+    if (isVehicleFavorite) {
+      removeFavorite(vehicle.id, 'vehicle');
+      showInfo("Removido dos favoritos", vehicle.name);
     } else {
       addFavorite({
-        itemId: vehicleId,
+        itemId: vehicle.id,
         itemType: 'vehicle',
-        title: vehicleData.name,
-        price: vehicleData.price,
-        image: vehicleData.image
+        title: vehicle.name,
+        price: vehicle.price,
+        image: vehicle.image
       });
+      showSuccess("Adicionado aos favoritos", vehicle.name);
     }
   };
 
   if (isVertical) {
     return (
-      <BaseCard isVertical={true}>
-        <BaseImage
-          image={vehicleData.image}
-          alt={`Veículo ${vehicleData.name}`}
-          isFavorited={isFavorited}
-          onToggleFavorite={handleToggleFavorite}
-          isVertical={true}
-          showNewBadge={vehicleData.showNewBadge}
-        />
-
-        <div className="flex flex-col gap-3">
-          <VehicleHeader
-            name={vehicleData.name}
-            color={vehicleData.color}
-            year={vehicleData.year}
-            location={vehicleData.location}
-            isVertical={true}
+      <BaseCard className="overflow-hidden">
+        <div className="relative">
+          <BaseImage 
+            src={vehicle.image} 
+            alt={vehicle.name}
+            showNewBadge={vehicle.showNewBadge}
           />
-
-          <VehiclePrice
-            price={vehicleData.price}
-            discount={vehicleData.discount}
-            priceGradient={statusTheme.priceGradient}
-            isVertical={true}
-          />
-
-          <div className="h-px w-full bg-gradient-to-r from-blue-50 to-blue-100" />
-
-          <div className="flex items-center justify-between">
-            <BaseBadges 
-              badges={vehicleData.badges}
-              badgeColor={statusTheme.badgeColor}
+          <button
+            onClick={handleFavoriteToggle}
+            className="absolute top-2 right-2 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
+          >
+            <Heart 
+              className={`w-4 h-4 ${isVehicleFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
             />
-            <BaseDate date={vehicleData.date} isVertical={true} />
-          </div>
+          </button>
+        </div>
+        
+        <div className="p-3 space-y-2">
+          <VehicleHeader 
+            name={vehicle.name}
+            color={vehicle.color}
+            year={vehicle.year}
+            location={vehicle.location}
+            isVertical={true}
+          />
+          
+          <BaseBadges badges={vehicle.badges} />
+          
+          <VehiclePrice 
+            price={vehicle.price}
+            discount={vehicle.discount}
+            isVertical={true}
+          />
+          
+          <BaseDate date={vehicle.date} isVertical={true} />
         </div>
       </BaseCard>
     );
   }
 
   return (
-    <BaseCard isVertical={false}>
-      <div className="flex gap-3 items-stretch">
-        <BaseImage
-          image={vehicleData.image}
-          alt={`Veículo ${vehicleData.name}`}
-          isFavorited={isFavorited}
-          onToggleFavorite={handleToggleFavorite}
-          isVertical={false}
-          showNewBadge={vehicleData.showNewBadge}
+    <BaseCard className="flex gap-4 p-4">
+      <div className="relative flex-shrink-0">
+        <BaseImage 
+          src={vehicle.image} 
+          alt={vehicle.name}
+          showNewBadge={vehicle.showNewBadge}
+          className="w-32 h-24"
         />
-
-        <div className="flex flex-col gap-3 flex-1 min-w-0">
-          <VehicleHeader
-            name={vehicleData.name}
-            color={vehicleData.color}
-            year={vehicleData.year}
-            location={vehicleData.location}
-            isVertical={false}
+        <button
+          onClick={handleFavoriteToggle}
+          className="absolute top-1 right-1 p-1 bg-white/80 rounded-full hover:bg-white transition-colors"
+        >
+          <Heart 
+            className={`w-3 h-3 ${isVehicleFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
           />
-
-          <VehiclePrice
-            price={vehicleData.price}
-            discount={vehicleData.discount}
-            priceGradient={statusTheme.priceGradient}
-            isVertical={false}
-          />
-        </div>
+        </button>
       </div>
-
-      <div className="h-px w-full bg-gradient-to-r from-blue-50 to-blue-100" />
-
-      <div className="flex items-center justify-between">
-        <BaseBadges 
-          badges={vehicleData.badges}
-          badgeColor={statusTheme.badgeColor}
+      
+      <div className="flex-1 min-w-0 space-y-2">
+        <VehicleHeader 
+          name={vehicle.name}
+          color={vehicle.color}
+          year={vehicle.year}
+          location={vehicle.location}
+          isVertical={false}
         />
-        <BaseDate date={vehicleData.date} isVertical={false} />
+        
+        <BaseBadges badges={vehicle.badges} />
+      </div>
+      
+      <div className="flex flex-col justify-between items-end">
+        <VehiclePrice 
+          price={vehicle.price}
+          discount={vehicle.discount}
+          isVertical={false}
+        />
+        
+        <BaseDate date={vehicle.date} isVertical={false} />
       </div>
     </BaseCard>
   );

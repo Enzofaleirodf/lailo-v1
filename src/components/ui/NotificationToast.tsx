@@ -35,13 +35,17 @@ export const showNotification = ({
   const Icon = icons[type];
   
   toast({
-    title: (
+    title,
+    description: description ? (
       <div className="flex items-center gap-2">
         <Icon className={`h-4 w-4 ${colors[type]}`} />
-        <span>{title}</span>
+        <span>{description}</span>
+      </div>
+    ) : (
+      <div className="flex items-center gap-2">
+        <Icon className={`h-4 w-4 ${colors[type]}`} />
       </div>
     ),
-    description,
     duration,
   });
 };
