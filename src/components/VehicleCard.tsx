@@ -70,7 +70,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
   return <BaseCard>
       <div className="flex gap-4">
         <div className="relative flex-shrink-0">
-          <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={vehicle.showNewBadge} className="w-32 h-24" />
+          <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={vehicle.showNewBadge} className="w-32 h-20" />
         </div>
         
         <div className="flex-1 min-w-0">

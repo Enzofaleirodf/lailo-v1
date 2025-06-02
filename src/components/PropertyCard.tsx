@@ -99,7 +99,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             onToggleFavorite={handleFavoriteToggle}
             isVertical={false}
             showNewBadge={property.showNewBadge}
-            className="w-32 h-24"
+            className="w-32 h-20"
           />
         </div>
         
