@@ -38,7 +38,14 @@ export const SearchControls = ({
                 <ChevronDown className="h-4 w-4 ml-2" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-[160px] bg-white">
+            <DropdownMenuContent 
+              align="start" 
+              className="w-[160px] bg-white z-[10000]"
+              side="bottom"
+              sideOffset={4}
+              avoidCollisions={true}
+              collisionPadding={8}
+            >
               {sortOptions.map(option => (
                 <DropdownMenuItem 
                   key={option} 
