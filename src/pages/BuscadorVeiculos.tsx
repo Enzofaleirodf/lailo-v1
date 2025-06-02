@@ -105,7 +105,7 @@ const BuscadorVeiculos = () => {
             </div>
 
             {/* Controls bar with sort dropdown and layout toggle */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-end gap-3 mb-4">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
                 <DropdownMenu>
