@@ -5,9 +5,11 @@ import { Favorite } from '@/types';
 
 interface FavoritesStore {
   favorites: Favorite[];
+  isLoading: boolean;
   addFavorite: (itemId: string, itemType: 'vehicle' | 'property') => void;
   removeFavorite: (itemId: string) => void;
   isFavorite: (itemId: string) => boolean;
+  getFavoritesByType: (itemType: 'vehicle' | 'property') => Favorite[];
   clearFavorites: () => void;
 }
 
@@ -15,6 +17,7 @@ export const useFavoritesStore = create<FavoritesStore>()(
   persist(
     (set, get) => ({
       favorites: [],
+      isLoading: false,
 
       addFavorite: (itemId, itemType) => {
         const exists = get().favorites.find(f => f.itemId === itemId);
@@ -39,6 +42,10 @@ export const useFavoritesStore = create<FavoritesStore>()(
 
       isFavorite: (itemId) => {
         return get().favorites.some(f => f.itemId === itemId);
+      },
+
+      getFavoritesByType: (itemType) => {
+        return get().favorites.filter(f => f.itemType === itemType);
       },
 
       clearFavorites: () => {

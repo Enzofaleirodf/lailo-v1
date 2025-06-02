@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
-import { VehicleSearchHeader } from "../components/VehicleSearchHeader";
 import { VehicleSearchControls } from "../components/VehicleSearchControls";
 import { VehicleSearchResults } from "../components/VehicleSearchResults";
 import { BottomNavigation } from "../components/BottomNavigation";
@@ -10,13 +9,17 @@ import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("Mais recentes");
 
   const vehicles = [
     {
       id: "vehicle-1",
       brand: "Toyota",
       model: "Corolla XEi",
-      year: 2020,
+      name: "Toyota Corolla XEi",
+      color: "Prata",
+      year: "2020",
+      location: "São Paulo - SP",
       price: "R$ 65.000",
       discount: "15% OFF",
       badges: ["Único dono", "Baixa KM"],
@@ -28,7 +31,10 @@ const BuscadorVeiculos = () => {
       id: "vehicle-2", 
       brand: "Honda",
       model: "Civic Sport",
-      year: 2019,
+      name: "Honda Civic Sport",
+      color: "Branco",
+      year: "2019",
+      location: "Rio de Janeiro - RJ",
       price: "R$ 72.000",
       discount: "20% OFF",
       badges: ["Turbo", "Manual"],
@@ -40,7 +46,10 @@ const BuscadorVeiculos = () => {
       id: "vehicle-3",
       brand: "Volkswagen", 
       model: "T-Cross Sense",
-      year: 2021,
+      name: "Volkswagen T-Cross Sense",
+      color: "Azul",
+      year: "2021",
+      location: "Belo Horizonte - MG",
       price: "R$ 78.000",
       discount: "12% OFF",
       badges: ["SUV", "Flex"],
@@ -63,6 +72,8 @@ const BuscadorVeiculos = () => {
       {/* Content */}
       <div className="flex-1 bg-gray-50 p-6">
         <VehicleSearchControls 
+          sortBy={sortBy}
+          setSortBy={setSortBy}
           isVertical={isVertical}
           onToggleLayout={setIsVertical}
           resultsCount={vehicles.length}

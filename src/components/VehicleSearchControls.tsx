@@ -8,21 +8,23 @@ interface VehicleSearchControlsProps {
   sortBy: string;
   setSortBy: (value: string) => void;
   isVertical: boolean;
-  setIsVertical: (value: boolean) => void;
+  onToggleLayout: (value: boolean) => void;
+  resultsCount: number;
 }
 
 export const VehicleSearchControls = ({ 
   sortBy, 
   setSortBy, 
   isVertical, 
-  setIsVertical 
+  onToggleLayout,
+  resultsCount
 }: VehicleSearchControlsProps) => {
   const sortOptions = ["Mais recentes", "Menor preço", "Maior preço", "Maior desconto", "Mais próximos"];
 
   return (
     <div className="w-full flex items-center justify-between gap-4 mb-4">
       <div className="flex-1 text-sm text-gray-600 text-left">
-        Encontramos <span className="font-semibold">4.164</span> leilões em <span className="font-semibold">131</span> sites
+        Encontramos <span className="font-semibold">{resultsCount}</span> veículos
       </div>
       
       <div className="flex items-center gap-4 flex-shrink-0">
@@ -45,7 +47,7 @@ export const VehicleSearchControls = ({
           </DropdownMenu>
         </div>
         
-        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        <LayoutToggle isVertical={isVertical} onToggle={onToggleLayout} />
       </div>
     </div>
   );

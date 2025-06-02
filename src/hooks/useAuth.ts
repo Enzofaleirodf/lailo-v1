@@ -8,8 +8,24 @@ interface User {
   role?: string;
 }
 
+interface UserProfile {
+  id: string;
+  userId: string;
+  name: string;
+  email: string;
+  phone?: string;
+  preferences?: {
+    notifications: boolean;
+    emailUpdates: boolean;
+    favoriteCategories: string[];
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,6 +57,7 @@ export const useAuth = () => {
 
   const logout = () => {
     setUser(null);
+    setProfile(null);
     localStorage.removeItem('user');
   };
 
@@ -50,10 +67,13 @@ export const useAuth = () => {
 
   return {
     user,
+    profile,
     isLoading,
     isAuthenticated: !!user,
     login,
     logout,
-    isAdmin
+    isAdmin,
+    setUser,
+    setProfile
   };
 };
