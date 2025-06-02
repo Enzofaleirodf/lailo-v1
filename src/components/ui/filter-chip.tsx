@@ -1,10 +1,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 import { ChevronDown, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './button';
 import { designTokens } from '../../styles/design-tokens';
+import { useDropdownPosition } from '../../hooks/useDropdownPosition';
 
 interface FilterChipProps {
   label: string;
@@ -44,6 +46,18 @@ export const FilterChip = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
+
+  const position = useDropdownPosition({
+    triggerRef,
+    isOpen: isExpanded,
+    offset: 8
+  });
+
+  // Inicializar portal root
+  useEffect(() => {
+    setPortalRoot(document.body);
+  }, []);
 
   const handleToggle = () => {
     if (!isDisabled) {
@@ -132,6 +146,75 @@ export const FilterChip = ({
 
   const hasSelectedItems = hasMultiple && selectedItems.length > 0;
 
+  const dropdownContent = isExpanded && children && !isDisabled && portalRoot ? (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        className="fixed bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden z-[10000]"
+        style={{
+          top: position.top,
+          left: position.left,
+          maxHeight: position.maxHeight,
+          borderRadius: designTokens.borderRadius.xl,
+          boxShadow: designTokens.shadows.lg,
+        }}
+        role="dialog"
+        aria-labelledby={id}
+      >
+        <div className="p-4 overflow-y-auto" style={{ 
+          padding: designTokens.spacing.lg,
+          maxHeight: position.maxHeight ? position.maxHeight - 100 : 'auto'
+        }}>
+          {renderChildren()}
+        </div>
+        
+        {/* Footer para múltipla seleção com melhor UX */}
+        {hasMultiple && (
+          <div 
+            className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
+            style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
+          >
+            {hasSelectedItems ? (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => {
+                  onClear?.();
+                }} 
+                className="text-gray-600 hover:text-gray-800"
+              >
+                Limpar ({selectedItems.length})
+              </Button>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => {
+                  onSelectAll?.();
+                }} 
+                className="text-gray-600 hover:text-gray-800"
+              >
+                Marcar todos
+              </Button>
+            )}
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleClose} 
+              className="text-gray-600 hover:text-gray-800 border-gray-300"
+            >
+              Aplicar
+            </Button>
+          </div>
+        )}
+      </motion.div>
+    </AnimatePresence>
+  ) : null;
+
   return (
     <div className="relative" ref={containerRef}>
       <button
@@ -170,69 +253,8 @@ export const FilterChip = ({
         />
       </button>
 
-      <AnimatePresence>
-        {isExpanded && children && !isDisabled && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 z-[9999] bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden"
-            style={{
-              borderRadius: designTokens.borderRadius.xl,
-              boxShadow: designTokens.shadows.lg,
-              marginTop: designTokens.spacing.sm,
-            }}
-            role="dialog"
-            aria-labelledby={id}
-          >
-            <div className="p-4" style={{ padding: designTokens.spacing.lg }}>
-              {renderChildren()}
-            </div>
-            
-            {/* Footer para múltipla seleção com melhor UX */}
-            {hasMultiple && (
-              <div 
-                className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
-                style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
-              >
-                {hasSelectedItems ? (
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={() => {
-                      onClear?.();
-                    }} 
-                    className="text-gray-600 hover:text-gray-800"
-                  >
-                    Limpar ({selectedItems.length})
-                  </Button>
-                ) : (
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={() => {
-                      onSelectAll?.();
-                    }} 
-                    className="text-gray-600 hover:text-gray-800"
-                  >
-                    Marcar todos
-                  </Button>
-                )}
-                
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={handleClose} 
-                  className="text-gray-600 hover:text-gray-800 border-gray-300"
-                >
-                  Aplicar
-                </Button>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Render dropdown usando Portal */}
+      {portalRoot && createPortal(dropdownContent, portalRoot)}
     </div>
   );
 };
