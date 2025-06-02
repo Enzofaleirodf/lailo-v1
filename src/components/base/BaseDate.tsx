@@ -12,7 +12,7 @@ export const BaseDate = ({
   isVertical = false
 }: BaseDateProps): JSX.Element => {
   return (
-    <div className={`flex items-center gap-1 text-gray-500 ${isVertical ? 'text-xs' : 'text-xs md:text-sm'}`}>
+    <div className={`flex items-center gap-1 text-gray-500 font-urbanist ${isVertical ? 'text-xs' : 'text-xs md:text-sm'}`}>
       <Clock className="h-3 w-3" />
       <span>{date}</span>
     </div>
