@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
@@ -68,15 +69,15 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
       </BaseCard>;
   }
   return <BaseCard>
-      <div className="flex gap-4">
-        <div className="relative flex-shrink-0">
-          <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={vehicle.showNewBadge} className="w-32 h-20" />
+      <div className="flex gap-4 items-start">
+        <div className="relative flex-shrink-0 w-32">
+          <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={vehicle.showNewBadge} className="w-full h-auto" />
         </div>
         
         <div className="flex-1 min-w-0">
           <VehicleHeader name={vehicle.name} color={vehicle.color} year={vehicle.year} location={vehicle.location} isVertical={false} />
           
-          <div className="mt-1">
+          <div className="mt-3">
             <VehiclePrice price={vehicle.price} discount={vehicle.discount} priceGradient="from-blue-600 to-purple-600" isVertical={false} />
           </div>
         </div>
@@ -84,7 +85,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
       
       <Separator className="my-2" />
       
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-2">
         <BaseBadges badges={vehicle.badges} />
         <BaseDate date={vehicle.date} isVertical={false} />
       </div>

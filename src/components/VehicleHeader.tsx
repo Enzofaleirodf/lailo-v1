@@ -29,7 +29,7 @@ export const VehicleHeader = ({
     : "font-medium text-gray-600 text-sm truncate";
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col">
       <div className="flex items-start justify-between">
         <h3 className={titleClass}>
           {name}
@@ -37,7 +37,7 @@ export const VehicleHeader = ({
       </div>
 
       {/* Enhanced vehicle details with micro-typography */}
-      <div className="flex items-center gap-2 overflow-hidden font-urbanist" style={{ marginTop: '0px' }}>
+      <div className="flex items-center gap-2 overflow-hidden font-urbanist mt-1">
         <span className={detailsTextClass}>
           {color}
         </span>

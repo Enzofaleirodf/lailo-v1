@@ -29,7 +29,7 @@ export const PropertyHeader = ({
     : "font-medium text-gray-600 text-sm truncate";
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col">
       {/* Primeira linha: Tipo de Imóvel e Área Útil */}
       <div className="flex items-center gap-2 overflow-hidden font-urbanist">
         <span className={titleClass}>
@@ -42,7 +42,7 @@ export const PropertyHeader = ({
       </div>
 
       {/* Segunda linha: Endereço - Cidade/Estado */}
-      <div className="flex items-center gap-2 overflow-hidden font-urbanist" style={{ marginTop: '0px' }}>
+      <div className="flex items-center gap-2 overflow-hidden font-urbanist mt-1">
         <span className={addressTextClass}>
           {address} - {cityState}
         </span>
