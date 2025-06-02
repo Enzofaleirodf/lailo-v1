@@ -100,7 +100,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         selectedValue={format ? formatOptions.find(opt => opt.value === format)?.label : undefined}
         isActive={!!format}
         onClear={() => setFormat('')}
-        className="w-[220px]"
+        className="w-[280px]"
       >
         {({ close }) => (
           <div className="space-y-4">
