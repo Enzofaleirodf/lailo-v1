@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
@@ -9,7 +8,6 @@ import { VehiclePrice } from "./VehiclePrice";
 import { Separator } from "./ui/separator";
 import { useFavoritesStore } from "../stores/favoritesStore";
 import { showSuccess, showInfo } from "./ui/NotificationToast";
-
 interface VehicleCardProps {
   vehicle: {
     id: string;
@@ -26,14 +24,16 @@ interface VehicleCardProps {
   };
   isVertical?: boolean;
 }
-
-export const VehicleCard: React.FC<VehicleCardProps> = ({ 
-  vehicle, 
-  isVertical = false 
+export const VehicleCard: React.FC<VehicleCardProps> = ({
+  vehicle,
+  isVertical = false
 }) => {
-  const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+  const {
+    addFavorite,
+    removeFavorite,
+    isFavorite
+  } = useFavoritesStore();
   const isVehicleFavorite = isFavorite(vehicle.id, 'vehicle');
-
   const handleFavoriteToggle = () => {
     if (isVehicleFavorite) {
       removeFavorite(vehicle.id, 'vehicle');
@@ -49,75 +49,33 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
       showSuccess("Adicionado aos favoritos", vehicle.name);
     }
   };
-
   if (isVertical) {
-    return (
-      <BaseCard className="overflow-hidden">
+    return <BaseCard className="overflow-hidden">
         <div className="relative">
-          <BaseImage 
-            src={vehicle.image} 
-            alt={vehicle.name}
-            isFavorited={isVehicleFavorite}
-            onToggleFavorite={handleFavoriteToggle}
-            isVertical={true}
-            showNewBadge={vehicle.showNewBadge}
-          />
+          <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={true} showNewBadge={vehicle.showNewBadge} />
         </div>
         
         <div className="p-3 space-y-2">
-          <VehicleHeader 
-            name={vehicle.name}
-            color={vehicle.color}
-            year={vehicle.year}
-            location={vehicle.location}
-            isVertical={true}
-          />
+          <VehicleHeader name={vehicle.name} color={vehicle.color} year={vehicle.year} location={vehicle.location} isVertical={true} />
           
           <BaseBadges badges={vehicle.badges} />
           
-          <VehiclePrice 
-            price={vehicle.price}
-            discount={vehicle.discount}
-            priceGradient="from-blue-600 to-purple-600"
-            isVertical={true}
-          />
+          <VehiclePrice price={vehicle.price} discount={vehicle.discount} priceGradient="from-blue-600 to-purple-600" isVertical={true} />
           
           <BaseDate date={vehicle.date} isVertical={true} />
         </div>
-      </BaseCard>
-    );
+      </BaseCard>;
   }
-
-  return (
-    <BaseCard className="p-4">
+  return <BaseCard className="p-4">
       <div className="flex gap-4">
         <div className="relative flex-shrink-0">
-          <BaseImage 
-            src={vehicle.image} 
-            alt={vehicle.name}
-            isFavorited={isVehicleFavorite}
-            onToggleFavorite={handleFavoriteToggle}
-            isVertical={false}
-            showNewBadge={vehicle.showNewBadge}
-            className="w-32 h-24"
-          />
+          <BaseImage src={vehicle.image} alt={vehicle.name} isFavorited={isVehicleFavorite} onToggleFavorite={handleFavoriteToggle} isVertical={false} showNewBadge={vehicle.showNewBadge} className="w-32 h-24" />
         </div>
         
         <div className="flex-1 min-w-0 space-y-2">
-          <VehicleHeader 
-            name={vehicle.name}
-            color={vehicle.color}
-            year={vehicle.year}
-            location={vehicle.location}
-            isVertical={false}
-          />
+          <VehicleHeader name={vehicle.name} color={vehicle.color} year={vehicle.year} location={vehicle.location} isVertical={false} />
           
-          <VehiclePrice 
-            price={vehicle.price}
-            discount={vehicle.discount}
-            priceGradient="from-blue-600 to-purple-600"
-            isVertical={false}
-          />
+          <VehiclePrice price={vehicle.price} discount={vehicle.discount} priceGradient="from-blue-600 to-purple-600" isVertical={false} />
         </div>
       </div>
       
@@ -127,6 +85,5 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
         <BaseBadges badges={vehicle.badges} />
         <BaseDate date={vehicle.date} isVertical={false} />
       </div>
-    </BaseCard>
-  );
+    </BaseCard>;
 };
