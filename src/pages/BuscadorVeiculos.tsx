@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
@@ -7,11 +6,26 @@ import { BottomNavigation } from "../components/BottomNavigation";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("Mais recentes");
+
+  const sortOptions = [
+    "Mais recentes",
+    "Menor preço", 
+    "Maior preço",
+    "Maior desconto",
+    "Mais próximos"
+  ];
 
   const vehicles = [
     {
@@ -90,7 +104,36 @@ const BuscadorVeiculos = () => {
               {isLoading && <LoadingSpinner />}
             </div>
 
-            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+            {/* Controls bar with sort dropdown and layout toggle */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      className="justify-between min-w-[140px]"
+                    >
+                      <span className="text-left">{sortBy}</span>
+                      <ChevronDown className="h-4 w-4 ml-2" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="min-w-[140px] bg-white">
+                    {sortOptions.map((option) => (
+                      <DropdownMenuItem 
+                        key={option}
+                        onClick={() => setSortBy(option)}
+                        className="cursor-pointer"
+                      >
+                        {option}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              
+              <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+            </div>
             
             <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
               {vehicles.map((vehicle) => (
