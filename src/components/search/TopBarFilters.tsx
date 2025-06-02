@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChip } from '../ui/filter-chip';
@@ -130,7 +129,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         hasMultiple={true}
         onClear={() => setOrigins([])}
         onRemoveItem={removeOrigin}
-        className="w-[480px]"
+        className="w-[420px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Origem do Leilão</h4>
@@ -162,7 +161,7 @@ export const TopBarFilters = ({ itemType }: TopBarFiltersProps) => {
         hasMultiple={true}
         onClear={() => setStages([])}
         onRemoveItem={removeStage}
-        className="w-[480px]"
+        className="w-[420px]"
       >
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-900 text-base">Etapa do Leilão</h4>
