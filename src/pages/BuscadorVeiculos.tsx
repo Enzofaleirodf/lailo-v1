@@ -10,18 +10,19 @@ import { VehicleSearchHeader } from "../components/VehicleSearchHeader";
 import { VehicleSearchSidebar } from "../components/VehicleSearchSidebar";
 import { VehicleSearchControls } from "../components/VehicleSearchControls";
 import { VehicleSearchResults } from "../components/VehicleSearchResults";
+import { Option } from "@/components/ui/multiple-selector";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("Mais recentes");
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedBrands, setSelectedBrands] = useState<Option[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<Option[]>([]);
   const totalPages = 10;
 
   // Opções para os seletores
-  const brandOptions = [
+  const brandOptions: Option[] = [
     { label: "Volkswagen", value: "volkswagen" },
     { label: "Honda", value: "honda" },
     { label: "Toyota", value: "toyota" },
@@ -32,7 +33,7 @@ const BuscadorVeiculos = () => {
     { label: "Nissan", value: "nissan" }
   ];
 
-  const categoryOptions = [
+  const categoryOptions: Option[] = [
     { label: "Sedan", value: "sedan" },
     { label: "SUV", value: "suv" },
     { label: "Hatch", value: "hatch" },
@@ -94,12 +95,12 @@ const BuscadorVeiculos = () => {
     console.log(`Mudando para página ${page}`);
   };
 
-  const handleBrandChange = (brands: string[]) => {
+  const handleBrandChange = (brands: Option[]) => {
     setSelectedBrands(brands);
     console.log("Marcas selecionadas:", brands);
   };
 
-  const handleCategoryChange = (categories: string[]) => {
+  const handleCategoryChange = (categories: Option[]) => {
     setSelectedCategories(categories);
     console.log("Categorias selecionadas:", categories);
   };

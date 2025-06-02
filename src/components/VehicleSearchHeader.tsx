@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Home, Car } from "lucide-react";
-import { MultipleSelector } from "@/components/ui/multiple-selector";
+import { MultipleSelector, Option } from "@/components/ui/multiple-selector";
 
 interface VehicleSearchHeaderProps {
   isLoading: boolean;
-  brandOptions?: { label: string; value: string }[];
-  categoryOptions?: { label: string; value: string }[];
-  selectedBrands?: string[];
-  selectedCategories?: string[];
-  onBrandChange?: (values: string[]) => void;
-  onCategoryChange?: (values: string[]) => void;
+  brandOptions?: Option[];
+  categoryOptions?: Option[];
+  selectedBrands?: Option[];
+  selectedCategories?: Option[];
+  onBrandChange?: (values: Option[]) => void;
+  onCategoryChange?: (values: Option[]) => void;
 }
 
 export const VehicleSearchHeader = ({ 
@@ -56,19 +56,19 @@ export const VehicleSearchHeader = ({
           <div className="flex items-center gap-3">
             <MultipleSelector
               options={brandOptions}
-              onValueChange={onBrandChange}
-              defaultValue={selectedBrands}
+              value={selectedBrands}
+              onChange={onBrandChange}
               placeholder="Selecionar marcas"
               className="w-48"
-              maxCount={2}
+              maxSelected={2}
             />
             <MultipleSelector
               options={categoryOptions}
-              onValueChange={onCategoryChange}
-              defaultValue={selectedCategories}
+              value={selectedCategories}
+              onChange={onCategoryChange}
               placeholder="Selecionar categorias"
               className="w-48"
-              maxCount={2}
+              maxSelected={2}
             />
           </div>
           {isLoading && <LoadingSpinner />}
