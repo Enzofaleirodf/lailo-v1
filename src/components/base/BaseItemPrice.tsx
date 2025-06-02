@@ -15,7 +15,7 @@ export const BaseItemPrice = ({
   itemType,
   isVertical = false
 }: BaseItemPriceProps) => {
-  // CORES UNIFICADAS - mesma cor para todos os tipos
+  // CORES UNIFICADAS - sempre azul-roxo para todos os tipos
   const priceGradient = "from-blue-600 to-purple-600";
   
   const priceClass = isVertical 
