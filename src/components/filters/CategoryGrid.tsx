@@ -31,10 +31,10 @@ export const CategoryGrid = ({
   options, 
   selected, 
   onSelect, 
-  columns = 2 
+  columns = 3 
 }: CategoryGridProps) => {
   return (
-    <div className={`grid grid-cols-${columns} gap-3`}>
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
       {options.map((option) => {
         const IconComponent = option.icon ? iconMap[option.icon as keyof typeof iconMap] : null;
         
@@ -43,14 +43,14 @@ export const CategoryGrid = ({
             key={option.value}
             onClick={() => onSelect(option.value)}
             className={cn(
-              "p-4 border rounded-lg text-center transition-all duration-200 font-medium",
+              "flex items-center gap-3 p-4 border rounded-lg transition-all duration-200 font-medium text-left",
               selected === option.value
                 ? "bg-blue-50 border-blue-200 text-blue-700"
                 : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
             )}
           >
-            {IconComponent && <div className="mb-2 flex justify-center"><IconComponent className="w-4 h-4" /></div>}
-            <p className="text-xs">{option.label}</p>
+            {IconComponent && <IconComponent className="w-4 h-4 flex-shrink-0" />}
+            <span className="text-xs">{option.label}</span>
           </button>
         );
       })}
