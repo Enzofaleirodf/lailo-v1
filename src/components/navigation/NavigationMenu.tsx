@@ -14,8 +14,15 @@ import {
   UserSearch,
   GraduationCap,
   MessageSquareText,
+  Car,
+  Home,
+  Heart,
+  Building2,
+  User,
+  Shield,
 } from "lucide-react";
 import { variants } from "./sidebarAnimations";
+import { useAuth } from "../../hooks/useAuth";
 
 interface NavigationMenuProps {
   isCollapsed: boolean;
@@ -24,12 +31,133 @@ interface NavigationMenuProps {
 export function NavigationMenu({ isCollapsed }: NavigationMenuProps) {
   const location = useLocation();
   const pathname = location.pathname;
+  const { isAuthenticated, isAdmin } = useAuth();
 
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex grow flex-col gap-4">
         <ScrollArea className="grow p-2">
           <div className={cn("flex w-full flex-col gap-1")}>
+            {/* Navegação Principal */}
+            <Link
+              to="/buscador/veiculos"
+              className={cn(
+                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
+                pathname?.includes("veiculos") && "bg-muted text-blue-600",
+              )}
+            >
+              <Car className="h-4 w-4" />
+              <motion.li variants={variants}>
+                {!isCollapsed && (
+                  <p className="ml-2 text-sm font-medium">Veículos</p>
+                )}
+              </motion.li>
+            </Link>
+
+            <Link
+              to="/buscador/imoveis"
+              className={cn(
+                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
+                pathname?.includes("imoveis") && "bg-muted text-blue-600",
+              )}
+            >
+              <Home className="h-4 w-4" />
+              <motion.li variants={variants}>
+                {!isCollapsed && (
+                  <p className="ml-2 text-sm font-medium">Imóveis</p>
+                )}
+              </motion.li>
+            </Link>
+
+            <Link
+              to="/leiloeiros"
+              className={cn(
+                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
+                pathname?.includes("leiloeiros") && "bg-muted text-blue-600",
+              )}
+            >
+              <Building2 className="h-4 w-4" />
+              <motion.li variants={variants}>
+                {!isCollapsed && (
+                  <p className="ml-2 text-sm font-medium">Leiloeiros</p>
+                )}
+              </motion.li>
+            </Link>
+
+            {/* Seção Favoritos (apenas para usuários logados) */}
+            {isAuthenticated && (
+              <>
+                <Separator className="w-full" />
+                <Link
+                  to="/favoritos/veiculos"
+                  className={cn(
+                    "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
+                    pathname?.includes("favoritos/veiculos") && "bg-muted text-blue-600",
+                  )}
+                >
+                  <Heart className="h-4 w-4" />
+                  <motion.li variants={variants}>
+                    {!isCollapsed && (
+                      <p className="ml-2 text-sm font-medium">Favoritos Veículos</p>
+                    )}
+                  </motion.li>
+                </Link>
+
+                <Link
+                  to="/favoritos/imoveis"
+                  className={cn(
+                    "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
+                    pathname?.includes("favoritos/imoveis") && "bg-muted text-blue-600",
+                  )}
+                >
+                  <Heart className="h-4 w-4" />
+                  <motion.li variants={variants}>
+                    {!isCollapsed && (
+                      <p className="ml-2 text-sm font-medium">Favoritos Imóveis</p>
+                    )}
+                  </motion.li>
+                </Link>
+
+                <Link
+                  to="/perfil"
+                  className={cn(
+                    "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
+                    pathname?.includes("perfil") && "bg-muted text-blue-600",
+                  )}
+                >
+                  <User className="h-4 w-4" />
+                  <motion.li variants={variants}>
+                    {!isCollapsed && (
+                      <p className="ml-2 text-sm font-medium">Perfil</p>
+                    )}
+                  </motion.li>
+                </Link>
+              </>
+            )}
+
+            {/* Seção Admin (apenas para admins) */}
+            {isAdmin() && (
+              <>
+                <Separator className="w-full" />
+                <Link
+                  to="/admin"
+                  className={cn(
+                    "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
+                    pathname?.includes("admin") && "bg-muted text-blue-600",
+                  )}
+                >
+                  <Shield className="h-4 w-4" />
+                  <motion.li variants={variants}>
+                    {!isCollapsed && (
+                      <p className="ml-2 text-sm font-medium">Admin</p>
+                    )}
+                  </motion.li>
+                </Link>
+              </>
+            )}
+
+            {/* Manter navegação antiga para compatibilidade */}
+            <Separator className="w-full" />
             <Link
               to="/dashboard"
               className={cn(
@@ -83,92 +211,6 @@ export function NavigationMenu({ isCollapsed }: NavigationMenuProps) {
                       BETA
                     </Badge>
                   </div>
-                )}
-              </motion.li>
-            </Link>
-            <Separator className="w-full" />
-            <Link
-              to="/veiculos"
-              className={cn(
-                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
-                pathname?.includes("veiculos") && "bg-muted text-blue-600",
-              )}
-            >
-              <Layout className="h-4 w-4" />
-              <motion.li variants={variants}>
-                {!isCollapsed && (
-                  <p className="ml-2 text-sm font-medium">Veículos</p>
-                )}
-              </motion.li>
-            </Link>
-            <Link
-              to="/imoveis"
-              className={cn(
-                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
-                pathname?.includes("imoveis") && "bg-muted text-blue-600",
-              )}
-            >
-              <UserCircle className="h-4 w-4" />
-              <motion.li variants={variants}>
-                {!isCollapsed && (
-                  <p className="ml-2 text-sm font-medium">Imóveis</p>
-                )}
-              </motion.li>
-            </Link>
-            <Link
-              to="/buscador"
-              className={cn(
-                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
-                pathname?.includes("buscador") && "bg-muted text-blue-600",
-              )}
-            >
-              <UserSearch className="h-4 w-4" />
-              <motion.li variants={variants}>
-                {!isCollapsed && (
-                  <p className="ml-2 text-sm font-medium">Buscador</p>
-                )}
-              </motion.li>
-            </Link>
-            <Separator className="w-full" />
-            <Link
-              to="/library/knowledge"
-              className={cn(
-                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
-                pathname?.includes("library") && "bg-muted text-blue-600",
-              )}
-            >
-              <GraduationCap className="h-4 w-4" />
-              <motion.li variants={variants}>
-                {!isCollapsed && (
-                  <p className="ml-2 text-sm font-medium">Knowledge Base</p>
-                )}
-              </motion.li>
-            </Link>
-            <Link
-              to="/feedback"
-              className={cn(
-                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
-                pathname?.includes("feedback") && "bg-muted text-blue-600",
-              )}
-            >
-              <MessageSquareText className="h-4 w-4" />
-              <motion.li variants={variants}>
-                {!isCollapsed && (
-                  <p className="ml-2 text-sm font-medium">Feedback</p>
-                )}
-              </motion.li>
-            </Link>
-            <Link
-              to="/review"
-              className={cn(
-                "flex h-8 w-full flex-row items-center rounded-md px-2 py-1.5 transition hover:bg-muted hover:text-primary",
-                pathname?.includes("review") && "bg-muted text-blue-600",
-              )}
-            >
-              <FileClock className="h-4 w-4" />
-              <motion.li variants={variants}>
-                {!isCollapsed && (
-                  <p className="ml-2 text-sm font-medium">Document Review</p>
                 )}
               </motion.li>
             </Link>
