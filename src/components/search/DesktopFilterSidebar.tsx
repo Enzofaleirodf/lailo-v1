@@ -24,17 +24,6 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
         </div>
 
         <div className="space-y-8">
-          {/* Filtro de Localização */}
-          <div>
-            <h3 className="text-sm font-medium text-gray-900 mb-3">Localização</h3>
-            <div className="space-y-3">
-              <div className="p-4 border border-gray-200 rounded-lg text-center text-gray-500">
-                <p className="text-sm">Filtros de localização</p>
-                <p className="text-xs text-gray-400">Estado, Cidade, Endereço</p>
-              </div>
-            </div>
-          </div>
-
           {/* Filtro de Categoria */}
           <div>
             <h3 className="text-sm font-medium text-gray-900 mb-3">
@@ -84,25 +73,7 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
             </div>
           </div>
 
-          {/* Filtros de faixa numérica */}
-          <div>
-            <h3 className="text-sm font-medium text-gray-900 mb-3">
-              {itemType === 'property' ? 'Área Útil' : 'Ano do Veículo'}
-            </h3>
-            <div className="p-4 border border-gray-200 rounded-lg text-center text-gray-500">
-              <p className="text-sm">Slider com dois thumbs</p>
-              <p className="text-xs text-gray-400">Inputs sincronizados</p>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-medium text-gray-900 mb-3">Valor do Lance</h3>
-            <div className="p-4 border border-gray-200 rounded-lg text-center text-gray-500">
-              <p className="text-sm">Slider com dois thumbs</p>
-              <p className="text-xs text-gray-400">R$ mín - R$ máx</p>
-            </div>
-          </div>
-
+          {/* Filtros específicos para veículos */}
           {itemType === 'vehicle' && (
             <>
               <div>
@@ -123,8 +94,36 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
                   <p className="text-sm">Select com cores</p>
                 </div>
               </div>
+
+              <div>
+                <h3 className="text-sm font-medium text-gray-900 mb-3">Ano do Veículo</h3>
+                <div className="p-4 border border-gray-200 rounded-lg text-center text-gray-500">
+                  <p className="text-sm">Slider com dois thumbs</p>
+                  <p className="text-xs text-gray-400">Inputs sincronizados</p>
+                </div>
+              </div>
             </>
           )}
+
+          {/* Filtros específicos para imóveis */}
+          {itemType === 'property' && (
+            <div>
+              <h3 className="text-sm font-medium text-gray-900 mb-3">Área Útil</h3>
+              <div className="p-4 border border-gray-200 rounded-lg text-center text-gray-500">
+                <p className="text-sm">Slider com dois thumbs</p>
+                <p className="text-xs text-gray-400">Inputs sincronizados</p>
+              </div>
+            </div>
+          )}
+
+          {/* Filtro de Valor do Lance - sempre por último */}
+          <div>
+            <h3 className="text-sm font-medium text-gray-900 mb-3">Valor do Lance</h3>
+            <div className="p-4 border border-gray-200 rounded-lg text-center text-gray-500">
+              <p className="text-sm">Slider com dois thumbs</p>
+              <p className="text-xs text-gray-400">R$ mín - R$ máx</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
