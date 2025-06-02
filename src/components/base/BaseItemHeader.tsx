@@ -52,23 +52,23 @@ export const BaseItemHeader = ({
     );
   }
 
-  // Property
+  // Property - usando a mesma estrutura dos veículos
   const property = item as any;
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-2 overflow-hidden font-urbanist">
-        <span className={titleClass}>
+      <div className="flex items-start justify-between">
+        <h3 className={titleClass}>
           {property.type}
-        </span>
-        <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-        <span className={detailsTextClass}>
-          {property.area}
-        </span>
+        </h3>
       </div>
 
       <div className="flex items-center gap-2 overflow-hidden font-urbanist mt-1">
+        <span className={detailsTextClass}>
+          {property.area}
+        </span>
+        <div className="w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
         <span className={locationTextClass}>
-          {property.address} - {property.cityState}
+          {property.location}
         </span>
       </div>
     </div>

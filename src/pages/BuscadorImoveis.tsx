@@ -1,3 +1,4 @@
+
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { propertySearchConfig } from "../config/searchConfigs";
@@ -25,8 +26,7 @@ const BuscadorImoveis = () => {
       id: "property-1",
       type: "Casa Térrea",
       area: "250m²",
-      address: "Rua das Flores, 123",
-      cityState: "Brasília - DF",
+      location: "Rua das Flores, 123 - Brasília - DF",
       price: "R$ 450.000",
       discount: "30% OFF",
       badges: ["Extrajudicial", "2ª Praça"],
@@ -38,8 +38,7 @@ const BuscadorImoveis = () => {
       id: "property-2",
       type: "Apartamento Moderno",
       area: "80m²",
-      address: "Av. Paulista, 456",
-      cityState: "São Paulo - SP",
+      location: "Av. Paulista, 456 - São Paulo - SP",
       price: "R$ 320.000",
       discount: "25% OFF",
       badges: ["Judicial", "1ª Praça"],
@@ -51,8 +50,7 @@ const BuscadorImoveis = () => {
       id: "property-3",
       type: "Sobrado Duplex",
       area: "180m²",
-      address: "Rua das Acácias, 789",
-      cityState: "Belo Horizonte - MG",
+      location: "Rua das Acácias, 789 - Belo Horizonte - MG",
       price: "R$ 520.000",
       discount: "35% OFF",
       badges: ["Extrajudicial", "3ª Praça"],
