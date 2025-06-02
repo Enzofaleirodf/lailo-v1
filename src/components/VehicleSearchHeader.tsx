@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Home, Car, ChevronDown } from "lucide-react";
+import { Home, Car } from "lucide-react";
 import { MultipleSelector } from "@/components/ui/multiple-selector";
 
 interface VehicleSearchHeaderProps {
@@ -25,8 +25,8 @@ export const VehicleSearchHeader = ({
   onCategoryChange = () => {}
 }: VehicleSearchHeaderProps) => {
   return (
-    <div className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 z-40">
-      <div className="flex items-center justify-between h-full px-6">
+    <div className="hidden md:block fixed top-0 right-0 left-12 h-16 bg-white border-b border-gray-200 z-40">
+      <div className="flex items-start justify-between h-full px-6 pt-3">
         <Tabs defaultValue="veiculos" className="w-auto">
           <TabsList className="grid w-full grid-cols-2 bg-transparent p-0 h-auto gap-8">
             <TabsTrigger 
@@ -54,30 +54,22 @@ export const VehicleSearchHeader = ({
         
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">Marcas</span>
-              <ChevronDown className="w-4 h-4 text-gray-400" />
-              <MultipleSelector
-                options={brandOptions}
-                onValueChange={onBrandChange}
-                defaultValue={selectedBrands}
-                placeholder=""
-                className="w-48 border-0 shadow-none"
-                maxCount={2}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">Categorias</span>
-              <ChevronDown className="w-4 h-4 text-gray-400" />
-              <MultipleSelector
-                options={categoryOptions}
-                onValueChange={onCategoryChange}
-                defaultValue={selectedCategories}
-                placeholder=""
-                className="w-48 border-0 shadow-none"
-                maxCount={2}
-              />
-            </div>
+            <MultipleSelector
+              options={brandOptions}
+              onValueChange={onBrandChange}
+              defaultValue={selectedBrands}
+              placeholder="Selecionar marcas"
+              className="w-48"
+              maxCount={2}
+            />
+            <MultipleSelector
+              options={categoryOptions}
+              onValueChange={onCategoryChange}
+              defaultValue={selectedCategories}
+              placeholder="Selecionar categorias"
+              className="w-48"
+              maxCount={2}
+            />
           </div>
           {isLoading && <LoadingSpinner />}
         </div>
