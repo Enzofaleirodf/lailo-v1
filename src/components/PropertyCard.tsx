@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BaseCard } from "./base/BaseCard";
 import { BaseImage } from "./base/BaseImage";
@@ -31,14 +32,20 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   isVertical = false 
 }) => {
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
-  const isPropertyFavorite = isFavorite(property.id);
+  const isPropertyFavorite = isFavorite(property.id, 'property');
 
   const handleFavoriteToggle = () => {
     if (isPropertyFavorite) {
-      removeFavorite(property.id);
+      removeFavorite(property.id, 'property');
       showInfo("Removido dos favoritos", property.type);
     } else {
-      addFavorite(property.id, 'property');
+      addFavorite({
+        itemId: property.id,
+        itemType: 'property',
+        title: property.type,
+        price: property.price,
+        image: property.image
+      });
       showSuccess("Adicionado aos favoritos", property.type);
     }
   };

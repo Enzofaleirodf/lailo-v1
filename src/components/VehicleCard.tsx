@@ -34,13 +34,19 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
     removeFavorite,
     isFavorite
   } = useFavoritesStore();
-  const isVehicleFavorite = isFavorite(vehicle.id);
+  const isVehicleFavorite = isFavorite(vehicle.id, 'vehicle');
   const handleFavoriteToggle = () => {
     if (isVehicleFavorite) {
-      removeFavorite(vehicle.id);
+      removeFavorite(vehicle.id, 'vehicle');
       showInfo("Removido dos favoritos", vehicle.name);
     } else {
-      addFavorite(vehicle.id, 'vehicle');
+      addFavorite({
+        itemId: vehicle.id,
+        itemType: 'vehicle',
+        title: vehicle.name,
+        price: vehicle.price,
+        image: vehicle.image
+      });
       showSuccess("Adicionado aos favoritos", vehicle.name);
     }
   };

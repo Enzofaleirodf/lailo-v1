@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { AppLayout } from "./layouts/AppLayout";
 import Index from "./pages/Index";
 import BuscadorImoveis from "./pages/BuscadorImoveis";
 import BuscadorVeiculos from "./pages/BuscadorVeiculos";
@@ -28,70 +27,63 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Auth routes without layout */}
+          <Route path="/" element={<Index />} />
+          
+          {/* Rotas de busca */}
+          <Route path="/buscador/imoveis" element={<BuscadorImoveis />} />
+          <Route path="/buscador/veiculos" element={<BuscadorVeiculos />} />
+          
+          {/* Rotas de favoritos (protegidas) */}
+          <Route 
+            path="/favoritos/imoveis" 
+            element={
+              <ProtectedRoute>
+                <FavoritosImoveis />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/favoritos/veiculos" 
+            element={
+              <ProtectedRoute>
+                <FavoritosVeiculos />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Outras rotas */}
+          <Route path="/leiloeiros" element={<Leiloeiros />} />
+          
+          {/* Rotas protegidas */}
+          <Route 
+            path="/perfil" 
+            element={
+              <ProtectedRoute>
+                <Perfil />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin" 
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Rotas de autenticação */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/sign-up" element={<SignUp />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
           
-          {/* All other routes with layout */}
-          <Route path="/*" element={
-            <AppLayout>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                
-                {/* Rotas de busca */}
-                <Route path="/buscador/imoveis" element={<BuscadorImoveis />} />
-                <Route path="/buscador/veiculos" element={<BuscadorVeiculos />} />
-                
-                {/* Rotas de favoritos (protegidas) */}
-                <Route 
-                  path="/favoritos/imoveis" 
-                  element={
-                    <ProtectedRoute>
-                      <FavoritosImoveis />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route 
-                  path="/favoritos/veiculos" 
-                  element={
-                    <ProtectedRoute>
-                      <FavoritosVeiculos />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                {/* Outras rotas */}
-                <Route path="/leiloeiros" element={<Leiloeiros />} />
-                
-                {/* Rotas protegidas */}
-                <Route 
-                  path="/perfil" 
-                  element={
-                    <ProtectedRoute>
-                      <Perfil />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route 
-                  path="/admin" 
-                  element={
-                    <ProtectedRoute>
-                      <Admin />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                {/* Rotas de compatibilidade */}
-                <Route path="/buscador" element={<Index />} />
-                <Route path="/veiculos" element={<BuscadorVeiculos />} />
-                <Route path="/imoveis" element={<BuscadorImoveis />} />
-                
-                {/* Catch-all route */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </AppLayout>
-          } />
+          {/* Rotas de compatibilidade (redirecionamento das antigas) */}
+          <Route path="/buscador" element={<Index />} />
+          <Route path="/veiculos" element={<BuscadorVeiculos />} />
+          <Route path="/imoveis" element={<BuscadorImoveis />} />
+          
+          {/* Catch-all route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

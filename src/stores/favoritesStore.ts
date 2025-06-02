@@ -1,16 +1,29 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Favorite } from '@/types';
+
+export interface FavoriteItem {
+  id: string;
+  itemId: string;
+  itemType: 'property' | 'vehicle';
+  title: string;
+  price: string;
+  image?: string;
+  createdAt: string;
+}
 
 interface FavoritesStore {
-  favorites: Favorite[];
+  favorites: FavoriteItem[];
   isLoading: boolean;
-  addFavorite: (itemId: string, itemType: 'vehicle' | 'property', title?: string, price?: string, image?: string) => void;
-  removeFavorite: (itemId: string) => void;
-  isFavorite: (itemId: string) => boolean;
-  getFavoritesByType: (itemType: 'vehicle' | 'property') => Favorite[];
+  addFavorite: (item: Omit<FavoriteItem, 'id' | 'createdAt'>) => void;
+  removeFavorite: (itemId: string, itemType: 'property' | 'vehicle') => void;
+  isFavorite: (itemId: string, itemType: 'property' | 'vehicle') => boolean;
+  getFavoritesByType: (type: 'property' | 'vehicle') => FavoriteItem[];
   clearFavorites: () => void;
+  setLoading: (loading: boolean) => void;
+  // Estas funções serão implementadas quando o Supabase for conectado
+  syncWithSupabase?: () => Promise<void>;
+  loadFavoritesFromSupabase?: () => Promise<void>;
 }
 
 export const useFavoritesStore = create<FavoritesStore>()(
@@ -19,45 +32,53 @@ export const useFavoritesStore = create<FavoritesStore>()(
       favorites: [],
       isLoading: false,
 
-      addFavorite: (itemId, itemType, title = '', price = '', image = '') => {
-        const exists = get().favorites.find(f => f.itemId === itemId);
-        if (!exists) {
-          const newFavorite: Favorite = {
-            id: Date.now().toString(),
-            itemId,
-            itemType,
-            addedAt: new Date().toISOString(),
-            createdAt: new Date().toISOString(),
-            title,
-            price,
-            image,
-          };
-          set(state => ({
-            favorites: [...state.favorites, newFavorite]
-          }));
-        }
-      },
+      addFavorite: (item) => {
+        const newFavorite: FavoriteItem = {
+          ...item,
+          id: `${item.itemType}_${item.itemId}_${Date.now()}`,
+          createdAt: new Date().toISOString(),
+        };
 
-      removeFavorite: (itemId) => {
-        set(state => ({
-          favorites: state.favorites.filter(f => f.itemId !== itemId)
+        set((state) => ({
+          favorites: [...state.favorites, newFavorite],
         }));
+
+        // TODO: Quando Supabase estiver conectado, sincronizar com o backend
+        console.log('Favorite added locally:', newFavorite);
       },
 
-      isFavorite: (itemId) => {
-        return get().favorites.some(f => f.itemId === itemId);
+      removeFavorite: (itemId, itemType) => {
+        set((state) => ({
+          favorites: state.favorites.filter(
+            (fav) => !(fav.itemId === itemId && fav.itemType === itemType)
+          ),
+        }));
+
+        // TODO: Quando Supabase estiver conectado, remover do backend
+        console.log('Favorite removed locally:', { itemId, itemType });
       },
 
-      getFavoritesByType: (itemType) => {
-        return get().favorites.filter(f => f.itemType === itemType);
+      isFavorite: (itemId, itemType) => {
+        const { favorites } = get();
+        return favorites.some(
+          (fav) => fav.itemId === itemId && fav.itemType === itemType
+        );
       },
 
-      clearFavorites: () => {
-        set({ favorites: [] });
+      getFavoritesByType: (type) => {
+        const { favorites } = get();
+        return favorites.filter((fav) => fav.itemType === type);
       },
+
+      clearFavorites: () => set({ favorites: [] }),
+
+      setLoading: (loading) => set({ isLoading: loading }),
     }),
     {
-      name: 'favorites-storage',
+      name: 'auction-favorites',
+      partialize: (state) => ({
+        favorites: state.favorites,
+      }),
     }
   )
 );
