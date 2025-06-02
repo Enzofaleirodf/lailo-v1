@@ -2,21 +2,10 @@
 import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { LayoutToggle } from "../components/LayoutToggle";
-import { SessionNavBar } from "../components/SessionNavBar";
-import { LoadingSpinner } from "../components/ui/LoadingSpinner";
-import { ErrorMessage } from "../components/ui/ErrorMessage";
-import { useFiltersStore } from "../stores/filtersStore";
-import { useFavoritesStore } from "../stores/favoritesStore";
 
 const Index = () => {
   const [isVertical, setIsVertical] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  
-  const { vehicleFilters } = useFiltersStore();
-  const { favorites } = useFavoritesStore();
 
-  // Mock data com IDs únicos para favoritos
   const vehicles = [
     {
       id: "vehicle-1",
@@ -56,149 +45,24 @@ const Index = () => {
       date: "22/05 às 09:15",
       image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png",
       showNewBadge: true
-    },
-    {
-      id: "vehicle-4",
-      name: "Hyundai HB20",
-      color: "Azul",
-      year: "2024",
-      location: "Belo Horizonte - MG",
-      price: "R$ 65.000",
-      discount: "40% OFF",
-      badges: ["Judicial", "2ª Praça"],
-      date: "25/05 às 11:00",
-      image: "/lovable-uploads/6dabef41-e24e-404d-a5d9-8b0735f0dd33.png",
-      showNewBadge: false
-    },
-    {
-      id: "vehicle-5",
-      name: "Chevrolet Onix",
-      color: "Vermelho",
-      year: "2023",
-      location: "Fortaleza - CE",
-      price: "R$ 72.000",
-      discount: "35% OFF",
-      badges: ["Extrajudicial", "1ª Praça"],
-      date: "28/05 às 16:45",
-      image: "/lovable-uploads/3abaaf79-72ae-4e03-87ad-488329f5e234.png",
-      showNewBadge: true
-    },
-    {
-      id: "vehicle-6",
-      name: "Nissan Kicks",
-      color: "Cinza",
-      year: "2024",
-      location: "Salvador - BA",
-      price: "R$ 82.000",
-      discount: "45% OFF",
-      badges: ["Judicial", "3ª Praça"],
-      date: "30/05 às 13:20",
-      image: "/lovable-uploads/48c2a9c3-fb59-4a44-a931-b3f36f6891fc.png",
-      showNewBadge: false
-    },
-    {
-      id: "vehicle-7",
-      name: "Renault Sandero",
-      color: "Verde",
-      year: "2023",
-      location: "Recife - PE",
-      price: "R$ 58.000",
-      discount: "55% OFF",
-      badges: ["Extrajudicial", "2ª Praça"],
-      date: "02/06 às 10:30",
-      image: "/lovable-uploads/a72eb3d0-1625-45e6-8bf5-96615cf0e02a.png",
-      showNewBadge: true
-    },
-    {
-      id: "vehicle-8",
-      name: "Ford Ka",
-      color: "Amarelo",
-      year: "2024",
-      location: "Curitiba - PR",
-      price: "R$ 63.000",
-      discount: "38% OFF",
-      badges: ["Judicial", "1ª Praça"],
-      date: "05/06 às 15:10",
-      image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=300&fit=crop&auto=format",
-      showNewBadge: false
-    },
-    {
-      id: "vehicle-9",
-      name: "Fiat Argo",
-      color: "Laranja",
-      year: "2023",
-      location: "Porto Alegre - RS",
-      price: "R$ 69.000",
-      discount: "42% OFF",
-      badges: ["Extrajudicial", "3ª Praça"],
-      date: "08/06 às 12:00",
-      image: "/lovable-uploads/24ecc65e-f63a-4f13-95f6-d90060a463fe.png",
-      showNewBadge: false
-    },
-    {
-      id: "vehicle-10",
-      name: "Peugeot 208",
-      color: "Roxo",
-      year: "2024",
-      location: "Goiânia - GO",
-      price: "R$ 75.000",
-      discount: "33% OFF",
-      badges: ["Judicial", "2ª Praça"],
-      date: "10/06 às 14:15",
-      image: "/lovable-uploads/f1af3d89-585e-47cd-bdbc-3a7e7a550815.png",
-      showNewBadge: false
     }
   ];
 
-  const handleRetry = () => {
-    setError(null);
-    setIsLoading(true);
-    // Simular reload de dados
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  };
-
-  if (error) {
-    return (
-      <div className="flex h-screen w-screen flex-row">
-        <SessionNavBar />
-        <main className="flex h-screen grow flex-col overflow-auto ml-12">
-          <div className="bg-white px-3 py-3">
-            <ErrorMessage
-              title="Erro ao carregar veículos"
-              message={error}
-              onRetry={handleRetry}
-            />
-          </div>
-        </main>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex h-screen w-screen flex-row">
-      <SessionNavBar />
-      <main className="flex h-screen grow flex-col overflow-auto ml-12">
-        <div className="bg-white px-3 py-3">
-          <div className="w-full">
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold text-gray-900">
-                Leilões em Destaque
-              </h1>
-              {isLoading && <LoadingSpinner />}
-            </div>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">
+          Leilões em Destaque
+        </h1>
 
-            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-            
-            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-              {vehicles.map((vehicle) => (
-                <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
-              ))}
-            </div>
-          </div>
+        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        
+        <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
+          {vehicles.map((vehicle) => (
+            <VehicleCard key={vehicle.id} vehicle={vehicle} isVertical={isVertical} />
+          ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 };
