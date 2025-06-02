@@ -14,43 +14,50 @@ const BuscadorVeiculos = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("Mais recentes");
   const sortOptions = ["Mais recentes", "Menor preço", "Maior preço", "Maior desconto", "Mais próximos"];
-  const vehicles = [{
-    id: "search-vehicle-1",
-    name: "Volkswagen T-Cross",
-    color: "Preto",
-    year: "2025",
-    location: "Brasília - DF",
-    price: "R$ 78.000",
-    discount: "50% OFF",
-    badges: ["Extrajudicial", "2ª Praça"],
-    date: "15/05 às 10:00",
-    image: "/lovable-uploads/c1eac822-7357-49b8-a4ce-a14e374e1167.png",
-    showNewBadge: true
-  }, {
-    id: "search-vehicle-2",
-    name: "Honda Civic",
-    color: "Prata",
-    year: "2024",
-    location: "São Paulo - SP",
-    price: "R$ 95.000",
-    discount: "30% OFF",
-    badges: ["Judicial", "1ª Praça"],
-    date: "20/05 às 14:30",
-    image: "/lovable-uploads/33a5ac35-f888-4a6f-9cc8-dffa1f394b1e.png",
-    showNewBadge: false
-  }, {
-    id: "search-vehicle-3",
-    name: "Toyota Corolla",
-    color: "Branco",
-    year: "2023",
-    location: "Brasília - DF",
-    price: "R$ 89.000",
-    discount: "25% OFF",
-    badges: ["Extrajudicial", "3ª Praça"],
-    date: "22/05 às 09:15",
-    image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png",
-    showNewBadge: true
-  }];
+  const vehicles = [
+    {
+      id: "search-vehicle-1",
+      name: "Volkswagen T-Cross",
+      color: "Preto",
+      year: "2025",
+      location: "Brasília - DF",
+      price: "R$ 78.000",
+      discount: "50% OFF",
+      badges: ["Extrajudicial", "2ª Praça"],
+      date: "15/05 às 10:00",
+      image: "/lovable-uploads/c1eac822-7357-49b8-a4ce-a14e374e1167.png",
+      showNewBadge: true
+    }, {
+      id: "search-vehicle-2",
+      name: "Honda Civic",
+      color: "Prata",
+      year: "2024",
+      location: "São Paulo - SP",
+      price: "R$ 95.000",
+      discount: "30% OFF",
+      badges: ["Judicial", "1ª Praça"],
+      date: "20/05 às 14:30",
+      image: "/lovable-uploads/33a5ac35-f888-4a6f-9cc8-dffa1f394b1e.png",
+      showNewBadge: false
+    }, {
+      id: "search-vehicle-3",
+      name: "Toyota Corolla",
+      color: "Branco",
+      year: "2023",
+      location: "Brasília - DF",
+      price: "R$ 89.000",
+      discount: "25% OFF",
+      badges: ["Extrajudicial", "3ª Praça"],
+      date: "22/05 às 09:15",
+      image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png",
+      showNewBadge: true
+    }
+  ];
+
+  const handleClearFilters = () => {
+    console.log("Apagar filtros");
+  };
+
   return (
     <div className="flex h-screen w-screen flex-row">
       <SessionNavBar />
@@ -66,7 +73,18 @@ const BuscadorVeiculos = () => {
 
       {/* Left Sidebar - Desktop only */}
       <div className="hidden md:block fixed left-12 top-16 w-[448px] h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-30">
-        {/* Empty sidebar content as requested */}
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">Filtros</h2>
+            <Button 
+              variant="ghost" 
+              className="text-sm text-gray-600 hover:text-gray-800 p-0 h-auto border-0 shadow-none"
+              onClick={handleClearFilters}
+            >
+              Apagar filtros
+            </Button>
+          </div>
+        </div>
       </div>
 
       <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[448px]">
