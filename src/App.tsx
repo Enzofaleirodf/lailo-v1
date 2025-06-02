@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AppLayout } from "./layouts/AppLayout";
 import Index from "./pages/Index";
 import BuscadorImoveis from "./pages/BuscadorImoveis";
 import BuscadorVeiculos from "./pages/BuscadorVeiculos";
@@ -17,12 +18,14 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/buscador/imoveis" element={<BuscadorImoveis />} />
-          <Route path="/buscador/veiculos" element={<BuscadorVeiculos />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AppLayout>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/buscador/imoveis" element={<BuscadorImoveis />} />
+            <Route path="/buscador/veiculos" element={<BuscadorVeiculos />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AppLayout>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

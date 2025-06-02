@@ -38,11 +38,12 @@ const BuscadorImoveis = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Buscar Imóveis
-        </h1>
-
-        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Buscar Imóveis
+          </h1>
+          <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        </div>
         
         <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
           {properties.map((property) => (

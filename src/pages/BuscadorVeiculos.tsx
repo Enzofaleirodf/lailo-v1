@@ -3,6 +3,7 @@ import { useState } from "react";
 import { VehicleCard } from "../components/VehicleCard";
 import { VehicleSearchHeader } from "../components/VehicleSearchHeader";
 import { LayoutToggle } from "../components/LayoutToggle";
+import { VehicleFilterSidebar } from "../components/VehicleFilterSidebar";
 
 const BuscadorVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
@@ -74,11 +75,21 @@ const BuscadorVeiculos = () => {
       />
 
       <div className="container mx-auto px-4 py-8 pt-24">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Buscar Veículos
-        </h1>
-
-        <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Buscar Veículos
+          </h1>
+          
+          <div className="flex items-center gap-4">
+            <VehicleFilterSidebar
+              selectedBrands={selectedBrands}
+              selectedCategories={selectedCategories}
+              onBrandChange={handleBrandChange}
+              onCategoryChange={handleCategoryChange}
+            />
+            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+          </div>
+        </div>
         
         <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
           {vehicles.map((vehicle) => (
