@@ -5,23 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LeiloeiroCard } from './LeiloeiroCard';
 import { LeiloeiroTableRow } from './LeiloeiroTableRow';
-
-interface Leiloeiro {
-  id: number;
-  name: string;
-  websiteName: string;
-  state: string;
-  phone: string;
-  website?: string;
-  logo?: string;
-  activeAuctions: number;
-}
-
-interface JuntaComercial {
-  state: string;
-  sigla: string;
-  website: string;
-}
+import { Leiloeiro, JuntaComercial } from '../../data/leiloeiroData';
 
 interface LeiloeiroResultsProps {
   filteredAndGroupedLeiloeiros: Record<string, Leiloeiro[]>;
