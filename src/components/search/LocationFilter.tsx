@@ -1,13 +1,20 @@
 
 import React from 'react';
-import { FilterChip } from '../ui/filter-chip';
-import { MapPin, Search } from 'lucide-react';
+import { ChevronDown, MapPin } from 'lucide-react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '../ui/popover';
+import { Button } from '../ui/button';
+import { Label } from '../ui/label';
 import { designTokens } from '../../styles/design-tokens';
 
 export const LocationFilter = () => {
   const [selectedState, setSelectedState] = React.useState('');
   const [selectedCity, setSelectedCity] = React.useState('');
   const [address, setAddress] = React.useState('');
+  const [open, setOpen] = React.useState(false);
 
   const stateOptions = [
     'Todos os estados',
@@ -29,6 +36,12 @@ export const LocationFilter = () => {
     setAddress('');
   };
 
+  const handleApply = () => {
+    setOpen(false);
+    // Aqui seria aplicado o filtro
+    console.log('Aplicando filtros de localização:', { selectedState, selectedCity, address });
+  };
+
   const getDisplayText = () => {
     if (address) return address;
     if (selectedCity && selectedCity !== 'Todas as cidades') {
@@ -47,22 +60,23 @@ export const LocationFilter = () => {
                    address;
 
   return (
-    <FilterChip
-      label={getDisplayText()}
-      isActive={!!isActive}
-      onClear={handleClear}
-      className="w-[320px]"
-      aria-label="Filtro de localização"
-      id="location-filter"
-    >
-      {({ close }) => (
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <MapPin className="w-4 h-4 text-blue-600" />
-            <h4 className="font-semibold text-gray-900 text-base">Localização</h4>
-          </div>
-          
-          <div className="space-y-4">
+    <div className="w-[240px]">
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full h-10 justify-between rounded-lg"
+          >
+            {getDisplayText()}
+            <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[320px] p-0 rounded-lg">
+          <div className="p-4 space-y-4">
+            <Label className="text-sm font-medium text-gray-900">Localização</Label>
+            
             {/* Estado */}
             <div>
               <label 
@@ -141,7 +155,7 @@ export const LocationFilter = () => {
                 Endereço
               </label>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   id="address-input"
                   type="text"
@@ -168,34 +182,28 @@ export const LocationFilter = () => {
             </div>
           </div>
 
-          <div 
-            className="flex justify-between pt-4 border-t border-gray-100"
-            style={{ 
-              paddingTop: designTokens.spacing.lg,
-              borderTopWidth: '1px',
-            }}
-          >
-            <button
-              onClick={handleClear}
-              className="text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors"
-              style={{ fontSize: designTokens.typography.sizes.sm }}
+          {/* Footer com botões */}
+          <div className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={handleClear} 
+              className="text-gray-600 hover:text-gray-800"
             >
               Limpar
-            </button>
-            <button
-              onClick={close}
-              className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
-              style={{
-                borderRadius: designTokens.borderRadius.lg,
-                padding: `${designTokens.spacing.sm} ${designTokens.spacing.lg}`,
-                fontSize: designTokens.typography.sizes.sm,
-              }}
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleApply} 
+              className="text-gray-600 hover:text-gray-800 border-gray-300"
             >
               Aplicar
-            </button>
+            </Button>
           </div>
-        </div>
-      )}
-    </FilterChip>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 };
