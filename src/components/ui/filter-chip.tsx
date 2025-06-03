@@ -82,9 +82,13 @@ export const FilterChip = ({
     setPosition({ top, left, width });
   };
 
+  // Recalcular posição quando expandir
   useEffect(() => {
     if (isExpanded) {
-      calculatePosition();
+      // Usar setTimeout para garantir que o DOM foi atualizado
+      const timer = setTimeout(() => {
+        calculatePosition();
+      }, 0);
       
       const handleResize = () => calculatePosition();
       const handleScroll = () => calculatePosition();
@@ -93,6 +97,7 @@ export const FilterChip = ({
       window.addEventListener('scroll', handleScroll);
       
       return () => {
+        clearTimeout(timer);
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('scroll', handleScroll);
       };
@@ -268,7 +273,7 @@ export const FilterChip = ({
         aria-label={ariaLabel || `Filtro ${label}`}
         id={id}
         className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] min-w-[120px] whitespace-nowrap",
+          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] min-w-[140px] whitespace-nowrap",
           isDisabled 
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed" 
             : isActive 
