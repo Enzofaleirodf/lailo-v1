@@ -68,13 +68,13 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
 
   return (
     <BaseCard className="h-auto">
-      <div className="space-y-3">
+      <div className="space-y-4">
         {/* Header com ícone, nome e badge */}
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 flex items-center justify-center">
             <Building2 className="w-6 h-6 text-blue-600" />
           </div>
-          <div className="flex-1 min-w-0 flex items-start justify-between gap-2">
+          <div className="flex-1 min-w-0 flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 text-base leading-tight mb-1 truncate">
                 {leiloeiro.websiteName}
@@ -89,27 +89,26 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
           </div>
         </div>
 
-        {/* Informações de contato em duas colunas */}
-        <div className="flex gap-4">
-          <div className="flex items-center gap-2 text-gray-600 flex-1 min-w-0">
+        {/* Informações de contato - telefone e website em linhas separadas */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 text-gray-600">
             <Phone className="w-4 h-4 flex-shrink-0" />
             <span className="text-sm truncate">{leiloeiro.phone}</span>
           </div>
           
-          {getWebsiteDisplay()}
+          <div className="flex items-center justify-between gap-2">
+            {getWebsiteDisplay()}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
+              disabled={!leiloeiro.website}
+              className="h-8 w-8 p-0 flex-shrink-0"
+            >
+              <ExternalLink className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
-
-        {/* Botão de acesso */}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
-          disabled={!leiloeiro.website}
-          className="w-full h-10 gap-2"
-        >
-          <span>Acessar Site</span>
-          <ExternalLink className="w-4 h-4" />
-        </Button>
       </div>
     </BaseCard>
   );

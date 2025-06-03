@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { LeiloeiroCard } from "../components/leiloeiros/LeiloeiroCard";
 import { LeiloeiroTableRow } from "../components/leiloeiros/LeiloeiroTableRow";
+import { Label } from "@/components/ui/label";
 
 interface Leiloeiro {
   id: number;
@@ -312,37 +313,54 @@ const Leiloeiros = () => {
 
             {/* Filtros Mobile */}
             <div className="space-y-4 mb-6">
-              <div className="relative">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10" />
-                <Input
-                  placeholder="Pesquisar leiloeiro..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 h-12"
-                />
+              <div>
+                <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Buscar Leiloeiro
+                </Label>
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10" />
+                  <Input
+                    placeholder="Pesquisar leiloeiro..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 h-12"
+                  />
+                </div>
               </div>
+              
               <div className="grid grid-cols-2 gap-3">
-                <Select value={selectedState} onValueChange={setSelectedState}>
-                  <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Estado" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="todos">Todos</SelectItem>
-                    {estados.map(state => (
-                      <SelectItem key={state} value={state}>{state}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-                  <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Leilões" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="todos">Todos</SelectItem>
-                    <SelectItem value="com-leiloes">Com leilões</SelectItem>
-                    <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                    Estado
+                  </Label>
+                  <Select value={selectedState} onValueChange={setSelectedState}>
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Estado" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="todos">Todos</SelectItem>
+                      {estados.map(state => (
+                        <SelectItem key={state} value={state}>{state}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                    Leilões Ativos
+                  </Label>
+                  <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Leilões" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="todos">Todos</SelectItem>
+                      <SelectItem value="com-leiloes">Com leilões</SelectItem>
+                      <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
 
