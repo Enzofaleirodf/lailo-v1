@@ -1,10 +1,9 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import { Search, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from './button';
-import { designTokens } from '../../styles/design-tokens';
+import { AnimatePresence } from 'framer-motion';
+import { FilterChipButton } from './filter-chip-button';
+import { FilterChipContent } from './filter-chip-content';
+import { FilterChipBadges } from './filter-chip-badges';
 
 interface FilterChipProps {
   label: string;
@@ -89,147 +88,47 @@ export const FilterChip = ({
     }
     if (hasMultiple && selectedItems.length > 0) {
       return (
-        <div className="flex items-center gap-1 flex-wrap">
-          {selectedItems.slice(0, 2).map(item => (
-            <div 
-              key={item} 
-              className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md font-medium whitespace-nowrap"
-              style={{ fontSize: designTokens.typography.sizes.xs }}
-            >
-              <span className="max-w-[60px] truncate">{item}</span>
-              {onRemoveItem && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onRemoveItem(item);
-                  }}
-                  className="hover:bg-blue-200 rounded-full p-0.5 transition-colors"
-                  aria-label={`Remover ${item}`}
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              )}
-            </div>
-          ))}
-          {selectedItems.length > 2 && (
-            <span className="text-blue-700 font-medium text-xs">
-              +{selectedItems.length - 2} mais
-            </span>
-          )}
-        </div>
+        <FilterChipBadges 
+          selectedItems={selectedItems}
+          onRemoveItem={onRemoveItem}
+        />
       );
     }
 
     return label;
   };
 
-  const renderChildren = () => {
-    if (typeof children === 'function') {
-      return children({ close: handleClose });
-    }
-    return children;
-  };
-
   const hasSelectedItems = hasMultiple && selectedItems.length > 0;
 
   return (
     <div className="relative" ref={containerRef}>
-      <button
+      <FilterChipButton
         ref={triggerRef}
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
-        disabled={isDisabled}
-        aria-expanded={isExpanded}
-        aria-haspopup="true"
-        aria-label={ariaLabel || `Filtro ${label}`}
+        isDisabled={isDisabled}
+        isExpanded={isExpanded}
+        isActive={isActive}
+        ariaLabel={ariaLabel || `Filtro ${label}`}
         id={id}
-        className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] w-full",
-          isDisabled 
-            ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed" 
-            : isActive 
-              ? "bg-blue-50 border-blue-200 text-blue-700 shadow-sm ring-1 ring-blue-200/50" 
-              : "bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:shadow-sm hover:bg-gray-50",
-          className
-        )}
-        style={{
-          borderRadius: '1.5rem',
-          padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}`,
-        }}
+        className={className}
       >
-        <div className="flex items-center gap-2 flex-1 min-w-0">
-          {displayText()}
-        </div>
-        
-        <Search 
-          className={cn(
-            "w-4 h-4 transition-transform duration-200 flex-shrink-0",
-            isDisabled && "text-gray-400"
-          )} 
-        />
-      </button>
+        {displayText()}
+      </FilterChipButton>
 
       <AnimatePresence>
         {isExpanded && children && !isDisabled && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 z-[9999] bg-white border border-gray-200 rounded-2xl shadow-lg w-[320px] overflow-hidden"
-            style={{
-              borderRadius: '1.5rem',
-              boxShadow: designTokens.shadows.lg,
-              marginTop: designTokens.spacing.sm,
-            }}
-            role="dialog"
-            aria-labelledby={id}
+          <FilterChipContent
+            onClose={handleClose}
+            hasMultiple={hasMultiple}
+            hasSelectedItems={hasSelectedItems}
+            selectedItemsCount={selectedItems.length}
+            onClear={onClear}
+            onSelectAll={onSelectAll}
+            id={id}
           >
-            <div className="p-4" style={{ padding: designTokens.spacing.lg }}>
-              {renderChildren()}
-            </div>
-            
-            {/* Footer para múltipla seleção com melhor UX */}
-            {hasMultiple && (
-              <div 
-                className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
-                style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
-              >
-                {hasSelectedItems ? (
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={() => {
-                      onClear?.();
-                    }} 
-                    className="text-gray-600 hover:text-gray-800"
-                  >
-                    Limpar ({selectedItems.length})
-                  </Button>
-                ) : (
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={() => {
-                      onSelectAll?.();
-                    }} 
-                    className="text-gray-600 hover:text-gray-800"
-                  >
-                    Marcar todos
-                  </Button>
-                )}
-                
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={handleClose} 
-                  className="text-gray-600 hover:text-gray-800 border-gray-300"
-                >
-                  Aplicar
-                </Button>
-              </div>
-            )}
-          </motion.div>
+            {children}
+          </FilterChipContent>
         )}
       </AnimatePresence>
     </div>
