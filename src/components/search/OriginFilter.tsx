@@ -72,7 +72,7 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
             <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[180px] p-0 rounded-lg">
+        <PopoverContent className="w-[240px] p-0 rounded-lg">
           <div className="p-4 space-y-3">
             {originOptions.map((option) => (
               <div key={option.value} className="flex items-center space-x-2">
