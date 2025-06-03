@@ -1,3 +1,4 @@
+
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { vehicleSearchConfig } from "../config/searchConfigs";

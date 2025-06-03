@@ -5,7 +5,6 @@ import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchPageHeader } from "./SearchPageHeader";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
-import { SearchLayout } from "../layout/SearchLayout";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
 import { useSmartNavigation } from "../../hooks/useSmartNavigation";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
@@ -46,9 +45,9 @@ export const SearchPageLayout = ({
   const { navigateToItemType } = useSmartNavigation();
 
   return (
-    <SearchLayout withTopBar withSidebar>
-      {/* Top bar desktop */}
-      <div className="absolute top-0 left-0 right-0 h-20 z-40">
+    <div className="min-h-screen bg-white">
+      {/* Desktop: Top bar fixa */}
+      <div className="hidden md:block fixed top-0 left-12 right-0 h-20 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm z-40">
         <DesktopTopBar 
           title={config.title} 
           isLoading={isLoading} 
@@ -57,40 +56,47 @@ export const SearchPageLayout = ({
         />
       </div>
 
-      {/* Sidebar de filtros */}
-      <div className="absolute left-0 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
+      {/* Desktop: Sidebar de filtros fixa */}
+      <div className="hidden md:block fixed left-12 top-20 w-[448px] h-[calc(100vh-5rem)] bg-white border-r border-gray-200 z-30">
         <DesktopFilterSidebar itemType={config.type} onClearFilters={onClearFilters} />
       </div>
 
       {/* Conteúdo principal */}
-      <div className="w-full">
-        <SearchPageHeader 
-          title={config.title} 
-          isLoading={isLoading} 
-          itemType={config.type} 
-          onItemTypeChange={navigateToItemType} 
-        />
+      <div className="md:ml-[448px] md:pt-20 min-h-screen">
+        <div className="px-4 py-4 md:px-6 md:py-6 pb-20 md:pb-6">
+          {/* Mobile: Header */}
+          <div className="md:hidden">
+            <SearchPageHeader 
+              title={config.title} 
+              isLoading={isLoading} 
+              itemType={config.type} 
+              onItemTypeChange={navigateToItemType} 
+            />
+          </div>
 
-        <SearchStatusAndControls 
-          totalAuctions={finalResultsCount} 
-          totalSites={finalSitesCount} 
-          newAuctions={newAuctions} 
-          isVertical={isVertical} 
-          onToggleLayout={onToggleLayout} 
-          sortBy={sortBy} 
-          onSortChange={onSortChange} 
-          sortOptions={sortOptions} 
-        />
-        
-        <SearchMainContent 
-          items={items} 
-          isVertical={isVertical} 
-          config={config} 
-          currentPage={currentPage} 
-          totalPages={totalPages} 
-          onPageChange={onPageChange} 
-        />
+          {/* Status e controles */}
+          <SearchStatusAndControls 
+            totalAuctions={finalResultsCount} 
+            totalSites={finalSitesCount} 
+            newAuctions={newAuctions} 
+            isVertical={isVertical} 
+            onToggleLayout={onToggleLayout} 
+            sortBy={sortBy} 
+            onSortChange={onSortChange} 
+            sortOptions={sortOptions} 
+          />
+          
+          {/* Conteúdo principal */}
+          <SearchMainContent 
+            items={items} 
+            isVertical={isVertical} 
+            config={config} 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+            onPageChange={onPageChange} 
+          />
+        </div>
       </div>
-    </SearchLayout>
+    </div>
   );
 };
