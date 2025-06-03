@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface SearchPaginationProps {
   currentPage: number;
@@ -23,8 +24,8 @@ export const SearchPagination = ({
   totalPages,
   onPageChange
 }: SearchPaginationProps) => {
-  // Para mobile, mostrar apenas 3 páginas no máximo
-  const isMobile = window.innerWidth < 768;
+  const isMobile = useIsMobile();
+  // Mobile: máximo 3 páginas, Desktop: máximo 5 páginas
   const maxVisiblePages = isMobile ? 3 : 5;
   
   const getVisiblePages = () => {
@@ -80,7 +81,7 @@ export const SearchPagination = ({
             )}
           </PaginationItem>
           
-          {/* Primeira página se não estiver visível - Mostrar no mobile também */}
+          {/* Primeira página se não estiver visível */}
           {showStartEllipsis && (
             <>
               <PaginationItem>
@@ -118,7 +119,7 @@ export const SearchPagination = ({
             </PaginationItem>
           ))}
           
-          {/* Última página se não estiver visível - Mostrar no mobile também */}
+          {/* Última página se não estiver visível */}
           {showEndEllipsis && (
             <>
               <PaginationItem>
