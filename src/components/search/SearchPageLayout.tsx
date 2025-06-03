@@ -50,55 +50,71 @@ export const SearchPageLayout = ({
   };
 
   return (
-    <div className="flex h-screen w-screen flex-row">
-      <SessionNavBar />
-      
-      <DesktopTopBar
-        title={config.title}
-        isLoading={isLoading}
-        itemType={config.type}
-        onItemTypeChange={handleItemTypeChange}
-      />
-
-      <DesktopFilterSidebar
-        itemType={config.type}
-        onClearFilters={onClearFilters}
-      />
-
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[512px]">
-        <div className="min-h-screen bg-white px-3 py-3 pb-20 md:px-6 md:py-6 md:pb-6">
-          <div className="w-full">
-            <SearchPageHeader
-              title={config.title}
-              isLoading={isLoading}
-              itemType={config.type}
-              onItemTypeChange={handleItemTypeChange}
-            />
-
-            <SearchStatusAndControls
-              totalAuctions={finalResultsCount}
-              totalSites={finalSitesCount}
-              newAuctions={newAuctions}
-              isVertical={isVertical}
-              onToggleLayout={onToggleLayout}
-              sortBy={sortBy}
-              onSortChange={onSortChange}
-              sortOptions={sortOptions}
-            />
-            
-            <SearchMainContent
-              items={items}
-              isVertical={isVertical}
-              config={config}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={onPageChange}
-            />
-          </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Container principal com largura máxima de 1440px */}
+      <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+        {/* Navbar lateral - posicionada dentro do container */}
+        <div className="absolute left-0 top-0 h-full w-12 z-50">
+          <SessionNavBar />
         </div>
-      </main>
-      
-      <BottomNavigation />
+        
+        {/* Top bar desktop - posicionada dentro do container */}
+        <div className="absolute top-0 left-12 right-0 h-16 z-40">
+          <DesktopTopBar
+            title={config.title}
+            isLoading={isLoading}
+            itemType={config.type}
+            onItemTypeChange={handleItemTypeChange}
+          />
+        </div>
+
+        {/* Sidebar de filtros - posicionada dentro do container */}
+        <div className="absolute left-12 top-16 w-[512px] h-[calc(100vh-4rem)] z-30">
+          <DesktopFilterSidebar
+            itemType={config.type}
+            onClearFilters={onClearFilters}
+          />
+        </div>
+
+        {/* Conteúdo principal */}
+        <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[512px]">
+          <div className="min-h-screen bg-white px-4 py-3 pb-20 md:px-6 md:py-6 md:pb-6">
+            <div className="w-full">
+              <SearchPageHeader
+                title={config.title}
+                isLoading={isLoading}
+                itemType={config.type}
+                onItemTypeChange={handleItemTypeChange}
+              />
+
+              <SearchStatusAndControls
+                totalAuctions={finalResultsCount}
+                totalSites={finalSitesCount}
+                newAuctions={newAuctions}
+                isVertical={isVertical}
+                onToggleLayout={onToggleLayout}
+                sortBy={sortBy}
+                onSortChange={onSortChange}
+                sortOptions={sortOptions}
+              />
+              
+              <SearchMainContent
+                items={items}
+                isVertical={isVertical}
+                config={config}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={onPageChange}
+              />
+            </div>
+          </div>
+        </main>
+        
+        {/* Bottom navigation - posicionada dentro do container */}
+        <div className="absolute bottom-0 left-0 right-0 z-50">
+          <BottomNavigation />
+        </div>
+      </div>
     </div>
   );
 };
