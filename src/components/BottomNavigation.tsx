@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Heart, Gavel, User, LogIn } from "lucide-react";
+import { Home, Search, Heart, Gavel, User, LogIn, Car } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 
 export const BottomNavigation = () => {
@@ -21,9 +21,15 @@ export const BottomNavigation = () => {
     },
     {
       to: "/buscador/veiculos",
+      icon: Car,
+      label: "Veículos",
+      active: isActive("/buscador/veiculos")
+    },
+    {
+      to: "/buscador/imoveis",
       icon: Search,
-      label: "Buscador",
-      active: isActive("/buscador")
+      label: "Imóveis",
+      active: isActive("/buscador/imoveis")
     },
     {
       to: isAuthenticated ? "/favoritos/veiculos" : "/auth/login",
@@ -31,12 +37,6 @@ export const BottomNavigation = () => {
       label: "Favoritos",
       active: isActive("/favoritos"),
       requiresAuth: true
-    },
-    {
-      to: "/leiloeiros",
-      icon: Gavel,
-      label: "Leiloeiros",
-      active: isActive("/leiloeiros")
     },
     {
       to: isAuthenticated ? "/perfil" : "/auth/login",

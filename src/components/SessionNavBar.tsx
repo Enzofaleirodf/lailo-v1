@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Heart, Gavel, User, LogIn, LogOut } from "lucide-react";
+import { Home, Search, Heart, Gavel, User, LogIn, LogOut, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "../hooks/useAuth";
 
@@ -22,9 +22,15 @@ export const SessionNavBar = () => {
     },
     {
       to: "/buscador/veiculos",
+      icon: Car,
+      label: "Buscador Veículos",
+      active: isActive("/buscador/veiculos")
+    },
+    {
+      to: "/buscador/imoveis",
       icon: Search,
-      label: "Buscador",
-      active: isActive("/buscador")
+      label: "Buscador Imóveis",
+      active: isActive("/buscador/imoveis")
     }
   ];
 
