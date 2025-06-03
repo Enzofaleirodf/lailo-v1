@@ -1,10 +1,10 @@
-
 export const propertyCategories = [
   { value: 'residenciais', label: 'Residenciais', icon: 'home' },
   { value: 'comerciais', label: 'Comerciais', icon: 'building' },
   { value: 'rurais', label: 'Rurais', icon: 'tree-pine' },
   { value: 'industriais', label: 'Industriais', icon: 'factory' },
   { value: 'hospedagens', label: 'Hospedagens', icon: 'bed' },
+  { value: 'outros', label: 'Outros', icon: 'building' },
 ];
 
 export const propertyTypes = {
@@ -74,8 +74,8 @@ export const vehicleCategories = [
   { value: 'lazer-recreacao', label: 'Lazer', icon: 'waves' },
   { value: 'aquaticos', label: 'Aquáticos', icon: 'waves' },
   { value: 'aereos', label: 'Aéreos', icon: 'plane' },
-  { value: 'maquinas-agricolas', label: 'Maq. Agrícolas', icon: 'wrench' },
-  { value: 'maquinas-construcao', label: 'Maq. Construção', icon: 'wrench' },
+  { value: 'maquinas-agricolas', label: 'Máquinas Agrícolas', icon: 'wrench' },
+  { value: 'maquinas-construcao', label: 'Máquinas de Construção', icon: 'wrench' },
   { value: 'outros', label: 'Outros', icon: 'car' },
 ];
 
