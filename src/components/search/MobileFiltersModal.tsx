@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "../ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
@@ -19,13 +14,11 @@ import { PriceFilter } from '../filters/PriceFilter';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { ItemType } from '../../types/search';
-
 interface MobileFiltersModalProps {
   isOpen: boolean;
   onClose: () => void;
   itemType: ItemType;
 }
-
 export const MobileFiltersModal = ({
   isOpen,
   onClose,
@@ -38,7 +31,7 @@ export const MobileFiltersModal = ({
   const [areaRange, setAreaRange] = useState<[number, number]>([50, 500]);
   const [yearRange, setYearRange] = useState<[number, number]>([2010, 2025]);
   const [priceRange, setPriceRange] = useState<[number, number]>([50000, 1000000]);
-  
+
   // Estados específicos para veículos
   const [brand, setBrand] = useState('todas-marcas');
   const [model, setModel] = useState('todos-modelos');
@@ -48,43 +41,29 @@ export const MobileFiltersModal = ({
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [address, setAddress] = useState('');
-
   const isStageEnabled = formatValue === 'Leilão';
-
   const handleClearFilters = () => {
     console.log("Limpar todos os filtros");
   };
-
   const handleApplyFilters = () => {
     console.log("Aplicar filtros");
     onClose();
   };
-
   const handleClearCity = () => {
     setSelectedCity('');
   };
-
-  return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent 
-        side="bottom" 
-        className="h-[95vh] rounded-t-3xl flex flex-col"
-      >
-        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 px-6 pt-6">
+  return <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-3xl flex flex-col">
+        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0">
           <SheetTitle className="text-lg font-semibold">
             Filtros
           </SheetTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            className="h-8 w-8"
-          >
+          <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
             <X className="h-4 w-4" />
           </Button>
         </SheetHeader>
 
-        <div className="flex-1 overflow-hidden flex flex-col px-6 py-6">
+        <div className="flex-1 overflow-hidden flex flex-col py-6 px-0">
           <Tabs defaultValue="location" className="w-full flex flex-col flex-1">
             <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
               <TabsTrigger value="location">Localização</TabsTrigger>
@@ -96,59 +75,22 @@ export const MobileFiltersModal = ({
               {/* Tab Localização */}
               <TabsContent value="location" className="space-y-6 mt-0 h-full overflow-y-auto">
                 <div className="px-1 space-y-4">
-                  <StateSelect
-                    value={selectedState}
-                    onChange={setSelectedState}
-                    onClearCity={handleClearCity}
-                  />
+                  <StateSelect value={selectedState} onChange={setSelectedState} onClearCity={handleClearCity} />
 
-                  <CitySelect
-                    value={selectedCity}
-                    onChange={setSelectedCity}
-                    selectedState={selectedState}
-                  />
+                  <CitySelect value={selectedCity} onChange={setSelectedCity} selectedState={selectedState} />
 
-                  <AddressInput
-                    value={address}
-                    onChange={setAddress}
-                  />
+                  <AddressInput value={address} onChange={setAddress} />
                 </div>
               </TabsContent>
 
               {/* Tab Características */}
               <TabsContent value="characteristics" className="space-y-6 mt-0 h-full overflow-y-auto">
                 <div className="px-1 space-y-6 pb-4">
-                  <CategoryTypeFilters
-                    itemType={itemType}
-                    category={category}
-                    type={type}
-                    onCategoryChange={setCategory}
-                    onTypeChange={setType}
-                  />
+                  <CategoryTypeFilters itemType={itemType} category={category} type={type} onCategoryChange={setCategory} onTypeChange={setType} />
 
-                  {itemType === 'property' ? (
-                    <PropertySpecificFilters
-                      areaRange={areaRange}
-                      onAreaRangeChange={setAreaRange}
-                    />
-                  ) : (
-                    <VehicleSpecificFilters
-                      brand={brand}
-                      model={model}
-                      color={color}
-                      yearRange={yearRange}
-                      vehicleType={type.toLowerCase()}
-                      onBrandChange={setBrand}
-                      onModelChange={setModel}
-                      onColorChange={setColor}
-                      onYearRangeChange={setYearRange}
-                    />
-                  )}
+                  {itemType === 'property' ? <PropertySpecificFilters areaRange={areaRange} onAreaRangeChange={setAreaRange} /> : <VehicleSpecificFilters brand={brand} model={model} color={color} yearRange={yearRange} vehicleType={type.toLowerCase()} onBrandChange={setBrand} onModelChange={setModel} onColorChange={setColor} onYearRangeChange={setYearRange} />}
 
-                  <PriceFilter
-                    priceRange={priceRange}
-                    onPriceRangeChange={setPriceRange}
-                  />
+                  <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
                 </div>
               </TabsContent>
 
@@ -157,10 +99,7 @@ export const MobileFiltersModal = ({
                 <div className="px-1 space-y-6">
                   <FormatFilter itemType={itemType} />
                   <OriginFilter itemType={itemType} />
-                  <StageFilter 
-                    itemType={itemType} 
-                    isEnabled={isStageEnabled}
-                  />
+                  <StageFilter itemType={itemType} isEnabled={isStageEnabled} />
                 </div>
               </TabsContent>
             </div>
@@ -170,22 +109,14 @@ export const MobileFiltersModal = ({
         {/* Footer com botões - sempre visível */}
         <div className="border-t border-gray-100 pt-4 pb-6 px-6 flex-shrink-0 bg-white">
           <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={handleClearFilters}
-              className="flex-1"
-            >
+            <Button variant="outline" onClick={handleClearFilters} className="flex-1">
               Limpar filtros
             </Button>
-            <Button
-              onClick={handleApplyFilters}
-              className="flex-1"
-            >
+            <Button onClick={handleApplyFilters} className="flex-1">
               Aplicar filtros
             </Button>
           </div>
         </div>
       </SheetContent>
-    </Sheet>
-  );
+    </Sheet>;
 };
