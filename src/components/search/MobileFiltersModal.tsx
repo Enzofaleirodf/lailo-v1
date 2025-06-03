@@ -67,120 +67,128 @@ export const MobileFiltersModal = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl flex flex-col">
-        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0">
-          <SheetTitle className="text-lg font-semibold">
-            Filtros
-          </SheetTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            className="h-8 w-8"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </SheetHeader>
+      <SheetContent 
+        side="bottom" 
+        className="h-[95vh] rounded-t-3xl flex flex-col"
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.8)'
+        }}
+      >
+        <div className="bg-white h-full rounded-t-3xl flex flex-col">
+          <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 px-6 pt-6">
+            <SheetTitle className="text-lg font-semibold">
+              Filtros
+            </SheetTitle>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="h-8 w-8"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </SheetHeader>
 
-        <div className="flex-1 overflow-hidden flex flex-col py-6">
-          <Tabs defaultValue="location" className="w-full flex flex-col flex-1">
-            <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
-              <TabsTrigger value="location">Localização</TabsTrigger>
-              <TabsTrigger value="characteristics">Características</TabsTrigger>
-              <TabsTrigger value="conditions">Condições</TabsTrigger>
-            </TabsList>
+          <div className="flex-1 overflow-hidden flex flex-col px-6 py-6">
+            <Tabs defaultValue="location" className="w-full flex flex-col flex-1">
+              <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
+                <TabsTrigger value="location">Localização</TabsTrigger>
+                <TabsTrigger value="characteristics">Características</TabsTrigger>
+                <TabsTrigger value="conditions">Condições</TabsTrigger>
+              </TabsList>
 
-            <div className="flex-1 overflow-y-auto">
-              {/* Tab Localização */}
-              <TabsContent value="location" className="space-y-6 mt-0">
-                <div className="px-1 space-y-4">
-                  <StateSelect
-                    value={selectedState}
-                    onChange={setSelectedState}
-                    onClearCity={handleClearCity}
-                  />
-
-                  <CitySelect
-                    value={selectedCity}
-                    onChange={setSelectedCity}
-                    selectedState={selectedState}
-                  />
-
-                  <AddressInput
-                    value={address}
-                    onChange={setAddress}
-                  />
-                </div>
-              </TabsContent>
-
-              {/* Tab Características */}
-              <TabsContent value="characteristics" className="space-y-6 mt-0">
-                <div className="px-1 space-y-6">
-                  <CategoryTypeFilters
-                    itemType={itemType}
-                    category={category}
-                    type={type}
-                    onCategoryChange={setCategory}
-                    onTypeChange={setType}
-                  />
-
-                  {itemType === 'property' ? (
-                    <PropertySpecificFilters
-                      areaRange={areaRange}
-                      onAreaRangeChange={setAreaRange}
+              <div className="flex-1 overflow-hidden">
+                {/* Tab Localização */}
+                <TabsContent value="location" className="space-y-6 mt-0 h-full overflow-y-auto">
+                  <div className="px-1 space-y-4">
+                    <StateSelect
+                      value={selectedState}
+                      onChange={setSelectedState}
+                      onClearCity={handleClearCity}
                     />
-                  ) : (
-                    <VehicleSpecificFilters
-                      brand={brand}
-                      model={model}
-                      color={color}
-                      yearRange={yearRange}
-                      vehicleType={type.toLowerCase()}
-                      onBrandChange={setBrand}
-                      onModelChange={setModel}
-                      onColorChange={setColor}
-                      onYearRangeChange={setYearRange}
+
+                    <CitySelect
+                      value={selectedCity}
+                      onChange={setSelectedCity}
+                      selectedState={selectedState}
                     />
-                  )}
 
-                  <PriceFilter
-                    priceRange={priceRange}
-                    onPriceRangeChange={setPriceRange}
-                  />
-                </div>
-              </TabsContent>
+                    <AddressInput
+                      value={address}
+                      onChange={setAddress}
+                    />
+                  </div>
+                </TabsContent>
 
-              {/* Tab Condições */}
-              <TabsContent value="conditions" className="space-y-6 mt-0">
-                <div className="px-1 space-y-6">
-                  <FormatFilter itemType={itemType} />
-                  <OriginFilter itemType={itemType} />
-                  <StageFilter 
-                    itemType={itemType} 
-                    isEnabled={isStageEnabled}
-                  />
-                </div>
-              </TabsContent>
+                {/* Tab Características */}
+                <TabsContent value="characteristics" className="space-y-6 mt-0 h-full overflow-y-auto">
+                  <div className="px-1 space-y-6 pb-4">
+                    <CategoryTypeFilters
+                      itemType={itemType}
+                      category={category}
+                      type={type}
+                      onCategoryChange={setCategory}
+                      onTypeChange={setType}
+                    />
+
+                    {itemType === 'property' ? (
+                      <PropertySpecificFilters
+                        areaRange={areaRange}
+                        onAreaRangeChange={setAreaRange}
+                      />
+                    ) : (
+                      <VehicleSpecificFilters
+                        brand={brand}
+                        model={model}
+                        color={color}
+                        yearRange={yearRange}
+                        vehicleType={type.toLowerCase()}
+                        onBrandChange={setBrand}
+                        onModelChange={setModel}
+                        onColorChange={setColor}
+                        onYearRangeChange={setYearRange}
+                      />
+                    )}
+
+                    <PriceFilter
+                      priceRange={priceRange}
+                      onPriceRangeChange={setPriceRange}
+                    />
+                  </div>
+                </TabsContent>
+
+                {/* Tab Condições */}
+                <TabsContent value="conditions" className="space-y-6 mt-0 h-full overflow-y-auto">
+                  <div className="px-1 space-y-6">
+                    <FormatFilter itemType={itemType} />
+                    <OriginFilter itemType={itemType} />
+                    <StageFilter 
+                      itemType={itemType} 
+                      isEnabled={isStageEnabled}
+                    />
+                  </div>
+                </TabsContent>
+              </div>
+            </Tabs>
+          </div>
+
+          {/* Footer com botões - sempre visível */}
+          <div className="border-t border-gray-100 pt-4 pb-6 px-6 flex-shrink-0 bg-white">
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={handleClearFilters}
+                className="flex-1"
+              >
+                Limpar filtros
+              </Button>
+              <Button
+                onClick={handleApplyFilters}
+                className="flex-1"
+              >
+                Aplicar filtros
+              </Button>
             </div>
-          </Tabs>
-        </div>
-
-        {/* Footer com botões - sempre visível */}
-        <div className="border-t border-gray-100 pt-4 pb-2 flex-shrink-0">
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={handleClearFilters}
-              className="flex-1"
-            >
-              Limpar filtros
-            </Button>
-            <Button
-              onClick={handleApplyFilters}
-              className="flex-1"
-            >
-              Aplicar filtros
-            </Button>
           </div>
         </div>
       </SheetContent>
