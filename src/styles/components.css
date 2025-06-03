@@ -1,0 +1,59 @@
+
+@layer base {
+  /* Botões padronizados */
+  button {
+    @apply font-medium;
+    transition: all 0.2s ease-out;
+    font-family: 'Urbanist', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Melhorias globais para acessibilidade e UX */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+  
+  .transition-smooth {
+    @apply transition-all duration-200 ease-out;
+  }
+  
+  .glass-effect {
+    @apply bg-white/95 backdrop-blur-md;
+  }
+
+  /* Estados de hover padronizados */
+  .hover-lift:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Transições padronizadas */
+  .transition-smooth {
+    transition: all 0.2s ease-out;
+  }
+
+  .transition-fast {
+    transition: all 0.15s ease-out;
+  }
+
+  /* Altura padrão de 40px para componentes */
+  .component-height {
+    height: 40px;
+  }
+
+  /* Border radius padrão */
+  .component-radius {
+    border-radius: 0.75rem; /* 12px */
+  }
+}
+
+/* Scrollbar invisível para sidebar */
+.invisible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
