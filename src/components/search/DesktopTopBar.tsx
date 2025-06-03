@@ -20,7 +20,7 @@ export const DesktopTopBar = ({
   onItemTypeChange
 }: DesktopTopBarProps) => {
   return (
-    <div className="hidden md:block h-16 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
+    <div className="hidden md:block h-20 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
       {/* Gradiente sutil de fundo */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 via-white to-purple-50/20 pointer-events-none" />
       
