@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ChevronDown, MapPin } from 'lucide-react';
 import {
@@ -60,7 +59,7 @@ export const LocationFilter = () => {
                    address;
 
   return (
-    <div className="w-[180px]">
+    <div className="w-[220px]">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

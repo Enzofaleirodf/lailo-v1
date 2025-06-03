@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -61,7 +60,7 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
   const hasSelectedItems = selectedStages.length > 0;
 
   return (
-    <div className="w-[180px]">
+    <div className="w-[220px]">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
