@@ -45,7 +45,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         style={{
           height: size === 'sm' ? '36px' : size === 'lg' ? '44px' : '40px',
-          borderRadius: designTokens.borderRadius.lg,
         }}
         ref={ref}
         {...props}
