@@ -1,6 +1,6 @@
 
 import React, { Suspense } from 'react';
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useNavigation, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SessionNavBar } from '../SessionNavBar';
 import { BottomNavigation } from '../BottomNavigation';
@@ -8,6 +8,7 @@ import { LoadingSpinner } from '../ui/LoadingSpinner';
 
 export const AppLayout = () => {
   const navigation = useNavigation();
+  const location = useLocation();
   const isNavigating = navigation.state === 'loading';
 
   return (
