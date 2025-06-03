@@ -127,7 +127,7 @@ export const FilterChip = ({
             onSelectAll={onSelectAll}
             id={id}
           >
-            {children}
+            {typeof children === 'function' ? children({ close: handleClose }) : children}
           </FilterChipContent>
         )}
       </AnimatePresence>
