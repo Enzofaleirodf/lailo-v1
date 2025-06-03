@@ -1,14 +1,9 @@
 import React, { useState, useMemo } from "react";
-import { Building2, Search, ExternalLink } from "lucide-react";
-import { SessionNavBar } from "../components/SessionNavBar";
-import { BottomNavigation } from "../components/BottomNavigation";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { LeiloeiroCard } from "../components/leiloeiros/LeiloeiroCard";
-import { LeiloeiroTableRow } from "../components/leiloeiros/LeiloeiroTableRow";
-import { Label } from "@/components/ui/label";
+import { Building2 } from "lucide-react";
+import { SearchPageLayout } from "../components/search/SearchPageLayout";
+import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
+import { LeiloeiroResults } from "../components/leiloeiros/LeiloeiroResults";
+import { leiloeiroSearchConfig } from "../config/leiloeiroConfig";
 
 interface Leiloeiro {
   id: number;
@@ -31,6 +26,7 @@ const Leiloeiros = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedState, setSelectedState] = useState("todos");
   const [activeAuctionsFilter, setActiveAuctionsFilter] = useState("todos");
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Dados das Juntas Comerciais por estado
   const juntasComerciais: JuntaComercial[] = [
@@ -162,260 +158,97 @@ const Leiloeiros = () => {
     return grouped;
   }, [leiloeiros, selectedState, searchTerm, activeAuctionsFilter]);
 
-  const getJuntaComercial = (state: string) => {
-    return juntasComerciais.find(j => j.state === state);
+  const totalLeiloeiros = Object.values(filteredAndGroupedLeiloeiros).flat().length;
+  const totalPages = Math.ceil(totalLeiloeiros / 20); // 20 por página
+
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSelectedState("todos");
+    setActiveAuctionsFilter("todos");
   };
+
+  // Criar um conteúdo customizado para substituir o SearchMainContent
+  const CustomContent = () => (
+    <div className="space-y-6">
+      {/* Header com ícone apenas no desktop */}
+      <div className="hidden md:flex items-center gap-3 mb-8">
+        <Building2 className="w-8 h-8 text-blue-600" />
+        <h1 className="text-3xl font-bold text-gray-900">Leiloeiros Oficiais do Brasil</h1>
+      </div>
+
+      {/* Filtros */}
+      <LeiloeiroFilters
+        searchTerm={searchTerm}
+        selectedState={selectedState}
+        activeAuctionsFilter={activeAuctionsFilter}
+        estados={estados}
+        onSearchChange={setSearchTerm}
+        onStateChange={setSelectedState}
+        onActiveAuctionsChange={setActiveAuctionsFilter}
+      />
+
+      {/* Resultados */}
+      <LeiloeiroResults
+        filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+        juntasComerciais={juntasComerciais}
+      />
+    </div>
+  );
 
   return (
     <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
-          <SessionNavBar />
-          <main className="ml-12 min-h-screen flex flex-col">
-            <div className="bg-white px-6 py-8">
-              <div className="max-w-6xl mx-auto">
-                {/* Header */}
-                <div className="flex items-center gap-3 mb-8">
-                  <Building2 className="w-8 h-8 text-blue-600" />
-                  <h1 className="text-3xl font-bold text-gray-900">Leiloeiros Oficiais do Brasil</h1>
-                </div>
-
-                {/* Filtros */}
-                <div className="flex gap-4 mb-8">
-                  <div className="relative flex-1">
-                    <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10" />
-                    <Input
-                      placeholder="Pesquisar por nome do leiloeiro ou website..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 h-12"
-                    />
-                  </div>
-                  <Select value={selectedState} onValueChange={setSelectedState}>
-                    <SelectTrigger className="w-[200px] h-12">
-                      <SelectValue placeholder="Filtrar por estado" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="todos">Todos os estados</SelectItem>
-                      {estados.map(state => (
-                        <SelectItem key={state} value={state}>{state}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-                    <SelectTrigger className="w-[180px] h-12">
-                      <SelectValue placeholder="Leilões ativos" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="todos">Todos</SelectItem>
-                      <SelectItem value="com-leiloes">Com leilões</SelectItem>
-                      <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Accordion com tabelas agrupadas por estado */}
-                <Accordion type="multiple" className="space-y-4">
-                  {Object.keys(filteredAndGroupedLeiloeiros)
-                    .sort()
-                    .map(state => {
-                      const junta = getJuntaComercial(state);
-                      const leiloeiroCount = filteredAndGroupedLeiloeiros[state].length;
-                      return (
-                        <AccordionItem key={state} value={state} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                          <AccordionTrigger className="bg-gray-50 px-6 py-4 border-b border-gray-200 hover:no-underline">
-                            <div className="flex items-center justify-between w-full">
-                              <div className="flex items-center gap-3">
-                                <h2 className="text-xl font-semibold text-gray-900">{state}</h2>
-                                <span className="text-sm text-gray-500">({leiloeiroCount} {leiloeiroCount === 1 ? 'leiloeiro' : 'leiloeiros'})</span>
-                                {junta && (
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      window.open(junta.website, '_blank');
-                                    }}
-                                    className="gap-2 text-xs h-8"
-                                  >
-                                    {junta.sigla}
-                                    <ExternalLink className="w-3 h-3" />
-                                  </Button>
-                                )}
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="p-0">
-                            <div className="overflow-x-auto">
-                              <table className="w-full table-fixed">
-                                <colgroup>
-                                  <col className="w-80" />
-                                  <col className="w-48" />
-                                  <col className="w-48" />
-                                  <col className="w-48" />
-                                  <col className="w-24" />
-                                </colgroup>
-                                <thead className="bg-gray-50">
-                                  <tr className="h-12">
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                      Leiloeiro
-                                    </th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                      Telefone
-                                    </th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                      Website
-                                    </th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                      Leilões Ativos
-                                    </th>
-                                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                      Acesso
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                  {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
-                                    <LeiloeiroTableRow key={leiloeiro.id} leiloeiro={leiloeiro} />
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      );
-                    })}
-                </Accordion>
-
-                {Object.keys(filteredAndGroupedLeiloeiros).length === 0 && (
-                  <div className="text-center py-12">
-                    <Building2 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum leiloeiro encontrado</h3>
-                    <p className="text-gray-500">Tente ajustar os filtros ou termo de busca.</p>
-                  </div>
-                )}
-              </div>
+          <SearchPageLayout
+            config={leiloeiroSearchConfig}
+            items={[]} // Não usamos items padrão
+            isLoading={false}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+            onClearFilters={handleClearFilters}
+            resultsCount={totalLeiloeiros}
+            sitesCount={0}
+            isVertical={true}
+            onToggleLayout={() => {}}
+            sortBy={leiloeiroSearchConfig.sortOptions[0]}
+            onSortChange={() => {}}
+            sortOptions={leiloeiroSearchConfig.sortOptions}
+          />
+          
+          {/* Overlay customizado para substituir o conteúdo padrão */}
+          <div className="absolute left-12 top-14 right-0 bottom-0 bg-white z-10">
+            <div className="h-full px-6 py-6">
+              <CustomContent />
             </div>
-          </main>
+          </div>
         </div>
       </div>
 
       {/* Mobile Layout */}
       <div className="block md:hidden">
-        <div className="w-full min-h-screen bg-white">
-          <main className="w-full min-h-screen flex flex-col px-4 py-6 pb-20">
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-6">
-              <Building2 className="w-6 h-6 text-blue-600" />
-              <h1 className="text-xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
-            </div>
-
-            {/* Filtros Mobile */}
-            <div className="space-y-4 mb-6">
-              <div>
-                <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                  Buscar Leiloeiro
-                </Label>
-                <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10" />
-                  <Input
-                    placeholder="Pesquisar leiloeiro..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 h-12"
-                  />
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                    Estado
-                  </Label>
-                  <Select value={selectedState} onValueChange={setSelectedState}>
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Estado" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="todos">Todos</SelectItem>
-                      {estados.map(state => (
-                        <SelectItem key={state} value={state}>{state}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                    Leilões Ativos
-                  </Label>
-                  <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Leilões" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="todos">Todos</SelectItem>
-                      <SelectItem value="com-leiloes">Com leilões</SelectItem>
-                      <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
-
-            {/* Accordion Mobile */}
-            <Accordion type="multiple" className="space-y-4">
-              {Object.keys(filteredAndGroupedLeiloeiros)
-                .sort()
-                .map(state => {
-                  const junta = getJuntaComercial(state);
-                  const leiloeiroCount = filteredAndGroupedLeiloeiros[state].length;
-                  return (
-                    <AccordionItem key={state} value={state} className="border border-gray-200 rounded-xl overflow-hidden">
-                      <AccordionTrigger className="flex items-center justify-between p-4 bg-gray-50">
-                        <div className="flex items-center gap-2 flex-1">
-                          <h2 className="text-lg font-semibold text-gray-900">{state}</h2>
-                          <span className="text-sm text-gray-500">({leiloeiroCount})</span>
-                          {junta && (
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                window.open(junta.website, '_blank');
-                              }}
-                              className="gap-1 text-xs h-8 ml-2"
-                            >
-                              {junta.sigla}
-                              <ExternalLink className="w-3 h-3" />
-                            </Button>
-                          )}
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="p-0">
-                        <div className="space-y-4 p-4">
-                          {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
-                            <LeiloeiroCard key={leiloeiro.id} leiloeiro={leiloeiro} />
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  );
-                })}
-            </Accordion>
-
-            {Object.keys(filteredAndGroupedLeiloeiros).length === 0 && (
-              <div className="text-center py-12">
-                <Building2 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum leiloeiro encontrado</h3>
-                <p className="text-gray-500 text-sm">Tente ajustar os filtros ou termo de busca.</p>
-              </div>
-            )}
-          </main>
-          
-          <div className="fixed bottom-0 left-0 right-0 z-50">
-            <BottomNavigation />
+        <SearchPageLayout
+          config={leiloeiroSearchConfig}
+          items={[]} // Não usamos items padrão
+          isLoading={false}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          onClearFilters={handleClearFilters}
+          resultsCount={totalLeiloeiros}
+          sitesCount={0}
+          isVertical={true}
+          onToggleLayout={() => {}}
+          sortBy={leiloeiroSearchConfig.sortOptions[0]}
+          onSortChange={() => {}}
+          sortOptions={leiloeiroSearchConfig.sortOptions}
+        />
+        
+        {/* Overlay customizado para mobile */}
+        <div className="absolute top-14 left-0 right-0 bottom-20 bg-white z-10">
+          <div className="h-full px-4 py-6">
+            <CustomContent />
           </div>
         </div>
       </div>
