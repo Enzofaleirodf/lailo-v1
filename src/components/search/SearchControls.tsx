@@ -14,9 +14,9 @@ export const SearchControls = ({
   const showResultsText = resultsText && resultsText.trim() !== '';
 
   return (
-    <div className="w-full flex items-center justify-between gap-4">
+    <div className="w-full flex items-center justify-between gap-4 flex-shrink-0">
       {showResultsText && (
-        <div className="flex-1 text-sm text-gray-600 text-left">
+        <div className="flex-1 text-sm text-gray-600 text-left min-w-0">
           {resultsText}
         </div>
       )}

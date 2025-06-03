@@ -108,8 +108,8 @@ export const TopBarFilters = ({
   };
 
   return (
-    <div className="flex items-start gap-3 min-w-0 overflow-visible">
-      {/* Filtro de Localização - sempre primeiro */}
+    <div className="flex items-center gap-3 flex-shrink-0">
+      {/* Filtro de Localização */}
       <div className="flex-shrink-0">
         <LocationFilter />
       </div>
@@ -121,7 +121,7 @@ export const TopBarFilters = ({
           selectedValue={format ? formatOptions.find(opt => opt.value === format)?.label : undefined}
           isActive={!!format}
           onClear={() => setFormat('')}
-          className="w-[200px]"
+          className="w-[140px]"
           aria-label="Filtro de formato do leilão"
           id="format-filter"
         >
@@ -165,7 +165,7 @@ export const TopBarFilters = ({
           onClear={() => setOrigins([])}
           onRemoveItem={removeOrigin}
           onSelectAll={handleSelectAllOrigins}
-          className="w-[200px]"
+          className="w-[140px]"
           aria-label="Filtro de origem do leilão"
           id="origin-filter"
         >
@@ -208,7 +208,7 @@ export const TopBarFilters = ({
           onClear={() => setStages([])}
           onRemoveItem={removeStage}
           onSelectAll={handleSelectAllStages}
-          className="w-[200px]"
+          className="w-[140px]"
           aria-label="Filtro de etapa do leilão"
           id="stage-filter"
         >
