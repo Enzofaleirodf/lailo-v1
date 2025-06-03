@@ -62,7 +62,7 @@ export const MobileFiltersModal = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-3xl flex flex-col">
+      <SheetContent side="bottom" className="h-[98vh] rounded-t-3xl flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
           <SheetTitle className="text-lg font-semibold">
             Filtros
@@ -73,37 +73,32 @@ export const MobileFiltersModal = ({
         </SheetHeader>
 
         <div className="flex-1 overflow-hidden flex flex-col py-6 px-0">
-          <Tabs defaultValue="location" className="w-full flex flex-col flex-1">
+          <Tabs defaultValue="location" className="w-full flex flex-col flex-1 overflow-hidden">
             <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
               <TabsTrigger value="location" className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                <span className="hidden sm:inline">Localização</span>
               </TabsTrigger>
               <TabsTrigger value="characteristics" className="flex items-center gap-2">
                 <Settings className="h-4 w-4" />
-                <span className="hidden sm:inline">Características</span>
               </TabsTrigger>
               <TabsTrigger value="conditions" className="flex items-center gap-2">
                 <Gavel className="h-4 w-4" />
-                <span className="hidden sm:inline">Condições</span>
               </TabsTrigger>
             </TabsList>
 
             <div className="flex-1 overflow-hidden">
               {/* Tab Localização */}
-              <TabsContent value="location" className="space-y-6 mt-0 h-full overflow-y-auto">
-                <div className="px-1 space-y-4">
+              <TabsContent value="location" className="mt-0 h-full overflow-y-auto">
+                <div className="px-1 space-y-4 pb-4">
                   <StateSelect value={selectedState} onChange={setSelectedState} onClearCity={handleClearCity} />
-
                   <CitySelect value={selectedCity} onChange={setSelectedCity} selectedState={selectedState} />
-
                   <AddressInput value={address} onChange={setAddress} />
                 </div>
               </TabsContent>
 
               {/* Tab Características */}
-              <TabsContent value="characteristics" className="space-y-6 mt-0 h-full overflow-y-auto">
-                <div className="px-1 space-y-6 pb-4">
+              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto">
+                <div className="px-1 space-y-6 pb-20">
                   <CategoryTypeFilters 
                     itemType={itemType} 
                     category={category} 
@@ -136,8 +131,8 @@ export const MobileFiltersModal = ({
               </TabsContent>
 
               {/* Tab Condições */}
-              <TabsContent value="conditions" className="space-y-6 mt-0 h-full overflow-y-auto">
-                <div className="px-1 space-y-6">
+              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto">
+                <div className="px-1 space-y-6 pb-4">
                   <div className="w-full">
                     <FormatFilter itemType={itemType} />
                   </div>

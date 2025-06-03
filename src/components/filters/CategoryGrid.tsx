@@ -38,35 +38,44 @@ export const CategoryGrid = ({
 }: CategoryGridProps) => {
   return (
     <div 
-      className="grid grid-cols-3 gap-3"
-      style={{ gap: designTokens.spacing.md }}
+      className="grid gap-3"
+      style={{ 
+        gap: designTokens.spacing.md,
+        gridTemplateColumns: `repeat(${columns}, 1fr)`
+      }}
     >
       {options.map((option) => {
         const IconComponent = option.icon ? iconMap[option.icon as keyof typeof iconMap] : null;
+        const isSelected = selected === option.value;
         
         return (
           <button
             key={option.value}
             onClick={() => onSelect(option.value)}
             className={cn(
-              "flex items-center gap-2 px-2 py-3 border rounded-lg transition-all duration-200 font-medium text-left justify-start h-10",
-              selected === option.value
-                ? "bg-blue-50 border-blue-200 text-blue-700 ring-2 ring-blue-200/50"
+              "flex items-center gap-2 px-3 py-3 border rounded-lg transition-all duration-200 font-medium text-left justify-start min-h-[48px]",
+              isSelected
+                ? "bg-blue-50 border-blue-500 text-blue-700 ring-2 ring-blue-200/50 shadow-sm"
                 : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
             )}
             style={{
               borderRadius: designTokens.borderRadius.lg,
-              padding: `${designTokens.spacing.sm}`,
-              height: '40px',
               fontWeight: designTokens.typography.weights.medium,
             }}
           >
-            {IconComponent && <IconComponent className="w-4 h-4 flex-shrink-0" />}
+            {IconComponent && (
+              <IconComponent 
+                className={cn(
+                  "w-4 h-4 flex-shrink-0",
+                  isSelected ? "text-blue-600" : "text-gray-500"
+                )} 
+              />
+            )}
             <span 
-              className="text-xs md:text-xs"
-              style={{ 
-                fontSize: window.innerWidth < 768 ? '10px' : designTokens.typography.sizes.xs 
-              }}
+              className={cn(
+                "text-sm leading-tight",
+                isSelected ? "text-blue-700 font-semibold" : "text-gray-700"
+              )}
             >
               {option.label}
             </span>
