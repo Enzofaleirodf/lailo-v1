@@ -44,7 +44,7 @@ export const SessionNavBar = () => {
   ];
 
   return (
-    <nav className="hidden md:flex h-full w-12 bg-white border-r border-gray-200 flex-col items-center py-4">
+    <nav className="hidden md:flex absolute left-0 top-0 h-full w-12 bg-white border-r border-gray-200 flex-col items-center pt-4 pb-4 z-50">
       {/* Logo/Brand */}
       <div className="mb-8">
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">

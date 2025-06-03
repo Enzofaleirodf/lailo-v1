@@ -48,7 +48,7 @@ export const BottomNavigation = () => {
   ];
 
   return (
-    <nav className="md:hidden w-full bg-white border-t border-gray-200">
+    <nav className="md:hidden absolute bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
       <div className="flex items-center justify-around px-2 py-2">
         {navItems.map((item) => {
           const Icon = item.icon;
