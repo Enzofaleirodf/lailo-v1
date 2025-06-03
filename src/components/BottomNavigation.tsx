@@ -79,12 +79,11 @@ export const BottomNavigation = () => {
     setIsMoreMenuOpen(false);
   };
 
-  // Verificar se algum item do menu "Mais" está ativo
   const isMoreMenuActive = isActive("/leiloeiros") || isActive("/agenda") || isActive("/configuracoes") || isActive("/perfil");
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
-      <div className="flex items-center justify-around px-2 py-2">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50" style={{ height: '72px' }}>
+      <div className="flex items-center justify-around px-2 h-full">
         {mainNavItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -92,22 +91,26 @@ export const BottomNavigation = () => {
               key={item.to}
               to={item.to}
               className={`
-                relative flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200
+                relative flex flex-col items-center justify-center h-12 px-3 rounded-lg transition-colors
                 ${item.active 
                   ? 'text-blue-600' 
                   : 'text-gray-500 hover:text-gray-700'
                 }
               `}
             >
-              {/* Traço superior indicador de ativo */}
-              {item.active && (
-                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
-              )}
+              {/* Traço superior - sempre renderizado, controlado por opacidade */}
+              <div 
+                className={`absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full transition-opacity ${
+                  item.active ? 'opacity-100' : 'opacity-0'
+                }`} 
+              />
               
-              {/* Realce sutil no botão ativo */}
-              {item.active && (
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-transparent rounded-lg pointer-events-none" />
-              )}
+              {/* Realce sutil no botão ativo - sempre renderizado */}
+              <div 
+                className={`absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-transparent rounded-lg pointer-events-none transition-opacity ${
+                  item.active ? 'opacity-100' : 'opacity-0'
+                }`} 
+              />
               
               <Icon className="w-5 h-5 mb-1" />
               <span className="text-xs font-medium">{item.label}</span>
@@ -120,22 +123,26 @@ export const BottomNavigation = () => {
           <PopoverTrigger asChild>
             <button
               className={`
-                relative flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200
+                relative flex flex-col items-center justify-center h-12 px-3 rounded-lg transition-colors
                 ${isMoreMenuActive
                   ? 'text-blue-600' 
                   : 'text-gray-500 hover:text-gray-700'
                 }
               `}
             >
-              {/* Traço superior indicador de ativo */}
-              {isMoreMenuActive && (
-                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
-              )}
+              {/* Traço superior - sempre renderizado, controlado por opacidade */}
+              <div 
+                className={`absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full transition-opacity ${
+                  isMoreMenuActive ? 'opacity-100' : 'opacity-0'
+                }`} 
+              />
               
-              {/* Realce sutil no botão ativo */}
-              {isMoreMenuActive && (
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-transparent rounded-lg pointer-events-none" />
-              )}
+              {/* Realce sutil no botão ativo - sempre renderizado */}
+              <div 
+                className={`absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-transparent rounded-lg pointer-events-none transition-opacity ${
+                  isMoreMenuActive ? 'opacity-100' : 'opacity-0'
+                }`} 
+              />
               
               <MoreHorizontal className="w-5 h-5 mb-1" />
               <span className="text-xs font-medium">Mais</span>
@@ -149,7 +156,6 @@ export const BottomNavigation = () => {
             sideOffset={8}
           >
             <div className="py-2">
-              {/* Seção Pública */}
               <div className="px-2">
                 {publicMenuItems.map((item) => {
                   const Icon = item.icon;
@@ -169,7 +175,6 @@ export const BottomNavigation = () => {
               
               <Separator className="my-2" />
               
-              {/* Seção do Usuário */}
               <div className="px-2">
                 {userMenuItems.map((item) => {
                   const Icon = item.icon;
@@ -186,7 +191,6 @@ export const BottomNavigation = () => {
                   );
                 })}
                 
-                {/* Botão Sair - só aparece se logado */}
                 {isAuthenticated && (
                   <Button
                     variant="ghost"
@@ -198,7 +202,6 @@ export const BottomNavigation = () => {
                   </Button>
                 )}
                 
-                {/* Botão Login - só aparece se não logado */}
                 {!isAuthenticated && (
                   <Link
                     to="/auth/login"
