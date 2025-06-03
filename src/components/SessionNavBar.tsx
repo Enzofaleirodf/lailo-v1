@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, Search, Heart, Gavel, User, LogIn, LogOut, Car, Calendar } from "lucide-react";
@@ -31,12 +30,6 @@ export const SessionNavBar = () => {
       icon: Car,
       label: "Veículos",
       active: isActive("/buscador/veiculos")
-    },
-    {
-      to: "/agenda",
-      icon: Calendar,
-      label: "Agenda",
-      active: isActive("/agenda")
     }
   ];
 
@@ -52,6 +45,12 @@ export const SessionNavBar = () => {
       icon: Gavel,
       label: "Leiloeiros",
       active: isActive("/leiloeiros")
+    },
+    {
+      to: "/agenda",
+      icon: Calendar,
+      label: "Agenda",
+      active: isActive("/agenda")
     }
   ];
 
@@ -90,59 +89,35 @@ export const SessionNavBar = () => {
           );
         })}
 
-        {/* Protected Items (only show if authenticated) */}
-        {isAuthenticated && protectedItems.map((item) => {
+        {/* Protected Items - sempre mostrar, mas controlar acesso */}
+        {protectedItems.map((item) => {
           const Icon = item.icon;
+          // Se não estiver autenticado e for favoritos, redireciona para login
+          const linkTo = !isAuthenticated && item.to.includes('/favoritos') ? '/auth/login' : item.to;
+          
           return (
             <Link
               key={item.to}
-              to={item.to}
+              to={linkTo}
               className={`
                 w-8 h-8 rounded-lg flex items-center justify-center transition-colors relative group
                 ${item.active 
                   ? 'bg-blue-100 text-blue-600' 
-                  : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                  : !isAuthenticated && item.to.includes('/favoritos')
+                    ? 'text-gray-400 hover:text-blue-600 hover:bg-blue-50'
+                    : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
                 }
               `}
             >
               <Icon className="w-4 h-4" />
               
-              {/* Tooltip apenas uma vez */}
+              {/* Tooltip */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-                {item.label}
+                {!isAuthenticated && item.to.includes('/favoritos') ? 'Favoritos - Faça login' : item.label}
               </div>
             </Link>
           );
         })}
-
-        {/* Show login prompts if not authenticated */}
-        {!isAuthenticated && (
-          <>
-            <Link
-              to="/auth/login"
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
-            >
-              <Heart className="w-4 h-4" />
-              
-              {/* Tooltip apenas uma vez */}
-              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-                Favoritos - Faça login
-              </div>
-            </Link>
-
-            <Link
-              to="/auth/login"
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors relative group"
-            >
-              <Gavel className="w-4 h-4" />
-              
-              {/* Tooltip apenas uma vez */}
-              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-                Leiloeiros
-              </div>
-            </Link>
-          </>
-        )}
       </div>
 
       {/* Auth Section - Moved to bottom */}
