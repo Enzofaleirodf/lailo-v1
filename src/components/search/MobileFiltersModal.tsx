@@ -27,7 +27,7 @@ export const MobileFiltersModal = ({
   onClose,
   itemType
 }: MobileFiltersModalProps) => {
-  // Estados dos filtros (mockados por enquanto)
+  // Estados iniciais conforme especificação - mesma lógica do desktop
   const [category, setCategory] = useState(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
   const [type, setType] = useState(itemType === 'property' ? 'Todos' : 'Carros');
   const [formatValue, setFormatValue] = useState('Leilão');
@@ -46,7 +46,37 @@ export const MobileFiltersModal = ({
   const [address, setAddress] = useState('');
   const isStageEnabled = formatValue === 'Leilão';
 
+  // Função para resetar tipo quando categoria muda - mantém sincronização
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory);
+    // Sempre aplicar o primeiro tipo da nova categoria
+    if (itemType === 'property') {
+      setType('Todos');
+    } else {
+      // Para veículos, definir o primeiro tipo baseado na categoria
+      if (newCategory === 'Veículos Leves') {
+        setType('Carros');
+      } else if (newCategory === 'Veículos Pesados') {
+        setType('Caminhões');
+      } else {
+        setType('Carros'); // fallback
+      }
+    }
+  };
+
   const handleClearFilters = () => {
+    // Reset para estados iniciais - mesma lógica do desktop
+    setCategory(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
+    setType(itemType === 'property' ? 'Todos' : 'Carros');
+    setBrand('todas-marcas');
+    setModel('todos-modelos');
+    setColor('todas-cores');
+    setYearRange([2010, 2025]);
+    setAreaRange([50, 500]);
+    setPriceRange([50000, 1000000]);
+    setSelectedState('');
+    setSelectedCity('');
+    setAddress('');
     console.log("Limpar todos os filtros");
   };
 
@@ -85,10 +115,10 @@ export const MobileFiltersModal = ({
               </TabsTrigger>
             </TabsList>
 
-            <div className="flex-1 overflow-hidden -mr-6 pr-6">
+            <div className="flex-1 overflow-hidden">
               {/* Tab Localização */}
-              <TabsContent value="location" className="mt-0 h-full overflow-y-auto invisible-scrollbar">
-                <div className="px-1 space-y-4 pb-4 mr-6">
+              <TabsContent value="location" className="mt-0 h-full overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.2) transparent' }}>
+                <div className="pr-2 space-y-4 pb-4">
                   <StateSelect value={selectedState} onChange={setSelectedState} onClearCity={handleClearCity} />
                   <CitySelect value={selectedCity} onChange={setSelectedCity} selectedState={selectedState} />
                   <AddressInput value={address} onChange={setAddress} />
@@ -96,13 +126,13 @@ export const MobileFiltersModal = ({
               </TabsContent>
 
               {/* Tab Características */}
-              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto invisible-scrollbar">
-                <div className="px-1 space-y-6 pb-20 mr-6">
+              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.2) transparent' }}>
+                <div className="pr-2 space-y-6 pb-20">
                   <CategoryTypeFilters 
                     itemType={itemType} 
                     category={category} 
                     type={type} 
-                    onCategoryChange={setCategory} 
+                    onCategoryChange={handleCategoryChange} 
                     onTypeChange={setType} 
                   />
 
@@ -130,8 +160,8 @@ export const MobileFiltersModal = ({
               </TabsContent>
 
               {/* Tab Condições */}
-              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto invisible-scrollbar">
-                <div className="px-1 space-y-6 pb-4 mr-6">
+              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.2) transparent' }}>
+                <div className="pr-2 space-y-6 pb-4">
                   <div className="w-full">
                     <FormatFilter itemType={itemType} />
                   </div>

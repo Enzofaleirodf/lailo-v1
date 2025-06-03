@@ -6,7 +6,6 @@ import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { PriceFilter } from '../filters/PriceFilter';
-import { vehicleTypes } from '../../config/filterData';
 
 interface DesktopFilterSidebarProps {
   itemType: ItemType;
@@ -14,9 +13,9 @@ interface DesktopFilterSidebarProps {
 }
 
 export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilterSidebarProps) => {
-  // Estados dos filtros
-  const [category, setCategory] = useState(itemType === 'property' ? 'residenciais' : 'leves');
-  const [type, setType] = useState(itemType === 'property' ? 'todos' : 'carro');
+  // Estados iniciais conforme especificação - exatamente igual ao mobile
+  const [category, setCategory] = useState(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
+  const [type, setType] = useState(itemType === 'property' ? 'Todos' : 'Carros');
   const [brand, setBrand] = useState('todas-marcas');
   const [model, setModel] = useState('todos-modelos');
   const [color, setColor] = useState('todas-cores');
@@ -24,19 +23,28 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
   const [areaRange, setAreaRange] = useState<[number, number]>([50, 500]);
   const [priceRange, setPriceRange] = useState<[number, number]>([50000, 1000000]);
 
+  // Função para resetar tipo quando categoria muda - mesma lógica do mobile
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory);
-    // Reset type when category changes
+    // Sempre aplicar o primeiro tipo da nova categoria
     if (itemType === 'property') {
-      setType('todos');
+      setType('Todos');
     } else {
-      setType(vehicleTypes[newCategory as keyof typeof vehicleTypes]?.[0]?.value || 'carro');
+      // Para veículos, definir o primeiro tipo baseado na categoria
+      if (newCategory === 'Veículos Leves') {
+        setType('Carros');
+      } else if (newCategory === 'Veículos Pesados') {
+        setType('Caminhões');
+      } else {
+        setType('Carros'); // fallback
+      }
     }
   };
 
   const handleClearAllFilters = () => {
-    setCategory(itemType === 'property' ? 'residenciais' : 'leves');
-    setType(itemType === 'property' ? 'todos' : 'carro');
+    // Reset para estados iniciais - exatamente igual ao mobile
+    setCategory(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
+    setType(itemType === 'property' ? 'Todos' : 'Carros');
     setBrand('todas-marcas');
     setModel('todos-modelos');
     setColor('todas-cores');
@@ -73,7 +81,7 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
                 model={model}
                 color={color}
                 yearRange={yearRange}
-                vehicleType={type}
+                vehicleType={type.toLowerCase()}
                 onBrandChange={setBrand}
                 onModelChange={setModel}
                 onColorChange={setColor}
