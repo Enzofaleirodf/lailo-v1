@@ -6,7 +6,6 @@ import { ChevronDown, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './button';
 import { designTokens } from '../../styles/design-tokens';
-import { useDropdownPosition } from '../../hooks/useDropdownPosition';
 
 interface FilterChipProps {
   label: string;
@@ -47,17 +46,58 @@ export const FilterChip = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
-
-  const position = useDropdownPosition({
-    triggerRef,
-    isOpen: isExpanded,
-    offset: 8
-  });
+  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
   // Inicializar portal root
   useEffect(() => {
     setPortalRoot(document.body);
   }, []);
+
+  // Calcular posição do dropdown
+  const calculatePosition = () => {
+    if (!triggerRef.current) return;
+    
+    const rect = triggerRef.current.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    
+    let top = rect.bottom + 8;
+    let left = rect.left;
+    const width = Math.max(320, rect.width); // Mínimo 320px ou largura do trigger
+    
+    // Se sair pela direita, alinhar à direita
+    if (left + width > viewportWidth) {
+      left = rect.right - width;
+    }
+    
+    // Se sair por baixo, posicionar acima
+    if (top + 400 > viewportHeight) {
+      top = rect.top - 400 - 8;
+    }
+    
+    // Garantir que não saia da tela
+    left = Math.max(8, Math.min(left, viewportWidth - width - 8));
+    top = Math.max(8, top);
+    
+    setPosition({ top, left, width });
+  };
+
+  useEffect(() => {
+    if (isExpanded) {
+      calculatePosition();
+      
+      const handleResize = () => calculatePosition();
+      const handleScroll = () => calculatePosition();
+      
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('scroll', handleScroll);
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [isExpanded]);
 
   const handleToggle = () => {
     if (!isDisabled) {
@@ -153,11 +193,12 @@ export const FilterChip = ({
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -10, scale: 0.95 }}
         transition={{ duration: 0.2 }}
-        className="fixed bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden z-[10000]"
+        className="fixed bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-[9999]"
         style={{
           top: position.top,
           left: position.left,
-          maxHeight: position.maxHeight,
+          width: position.width,
+          maxHeight: 400,
           borderRadius: designTokens.borderRadius.xl,
           boxShadow: designTokens.shadows.lg,
         }}
@@ -166,7 +207,7 @@ export const FilterChip = ({
       >
         <div className="p-4 overflow-y-auto" style={{ 
           padding: designTokens.spacing.lg,
-          maxHeight: position.maxHeight ? position.maxHeight - 100 : 'auto'
+          maxHeight: 300
         }}>
           {renderChildren()}
         </div>
@@ -227,7 +268,7 @@ export const FilterChip = ({
         aria-label={ariaLabel || `Filtro ${label}`}
         id={id}
         className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] w-full",
+          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] min-w-[120px] whitespace-nowrap",
           isDisabled 
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed" 
             : isActive 

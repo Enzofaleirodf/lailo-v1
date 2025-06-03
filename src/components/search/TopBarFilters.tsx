@@ -95,7 +95,7 @@ export const TopBarFilters = ({
     return count;
   };
   return (
-    <div className="flex items-start gap-3 min-w-0 overflow-visible">
+    <div className="flex items-start gap-4 min-w-0 overflow-visible">
       {/* Filtro de Localização - sempre primeiro */}
       <div className="flex-shrink-0">
         <LocationFilter />
