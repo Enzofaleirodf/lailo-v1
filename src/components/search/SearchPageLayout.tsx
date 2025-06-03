@@ -75,8 +75,8 @@ export const SearchPageLayout = ({
       </div>
 
       {/* Conteúdo principal */}
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:mt-16 md:pl-[512px]">
-        <div className="min-h-screen bg-white px-4 py-3 pb-20 md:px-6 md:py-6 md:pb-6">
+      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:pl-[512px]">
+        <div className="min-h-screen bg-white px-4 pb-20 md:px-6 md:pb-6">
           <div className="w-full">
             <SearchPageHeader
               title={config.title}
