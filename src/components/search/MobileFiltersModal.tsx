@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -14,11 +15,13 @@ import { PriceFilter } from '../filters/PriceFilter';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { ItemType } from '../../types/search';
+
 interface MobileFiltersModalProps {
   isOpen: boolean;
   onClose: () => void;
   itemType: ItemType;
 }
+
 export const MobileFiltersModal = ({
   isOpen,
   onClose,
@@ -42,17 +45,22 @@ export const MobileFiltersModal = ({
   const [selectedCity, setSelectedCity] = useState('');
   const [address, setAddress] = useState('');
   const isStageEnabled = formatValue === 'Leilão';
+
   const handleClearFilters = () => {
     console.log("Limpar todos os filtros");
   };
+
   const handleApplyFilters = () => {
     console.log("Aplicar filtros");
     onClose();
   };
+
   const handleClearCity = () => {
     setSelectedCity('');
   };
-  return <Sheet open={isOpen} onOpenChange={onClose}>
+
+  return (
+    <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[98vh] rounded-t-3xl flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
           <SheetTitle className="text-lg font-semibold">
@@ -77,10 +85,10 @@ export const MobileFiltersModal = ({
               </TabsTrigger>
             </TabsList>
 
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-hidden -mr-6 pr-6">
               {/* Tab Localização */}
-              <TabsContent value="location" className="mt-0 h-full overflow-y-auto">
-                <div className="px-1 space-y-4 pb-4">
+              <TabsContent value="location" className="mt-0 h-full overflow-y-auto invisible-scrollbar">
+                <div className="px-1 space-y-4 pb-4 mr-6">
                   <StateSelect value={selectedState} onChange={setSelectedState} onClearCity={handleClearCity} />
                   <CitySelect value={selectedCity} onChange={setSelectedCity} selectedState={selectedState} />
                   <AddressInput value={address} onChange={setAddress} />
@@ -88,19 +96,42 @@ export const MobileFiltersModal = ({
               </TabsContent>
 
               {/* Tab Características */}
-              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto">
-                <div className="px-1 space-y-6 pb-20">
-                  <CategoryTypeFilters itemType={itemType} category={category} type={type} onCategoryChange={setCategory} onTypeChange={setType} />
+              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto invisible-scrollbar">
+                <div className="px-1 space-y-6 pb-20 mr-6">
+                  <CategoryTypeFilters 
+                    itemType={itemType} 
+                    category={category} 
+                    type={type} 
+                    onCategoryChange={setCategory} 
+                    onTypeChange={setType} 
+                  />
 
-                  {itemType === 'property' ? <PropertySpecificFilters areaRange={areaRange} onAreaRangeChange={setAreaRange} /> : <VehicleSpecificFilters brand={brand} model={model} color={color} yearRange={yearRange} vehicleType={type.toLowerCase()} onBrandChange={setBrand} onModelChange={setModel} onColorChange={setColor} onYearRangeChange={setYearRange} />}
+                  {itemType === 'property' ? (
+                    <PropertySpecificFilters 
+                      areaRange={areaRange} 
+                      onAreaRangeChange={setAreaRange} 
+                    />
+                  ) : (
+                    <VehicleSpecificFilters 
+                      brand={brand} 
+                      model={model} 
+                      color={color} 
+                      yearRange={yearRange} 
+                      vehicleType={type.toLowerCase()} 
+                      onBrandChange={setBrand} 
+                      onModelChange={setModel} 
+                      onColorChange={setColor} 
+                      onYearRangeChange={setYearRange} 
+                    />
+                  )}
 
                   <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
                 </div>
               </TabsContent>
 
               {/* Tab Condições */}
-              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto">
-                <div className="px-1 space-y-6 pb-4">
+              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto invisible-scrollbar">
+                <div className="px-1 space-y-6 pb-4 mr-6">
                   <div className="w-full">
                     <FormatFilter itemType={itemType} />
                   </div>
@@ -128,5 +159,6 @@ export const MobileFiltersModal = ({
           </div>
         </div>
       </SheetContent>
-    </Sheet>;
+    </Sheet>
+  );
 };
