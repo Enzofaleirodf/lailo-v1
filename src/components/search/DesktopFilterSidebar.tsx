@@ -6,6 +6,7 @@ import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { PriceFilter } from '../filters/PriceFilter';
+import { AuctionConditionFilters } from '../filters/AuctionConditionFilters';
 
 interface DesktopFilterSidebarProps {
   itemType: ItemType;
@@ -77,6 +78,8 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
               onCategoryChange={setCategory}
               onTypeChange={setType}
             />
+
+            <AuctionConditionFilters itemType={itemType} />
 
             {itemType === 'vehicle' && (
               <VehicleSpecificFilters
