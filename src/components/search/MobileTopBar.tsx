@@ -16,7 +16,7 @@ export const MobileTopBar = ({
   onShowSort
 }: MobileTopBarProps) => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 md:hidden shadow-sm">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-white md:hidden shadow-sm">
       <div className="flex items-center justify-center px-4 py-3 h-14">
         {/* Todos os botões unidos em um só componente */}
         <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-md">
