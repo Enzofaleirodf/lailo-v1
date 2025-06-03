@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { ChevronDown } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -23,11 +22,10 @@ export const FormatFilter = ({ itemType }: FormatFilterProps) => {
   ];
 
   return (
-    <div className="min-w-[140px]">
+    <div className="w-[180px]">
       <Select value={selectedFormat} onValueChange={setSelectedFormat}>
         <SelectTrigger className="w-full">
           <SelectValue />
-          <ChevronDown className="h-4 w-4 ml-2" />
         </SelectTrigger>
         <SelectContent>
           {formatOptions.map((option) => (
