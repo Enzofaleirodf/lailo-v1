@@ -33,6 +33,20 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
     }
   };
 
+  const handleSelectAll = () => {
+    setSelectedOrigins(originOptions.map(option => option.value));
+  };
+
+  const handleClear = () => {
+    setSelectedOrigins([]);
+  };
+
+  const handleApply = () => {
+    setOpen(false);
+    // Aqui seria aplicado o filtro
+    console.log('Aplicando filtros de origem:', selectedOrigins);
+  };
+
   const getDisplayText = () => {
     if (selectedOrigins.length === 0) return 'Origem';
     if (selectedOrigins.length === 1) {
@@ -41,6 +55,8 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
     }
     return `${selectedOrigins.length} selecionadas`;
   };
+
+  const hasSelectedItems = selectedOrigins.length > 0;
 
   return (
     <div className="w-[180px]">
@@ -75,6 +91,38 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
                 </label>
               </div>
             ))}
+          </div>
+          
+          {/* Footer com botões */}
+          <div className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100">
+            {hasSelectedItems ? (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleClear} 
+                className="text-gray-600 hover:text-gray-800"
+              >
+                Limpar ({selectedOrigins.length})
+              </Button>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleSelectAll} 
+                className="text-gray-600 hover:text-gray-800"
+              >
+                Marcar todos
+              </Button>
+            )}
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleApply} 
+              className="text-gray-600 hover:text-gray-800 border-gray-300"
+            >
+              Aplicar
+            </Button>
           </div>
         </PopoverContent>
       </Popover>

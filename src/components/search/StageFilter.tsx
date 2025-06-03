@@ -34,6 +34,20 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
     }
   };
 
+  const handleSelectAll = () => {
+    setSelectedStages(stageOptions.map(option => option.value));
+  };
+
+  const handleClear = () => {
+    setSelectedStages([]);
+  };
+
+  const handleApply = () => {
+    setOpen(false);
+    // Aqui seria aplicado o filtro
+    console.log('Aplicando filtros de etapa:', selectedStages);
+  };
+
   const getDisplayText = () => {
     if (selectedStages.length === 0) return 'Etapa';
     if (selectedStages.length === 1) {
@@ -42,6 +56,8 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
     }
     return `${selectedStages.length} selecionadas`;
   };
+
+  const hasSelectedItems = selectedStages.length > 0;
 
   return (
     <div className="w-[180px]">
@@ -78,6 +94,41 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
                 </label>
               </div>
             ))}
+          </div>
+          
+          {/* Footer com botões */}
+          <div className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100">
+            {hasSelectedItems ? (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleClear} 
+                className="text-gray-600 hover:text-gray-800"
+                disabled={!isEnabled}
+              >
+                Limpar ({selectedStages.length})
+              </Button>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleSelectAll} 
+                className="text-gray-600 hover:text-gray-800"
+                disabled={!isEnabled}
+              >
+                Marcar todos
+              </Button>
+            )}
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleApply} 
+              className="text-gray-600 hover:text-gray-800 border-gray-300"
+              disabled={!isEnabled}
+            >
+              Aplicar
+            </Button>
           </div>
         </PopoverContent>
       </Popover>
