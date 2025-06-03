@@ -51,7 +51,7 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full h-12 justify-between rounded-lg"
+            className="w-full h-10 justify-between rounded-lg"
             disabled={!isEnabled}
           >
             {getDisplayText()}

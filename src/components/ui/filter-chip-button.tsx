@@ -38,7 +38,7 @@ export const FilterChipButton = React.forwardRef<HTMLButtonElement, FilterChipBu
       aria-label={ariaLabel}
       id={id}
       className={cn(
-        "flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] w-full",
+        "flex items-center gap-3 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-200 border justify-between h-10 w-full",
         isDisabled 
           ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed" 
           : isActive 
@@ -48,7 +48,8 @@ export const FilterChipButton = React.forwardRef<HTMLButtonElement, FilterChipBu
       )}
       style={{
         borderRadius: '1.5rem',
-        padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}`,
+        padding: `${designTokens.spacing.sm} ${designTokens.spacing.lg}`,
+        height: '40px',
       }}
     >
       <div className="flex items-center gap-2 flex-1 min-w-0">

@@ -24,7 +24,7 @@ export const FormatFilter = ({ itemType }: FormatFilterProps) => {
   return (
     <div className="w-[180px]">
       <Select value={selectedFormat} onValueChange={setSelectedFormat}>
-        <SelectTrigger className="w-full h-12 rounded-lg">
+        <SelectTrigger className="w-full h-10 rounded-lg">
           <SelectValue />
         </SelectTrigger>
         <SelectContent className="rounded-lg">

@@ -50,7 +50,7 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full h-12 justify-between rounded-lg"
+            className="w-full h-10 justify-between rounded-lg"
           >
             {getDisplayText()}
             <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
