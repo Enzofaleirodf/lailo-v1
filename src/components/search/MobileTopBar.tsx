@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "../ui/button";
-import { LayoutToggle } from "../LayoutToggle";
+import { FlipHorizontal, FlipVertical } from "lucide-react";
 
 interface MobileTopBarProps {
   isVertical: boolean;
@@ -18,14 +18,14 @@ export const MobileTopBar = ({
 }: MobileTopBarProps) => {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 md:hidden">
-      <div className="flex items-center justify-between px-4 py-3 h-14">
-        {/* Botões Filtros e Mais recentes unidos */}
-        <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+      <div className="flex items-center justify-center px-4 py-3 h-14">
+        {/* Todos os botões unidos em um só componente */}
+        <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-md">
           <Button 
             variant="ghost" 
             size="sm"
             onClick={onShowFilters}
-            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4"
+            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4 flex-1"
           >
             Filtros
           </Button>
@@ -34,17 +34,30 @@ export const MobileTopBar = ({
             variant="ghost" 
             size="sm"
             onClick={onShowSort}
-            className="text-sm font-medium rounded-none border-0 px-4"
+            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4 flex-1"
           >
             Mais recentes
           </Button>
+
+          {/* Botões de layout */}
+          <Button
+            className="rounded-none border-0 border-r border-gray-300 h-9 w-10"
+            variant={!isVertical ? "default" : "ghost"}
+            size="icon"
+            onClick={() => onToggleLayout(false)}
+          >
+            <FlipHorizontal size={16} strokeWidth={2} />
+          </Button>
+          
+          <Button
+            className="rounded-none border-0 h-9 w-10"
+            variant={isVertical ? "default" : "ghost"}
+            size="icon"
+            onClick={() => onToggleLayout(true)}
+          >
+            <FlipVertical size={16} strokeWidth={2} />
+          </Button>
         </div>
-        
-        {/* Botão de alternar layout à direita */}
-        <LayoutToggle 
-          isVertical={isVertical} 
-          onToggle={onToggleLayout} 
-        />
       </div>
     </div>
   );
