@@ -46,71 +46,23 @@ export const FilterChip = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
   // Inicializar portal root
   useEffect(() => {
+    console.log('FilterChip: Inicializando portal root');
     setPortalRoot(document.body);
   }, []);
 
-  // Calcular posição do dropdown
-  const calculatePosition = () => {
-    if (!triggerRef.current) return;
-    
-    const rect = triggerRef.current.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    const viewportWidth = window.innerWidth;
-    
-    let top = rect.bottom + 8;
-    let left = rect.left;
-    const width = Math.max(320, rect.width); // Mínimo 320px ou largura do trigger
-    
-    // Se sair pela direita, alinhar à direita
-    if (left + width > viewportWidth) {
-      left = rect.right - width;
-    }
-    
-    // Se sair por baixo, posicionar acima
-    if (top + 400 > viewportHeight) {
-      top = rect.top - 400 - 8;
-    }
-    
-    // Garantir que não saia da tela
-    left = Math.max(8, Math.min(left, viewportWidth - width - 8));
-    top = Math.max(8, top);
-    
-    setPosition({ top, left, width });
-  };
-
-  // Recalcular posição quando expandir
-  useEffect(() => {
-    if (isExpanded) {
-      // Usar setTimeout para garantir que o DOM foi atualizado
-      const timer = setTimeout(() => {
-        calculatePosition();
-      }, 0);
-      
-      const handleResize = () => calculatePosition();
-      const handleScroll = () => calculatePosition();
-      
-      window.addEventListener('resize', handleResize);
-      window.addEventListener('scroll', handleScroll);
-      
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener('resize', handleResize);
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, [isExpanded]);
-
   const handleToggle = () => {
+    console.log('FilterChip: handleToggle chamado', { isDisabled, isExpanded, children: !!children });
     if (!isDisabled) {
       setIsExpanded(!isExpanded);
+      console.log('FilterChip: Novo estado expanded:', !isExpanded);
     }
   };
 
   const handleClose = () => {
+    console.log('FilterChip: handleClose chamado');
     setIsExpanded(false);
     triggerRef.current?.focus();
   };
@@ -191,75 +143,100 @@ export const FilterChip = ({
 
   const hasSelectedItems = hasMultiple && selectedItems.length > 0;
 
+  console.log('FilterChip render:', { 
+    isExpanded, 
+    children: !!children, 
+    isDisabled, 
+    portalRoot: !!portalRoot,
+    triggerRef: !!triggerRef.current 
+  });
+
+  // Calcular posição do dropdown baseado no trigger
+  const getDropdownPosition = () => {
+    if (!triggerRef.current) return { top: 0, left: 0, width: 320 };
+    
+    const rect = triggerRef.current.getBoundingClientRect();
+    const top = rect.bottom + 8;
+    const left = rect.left;
+    const width = Math.max(320, rect.width);
+    
+    return { top, left, width };
+  };
+
+  const position = getDropdownPosition();
+
   const dropdownContent = isExpanded && children && !isDisabled && portalRoot ? (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-        transition={{ duration: 0.2 }}
-        className="fixed bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-[9999]"
-        style={{
-          top: position.top,
-          left: position.left,
-          width: position.width,
-          maxHeight: 400,
-          borderRadius: designTokens.borderRadius.xl,
-          boxShadow: designTokens.shadows.lg,
-        }}
-        role="dialog"
-        aria-labelledby={id}
-      >
-        <div className="p-4 overflow-y-auto" style={{ 
-          padding: designTokens.spacing.lg,
-          maxHeight: 300
-        }}>
-          {renderChildren()}
-        </div>
-        
-        {/* Footer para múltipla seleção com melhor UX */}
-        {hasMultiple && (
-          <div 
-            className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
-            style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
-          >
-            {hasSelectedItems ? (
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => {
-                  onClear?.();
-                }} 
-                className="text-gray-600 hover:text-gray-800"
-              >
-                Limpar ({selectedItems.length})
-              </Button>
-            ) : (
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => {
-                  onSelectAll?.();
-                }} 
-                className="text-gray-600 hover:text-gray-800"
-              >
-                Marcar todos
-              </Button>
-            )}
-            
+    <motion.div
+      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+      transition={{ duration: 0.2 }}
+      className="fixed bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-[9999]"
+      style={{
+        top: position.top,
+        left: position.left,
+        width: position.width,
+        maxHeight: 400,
+        borderRadius: designTokens.borderRadius.xl,
+        boxShadow: designTokens.shadows.lg,
+      }}
+      role="dialog"
+      aria-labelledby={id}
+    >
+      <div className="p-4 overflow-y-auto" style={{ 
+        padding: designTokens.spacing.lg,
+        maxHeight: 300
+      }}>
+        {renderChildren()}
+      </div>
+      
+      {/* Footer para múltipla seleção com melhor UX */}
+      {hasMultiple && (
+        <div 
+          className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
+          style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
+        >
+          {hasSelectedItems ? (
             <Button 
-              variant="outline" 
+              variant="ghost" 
               size="sm" 
-              onClick={handleClose} 
-              className="text-gray-600 hover:text-gray-800 border-gray-300"
+              onClick={() => {
+                onClear?.();
+              }} 
+              className="text-gray-600 hover:text-gray-800"
             >
-              Aplicar
+              Limpar ({selectedItems.length})
             </Button>
-          </div>
-        )}
-      </motion.div>
-    </AnimatePresence>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => {
+                onSelectAll?.();
+              }} 
+              className="text-gray-600 hover:text-gray-800"
+            >
+              Marcar todos
+            </Button>
+          )}
+          
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleClose} 
+            className="text-gray-600 hover:text-gray-800 border-gray-300"
+          >
+            Aplicar
+          </Button>
+        </div>
+      )}
+    </motion.div>
   ) : null;
+
+  console.log('FilterChip dropdown render:', { 
+    dropdownContent: !!dropdownContent,
+    shouldShow: isExpanded && children && !isDisabled && portalRoot 
+  });
 
   return (
     <div className="relative" ref={containerRef}>
