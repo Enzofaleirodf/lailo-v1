@@ -24,10 +24,10 @@ export const FormatFilter = ({ itemType }: FormatFilterProps) => {
   return (
     <div className="w-[180px]">
       <Select value={selectedFormat} onValueChange={setSelectedFormat}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full h-12 rounded-lg">
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="rounded-lg">
           {formatOptions.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}

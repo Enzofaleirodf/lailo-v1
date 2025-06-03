@@ -50,13 +50,13 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between"
+            className="w-full h-12 justify-between rounded-lg"
           >
             {getDisplayText()}
             <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[180px] p-0">
+        <PopoverContent className="w-[180px] p-0 rounded-lg">
           <div className="p-4 space-y-3">
             {originOptions.map((option) => (
               <div key={option.value} className="flex items-center space-x-2">
