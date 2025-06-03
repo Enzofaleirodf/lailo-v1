@@ -29,7 +29,7 @@ export const MobileFiltersModal = ({
 }: MobileFiltersModalProps) => {
   // Estados iniciais conforme especificação - OBRIGATORIAMENTE marcados
   const [category, setCategory] = useState(itemType === 'property' ? 'residenciais' : 'leves');
-  const [type, setType] = useState(itemType === 'property' ? 'todos' : 'carro');
+  const [type, setType] = useState(itemType === 'property' ? 'todos' : 'carros');
   const [formatValue, setFormatValue] = useState('Leilão');
   const [areaRange, setAreaRange] = useState<[number, number]>([50, 500]);
   const [yearRange, setYearRange] = useState<[number, number]>([2010, 2025]);
@@ -46,25 +46,31 @@ export const MobileFiltersModal = ({
   const [address, setAddress] = useState('');
   const isStageEnabled = formatValue === 'Leilão';
 
-  // UseEffect para garantir que as categorias padrão estejam sempre aplicadas
+  // UseEffect para garantir que as categorias e tipos padrão estejam sempre aplicados
   useEffect(() => {
-    console.log('MobileFiltersModal - Aplicando categoria padrão obrigatória:', {
+    const defaultCategory = itemType === 'property' ? 'residenciais' : 'leves';
+    const defaultType = itemType === 'property' ? 'todos' : 'carros';
+    
+    console.log('MobileFiltersModal - Aplicando categoria e tipo padrão obrigatórios:', {
       itemType,
-      category: itemType === 'property' ? 'residenciais' : 'leves',
-      type: itemType === 'property' ? 'todos' : 'carro'
+      category: defaultCategory,
+      type: defaultType
     });
     
-    setCategory(itemType === 'property' ? 'residenciais' : 'leves');
-    setType(itemType === 'property' ? 'todos' : 'carro');
+    setCategory(defaultCategory);
+    setType(defaultType);
   }, [itemType]);
 
   console.log('MobileFiltersModal - Estado atual:', { category, type });
 
   const handleClearFilters = () => {
     console.log('MobileFiltersModal - Limpando filtros');
-    // Reset para estados iniciais - mantendo categorias obrigatórias
-    setCategory(itemType === 'property' ? 'residenciais' : 'leves');
-    setType(itemType === 'property' ? 'todos' : 'carro');
+    // Reset para estados iniciais - mantendo categorias e tipos obrigatórios
+    const defaultCategory = itemType === 'property' ? 'residenciais' : 'leves';
+    const defaultType = itemType === 'property' ? 'todos' : 'carros';
+    
+    setCategory(defaultCategory);
+    setType(defaultType);
     setBrand('todas-marcas');
     setModel('todos-modelos');
     setColor('todas-cores');
