@@ -79,6 +79,9 @@ export const BottomNavigation = () => {
     setIsMoreMenuOpen(false);
   };
 
+  // Verificar se algum item do menu "Mais" está ativo
+  const isMoreMenuActive = isActive("/leiloeiros") || isActive("/agenda") || isActive("/configuracoes") || isActive("/perfil");
+
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
       <div className="flex items-center justify-around px-2 py-2">
@@ -89,13 +92,23 @@ export const BottomNavigation = () => {
               key={item.to}
               to={item.to}
               className={`
-                flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-colors
+                relative flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200
                 ${item.active 
                   ? 'text-blue-600' 
-                  : 'text-gray-500'
+                  : 'text-gray-500 hover:text-gray-700'
                 }
               `}
             >
+              {/* Traço superior indicador de ativo */}
+              {item.active && (
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
+              )}
+              
+              {/* Realce sutil no botão ativo */}
+              {item.active && (
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-transparent rounded-lg pointer-events-none" />
+              )}
+              
               <Icon className="w-5 h-5 mb-1" />
               <span className="text-xs font-medium">{item.label}</span>
             </Link>
@@ -107,13 +120,23 @@ export const BottomNavigation = () => {
           <PopoverTrigger asChild>
             <button
               className={`
-                flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-colors
-                ${isActive("/leiloeiros") || isActive("/agenda") || isActive("/configuracoes") || isActive("/perfil")
+                relative flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200
+                ${isMoreMenuActive
                   ? 'text-blue-600' 
-                  : 'text-gray-500'
+                  : 'text-gray-500 hover:text-gray-700'
                 }
               `}
             >
+              {/* Traço superior indicador de ativo */}
+              {isMoreMenuActive && (
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
+              )}
+              
+              {/* Realce sutil no botão ativo */}
+              {isMoreMenuActive && (
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-transparent rounded-lg pointer-events-none" />
+              )}
+              
               <MoreHorizontal className="w-5 h-5 mb-1" />
               <span className="text-xs font-medium">Mais</span>
             </button>
