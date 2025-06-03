@@ -80,15 +80,22 @@
 @layer base {
   * {
     @apply border-border;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
   
   html, body {
-    @apply bg-background text-foreground m-0 p-0;
+    @apply bg-white text-foreground;
     height: 100%;
+    margin: 0;
+    padding: 0;
   }
   
   #root {
     height: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
 
