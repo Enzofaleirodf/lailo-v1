@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
 import {
@@ -23,10 +23,16 @@ interface ColorPopoverProps {
 }
 
 export const ColorPopover = ({ colors, selected, onSelect }: ColorPopoverProps) => {
+  const [open, setOpen] = useState(false);
   const selectedColor = colors.find(color => color.value === selected);
 
+  const handleColorSelect = (colorValue: string) => {
+    onSelect(colorValue);
+    setOpen(false); // Fecha o popover automaticamente
+  };
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -75,7 +81,7 @@ export const ColorPopover = ({ colors, selected, onSelect }: ColorPopoverProps) 
               return (
                 <button
                   key={color.value}
-                  onClick={() => onSelect(color.value)}
+                  onClick={() => handleColorSelect(color.value)}
                   className={cn(
                     "flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-200 hover:bg-gray-50",
                     isSelected && "bg-blue-50"
