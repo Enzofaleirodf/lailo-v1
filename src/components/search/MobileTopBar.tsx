@@ -25,7 +25,8 @@ export const MobileTopBar = ({
             variant="ghost" 
             size="sm"
             onClick={onShowFilters}
-            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4 flex-1 rounded-l-lg"
+            className="text-sm font-medium px-4 flex-1 rounded-l-lg"
+            style={{ borderRadius: '8px 0 0 8px' }}
           >
             Filtros
           </Button>
@@ -34,26 +35,29 @@ export const MobileTopBar = ({
             variant="ghost" 
             size="sm"
             onClick={onShowSort}
-            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4 flex-1"
+            className="text-sm font-medium border-0 border-r border-gray-300 px-4 flex-1"
+            style={{ borderRadius: '0' }}
           >
             Ordenar
           </Button>
 
           {/* Botões de layout */}
           <Button
-            className="rounded-none border-0 border-r border-gray-300 h-9 w-10"
+            className="border-0 border-r border-gray-300 h-9 w-10"
             variant={!isVertical ? "default" : "ghost"}
             size="icon"
             onClick={() => onToggleLayout(false)}
+            style={{ borderRadius: '0' }}
           >
             <FlipHorizontal size={16} strokeWidth={2} />
           </Button>
           
           <Button
-            className="rounded-none border-0 h-9 w-10 rounded-r-lg"
+            className="border-0 h-9 w-10"
             variant={isVertical ? "default" : "ghost"}
             size="icon"
             onClick={() => onToggleLayout(true)}
+            style={{ borderRadius: '0 8px 8px 0' }}
           >
             <FlipVertical size={16} strokeWidth={2} />
           </Button>
