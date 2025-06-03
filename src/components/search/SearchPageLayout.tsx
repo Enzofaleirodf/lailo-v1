@@ -8,6 +8,7 @@ import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
+
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
   config: SearchConfig;
   items: SearchItem[];
@@ -19,6 +20,7 @@ interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'>
   resultsCount?: number;
   sitesCount?: number;
 }
+
 export const SearchPageLayout = ({
   config,
   items,
@@ -61,7 +63,7 @@ export const SearchPageLayout = ({
       </div>
 
       {/* Conteúdo principal */}
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:pl-[512px] md:pt-20">
+      <main className="flex h-screen grow flex-col overflow-y-auto invisible-scrollbar md:ml-12 md:pl-[512px] md:pt-20">
         <div className="min-h-screen bg-white px-4 pb-20 md:px-6 md:pb-6 py-[20px]">
           <div className="w-full">
             <SearchPageHeader title={config.title} isLoading={isLoading} itemType={config.type} onItemTypeChange={handleItemTypeChange} />
