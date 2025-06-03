@@ -171,7 +171,11 @@ const Leiloeiros = () => {
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
-          <SessionNavBar />
+          {/* Navbar lateral - apenas desktop */}
+          <div className="absolute left-0 top-0 h-full w-12 z-50">
+            <SessionNavBar />
+          </div>
+          
           <main className="ml-12 min-h-screen flex flex-col">
             <div className="bg-white px-6 py-8">
               <div className="max-w-6xl mx-auto">
