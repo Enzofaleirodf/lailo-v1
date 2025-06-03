@@ -26,7 +26,7 @@ export const DesktopTopBar = ({
       
       <div className="relative flex items-center justify-between h-full px-6 overflow-visible">
         {/* Zona esquerda - Type Toggle com largura fixa */}
-        <div className="flex items-center flex-shrink-0 w-[300px] overflow-visible">
+        <div className="flex items-center flex-shrink-0 w-[320px] overflow-visible">
           <div className="flex-shrink-0">
             <ItemTypeToggle 
               currentType={itemType} 

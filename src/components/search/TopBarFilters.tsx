@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterPopover } from '../ui/filter-popover';
@@ -114,7 +113,7 @@ export const TopBarFilters = ({
         <LocationFilter />
       </div>
 
-      {/* Filtro Formato - VOLTANDO LARGURA ORIGINAL */}
+      {/* Filtro Formato - LARGURA FIXA 180px */}
       <div className="flex-shrink-0 w-[180px]">
         <FilterPopover
           label={format ? `${formatOptions.find(opt => opt.value === format)?.label}` : "Formato"}
@@ -155,7 +154,7 @@ export const TopBarFilters = ({
         </FilterPopover>
       </div>
 
-      {/* Filtro Origem - VOLTANDO LARGURA ORIGINAL */}
+      {/* Filtro Origem - LARGURA FIXA 180px */}
       <div className="flex-shrink-0 w-[180px]">
         <FilterPopover
           label="Origem"
@@ -197,7 +196,7 @@ export const TopBarFilters = ({
         </FilterPopover>
       </div>
 
-      {/* Filtro Etapa - VOLTANDO LARGURA ORIGINAL */}
+      {/* Filtro Etapa - LARGURA FIXA 180px */}
       <div className="flex-shrink-0 w-[180px]">
         <FilterPopover
           label="Etapa"
