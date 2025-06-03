@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -87,7 +86,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <BaseCard>
       <div className="flex gap-3 items-start">
-        <div className="relative flex-shrink-0 w-20 h-16 md:w-28 md:h-20">
+        <div className="relative flex-shrink-0 w-20 h-20 md:w-28 md:h-20">
           <BaseImage 
             src={item.image} 
             alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
