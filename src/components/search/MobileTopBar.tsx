@@ -25,7 +25,7 @@ export const MobileTopBar = ({
             variant="ghost" 
             size="sm"
             onClick={onShowFilters}
-            className="text-sm font-medium px-4 flex-1 rounded-l-lg"
+            className="text-sm font-medium px-4 flex-1"
             style={{ borderRadius: '8px 0 0 8px' }}
           >
             Filtros
@@ -35,7 +35,7 @@ export const MobileTopBar = ({
             variant="ghost" 
             size="sm"
             onClick={onShowSort}
-            className="text-sm font-medium border-0 border-r border-gray-300 px-4 flex-1"
+            className="text-sm font-medium border-0 border-l border-r border-gray-300 px-4 flex-1"
             style={{ borderRadius: '0' }}
           >
             Ordenar
