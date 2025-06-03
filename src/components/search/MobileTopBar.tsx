@@ -25,7 +25,7 @@ export const MobileTopBar = ({
             variant="ghost" 
             size="sm"
             onClick={onShowFilters}
-            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4 flex-1"
+            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4 flex-1 rounded-l-lg"
           >
             Filtros
           </Button>
@@ -36,7 +36,7 @@ export const MobileTopBar = ({
             onClick={onShowSort}
             className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4 flex-1"
           >
-            Mais recentes
+            Ordenar
           </Button>
 
           {/* Botões de layout */}
@@ -50,7 +50,7 @@ export const MobileTopBar = ({
           </Button>
           
           <Button
-            className="rounded-none border-0 h-9 w-10"
+            className="rounded-none border-0 h-9 w-10 rounded-r-lg"
             variant={isVertical ? "default" : "ghost"}
             size="icon"
             onClick={() => onToggleLayout(true)}
