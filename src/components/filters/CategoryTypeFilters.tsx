@@ -47,7 +47,7 @@ export const CategoryTypeFilters = ({
           options={itemType === 'property' ? propertyCategories : vehicleCategories}
           selected={category}
           onSelect={handleCategoryChange}
-          columns={2}
+          columns={3}
         />
       </FilterSection>
 
