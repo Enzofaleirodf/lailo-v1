@@ -1,4 +1,3 @@
-
 export const propertyCategories = [
   { value: 'residenciais', label: 'Residenciais', icon: 'home' },
   { value: 'comerciais', label: 'Comerciais', icon: 'building' },
@@ -76,7 +75,7 @@ export const vehicleCategories = [
   { value: 'aquaticos', label: 'Aquáticos', icon: 'waves' },
   { value: 'aereos', label: 'Aéreos', icon: 'plane' },
   { value: 'maquinas-agricolas', label: 'Maq. Agrícolas', icon: 'wrench' },
-  { value: 'maquinas-construcao', label: 'Maq. Construção', icon: 'wrench' },
+  { value: 'maquinas-construcao', label: 'Maq. Const.', icon: 'wrench' },
   { value: 'outros', label: 'Outros', icon: 'car' },
 ];
 
