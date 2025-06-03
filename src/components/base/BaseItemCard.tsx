@@ -86,7 +86,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
 
   return (
     <BaseCard>
-      <div className="flex gap-4 items-start">
+      <div className="flex gap-3 items-start">
         <div className="relative flex-shrink-0 w-20 h-16 md:w-28 md:h-20">
           <BaseImage 
             src={item.image} 
