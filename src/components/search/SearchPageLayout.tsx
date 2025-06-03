@@ -57,7 +57,7 @@ export const SearchPageLayout = ({
       </div>
       
       {/* Top bar desktop - posicionada dentro do container */}
-      <div className="absolute top-0 left-12 right-0 h-16 z-40">
+      <div className="absolute top-0 left-12 right-0 h-20 z-40">
         <DesktopTopBar
           title={config.title}
           isLoading={isLoading}
@@ -67,7 +67,7 @@ export const SearchPageLayout = ({
       </div>
 
       {/* Sidebar de filtros - posicionada dentro do container */}
-      <div className="absolute left-12 top-16 w-[512px] h-[calc(100vh-4rem)] z-30">
+      <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
         <DesktopFilterSidebar
           itemType={config.type}
           onClearFilters={onClearFilters}
@@ -75,7 +75,7 @@ export const SearchPageLayout = ({
       </div>
 
       {/* Conteúdo principal */}
-      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:pl-[512px]">
+      <main className="flex h-screen grow flex-col overflow-auto md:ml-12 md:pl-[512px] md:pt-20">
         <div className="min-h-screen bg-white px-4 pb-20 md:px-6 md:pb-6">
           <div className="w-full">
             <SearchPageHeader
