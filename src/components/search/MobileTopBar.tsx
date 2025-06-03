@@ -19,24 +19,24 @@ export const MobileTopBar = ({
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 md:hidden">
       <div className="flex items-center justify-between px-4 py-3 h-14">
-        {/* Botões Filtrar e Ordenar à esquerda - sem gaps */}
-        <div className="flex items-center -space-x-px">
+        {/* Botões Filtros e Mais recentes unidos */}
+        <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
           <Button 
-            variant="outline" 
+            variant="ghost" 
             size="sm"
             onClick={onShowFilters}
-            className="text-sm font-medium rounded-none border-r-0"
+            className="text-sm font-medium rounded-none border-0 border-r border-gray-300 px-4"
           >
-            Filtrar
+            Filtros
           </Button>
           
           <Button 
-            variant="outline" 
+            variant="ghost" 
             size="sm"
             onClick={onShowSort}
-            className="text-sm font-medium rounded-none"
+            className="text-sm font-medium rounded-none border-0 px-4"
           >
-            Ordenar
+            Mais recentes
           </Button>
         </div>
         
