@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "../ui/button";
 import { FlipHorizontal, FlipVertical } from "lucide-react";
@@ -16,7 +17,7 @@ export const MobileTopBar = ({
   onShowSort
 }: MobileTopBarProps) => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-white md:hidden shadow-sm">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-white md:hidden shadow-md">
       <div className="flex items-center justify-center px-4 py-3 h-14">
         {/* Todos os botões unidos em um só componente */}
         <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-md">
