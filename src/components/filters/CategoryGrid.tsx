@@ -63,8 +63,10 @@ export const CategoryGrid = ({
           >
             {IconComponent && <IconComponent className="w-4 h-4 flex-shrink-0" />}
             <span 
-              className="text-xs"
-              style={{ fontSize: designTokens.typography.sizes.xs }}
+              className="text-xs md:text-xs"
+              style={{ 
+                fontSize: window.innerWidth < 768 ? '10px' : designTokens.typography.sizes.xs 
+              }}
             >
               {option.label}
             </span>
