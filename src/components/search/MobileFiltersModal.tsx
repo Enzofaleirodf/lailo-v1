@@ -54,7 +54,7 @@ export const MobileFiltersModal = ({
   };
   return <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[95vh] rounded-t-3xl flex flex-col">
-        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0">
+        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
           <SheetTitle className="text-lg font-semibold">
             Filtros
           </SheetTitle>
