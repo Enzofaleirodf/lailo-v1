@@ -1,19 +1,22 @@
 
 import React, { useState, useMemo } from "react";
-import { Building2, Search, ExternalLink, Phone } from "lucide-react";
+import { Building2, Search, ExternalLink, Phone, Globe, AlertCircle } from "lucide-react";
 import { SessionNavBar } from "../components/SessionNavBar";
 import { BottomNavigation } from "../components/BottomNavigation";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface Leiloeiro {
   id: number;
   name: string;
+  websiteName: string;
   state: string;
   phone: string;
-  website: string;
+  website?: string;
   logo?: string;
+  activeAuctions: number;
 }
 
 interface JuntaComercial {
@@ -57,18 +60,35 @@ const Leiloeiros = () => {
     { state: "Tocantins", sigla: "JUCETINS", website: "https://jucetins.to.gov.br" }
   ];
 
-  // Dados dos leiloeiros (expandir conforme necessário)
+  // Dados expandidos dos leiloeiros
   const leiloeiros: Leiloeiro[] = [
-    { id: 1, name: "Leilões Brasília", state: "Distrito Federal", phone: "(61) 3333-4444", website: "https://leiloesbrasilia.com.br" },
-    { id: 2, name: "SP Leilões", state: "São Paulo", phone: "(11) 9999-8888", website: "https://spleiloes.com.br" },
-    { id: 3, name: "Leilões MG", state: "Minas Gerais", phone: "(31) 7777-6666", website: "https://leiloesmg.com.br" },
-    { id: 4, name: "RJ Leilões", state: "Rio de Janeiro", phone: "(21) 5555-3333", website: "https://rjleiloes.com.br" },
-    { id: 5, name: "Bahia Leilões", state: "Bahia", phone: "(71) 4444-2222", website: "https://bahialeiloes.com.br" },
-    { id: 6, name: "Paraná Auctions", state: "Paraná", phone: "(41) 8888-1111", website: "https://paranauctions.com.br" },
-    { id: 7, name: "RS Leilões", state: "Rio Grande do Sul", phone: "(51) 6666-9999", website: "https://rsleiloes.com.br" },
-    { id: 8, name: "Ceará Leilões", state: "Ceará", phone: "(85) 2222-7777", website: "https://cearaleiloes.com.br" },
-    { id: 9, name: "SC Auctions", state: "Santa Catarina", phone: "(48) 1111-5555", website: "https://scauctions.com.br" },
-    { id: 10, name: "Goiás Leilões", state: "Goiás", phone: "(62) 3333-8888", website: "https://goiasleiloes.com.br" }
+    { id: 1, name: "João Silva", websiteName: "Leilões Brasília", state: "Distrito Federal", phone: "(61) 3333-4444", website: "https://leiloesbrasilia.com.br", activeAuctions: 15 },
+    { id: 2, name: "Maria Santos", websiteName: "SP Leilões", state: "São Paulo", phone: "(11) 9999-8888", website: "https://spleiloes.com.br", activeAuctions: 42 },
+    { id: 3, name: "Carlos Oliveira", websiteName: "Leilões MG", state: "Minas Gerais", phone: "(31) 7777-6666", website: "https://leiloesmg.com.br", activeAuctions: 8 },
+    { id: 4, name: "Ana Costa", websiteName: "RJ Leilões", state: "Rio de Janeiro", phone: "(21) 5555-3333", website: "https://rjleiloes.com.br", activeAuctions: 23 },
+    { id: 5, name: "Pedro Almeida", websiteName: "Bahia Leilões", state: "Bahia", phone: "(71) 4444-2222", website: "https://bahialeiloes.com.br", activeAuctions: 7 },
+    { id: 6, name: "Luciana Rocha", websiteName: "Paraná Auctions", state: "Paraná", phone: "(41) 8888-1111", website: "https://paranauctions.com.br", activeAuctions: 19 },
+    { id: 7, name: "Roberto Lima", websiteName: "RS Leilões", state: "Rio Grande do Sul", phone: "(51) 6666-9999", website: "https://rsleiloes.com.br", activeAuctions: 31 },
+    { id: 8, name: "Fernanda Dias", websiteName: "Ceará Leilões", state: "Ceará", phone: "(85) 2222-7777", website: "https://cearaleiloes.com.br", activeAuctions: 12 },
+    { id: 9, name: "Marcos Pereira", websiteName: "SC Auctions", state: "Santa Catarina", phone: "(48) 1111-5555", website: "https://scauctions.com.br", activeAuctions: 5 },
+    { id: 10, name: "Patricia Gonçalves", websiteName: "Goiás Leilões", state: "Goiás", phone: "(62) 3333-8888", website: "https://goiasleiloes.com.br", activeAuctions: 0 },
+    { id: 11, name: "Antonio Ferreira", websiteName: "Acre Leilões", state: "Acre", phone: "(68) 4444-5555", activeAuctions: 3 },
+    { id: 12, name: "Helena Martins", websiteName: "Alagoas Auctions", state: "Alagoas", phone: "(82) 5555-6666", website: "https://alagoasauctions.com.br", activeAuctions: 0 },
+    { id: 13, name: "Rafael Souza", websiteName: "Amapá Leilões", state: "Amapá", phone: "(96) 6666-7777", activeAuctions: 2 },
+    { id: 14, name: "Juliana Barbosa", websiteName: "Amazonas Leilões", state: "Amazonas", phone: "(97) 7777-8888", website: "https://amazanasleiloes.com.br", activeAuctions: 9 },
+    { id: 15, name: "Eduardo Campos", websiteName: "ES Leilões", state: "Espírito Santo", phone: "(27) 8888-9999", website: "https://esleiloes.com.br", activeAuctions: 6 },
+    { id: 16, name: "Carla Mendes", websiteName: "Maranhão Auctions", state: "Maranhão", phone: "(98) 9999-1111", activeAuctions: 4 },
+    { id: 17, name: "Bruno Silva", websiteName: "MT Leilões", state: "Mato Grosso", phone: "(65) 1111-2222", website: "https://mtleiloes.com.br", activeAuctions: 11 },
+    { id: 18, name: "Camila Torres", websiteName: "MS Leilões", state: "Mato Grosso do Sul", phone: "(67) 2222-3333", website: "https://msleiloes.com.br", activeAuctions: 0 },
+    { id: 19, name: "Diego Santos", websiteName: "Pará Leilões", state: "Pará", phone: "(91) 3333-4444", activeAuctions: 7 },
+    { id: 20, name: "Isabela Costa", websiteName: "PB Leilões", state: "Paraíba", phone: "(83) 4444-5555", website: "https://pbleiloes.com.br", activeAuctions: 3 },
+    { id: 21, name: "Gustavo Reis", websiteName: "PE Leilões", state: "Pernambuco", phone: "(81) 5555-6666", website: "https://peleiloes.com.br", activeAuctions: 16 },
+    { id: 22, name: "Natália Moura", websiteName: "Piauí Auctions", state: "Piauí", phone: "(86) 6666-7777", activeAuctions: 2 },
+    { id: 23, name: "Leonardo Alves", websiteName: "RN Leilões", state: "Rio Grande do Norte", phone: "(84) 7777-8888", website: "https://rnleiloes.com.br", activeAuctions: 5 },
+    { id: 24, name: "Vanessa Lima", websiteName: "RO Leilões", state: "Rondônia", phone: "(69) 8888-9999", activeAuctions: 1 },
+    { id: 25, name: "Thiago Nunes", websiteName: "RR Leilões", state: "Roraima", phone: "(95) 9999-1111", website: "https://rrleiloes.com.br", activeAuctions: 0 },
+    { id: 26, name: "Larissa Freitas", websiteName: "SE Leilões", state: "Sergipe", phone: "(79) 1111-2222", website: "https://seleiloes.com.br", activeAuctions: 4 },
+    { id: 27, name: "Felipe Cardoso", websiteName: "TO Leilões", state: "Tocantins", phone: "(63) 2222-3333", activeAuctions: 2 }
   ];
 
   // Estados únicos dos leiloeiros
@@ -89,7 +109,8 @@ const Leiloeiros = () => {
     // Filtrar por busca
     if (searchTerm) {
       filtered = filtered.filter(l => 
-        l.name.toLowerCase().includes(searchTerm.toLowerCase())
+        l.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        l.websiteName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -114,6 +135,36 @@ const Leiloeiros = () => {
     return juntasComerciais.find(j => j.state === state);
   };
 
+  const getAuctionsBadgeColor = (activeAuctions: number, hasWebsite: boolean) => {
+    if (!hasWebsite) return "bg-red-100 text-red-700 border-red-200";
+    if (activeAuctions === 0) return "bg-yellow-100 text-yellow-700 border-yellow-200";
+    return "bg-green-100 text-green-700 border-green-200";
+  };
+
+  const getWebsiteDisplay = (leiloeiro: Leiloeiro) => {
+    if (!leiloeiro.website) {
+      return (
+        <div className="flex items-center gap-2 text-gray-400">
+          <AlertCircle className="w-4 h-4" />
+          <span className="text-sm">Sem website</span>
+        </div>
+      );
+    }
+    return (
+      <div className="text-sm text-blue-600 hover:text-blue-800">
+        <a 
+          href={leiloeiro.website} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="hover:underline flex items-center gap-1"
+        >
+          <Globe className="w-4 h-4" />
+          {leiloeiro.website.replace('https://', '')}
+        </a>
+      </div>
+    );
+  };
+
   return (
     <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
@@ -134,7 +185,7 @@ const Leiloeiros = () => {
                   <div className="relative flex-1">
                     <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <Input
-                      placeholder="Pesquisar por nome do leiloeiro..."
+                      placeholder="Pesquisar por nome do leiloeiro ou website..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-10"
@@ -164,18 +215,20 @@ const Leiloeiros = () => {
                           {/* Header do Estado */}
                           <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
                             <div className="flex items-center justify-between">
-                              <h2 className="text-xl font-semibold text-gray-900">{state}</h2>
-                              {junta && (
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => window.open(junta.website, '_blank')}
-                                  className="gap-2"
-                                >
-                                  {junta.sigla}
-                                  <ExternalLink className="w-3 h-3" />
-                                </Button>
-                              )}
+                              <div className="flex items-center gap-3">
+                                <h2 className="text-xl font-semibold text-gray-900">{state}</h2>
+                                {junta && (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => window.open(junta.website, '_blank')}
+                                    className="gap-2 text-xs"
+                                  >
+                                    {junta.sigla}
+                                    <ExternalLink className="w-3 h-3" />
+                                  </Button>
+                                )}
+                              </div>
                             </div>
                           </div>
 
@@ -193,8 +246,11 @@ const Leiloeiros = () => {
                                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Website
                                   </th>
+                                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Leilões Ativos
+                                  </th>
                                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Ações
+                                    Acesso
                                   </th>
                                 </tr>
                               </thead>
@@ -210,6 +266,9 @@ const Leiloeiros = () => {
                                         </div>
                                         <div className="ml-4">
                                           <div className="text-sm font-medium text-gray-900">
+                                            {leiloeiro.websiteName}
+                                          </div>
+                                          <div className="text-sm font-normal text-gray-500">
                                             {leiloeiro.name}
                                           </div>
                                         </div>
@@ -222,22 +281,21 @@ const Leiloeiros = () => {
                                       </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                      <div className="text-sm text-blue-600 hover:text-blue-800">
-                                        <a 
-                                          href={leiloeiro.website} 
-                                          target="_blank" 
-                                          rel="noopener noreferrer"
-                                          className="hover:underline"
-                                        >
-                                          {leiloeiro.website.replace('https://', '')}
-                                        </a>
-                                      </div>
+                                      {getWebsiteDisplay(leiloeiro)}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      <Badge 
+                                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
+                                      >
+                                        {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
+                                      </Badge>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right">
                                       <Button
                                         variant="ghost"
                                         size="sm"
-                                        onClick={() => window.open(leiloeiro.website, '_blank')}
+                                        onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
+                                        disabled={!leiloeiro.website}
                                         className="h-8 w-8 p-0"
                                       >
                                         <ExternalLink className="w-4 h-4" />
@@ -333,16 +391,27 @@ const Leiloeiros = () => {
                                 <div className="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center">
                                   <Building2 className="w-4 h-4 text-blue-600" />
                                 </div>
-                                <h3 className="font-semibold text-gray-900 text-sm">{leiloeiro.name}</h3>
+                                <div>
+                                  <h3 className="font-semibold text-gray-900 text-sm">{leiloeiro.websiteName}</h3>
+                                  <p className="text-xs text-gray-500 font-normal">{leiloeiro.name}</p>
+                                </div>
                               </div>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => window.open(leiloeiro.website, '_blank')}
-                                className="h-8 w-8 p-0"
-                              >
-                                <ExternalLink className="w-4 h-4" />
-                              </Button>
+                              <div className="flex items-center gap-2">
+                                <Badge 
+                                  className={`text-xs px-2 py-1 ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
+                                >
+                                  {leiloeiro.activeAuctions}
+                                </Badge>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
+                                  disabled={!leiloeiro.website}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <ExternalLink className="w-4 h-4" />
+                                </Button>
+                              </div>
                             </div>
                             
                             <div className="space-y-2">
@@ -350,16 +419,7 @@ const Leiloeiros = () => {
                                 <Phone className="w-4 h-4" />
                                 {leiloeiro.phone}
                               </div>
-                              <div className="text-sm text-blue-600">
-                                <a 
-                                  href={leiloeiro.website} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="hover:underline"
-                                >
-                                  {leiloeiro.website.replace('https://', '')}
-                                </a>
-                              </div>
+                              {getWebsiteDisplay(leiloeiro)}
                             </div>
                           </div>
                         ))}
