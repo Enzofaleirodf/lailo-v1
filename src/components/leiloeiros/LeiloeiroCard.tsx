@@ -44,7 +44,7 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
   const getWebsiteDisplay = () => {
     if (!leiloeiro.website) {
       return (
-        <div className="flex items-center gap-2 text-gray-400">
+        <div className="flex items-center gap-2 text-gray-400 flex-1 min-w-0">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span className="text-sm truncate">Sem website</span>
         </div>
@@ -52,7 +52,7 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
     }
     
     return (
-      <div className="flex items-center gap-2 text-blue-600">
+      <div className="flex items-center gap-2 text-blue-600 flex-1 min-w-0">
         <Globe className="w-4 h-4 flex-shrink-0" />
         <a 
           href={leiloeiro.website} 
@@ -68,30 +68,30 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
 
   return (
     <BaseCard className="h-auto">
-      <div className="space-y-4">
-        {/* Header com ícone e nome */}
+      <div className="space-y-3">
+        {/* Header com ícone, nome e badge */}
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 flex items-center justify-center">
             <Building2 className="w-6 h-6 text-blue-600" />
           </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-gray-900 text-base leading-tight mb-1 truncate">
-              {leiloeiro.websiteName}
-            </h3>
-            <p className="text-sm text-gray-600 truncate">
-              {leiloeiro.name}
-            </p>
+          <div className="flex-1 min-w-0 flex items-start justify-between gap-2">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-gray-900 text-base leading-tight mb-1 truncate">
+                {leiloeiro.websiteName}
+              </h3>
+              <p className="text-sm text-gray-600 truncate">
+                {leiloeiro.name}
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              {getAuctionsBadge()}
+            </div>
           </div>
         </div>
 
-        {/* Badge de leilões */}
-        <div className="flex justify-start">
-          {getAuctionsBadge()}
-        </div>
-
-        {/* Informações de contato */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-3 text-gray-600">
+        {/* Informações de contato em duas colunas */}
+        <div className="flex gap-4">
+          <div className="flex items-center gap-2 text-gray-600 flex-1 min-w-0">
             <Phone className="w-4 h-4 flex-shrink-0" />
             <span className="text-sm truncate">{leiloeiro.phone}</span>
           </div>
@@ -100,18 +100,16 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
         </div>
 
         {/* Botão de acesso */}
-        <div className="pt-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
-            disabled={!leiloeiro.website}
-            className="w-full h-10 gap-2"
-          >
-            <span>Acessar Site</span>
-            <ExternalLink className="w-4 h-4" />
-          </Button>
-        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
+          disabled={!leiloeiro.website}
+          className="w-full h-10 gap-2"
+        >
+          <span>Acessar Site</span>
+          <ExternalLink className="w-4 h-4" />
+        </Button>
       </div>
     </BaseCard>
   );
