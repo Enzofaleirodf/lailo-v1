@@ -122,6 +122,7 @@ export const SearchPageLayout = ({
             onToggleLayout={onToggleLayout}
             onShowFilters={handleShowFilters}
             onShowSort={handleShowSort}
+            itemType={config.type}
           />
           
           {/* Conteúdo principal mobile */}
