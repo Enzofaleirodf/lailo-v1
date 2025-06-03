@@ -1,7 +1,13 @@
 
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LayoutToggle } from "../LayoutToggle";
-import { SortSelect } from "@/components/ui/sort-select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { SearchControlsProps } from "../../types/search";
 
 export const SearchControls = ({
@@ -25,11 +31,25 @@ export const SearchControls = ({
       <div className="flex items-center gap-4 flex-shrink-0">
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
-          <SortSelect
-            value={sortBy}
-            onValueChange={onSortChange}
-            options={sortOptions}
-          />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="justify-between w-[160px]">
+                <span className="text-left">{sortBy}</span>
+                <ChevronDown className="h-4 w-4 ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-[160px] bg-white">
+              {sortOptions.map(option => (
+                <DropdownMenuItem 
+                  key={option} 
+                  onClick={() => onSortChange(option)} 
+                  className="cursor-pointer"
+                >
+                  {option}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         
         <LayoutToggle isVertical={isVertical} onToggle={onToggleLayout} />

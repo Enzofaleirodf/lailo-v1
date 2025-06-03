@@ -1,6 +1,5 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 import { ChevronDown, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -45,24 +44,14 @@ export const FilterChip = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
-
-  // Inicializar portal root
-  useEffect(() => {
-    console.log('FilterChip: Inicializando portal root');
-    setPortalRoot(document.body);
-  }, []);
 
   const handleToggle = () => {
-    console.log('FilterChip: handleToggle chamado', { isDisabled, isExpanded, children: !!children });
     if (!isDisabled) {
       setIsExpanded(!isExpanded);
-      console.log('FilterChip: Novo estado expanded:', !isExpanded);
     }
   };
 
   const handleClose = () => {
-    console.log('FilterChip: handleClose chamado');
     setIsExpanded(false);
     triggerRef.current?.focus();
   };
@@ -143,101 +132,6 @@ export const FilterChip = ({
 
   const hasSelectedItems = hasMultiple && selectedItems.length > 0;
 
-  console.log('FilterChip render:', { 
-    isExpanded, 
-    children: !!children, 
-    isDisabled, 
-    portalRoot: !!portalRoot,
-    triggerRef: !!triggerRef.current 
-  });
-
-  // Calcular posição do dropdown baseado no trigger
-  const getDropdownPosition = () => {
-    if (!triggerRef.current) return { top: 0, left: 0, width: 320 };
-    
-    const rect = triggerRef.current.getBoundingClientRect();
-    const top = rect.bottom + 8;
-    const left = rect.left;
-    const width = Math.max(320, rect.width);
-    
-    return { top, left, width };
-  };
-
-  const position = getDropdownPosition();
-
-  const dropdownContent = isExpanded && children && !isDisabled && portalRoot ? (
-    <motion.div
-      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-      transition={{ duration: 0.2 }}
-      className="fixed bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-[9999]"
-      style={{
-        top: position.top,
-        left: position.left,
-        width: position.width,
-        maxHeight: 400,
-        borderRadius: designTokens.borderRadius.xl,
-        boxShadow: designTokens.shadows.lg,
-      }}
-      role="dialog"
-      aria-labelledby={id}
-    >
-      <div className="p-4 overflow-y-auto" style={{ 
-        padding: designTokens.spacing.lg,
-        maxHeight: 300
-      }}>
-        {renderChildren()}
-      </div>
-      
-      {/* Footer para múltipla seleção com melhor UX */}
-      {hasMultiple && (
-        <div 
-          className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
-          style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
-        >
-          {hasSelectedItems ? (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => {
-                onClear?.();
-              }} 
-              className="text-gray-600 hover:text-gray-800"
-            >
-              Limpar ({selectedItems.length})
-            </Button>
-          ) : (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => {
-                onSelectAll?.();
-              }} 
-              className="text-gray-600 hover:text-gray-800"
-            >
-              Marcar todos
-            </Button>
-          )}
-          
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={handleClose} 
-            className="text-gray-600 hover:text-gray-800 border-gray-300"
-          >
-            Aplicar
-          </Button>
-        </div>
-      )}
-    </motion.div>
-  ) : null;
-
-  console.log('FilterChip dropdown render:', { 
-    dropdownContent: !!dropdownContent,
-    shouldShow: isExpanded && children && !isDisabled && portalRoot 
-  });
-
   return (
     <div className="relative" ref={containerRef}>
       <button
@@ -250,7 +144,7 @@ export const FilterChip = ({
         aria-label={ariaLabel || `Filtro ${label}`}
         id={id}
         className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] min-w-[140px] whitespace-nowrap",
+          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] w-full",
           isDisabled 
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed" 
             : isActive 
@@ -276,8 +170,69 @@ export const FilterChip = ({
         />
       </button>
 
-      {/* Render dropdown usando Portal */}
-      {portalRoot && createPortal(dropdownContent, portalRoot)}
+      <AnimatePresence>
+        {isExpanded && children && !isDisabled && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-0 mt-2 z-[9999] bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden"
+            style={{
+              borderRadius: designTokens.borderRadius.xl,
+              boxShadow: designTokens.shadows.lg,
+              marginTop: designTokens.spacing.sm,
+            }}
+            role="dialog"
+            aria-labelledby={id}
+          >
+            <div className="p-4" style={{ padding: designTokens.spacing.lg }}>
+              {renderChildren()}
+            </div>
+            
+            {/* Footer para múltipla seleção com melhor UX */}
+            {hasMultiple && (
+              <div 
+                className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
+                style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
+              >
+                {hasSelectedItems ? (
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => {
+                      onClear?.();
+                    }} 
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    Limpar ({selectedItems.length})
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => {
+                      onSelectAll?.();
+                    }} 
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    Marcar todos
+                  </Button>
+                )}
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={handleClose} 
+                  className="text-gray-600 hover:text-gray-800 border-gray-300"
+                >
+                  Aplicar
+                </Button>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

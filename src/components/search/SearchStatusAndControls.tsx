@@ -21,7 +21,7 @@ export const SearchStatusAndControls = ({
   sortOptions
 }: SearchStatusAndControlsProps) => {
   return (
-    <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between overflow-visible">
+    <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between">
       <SearchStatus
         totalAuctions={totalAuctions}
         totalSites={totalSites}
@@ -41,7 +41,7 @@ export const SearchStatusAndControls = ({
       </div>
       
       {/* Desktop controls - só ordenação e layout */}
-      <div className="hidden md:flex items-center gap-4 overflow-visible">
+      <div className="hidden md:flex items-center gap-4">
         <SearchControls
           isVertical={isVertical}
           onToggleLayout={onToggleLayout}
