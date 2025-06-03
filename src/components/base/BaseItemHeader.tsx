@@ -42,12 +42,14 @@ export const BaseItemHeader = ({
   const property = item as any;
   return (
     <div className="space-y-1">
-      <h3 className={titleClass}>
-        {property.type}
-      </h3>
-      <div className="flex items-center gap-2 text-gray-500">
-        <span className={detailsClass}>{property.area}</span>
+      <div className="flex items-center gap-2">
+        <h3 className={titleClass}>
+          {property.type}
+        </h3>
         <span className="w-1 h-1 bg-gray-300 rounded-full" />
+        <span className={`${detailsClass} text-gray-900`}>{property.area}</span>
+      </div>
+      <div className="text-gray-500">
         <span className={`${detailsClass} truncate`}>{property.location}</span>
       </div>
     </div>
