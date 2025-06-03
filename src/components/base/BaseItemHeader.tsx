@@ -47,7 +47,7 @@ export const BaseItemHeader = ({
           {property.type}
         </h3>
         <span className="w-1 h-1 bg-gray-300 rounded-full" />
-        <span className={`${detailsClass} text-gray-900`}>{property.area}</span>
+        <span className={`${detailsClass} text-gray-900 text-xs`}>{property.area}</span>
       </div>
       <div className="text-gray-500">
         <span className={`${detailsClass} truncate`}>{property.location}</span>
