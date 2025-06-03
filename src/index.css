@@ -81,8 +81,18 @@
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  #root {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
   }
 }
 

@@ -29,7 +29,7 @@ const FavoritosImoveis = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen w-screen flex-row">
+      <div className="flex h-screen w-full flex-row max-w-[1440px] mx-auto">
         <SessionNavBar />
         <main className="flex h-screen grow flex-col overflow-auto ml-12">
           <div className="bg-white px-3 py-3 flex justify-center items-center h-full">
@@ -41,7 +41,7 @@ const FavoritosImoveis = () => {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-row">
+    <div className="flex h-screen w-full flex-row max-w-[1440px] mx-auto">
       <SessionNavBar />
       <main className="flex h-screen grow flex-col overflow-auto ml-12">
         <div className="bg-white px-3 py-3">
