@@ -18,7 +18,7 @@ const BuscadorVeiculos = () => {
   const totalPages = 10;
   const resultsCount = 4164;
   const sitesCount = 131;
-  const newAuctions = 23; // Novos leilões hoje
+  const newAuctions = 23;
 
   const vehicles: Vehicle[] = [
     {

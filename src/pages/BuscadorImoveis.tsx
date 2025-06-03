@@ -1,4 +1,3 @@
-
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { propertySearchConfig } from "../config/searchConfigs";
@@ -19,7 +18,7 @@ const BuscadorImoveis = () => {
   const totalPages = 8;
   const resultsCount = 2543;
   const sitesCount = 87;
-  const newAuctions = 15; // Novos leilões hoje
+  const newAuctions = 15;
 
   const properties: Property[] = [
     {
