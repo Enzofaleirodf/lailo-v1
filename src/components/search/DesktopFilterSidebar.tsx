@@ -13,7 +13,7 @@ interface DesktopFilterSidebarProps {
 }
 
 export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilterSidebarProps) => {
-  // Estados iniciais conforme especificação - exatamente igual ao mobile
+  // Estados iniciais conforme especificação
   const [category, setCategory] = useState(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
   const [type, setType] = useState(itemType === 'property' ? 'Todos' : 'Carros');
   const [brand, setBrand] = useState('todas-marcas');
@@ -23,26 +23,11 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
   const [areaRange, setAreaRange] = useState<[number, number]>([50, 500]);
   const [priceRange, setPriceRange] = useState<[number, number]>([50000, 1000000]);
 
-  // Função para resetar tipo quando categoria muda - mesma lógica do mobile
-  const handleCategoryChange = (newCategory: string) => {
-    setCategory(newCategory);
-    // Sempre aplicar o primeiro tipo da nova categoria
-    if (itemType === 'property') {
-      setType('Todos');
-    } else {
-      // Para veículos, definir o primeiro tipo baseado na categoria
-      if (newCategory === 'Veículos Leves') {
-        setType('Carros');
-      } else if (newCategory === 'Veículos Pesados') {
-        setType('Caminhões');
-      } else {
-        setType('Carros'); // fallback
-      }
-    }
-  };
+  console.log('DesktopFilterSidebar - Estado atual:', { category, type });
 
   const handleClearAllFilters = () => {
-    // Reset para estados iniciais - exatamente igual ao mobile
+    console.log('DesktopFilterSidebar - Limpando filtros');
+    // Reset para estados iniciais
     setCategory(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
     setType(itemType === 'property' ? 'Todos' : 'Carros');
     setBrand('todas-marcas');
@@ -71,7 +56,7 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
               itemType={itemType}
               category={category}
               type={type}
-              onCategoryChange={handleCategoryChange}
+              onCategoryChange={setCategory}
               onTypeChange={setType}
             />
 

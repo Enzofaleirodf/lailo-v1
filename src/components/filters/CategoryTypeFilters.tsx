@@ -21,13 +21,32 @@ export const CategoryTypeFilters = ({
   onCategoryChange,
   onTypeChange
 }: CategoryTypeFiltersProps) => {
+  
+  const handleCategoryChange = (newCategory: string) => {
+    console.log('CategoryTypeFilters - Categoria mudou para:', newCategory);
+    
+    // Primeiro aplica a nova categoria
+    onCategoryChange(newCategory);
+    
+    // Depois aplica automaticamente o primeiro tipo da nova categoria
+    const typeOptions = itemType === 'property' 
+      ? propertyTypes[newCategory as keyof typeof propertyTypes] || []
+      : vehicleTypes[newCategory as keyof typeof vehicleTypes] || [];
+    
+    if (typeOptions.length > 0) {
+      const firstType = typeOptions[0].value;
+      console.log('CategoryTypeFilters - Aplicando primeiro tipo:', firstType);
+      onTypeChange(firstType);
+    }
+  };
+
   return (
     <>
       <FilterSection title={itemType === 'property' ? 'Categoria do Imóvel' : 'Categoria do Veículo'}>
         <CategoryGrid
           options={itemType === 'property' ? propertyCategories : vehicleCategories}
           selected={category}
-          onSelect={onCategoryChange}
+          onSelect={handleCategoryChange}
           columns={2}
         />
       </FilterSection>

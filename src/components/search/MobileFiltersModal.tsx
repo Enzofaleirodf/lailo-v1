@@ -27,7 +27,7 @@ export const MobileFiltersModal = ({
   onClose,
   itemType
 }: MobileFiltersModalProps) => {
-  // Estados iniciais conforme especificação - mesma lógica do desktop
+  // Estados iniciais conforme especificação - idênticos ao desktop
   const [category, setCategory] = useState(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
   const [type, setType] = useState(itemType === 'property' ? 'Todos' : 'Carros');
   const [formatValue, setFormatValue] = useState('Leilão');
@@ -46,26 +46,11 @@ export const MobileFiltersModal = ({
   const [address, setAddress] = useState('');
   const isStageEnabled = formatValue === 'Leilão';
 
-  // Função para resetar tipo quando categoria muda - mantém sincronização
-  const handleCategoryChange = (newCategory: string) => {
-    setCategory(newCategory);
-    // Sempre aplicar o primeiro tipo da nova categoria
-    if (itemType === 'property') {
-      setType('Todos');
-    } else {
-      // Para veículos, definir o primeiro tipo baseado na categoria
-      if (newCategory === 'Veículos Leves') {
-        setType('Carros');
-      } else if (newCategory === 'Veículos Pesados') {
-        setType('Caminhões');
-      } else {
-        setType('Carros'); // fallback
-      }
-    }
-  };
+  console.log('MobileFiltersModal - Estado atual:', { category, type });
 
   const handleClearFilters = () => {
-    // Reset para estados iniciais - mesma lógica do desktop
+    console.log('MobileFiltersModal - Limpando filtros');
+    // Reset para estados iniciais - idênticos ao desktop
     setCategory(itemType === 'property' ? 'Residenciais' : 'Veículos Leves');
     setType(itemType === 'property' ? 'Todos' : 'Carros');
     setBrand('todas-marcas');
@@ -77,7 +62,6 @@ export const MobileFiltersModal = ({
     setSelectedState('');
     setSelectedCity('');
     setAddress('');
-    console.log("Limpar todos os filtros");
   };
 
   const handleApplyFilters = () => {
@@ -117,8 +101,8 @@ export const MobileFiltersModal = ({
 
             <div className="flex-1 overflow-hidden">
               {/* Tab Localização */}
-              <TabsContent value="location" className="mt-0 h-full overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.2) transparent' }}>
-                <div className="pr-2 space-y-4 pb-4">
+              <TabsContent value="location" className="mt-0 h-full overflow-y-auto">
+                <div className="pr-4 space-y-4 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                   <StateSelect value={selectedState} onChange={setSelectedState} onClearCity={handleClearCity} />
                   <CitySelect value={selectedCity} onChange={setSelectedCity} selectedState={selectedState} />
                   <AddressInput value={address} onChange={setAddress} />
@@ -126,13 +110,13 @@ export const MobileFiltersModal = ({
               </TabsContent>
 
               {/* Tab Características */}
-              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.2) transparent' }}>
-                <div className="pr-2 space-y-6 pb-20">
+              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto">
+                <div className="pr-4 space-y-6 pb-20" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                   <CategoryTypeFilters 
                     itemType={itemType} 
                     category={category} 
                     type={type} 
-                    onCategoryChange={handleCategoryChange} 
+                    onCategoryChange={setCategory} 
                     onTypeChange={setType} 
                   />
 
@@ -160,12 +144,12 @@ export const MobileFiltersModal = ({
               </TabsContent>
 
               {/* Tab Condições */}
-              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.2) transparent' }}>
-                <div className="pr-2 space-y-6 pb-4">
+              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto">
+                <div className="pr-4 space-y-6 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                   <div className="w-full">
                     <FormatFilter itemType={itemType} />
                   </div>
-                  <div className="w-full">
+                  <div className="adicionei w-full">
                     <OriginFilter itemType={itemType} />
                   </div>
                   <div className="w-full">
