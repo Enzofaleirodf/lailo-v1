@@ -35,7 +35,7 @@ const Leiloeiros = () => {
   ];
 
   return (
-    <div className="flex h-screen w-screen flex-row">
+    <div className="flex h-screen w-screen flex-row max-w-[1440px] mx-auto">
       <SessionNavBar />
       <main className="flex h-screen grow flex-col overflow-auto ml-12">
         <div className="bg-white px-4 py-8">

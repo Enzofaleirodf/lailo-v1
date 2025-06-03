@@ -50,7 +50,7 @@ export const SearchPageLayout = ({
   };
 
   return (
-    <div className="flex h-screen w-screen flex-row">
+    <div className="flex h-screen w-screen flex-row max-w-[1440px] mx-auto">
       <SessionNavBar />
       
       <DesktopTopBar
