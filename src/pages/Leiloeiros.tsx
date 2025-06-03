@@ -1,13 +1,13 @@
-
 import React, { useState, useMemo } from "react";
-import { Building2, Search, ExternalLink, Phone, Globe, AlertCircle, ChevronDown } from "lucide-react";
+import { Building2, Search, ExternalLink } from "lucide-react";
 import { SessionNavBar } from "../components/SessionNavBar";
 import { BottomNavigation } from "../components/BottomNavigation";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { LeiloeiroCard } from "../components/leiloeiros/LeiloeiroCard";
+import { LeiloeiroTableRow } from "../components/leiloeiros/LeiloeiroTableRow";
 
 interface Leiloeiro {
   id: number;
@@ -62,53 +62,39 @@ const Leiloeiros = () => {
     { state: "Tocantins", sigla: "JUCETINS", website: "https://jucetins.to.gov.br" }
   ];
 
-  // Dados expandidos dos leiloeiros com mais leiloeiros por estado
+  // Dados dos leiloeiros
   const leiloeiros: Leiloeiro[] = [
-    // São Paulo - múltiplos leiloeiros
+    // São Paulo
     { id: 1, name: "Maria Santos", websiteName: "SP Leilões", state: "São Paulo", phone: "(11) 9999-8888", website: "https://spleiloes.com.br", activeAuctions: 42 },
     { id: 2, name: "João Oliveira", websiteName: "Capital Leilões", state: "São Paulo", phone: "(11) 8888-7777", website: "https://capitalleiloes.com.br", activeAuctions: 23 },
     { id: 3, name: "Carlos Mendes", websiteName: "SP Auctions", state: "São Paulo", phone: "(11) 7777-6666", activeAuctions: 0 },
     { id: 4, name: "Ana Ferreira", websiteName: "Paulista Leilões", state: "São Paulo", phone: "(11) 6666-5555", website: "https://paulistaleiloes.com.br", activeAuctions: 15 },
     
-    // Minas Gerais - múltiplos leiloeiros
+    // Minas Gerais
     { id: 5, name: "Carlos Oliveira", websiteName: "Leilões MG", state: "Minas Gerais", phone: "(31) 7777-6666", website: "https://leiloesmg.com.br", activeAuctions: 8 },
     { id: 6, name: "Fernanda Lima", websiteName: "BH Leilões", state: "Minas Gerais", phone: "(31) 5555-4444", website: "https://bhleiloes.com.br", activeAuctions: 12 },
     { id: 7, name: "Roberto Silva", websiteName: "Mineiro Auctions", state: "Minas Gerais", phone: "(31) 4444-3333", activeAuctions: 0 },
     
-    // Rio de Janeiro - múltiplos leiloeiros
+    // Rio de Janeiro
     { id: 8, name: "Ana Costa", websiteName: "RJ Leilões", state: "Rio de Janeiro", phone: "(21) 5555-3333", website: "https://rjleiloes.com.br", activeAuctions: 23 },
     { id: 9, name: "Pedro Santos", websiteName: "Carioca Leilões", state: "Rio de Janeiro", phone: "(21) 4444-2222", website: "https://cariocaleiloes.com.br", activeAuctions: 18 },
     { id: 10, name: "Lucia Martins", websiteName: "Rio Auctions", state: "Rio de Janeiro", phone: "(21) 3333-1111", activeAuctions: 0 },
     
-    // Distrito Federal
+    // Outros estados com dados existentes
     { id: 11, name: "João Silva", websiteName: "Leilões Brasília", state: "Distrito Federal", phone: "(61) 3333-4444", website: "https://leiloesbrasilia.com.br", activeAuctions: 15 },
     { id: 12, name: "Mariana Costa", websiteName: "Capital Federal Leilões", state: "Distrito Federal", phone: "(61) 2222-3333", website: "https://capitalfederalleiloes.com.br", activeAuctions: 9 },
-    
-    // Bahia
     { id: 13, name: "Pedro Almeida", websiteName: "Bahia Leilões", state: "Bahia", phone: "(71) 4444-2222", website: "https://bahialeiloes.com.br", activeAuctions: 0 },
     { id: 14, name: "Camila Souza", websiteName: "Salvador Auctions", state: "Bahia", phone: "(71) 5555-6666", website: "https://salvadorauctions.com.br", activeAuctions: 7 },
-    
-    // Paraná
     { id: 15, name: "Luciana Rocha", websiteName: "Paraná Auctions", state: "Paraná", phone: "(41) 8888-1111", website: "https://paranauctions.com.br", activeAuctions: 19 },
     { id: 16, name: "Eduardo Campos", websiteName: "Curitiba Leilões", state: "Paraná", phone: "(41) 7777-9999", website: "https://curitibailoes.com.br", activeAuctions: 11 },
-    
-    // Rio Grande do Sul
     { id: 17, name: "Roberto Lima", websiteName: "RS Leilões", state: "Rio Grande do Sul", phone: "(51) 6666-9999", website: "https://rsleiloes.com.br", activeAuctions: 31 },
     { id: 18, name: "Julia Pereira", websiteName: "Gaúcho Leilões", state: "Rio Grande do Sul", phone: "(51) 5555-8888", website: "https://gaucholeiloes.com.br", activeAuctions: 14 },
-    
-    // Ceará
     { id: 19, name: "Fernanda Dias", websiteName: "Ceará Leilões", state: "Ceará", phone: "(85) 2222-7777", website: "https://cearaleiloes.com.br", activeAuctions: 12 },
     { id: 20, name: "Marcos Oliveira", websiteName: "Fortaleza Auctions", state: "Ceará", phone: "(85) 1111-5555", activeAuctions: 0 },
-    
-    // Santa Catarina
     { id: 21, name: "Marcos Pereira", websiteName: "SC Auctions", state: "Santa Catarina", phone: "(48) 1111-5555", website: "https://scauctions.com.br", activeAuctions: 5 },
     { id: 22, name: "Isabela Santos", websiteName: "Catarinense Leilões", state: "Santa Catarina", phone: "(48) 2222-6666", website: "https://catarinenseleiloes.com.br", activeAuctions: 8 },
-    
-    // Goiás
     { id: 23, name: "Patricia Gonçalves", websiteName: "Goiás Leilões", state: "Goiás", phone: "(62) 3333-8888", website: "https://goiasleiloes.com.br", activeAuctions: 0 },
     { id: 24, name: "Diego Almeida", websiteName: "Goiânia Auctions", state: "Goiás", phone: "(62) 4444-7777", website: "https://goianiaauctions.com.br", activeAuctions: 6 },
-    
-    // Restante dos estados com um leiloeiro cada
     { id: 25, name: "Antonio Ferreira", websiteName: "Acre Leilões", state: "Acre", phone: "(68) 4444-5555", activeAuctions: 0 },
     { id: 26, name: "Helena Martins", websiteName: "Alagoas Auctions", state: "Alagoas", phone: "(82) 5555-6666", website: "https://alagoasauctions.com.br", activeAuctions: 0 },
     { id: 27, name: "Rafael Souza", websiteName: "Amapá Leilões", state: "Amapá", phone: "(96) 6666-7777", activeAuctions: 0 },
@@ -179,54 +165,6 @@ const Leiloeiros = () => {
     return juntasComerciais.find(j => j.state === state);
   };
 
-  const getAuctionsBadgeColor = (activeAuctions: number, hasWebsite: boolean) => {
-    if (!hasWebsite) return "bg-gray-100 text-gray-700 border-gray-200";
-    if (activeAuctions === 0) return "bg-red-100 text-red-700 border-red-200";
-    return "bg-green-100 text-green-700 border-green-200";
-  };
-
-  const getWebsiteDisplay = (leiloeiro: Leiloeiro) => {
-    if (!leiloeiro.website) {
-      return (
-        <div className="flex items-center gap-2 text-gray-400">
-          <AlertCircle className="w-4 h-4" />
-          <span className="text-sm">Sem website</span>
-        </div>
-      );
-    }
-    return (
-      <div className="text-sm text-blue-600 hover:text-blue-800">
-        <a 
-          href={leiloeiro.website} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="hover:underline flex items-center gap-1"
-        >
-          <Globe className="w-4 h-4" />
-          {leiloeiro.website.replace('https://', '')}
-        </a>
-      </div>
-    );
-  };
-
-  const getAuctionsDisplay = (leiloeiro: Leiloeiro) => {
-    if (!leiloeiro.website) {
-      return (
-        <Badge className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-gray-100 text-gray-700 border-gray-200">
-          Sem site
-        </Badge>
-      );
-    }
-    
-    return (
-      <Badge 
-        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
-      >
-        {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
-      </Badge>
-    );
-  };
-
   return (
     <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
@@ -237,24 +175,24 @@ const Leiloeiros = () => {
             <div className="bg-white px-6 py-8">
               <div className="max-w-6xl mx-auto">
                 {/* Header */}
-                <div className="flex items-center gap-2 mb-8">
+                <div className="flex items-center gap-3 mb-8">
                   <Building2 className="w-8 h-8 text-blue-600" />
                   <h1 className="text-3xl font-bold text-gray-900">Leiloeiros Oficiais do Brasil</h1>
                 </div>
 
                 {/* Filtros */}
-                <div className="flex gap-4 mb-6">
+                <div className="flex gap-4 mb-8">
                   <div className="relative flex-1">
                     <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10" />
                     <Input
                       placeholder="Pesquisar por nome do leiloeiro ou website..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 h-12"
                     />
                   </div>
                   <Select value={selectedState} onValueChange={setSelectedState}>
-                    <SelectTrigger className="w-[200px]">
+                    <SelectTrigger className="w-[200px] h-12">
                       <SelectValue placeholder="Filtrar por estado" />
                     </SelectTrigger>
                     <SelectContent>
@@ -265,7 +203,7 @@ const Leiloeiros = () => {
                     </SelectContent>
                   </Select>
                   <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] h-12">
                       <SelectValue placeholder="Leilões ativos" />
                     </SelectTrigger>
                     <SelectContent>
@@ -298,7 +236,7 @@ const Leiloeiros = () => {
                                       e.stopPropagation();
                                       window.open(junta.website, '_blank');
                                     }}
-                                    className="gap-2 text-xs"
+                                    className="gap-2 text-xs h-8"
                                   >
                                     {junta.sigla}
                                     <ExternalLink className="w-3 h-3" />
@@ -308,15 +246,14 @@ const Leiloeiros = () => {
                             </div>
                           </AccordionTrigger>
                           <AccordionContent className="p-0">
-                            {/* Tabela com larguras fixas ajustadas e padding consistente */}
-                            <div className="overflow-x-auto px-6">
+                            <div className="overflow-x-auto">
                               <table className="w-full table-fixed">
                                 <colgroup>
                                   <col className="w-80" />
                                   <col className="w-48" />
                                   <col className="w-48" />
                                   <col className="w-48" />
-                                  <col className="w-20" />
+                                  <col className="w-24" />
                                 </colgroup>
                                 <thead className="bg-gray-50">
                                   <tr className="h-12">
@@ -332,61 +269,14 @@ const Leiloeiros = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                       Leilões Ativos
                                     </th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                       Acesso
                                     </th>
                                   </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                   {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
-                                    <tr key={leiloeiro.id} className="hover:bg-gray-50 h-16">
-                                      <td className="px-6 py-4">
-                                        <div className="flex items-center h-full">
-                                          <div className="flex-shrink-0 h-10 w-10">
-                                            <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                                              <Building2 className="w-5 h-5 text-blue-600" />
-                                            </div>
-                                          </div>
-                                          <div className="ml-4 min-w-0 flex-1">
-                                            <div className="text-sm font-medium text-gray-900 truncate">
-                                              {leiloeiro.websiteName}
-                                            </div>
-                                            <div className="text-sm font-normal text-gray-500 truncate">
-                                              {leiloeiro.name}
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td className="px-6 py-4">
-                                        <div className="flex items-center text-sm text-gray-500 h-full">
-                                          <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
-                                          <span className="truncate">{leiloeiro.phone}</span>
-                                        </div>
-                                      </td>
-                                      <td className="px-6 py-4">
-                                        <div className="h-full flex items-center">
-                                          {getWebsiteDisplay(leiloeiro)}
-                                        </div>
-                                      </td>
-                                      <td className="px-6 py-4">
-                                        <div className="flex items-center h-full">
-                                          {getAuctionsDisplay(leiloeiro)}
-                                        </div>
-                                      </td>
-                                      <td className="px-6 py-4">
-                                        <div className="flex justify-end items-center h-full">
-                                          <Button
-                                            variant="ghost"
-                                            size="sm"
-                                            onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
-                                            disabled={!leiloeiro.website}
-                                            className="h-8 w-8 p-0"
-                                          >
-                                            <ExternalLink className="w-4 h-4" />
-                                          </Button>
-                                        </div>
-                                      </td>
-                                    </tr>
+                                    <LeiloeiroTableRow key={leiloeiro.id} leiloeiro={leiloeiro} />
                                   ))}
                                 </tbody>
                               </table>
@@ -413,9 +303,9 @@ const Leiloeiros = () => {
       {/* Mobile Layout */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
-          <main className="w-full min-h-screen flex flex-col px-4 py-8 pb-20">
+          <main className="w-full min-h-screen flex flex-col px-4 py-6 pb-20">
             {/* Header */}
-            <div className="flex items-center gap-2 mb-6">
+            <div className="flex items-center gap-3 mb-6">
               <Building2 className="w-6 h-6 text-blue-600" />
               <h1 className="text-xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
             </div>
@@ -428,12 +318,12 @@ const Leiloeiros = () => {
                   placeholder="Pesquisar leiloeiro..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 h-12"
                 />
               </div>
-              <div className="flex gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <Select value={selectedState} onValueChange={setSelectedState}>
-                  <SelectTrigger className="flex-1">
+                  <SelectTrigger className="h-12">
                     <SelectValue placeholder="Estado" />
                   </SelectTrigger>
                   <SelectContent>
@@ -444,7 +334,7 @@ const Leiloeiros = () => {
                   </SelectContent>
                 </Select>
                 <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-                  <SelectTrigger className="flex-1">
+                  <SelectTrigger className="h-12">
                     <SelectValue placeholder="Leilões" />
                   </SelectTrigger>
                   <SelectContent>
@@ -464,9 +354,9 @@ const Leiloeiros = () => {
                   const junta = getJuntaComercial(state);
                   const leiloeiroCount = filteredAndGroupedLeiloeiros[state].length;
                   return (
-                    <AccordionItem key={state} value={state} className="border border-gray-200 rounded-lg overflow-hidden">
+                    <AccordionItem key={state} value={state} className="border border-gray-200 rounded-xl overflow-hidden">
                       <AccordionTrigger className="flex items-center justify-between p-4 bg-gray-50">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-1">
                           <h2 className="text-lg font-semibold text-gray-900">{state}</h2>
                           <span className="text-sm text-gray-500">({leiloeiroCount})</span>
                           {junta && (
@@ -477,7 +367,7 @@ const Leiloeiros = () => {
                                 e.stopPropagation();
                                 window.open(junta.website, '_blank');
                               }}
-                              className="gap-1 text-xs ml-2"
+                              className="gap-1 text-xs h-8 ml-2"
                             >
                               {junta.sigla}
                               <ExternalLink className="w-3 h-3" />
@@ -486,41 +376,9 @@ const Leiloeiros = () => {
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="p-0">
-                        <div className="space-y-3 p-4">
+                        <div className="space-y-4 p-4">
                           {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
-                            <div key={leiloeiro.id} className="bg-white rounded-lg border border-gray-200 p-4">
-                              <div className="flex items-start justify-between mb-3">
-                                <div className="flex items-center gap-3">
-                                  <div className="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                                    <Building2 className="w-4 h-4 text-blue-600" />
-                                  </div>
-                                  <div>
-                                    <h3 className="font-semibold text-gray-900 text-sm">{leiloeiro.websiteName}</h3>
-                                    <p className="text-xs text-gray-500 font-normal">{leiloeiro.name}</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  {getAuctionsDisplay(leiloeiro)}
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
-                                    disabled={!leiloeiro.website}
-                                    className="h-8 w-8 p-0"
-                                  >
-                                    <ExternalLink className="w-4 h-4" />
-                                  </Button>
-                                </div>
-                              </div>
-                              
-                              <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-sm text-gray-500">
-                                  <Phone className="w-4 h-4" />
-                                  {leiloeiro.phone}
-                                </div>
-                                {getWebsiteDisplay(leiloeiro)}
-                              </div>
-                            </div>
+                            <LeiloeiroCard key={leiloeiro.id} leiloeiro={leiloeiro} />
                           ))}
                         </div>
                       </AccordionContent>

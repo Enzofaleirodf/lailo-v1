@@ -1,0 +1,118 @@
+
+import React from "react";
+import { Building2, Phone, Globe, ExternalLink, AlertCircle } from "lucide-react";
+import { BaseCard } from "../base/BaseCard";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+
+interface Leiloeiro {
+  id: number;
+  name: string;
+  websiteName: string;
+  state: string;
+  phone: string;
+  website?: string;
+  logo?: string;
+  activeAuctions: number;
+}
+
+interface LeiloeiroCardProps {
+  leiloeiro: Leiloeiro;
+}
+
+export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
+  const getAuctionsBadge = () => {
+    if (!leiloeiro.website) {
+      return (
+        <Badge className="bg-gray-100 text-gray-700 border-gray-200 text-xs font-medium">
+          Sem site
+        </Badge>
+      );
+    }
+    
+    const badgeColor = leiloeiro.activeAuctions === 0 
+      ? "bg-red-100 text-red-700 border-red-200" 
+      : "bg-green-100 text-green-700 border-green-200";
+    
+    return (
+      <Badge className={`${badgeColor} text-xs font-medium`}>
+        {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
+      </Badge>
+    );
+  };
+
+  const getWebsiteDisplay = () => {
+    if (!leiloeiro.website) {
+      return (
+        <div className="flex items-center gap-2 text-gray-400">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          <span className="text-sm truncate">Sem website</span>
+        </div>
+      );
+    }
+    
+    return (
+      <div className="flex items-center gap-2 text-blue-600">
+        <Globe className="w-4 h-4 flex-shrink-0" />
+        <a 
+          href={leiloeiro.website} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-sm hover:underline truncate"
+        >
+          {leiloeiro.website.replace('https://', '')}
+        </a>
+      </div>
+    );
+  };
+
+  return (
+    <BaseCard className="h-auto">
+      <div className="space-y-4">
+        {/* Header com ícone e nome */}
+        <div className="flex items-start gap-3">
+          <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 flex items-center justify-center">
+            <Building2 className="w-6 h-6 text-blue-600" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold text-gray-900 text-base leading-tight mb-1 truncate">
+              {leiloeiro.websiteName}
+            </h3>
+            <p className="text-sm text-gray-600 truncate">
+              {leiloeiro.name}
+            </p>
+          </div>
+        </div>
+
+        {/* Badge de leilões */}
+        <div className="flex justify-start">
+          {getAuctionsBadge()}
+        </div>
+
+        {/* Informações de contato */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-3 text-gray-600">
+            <Phone className="w-4 h-4 flex-shrink-0" />
+            <span className="text-sm truncate">{leiloeiro.phone}</span>
+          </div>
+          
+          {getWebsiteDisplay()}
+        </div>
+
+        {/* Botão de acesso */}
+        <div className="pt-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
+            disabled={!leiloeiro.website}
+            className="w-full h-10 gap-2"
+          >
+            <span>Acessar Site</span>
+            <ExternalLink className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    </BaseCard>
+  );
+};
