@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronDown, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './button';
 import { designTokens } from '../../styles/design-tokens';
@@ -144,7 +144,7 @@ export const FilterChip = ({
         aria-label={ariaLabel || `Filtro ${label}`}
         id={id}
         className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] w-full",
+          "flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-200 border justify-between min-h-[48px] w-full",
           isDisabled 
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed" 
             : isActive 
@@ -153,7 +153,7 @@ export const FilterChip = ({
           className
         )}
         style={{
-          borderRadius: designTokens.borderRadius.xl,
+          borderRadius: '1.5rem',
           padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}`,
         }}
       >
@@ -161,10 +161,9 @@ export const FilterChip = ({
           {displayText()}
         </div>
         
-        <ChevronDown 
+        <Search 
           className={cn(
             "w-4 h-4 transition-transform duration-200 flex-shrink-0",
-            isExpanded && "rotate-180",
             isDisabled && "text-gray-400"
           )} 
         />
@@ -177,9 +176,9 @@ export const FilterChip = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 z-[9999] bg-white border border-gray-200 rounded-xl shadow-lg w-[320px] overflow-hidden"
+            className="absolute top-full left-0 mt-2 z-[9999] bg-white border border-gray-200 rounded-2xl shadow-lg w-[320px] overflow-hidden"
             style={{
-              borderRadius: designTokens.borderRadius.xl,
+              borderRadius: '1.5rem',
               boxShadow: designTokens.shadows.lg,
               marginTop: designTokens.spacing.sm,
             }}
