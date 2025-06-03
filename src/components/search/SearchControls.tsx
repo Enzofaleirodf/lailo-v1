@@ -33,12 +33,12 @@ export const SearchControls = ({
           <span className="text-sm font-medium text-gray-700">Ordenar por:</span>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="justify-between w-[160px]">
+              <Button variant="outline" className="justify-between w-[168px]">
                 <span className="text-left">{sortBy}</span>
                 <ChevronDown className="h-4 w-4 ml-2" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-[160px] bg-white">
+            <DropdownMenuContent align="start" className="w-[168px] bg-white">
               {sortOptions.map(option => (
                 <DropdownMenuItem 
                   key={option} 

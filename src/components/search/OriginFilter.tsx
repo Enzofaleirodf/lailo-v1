@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -117,7 +118,7 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
                 onClick={handleClear} 
                 className="text-gray-600 hover:text-gray-800"
               >
-                Limpar ({selectedOrigins.length})
+                Resetar ({selectedOrigins.length})
               </Button>
             ) : (
               <Button 

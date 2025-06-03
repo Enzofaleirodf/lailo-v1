@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -121,7 +122,7 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
                 className="text-gray-600 hover:text-gray-800"
                 disabled={!isEnabled}
               >
-                Limpar ({selectedStages.length})
+                Resetar ({selectedStages.length})
               </Button>
             ) : (
               <Button 
