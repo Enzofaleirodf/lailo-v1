@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -8,6 +7,7 @@ import {
 } from '../ui/popover';
 import { Checkbox } from '../ui/checkbox';
 import { Button } from '../ui/button';
+import { Label } from '../ui/label';
 import { ItemType } from '../../types/search';
 
 interface StageFilterProps {
@@ -76,6 +76,7 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
         </PopoverTrigger>
         <PopoverContent className="w-[240px] p-0 rounded-lg">
           <div className="p-4 space-y-3">
+            <Label className="text-sm font-medium text-gray-900">Etapa</Label>
             {stageOptions.map((option) => (
               <div key={option.value} className="flex items-center space-x-2">
                 <Checkbox
