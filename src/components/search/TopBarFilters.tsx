@@ -20,22 +20,22 @@ export const TopBarFilters = ({
   return (
     <div className="flex items-start gap-3 min-w-0">
       {/* Filtro de Localização - sempre primeiro */}
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 w-[220px]">
         <LocationFilter />
       </div>
 
-      {/* Filtro de Formato - SEM LABEL */}
-      <div className="flex-shrink-0">
+      {/* Filtro de Formato - mesma largura da localização */}
+      <div className="flex-shrink-0 w-[220px]">
         <FormatFilter itemType={itemType} />
       </div>
 
-      {/* Filtro de Origem - SEM LABEL */}
-      <div className="flex-shrink-0">
+      {/* Filtro de Origem - mesma largura da localização */}
+      <div className="flex-shrink-0 w-[220px]">
         <OriginFilter itemType={itemType} />
       </div>
 
-      {/* Filtro de Etapa - SEM LABEL - dependente do formato */}
-      <div className="flex-shrink-0">
+      {/* Filtro de Etapa - mesma largura da localização - dependente do formato */}
+      <div className="flex-shrink-0 w-[220px]">
         <StageFilter 
           itemType={itemType} 
           isEnabled={isStageEnabled}
