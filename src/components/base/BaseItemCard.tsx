@@ -101,7 +101,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
         </div>
         
         <div className="flex-1 min-w-0 space-y-2">
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
               <BaseItemHeader 
                 item={item}
@@ -113,7 +113,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             <Button
               variant="ghost"
               size="sm"
-              className={`h-8 w-8 p-0 ml-3 flex-shrink-0 transition-colors ${
+              className={`h-6 w-6 p-0 flex-shrink-0 transition-colors ${
                 isItemFavorite ? 'text-blue-500 hover:text-blue-600' : 'text-gray-400 hover:text-blue-500'
               }`}
               onClick={(e) => {
