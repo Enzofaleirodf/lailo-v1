@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -60,7 +59,10 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
   const hasSelectedItems = selectedOrigins.length > 0;
 
   return (
-    <div className="w-[220px]">
+    <div className="w-full">
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Origem
+      </label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -78,7 +80,7 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
           </Button>
         </PopoverTrigger>
         <PopoverContent 
-          className="w-[240px] p-0 rounded-lg"
+          className="w-[var(--radix-popover-trigger-width)] p-0 rounded-lg"
           style={{
             borderRadius: designTokens.borderRadius.lg,
           }}

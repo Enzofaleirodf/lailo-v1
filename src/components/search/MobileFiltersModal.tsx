@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Button } from "../ui/button";
-import { X } from "lucide-react";
+import { X, MapPin, Settings, Gavel } from "lucide-react";
 import { StateSelect } from './location/StateSelect';
 import { CitySelect } from './location/CitySelect';
 import { AddressInput } from './location/AddressInput';
@@ -14,11 +15,13 @@ import { PriceFilter } from '../filters/PriceFilter';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { ItemType } from '../../types/search';
+
 interface MobileFiltersModalProps {
   isOpen: boolean;
   onClose: () => void;
   itemType: ItemType;
 }
+
 export const MobileFiltersModal = ({
   isOpen,
   onClose,
@@ -41,18 +44,24 @@ export const MobileFiltersModal = ({
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [address, setAddress] = useState('');
+  
   const isStageEnabled = formatValue === 'Leilão';
+
   const handleClearFilters = () => {
     console.log("Limpar todos os filtros");
   };
+
   const handleApplyFilters = () => {
     console.log("Aplicar filtros");
     onClose();
   };
+
   const handleClearCity = () => {
     setSelectedCity('');
   };
-  return <Sheet open={isOpen} onOpenChange={onClose}>
+
+  return (
+    <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[95vh] rounded-t-3xl flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
           <SheetTitle className="text-lg font-semibold">
@@ -66,9 +75,18 @@ export const MobileFiltersModal = ({
         <div className="flex-1 overflow-hidden flex flex-col py-6 px-0">
           <Tabs defaultValue="location" className="w-full flex flex-col flex-1">
             <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
-              <TabsTrigger value="location">Localização</TabsTrigger>
-              <TabsTrigger value="characteristics">Características</TabsTrigger>
-              <TabsTrigger value="conditions">Condições</TabsTrigger>
+              <TabsTrigger value="location" className="flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                <span className="hidden sm:inline">Localização</span>
+              </TabsTrigger>
+              <TabsTrigger value="characteristics" className="flex items-center gap-2">
+                <Settings className="h-4 w-4" />
+                <span className="hidden sm:inline">Características</span>
+              </TabsTrigger>
+              <TabsTrigger value="conditions" className="flex items-center gap-2">
+                <Gavel className="h-4 w-4" />
+                <span className="hidden sm:inline">Condições</span>
+              </TabsTrigger>
             </TabsList>
 
             <div className="flex-1 overflow-hidden">
@@ -86,9 +104,32 @@ export const MobileFiltersModal = ({
               {/* Tab Características */}
               <TabsContent value="characteristics" className="space-y-6 mt-0 h-full overflow-y-auto">
                 <div className="px-1 space-y-6 pb-4">
-                  <CategoryTypeFilters itemType={itemType} category={category} type={type} onCategoryChange={setCategory} onTypeChange={setType} />
+                  <CategoryTypeFilters 
+                    itemType={itemType} 
+                    category={category} 
+                    type={type} 
+                    onCategoryChange={setCategory} 
+                    onTypeChange={setType} 
+                  />
 
-                  {itemType === 'property' ? <PropertySpecificFilters areaRange={areaRange} onAreaRangeChange={setAreaRange} /> : <VehicleSpecificFilters brand={brand} model={model} color={color} yearRange={yearRange} vehicleType={type.toLowerCase()} onBrandChange={setBrand} onModelChange={setModel} onColorChange={setColor} onYearRangeChange={setYearRange} />}
+                  {itemType === 'property' ? (
+                    <PropertySpecificFilters 
+                      areaRange={areaRange} 
+                      onAreaRangeChange={setAreaRange} 
+                    />
+                  ) : (
+                    <VehicleSpecificFilters 
+                      brand={brand} 
+                      model={model} 
+                      color={color} 
+                      yearRange={yearRange} 
+                      vehicleType={type.toLowerCase()} 
+                      onBrandChange={setBrand} 
+                      onModelChange={setModel} 
+                      onColorChange={setColor} 
+                      onYearRangeChange={setYearRange} 
+                    />
+                  )}
 
                   <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
                 </div>
@@ -97,9 +138,15 @@ export const MobileFiltersModal = ({
               {/* Tab Condições */}
               <TabsContent value="conditions" className="space-y-6 mt-0 h-full overflow-y-auto">
                 <div className="px-1 space-y-6">
-                  <FormatFilter itemType={itemType} />
-                  <OriginFilter itemType={itemType} />
-                  <StageFilter itemType={itemType} isEnabled={isStageEnabled} />
+                  <div className="w-full">
+                    <FormatFilter itemType={itemType} />
+                  </div>
+                  <div className="w-full">
+                    <OriginFilter itemType={itemType} />
+                  </div>
+                  <div className="w-full">
+                    <StageFilter itemType={itemType} isEnabled={isStageEnabled} />
+                  </div>
                 </div>
               </TabsContent>
             </div>
@@ -118,5 +165,6 @@ export const MobileFiltersModal = ({
           </div>
         </div>
       </SheetContent>
-    </Sheet>;
+    </Sheet>
+  );
 };
