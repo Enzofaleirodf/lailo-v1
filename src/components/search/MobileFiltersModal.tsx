@@ -9,7 +9,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
-import { LocationFilter } from './LocationFilter';
+import { StateSelect } from './location/StateSelect';
+import { CitySelect } from './location/CitySelect';
+import { AddressInput } from './location/AddressInput';
 import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
 import { FormatFilter } from './FormatFilter';
 import { OriginFilter } from './OriginFilter';
@@ -43,6 +45,11 @@ export const MobileFiltersModal = ({
   const [model, setModel] = useState('todos-modelos');
   const [color, setColor] = useState('todas-cores');
 
+  // Estados para localização
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [address, setAddress] = useState('');
+
   const isStageEnabled = formatValue === 'Leilão';
 
   const handleClearFilters = () => {
@@ -52,6 +59,10 @@ export const MobileFiltersModal = ({
   const handleApplyFilters = () => {
     console.log("Aplicar filtros");
     onClose();
+  };
+
+  const handleClearCity = () => {
+    setSelectedCity('');
   };
 
   return (
@@ -81,8 +92,23 @@ export const MobileFiltersModal = ({
 
             {/* Tab Localização */}
             <TabsContent value="location" className="space-y-6 mt-0">
-              <div className="px-1">
-                <LocationFilter />
+              <div className="px-1 space-y-4">
+                <StateSelect
+                  value={selectedState}
+                  onChange={setSelectedState}
+                  onClearCity={handleClearCity}
+                />
+
+                <CitySelect
+                  value={selectedCity}
+                  onChange={setSelectedCity}
+                  selectedState={selectedState}
+                />
+
+                <AddressInput
+                  value={address}
+                  onChange={setAddress}
+                />
               </div>
             </TabsContent>
 
