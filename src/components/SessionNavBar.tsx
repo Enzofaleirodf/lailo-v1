@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, Search, Heart, Gavel, User, LogIn, LogOut, Car, Calendar } from "lucide-react";
@@ -75,17 +74,14 @@ export const SessionNavBar = () => {
               className={`
                 w-8 h-8 rounded-lg flex items-center justify-center transition-colors relative group
                 ${item.active 
-                  ? 'text-blue-700' 
+                  ? 'bg-blue-100 text-blue-600' 
                   : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
                 }
               `}
-              style={{
-                backgroundColor: item.active ? '#eff6ff' : undefined,
-                borderColor: item.active ? '#bfdbfe' : undefined
-              }}
             >
               <Icon className="w-4 h-4" />
               
+              {/* Tooltip apenas uma vez */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                 {item.label}
               </div>
@@ -93,8 +89,10 @@ export const SessionNavBar = () => {
           );
         })}
 
+        {/* Protected Items - sempre mostrar, mas controlar acesso */}
         {protectedItems.map((item) => {
           const Icon = item.icon;
+          // Se não estiver autenticado e for favoritos, redireciona para login
           const linkTo = !isAuthenticated && item.to.includes('/favoritos') ? '/auth/login' : item.to;
           
           return (
@@ -104,19 +102,16 @@ export const SessionNavBar = () => {
               className={`
                 w-8 h-8 rounded-lg flex items-center justify-center transition-colors relative group
                 ${item.active 
-                  ? 'text-blue-700' 
+                  ? 'bg-blue-100 text-blue-600' 
                   : !isAuthenticated && item.to.includes('/favoritos')
                     ? 'text-gray-400 hover:text-blue-600 hover:bg-blue-50'
                     : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
                 }
               `}
-              style={{
-                backgroundColor: item.active ? '#eff6ff' : undefined,
-                borderColor: item.active ? '#bfdbfe' : undefined
-              }}
             >
               <Icon className="w-4 h-4" />
               
+              {/* Tooltip */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                 {!isAuthenticated && item.to.includes('/favoritos') ? 'Favoritos - Faça login' : item.label}
               </div>
@@ -134,17 +129,14 @@ export const SessionNavBar = () => {
               className={`
                 w-8 h-8 rounded-lg flex items-center justify-center transition-colors relative group
                 ${isActive("/perfil") 
-                  ? 'text-blue-700' 
+                  ? 'bg-blue-100 text-blue-600' 
                   : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
                 }
               `}
-              style={{
-                backgroundColor: isActive("/perfil") ? '#eff6ff' : undefined,
-                borderColor: isActive("/perfil") ? '#bfdbfe' : undefined
-              }}
             >
               <User className="w-4 h-4" />
               
+              {/* Tooltip apenas uma vez */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                 Perfil
               </div>
@@ -158,6 +150,7 @@ export const SessionNavBar = () => {
             >
               <LogOut className="w-4 h-4" />
               
+              {/* Tooltip apenas uma vez */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                 Sair
               </div>
@@ -170,6 +163,7 @@ export const SessionNavBar = () => {
           >
             <LogIn className="w-4 h-4" />
             
+            {/* Tooltip apenas uma vez */}
             <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
               Entrar
             </div>
