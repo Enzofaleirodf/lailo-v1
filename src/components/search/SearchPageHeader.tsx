@@ -16,12 +16,6 @@ export const SearchPageHeader = ({
   itemType,
   onItemTypeChange
 }: SearchPageHeaderProps) => {
-  return (
-    <div className="flex justify-center mb-6 md:hidden">
-      <ItemTypeToggle 
-        currentType={itemType}
-        onTypeChange={onItemTypeChange}
-      />
-    </div>
-  );
+  // Componente removido do mobile - não renderiza mais nada
+  return null;
 };

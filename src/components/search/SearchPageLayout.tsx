@@ -68,8 +68,8 @@ export const SearchPageLayout = ({
             <SessionNavBar />
           </div>
           
-          {/* Top bar desktop */}
-          <div className="absolute top-0 left-12 right-0 h-20 z-40">
+          {/* Top bar desktop - altura reduzida de 80px para 56px */}
+          <div className="absolute top-0 left-12 right-0 h-14 z-40">
             <DesktopTopBar 
               title={config.title} 
               isLoading={isLoading} 
@@ -78,16 +78,16 @@ export const SearchPageLayout = ({
             />
           </div>
 
-          {/* Sidebar de filtros desktop */}
-          <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
+          {/* Sidebar de filtros desktop - ajustado para a nova altura */}
+          <div className="absolute left-12 top-14 w-[512px] h-[calc(100vh-3.5rem)] z-30">
             <DesktopFilterSidebar 
               itemType={config.type} 
               onClearFilters={onClearFilters} 
             />
           </div>
 
-          {/* Conteúdo principal desktop */}
-          <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white px-6 pb-6">
+          {/* Conteúdo principal desktop - ajustado para a nova altura */}
+          <main className="ml-12 pl-[512px] pt-14 min-h-screen bg-white px-6 pb-6">
             <div className="py-[20px] px-[24px]">
               <SearchStatusAndControls 
                 totalAuctions={finalResultsCount} 
@@ -125,16 +125,9 @@ export const SearchPageLayout = ({
             itemType={config.type}
           />
           
-          {/* Conteúdo principal mobile */}
+          {/* Conteúdo principal mobile - sem o header de toggle */}
           <main className="w-full min-h-screen bg-white px-4 pb-20 pt-14">
             <div className="py-[20px]">
-              <SearchPageHeader 
-                title={config.title} 
-                isLoading={isLoading} 
-                itemType={config.type} 
-                onItemTypeChange={handleItemTypeChange} 
-              />
-
               <SearchStatusAndControls 
                 totalAuctions={finalResultsCount} 
                 totalSites={finalSitesCount} 
