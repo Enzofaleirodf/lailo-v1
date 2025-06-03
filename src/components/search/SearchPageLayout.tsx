@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { SessionNavBar } from "../SessionNavBar";
 import { BottomNavigation } from "../BottomNavigation";
@@ -6,8 +7,10 @@ import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchPageHeader } from "./SearchPageHeader";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
+import { MobileTopBar } from "./MobileTopBar";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
+
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
   config: SearchConfig;
   items: SearchItem[];
@@ -19,6 +22,7 @@ interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'>
   resultsCount?: number;
   sitesCount?: number;
 }
+
 export const SearchPageLayout = ({
   config,
   items,
@@ -40,11 +44,22 @@ export const SearchPageLayout = ({
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
+
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     window.location.href = newPath;
   };
-  return <div className="w-full relative min-h-screen bg-white">
+
+  const handleShowFilters = () => {
+    console.log("Abrir modal de filtros");
+  };
+
+  const handleShowSort = () => {
+    console.log("Abrir modal de ordenação");
+  };
+
+  return (
+    <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout - apenas em desktop */}
       <div className="hidden md:block">
         <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
@@ -55,20 +70,44 @@ export const SearchPageLayout = ({
           
           {/* Top bar desktop */}
           <div className="absolute top-0 left-12 right-0 h-20 z-40">
-            <DesktopTopBar title={config.title} isLoading={isLoading} itemType={config.type} onItemTypeChange={handleItemTypeChange} />
+            <DesktopTopBar 
+              title={config.title} 
+              isLoading={isLoading} 
+              itemType={config.type} 
+              onItemTypeChange={handleItemTypeChange} 
+            />
           </div>
 
           {/* Sidebar de filtros desktop */}
           <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
-            <DesktopFilterSidebar itemType={config.type} onClearFilters={onClearFilters} />
+            <DesktopFilterSidebar 
+              itemType={config.type} 
+              onClearFilters={onClearFilters} 
+            />
           </div>
 
           {/* Conteúdo principal desktop */}
           <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white px-6 pb-6">
             <div className="py-[20px] px-[24px]">
-              <SearchStatusAndControls totalAuctions={finalResultsCount} totalSites={finalSitesCount} newAuctions={newAuctions} isVertical={isVertical} onToggleLayout={onToggleLayout} sortBy={sortBy} onSortChange={onSortChange} sortOptions={sortOptions} />
+              <SearchStatusAndControls 
+                totalAuctions={finalResultsCount} 
+                totalSites={finalSitesCount} 
+                newAuctions={newAuctions} 
+                isVertical={isVertical} 
+                onToggleLayout={onToggleLayout} 
+                sortBy={sortBy} 
+                onSortChange={onSortChange} 
+                sortOptions={sortOptions} 
+              />
               
-              <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+              <SearchMainContent 
+                items={items} 
+                isVertical={isVertical} 
+                config={config} 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                onPageChange={onPageChange} 
+              />
             </div>
           </main>
         </div>
@@ -77,13 +116,44 @@ export const SearchPageLayout = ({
       {/* Mobile Layout - apenas em mobile */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
+          {/* Barra superior mobile */}
+          <MobileTopBar 
+            isVertical={isVertical}
+            onToggleLayout={onToggleLayout}
+            onShowFilters={handleShowFilters}
+            onShowSort={handleShowSort}
+          />
+          
           {/* Conteúdo principal mobile */}
-          <main className="w-full min-h-screen bg-white px-4 pb-20 py-[20px]">
-            <SearchPageHeader title={config.title} isLoading={isLoading} itemType={config.type} onItemTypeChange={handleItemTypeChange} />
+          <main className="w-full min-h-screen bg-white px-4 pb-20 pt-14">
+            <div className="py-[20px]">
+              <SearchPageHeader 
+                title={config.title} 
+                isLoading={isLoading} 
+                itemType={config.type} 
+                onItemTypeChange={handleItemTypeChange} 
+              />
 
-            <SearchStatusAndControls totalAuctions={finalResultsCount} totalSites={finalSitesCount} newAuctions={newAuctions} isVertical={isVertical} onToggleLayout={onToggleLayout} sortBy={sortBy} onSortChange={onSortChange} sortOptions={sortOptions} />
-            
-            <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+              <SearchStatusAndControls 
+                totalAuctions={finalResultsCount} 
+                totalSites={finalSitesCount} 
+                newAuctions={newAuctions} 
+                isVertical={isVertical} 
+                onToggleLayout={onToggleLayout} 
+                sortBy={sortBy} 
+                onSortChange={onSortChange} 
+                sortOptions={sortOptions} 
+              />
+              
+              <SearchMainContent 
+                items={items} 
+                isVertical={isVertical} 
+                config={config} 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                onPageChange={onPageChange} 
+              />
+            </div>
           </main>
           
           {/* Bottom navigation mobile */}
@@ -92,5 +162,6 @@ export const SearchPageLayout = ({
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };

@@ -29,17 +29,6 @@ export const SearchStatusAndControls = ({
         className="text-xs md:text-sm"
       />
       
-      <div className="md:hidden">
-        <SearchControls
-          isVertical={isVertical}
-          onToggleLayout={onToggleLayout}
-          sortBy={sortBy}
-          onSortChange={onSortChange}
-          sortOptions={sortOptions}
-          resultsText=""
-        />
-      </div>
-      
       {/* Desktop controls - só ordenação e layout */}
       <div className="hidden md:flex items-center gap-4">
         <SearchControls
