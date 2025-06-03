@@ -36,7 +36,7 @@ export const BaseImage = ({
       />
       
       {showNewBadge && (
-        <div className={`absolute bg-green-500 text-white text-xs font-bold rounded-md shadow-md font-urbanist ${
+        <div className={`absolute bg-blue-500 text-white text-xs font-bold rounded-md shadow-md font-urbanist ${
           isVertical 
             ? 'top-2 left-2 md:px-2 md:py-1' 
             : 'top-1 left-1 px-0.5 py-0.5'
@@ -54,7 +54,7 @@ export const BaseImage = ({
             absolute top-2 right-2
             ${isVertical ? 'h-8 w-8 p-0 bg-white/80 backdrop-blur-sm hover:bg-white/90 rounded-full shadow-md' : 'h-6 w-6 p-0 m-0 bg-transparent hover:bg-transparent'}
             transition-all duration-200
-            ${isFavorited ? 'text-red-500' : 'text-gray-600'}
+            ${isFavorited ? 'text-blue-500' : 'text-gray-600'}
           `}
           onClick={(e) => {
             e.stopPropagation();

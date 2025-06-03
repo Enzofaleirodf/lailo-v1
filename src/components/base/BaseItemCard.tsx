@@ -114,7 +114,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               variant="ghost"
               size="sm"
               className={`h-8 w-8 p-0 ml-3 flex-shrink-0 transition-colors ${
-                isItemFavorite ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'
+                isItemFavorite ? 'text-blue-500 hover:text-blue-600' : 'text-gray-400 hover:text-blue-500'
               }`}
               onClick={(e) => {
                 e.stopPropagation();
