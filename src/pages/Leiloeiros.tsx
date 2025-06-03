@@ -60,35 +60,35 @@ const Leiloeiros = () => {
     { state: "Tocantins", sigla: "JUCETINS", website: "https://jucetins.to.gov.br" }
   ];
 
-  // Dados expandidos dos leiloeiros
+  // Dados expandidos dos leiloeiros - leiloeiros sem website não podem ter leilões ativos
   const leiloeiros: Leiloeiro[] = [
     { id: 1, name: "João Silva", websiteName: "Leilões Brasília", state: "Distrito Federal", phone: "(61) 3333-4444", website: "https://leiloesbrasilia.com.br", activeAuctions: 15 },
     { id: 2, name: "Maria Santos", websiteName: "SP Leilões", state: "São Paulo", phone: "(11) 9999-8888", website: "https://spleiloes.com.br", activeAuctions: 42 },
     { id: 3, name: "Carlos Oliveira", websiteName: "Leilões MG", state: "Minas Gerais", phone: "(31) 7777-6666", website: "https://leiloesmg.com.br", activeAuctions: 8 },
     { id: 4, name: "Ana Costa", websiteName: "RJ Leilões", state: "Rio de Janeiro", phone: "(21) 5555-3333", website: "https://rjleiloes.com.br", activeAuctions: 23 },
-    { id: 5, name: "Pedro Almeida", websiteName: "Bahia Leilões", state: "Bahia", phone: "(71) 4444-2222", website: "https://bahialeiloes.com.br", activeAuctions: 7 },
+    { id: 5, name: "Pedro Almeida", websiteName: "Bahia Leilões", state: "Bahia", phone: "(71) 4444-2222", website: "https://bahialeiloes.com.br", activeAuctions: 0 },
     { id: 6, name: "Luciana Rocha", websiteName: "Paraná Auctions", state: "Paraná", phone: "(41) 8888-1111", website: "https://paranauctions.com.br", activeAuctions: 19 },
     { id: 7, name: "Roberto Lima", websiteName: "RS Leilões", state: "Rio Grande do Sul", phone: "(51) 6666-9999", website: "https://rsleiloes.com.br", activeAuctions: 31 },
     { id: 8, name: "Fernanda Dias", websiteName: "Ceará Leilões", state: "Ceará", phone: "(85) 2222-7777", website: "https://cearaleiloes.com.br", activeAuctions: 12 },
     { id: 9, name: "Marcos Pereira", websiteName: "SC Auctions", state: "Santa Catarina", phone: "(48) 1111-5555", website: "https://scauctions.com.br", activeAuctions: 5 },
     { id: 10, name: "Patricia Gonçalves", websiteName: "Goiás Leilões", state: "Goiás", phone: "(62) 3333-8888", website: "https://goiasleiloes.com.br", activeAuctions: 0 },
-    { id: 11, name: "Antonio Ferreira", websiteName: "Acre Leilões", state: "Acre", phone: "(68) 4444-5555", activeAuctions: 3 },
+    { id: 11, name: "Antonio Ferreira", websiteName: "Acre Leilões", state: "Acre", phone: "(68) 4444-5555", activeAuctions: 0 },
     { id: 12, name: "Helena Martins", websiteName: "Alagoas Auctions", state: "Alagoas", phone: "(82) 5555-6666", website: "https://alagoasauctions.com.br", activeAuctions: 0 },
-    { id: 13, name: "Rafael Souza", websiteName: "Amapá Leilões", state: "Amapá", phone: "(96) 6666-7777", activeAuctions: 2 },
+    { id: 13, name: "Rafael Souza", websiteName: "Amapá Leilões", state: "Amapá", phone: "(96) 6666-7777", activeAuctions: 0 },
     { id: 14, name: "Juliana Barbosa", websiteName: "Amazonas Leilões", state: "Amazonas", phone: "(97) 7777-8888", website: "https://amazanasleiloes.com.br", activeAuctions: 9 },
     { id: 15, name: "Eduardo Campos", websiteName: "ES Leilões", state: "Espírito Santo", phone: "(27) 8888-9999", website: "https://esleiloes.com.br", activeAuctions: 6 },
-    { id: 16, name: "Carla Mendes", websiteName: "Maranhão Auctions", state: "Maranhão", phone: "(98) 9999-1111", activeAuctions: 4 },
+    { id: 16, name: "Carla Mendes", websiteName: "Maranhão Auctions", state: "Maranhão", phone: "(98) 9999-1111", activeAuctions: 0 },
     { id: 17, name: "Bruno Silva", websiteName: "MT Leilões", state: "Mato Grosso", phone: "(65) 1111-2222", website: "https://mtleiloes.com.br", activeAuctions: 11 },
     { id: 18, name: "Camila Torres", websiteName: "MS Leilões", state: "Mato Grosso do Sul", phone: "(67) 2222-3333", website: "https://msleiloes.com.br", activeAuctions: 0 },
-    { id: 19, name: "Diego Santos", websiteName: "Pará Leilões", state: "Pará", phone: "(91) 3333-4444", activeAuctions: 7 },
+    { id: 19, name: "Diego Santos", websiteName: "Pará Leilões", state: "Pará", phone: "(91) 3333-4444", activeAuctions: 0 },
     { id: 20, name: "Isabela Costa", websiteName: "PB Leilões", state: "Paraíba", phone: "(83) 4444-5555", website: "https://pbleiloes.com.br", activeAuctions: 3 },
     { id: 21, name: "Gustavo Reis", websiteName: "PE Leilões", state: "Pernambuco", phone: "(81) 5555-6666", website: "https://peleiloes.com.br", activeAuctions: 16 },
-    { id: 22, name: "Natália Moura", websiteName: "Piauí Auctions", state: "Piauí", phone: "(86) 6666-7777", activeAuctions: 2 },
+    { id: 22, name: "Natália Moura", websiteName: "Piauí Auctions", state: "Piauí", phone: "(86) 6666-7777", activeAuctions: 0 },
     { id: 23, name: "Leonardo Alves", websiteName: "RN Leilões", state: "Rio Grande do Norte", phone: "(84) 7777-8888", website: "https://rnleiloes.com.br", activeAuctions: 5 },
-    { id: 24, name: "Vanessa Lima", websiteName: "RO Leilões", state: "Rondônia", phone: "(69) 8888-9999", activeAuctions: 1 },
+    { id: 24, name: "Vanessa Lima", websiteName: "RO Leilões", state: "Rondônia", phone: "(69) 8888-9999", activeAuctions: 0 },
     { id: 25, name: "Thiago Nunes", websiteName: "RR Leilões", state: "Roraima", phone: "(95) 9999-1111", website: "https://rrleiloes.com.br", activeAuctions: 0 },
     { id: 26, name: "Larissa Freitas", websiteName: "SE Leilões", state: "Sergipe", phone: "(79) 1111-2222", website: "https://seleiloes.com.br", activeAuctions: 4 },
-    { id: 27, name: "Felipe Cardoso", websiteName: "TO Leilões", state: "Tocantins", phone: "(63) 2222-3333", activeAuctions: 2 }
+    { id: 27, name: "Felipe Cardoso", websiteName: "TO Leilões", state: "Tocantins", phone: "(63) 2222-3333", activeAuctions: 0 }
   ];
 
   // Estados únicos dos leiloeiros
@@ -136,8 +136,8 @@ const Leiloeiros = () => {
   };
 
   const getAuctionsBadgeColor = (activeAuctions: number, hasWebsite: boolean) => {
-    if (!hasWebsite) return "bg-red-100 text-red-700 border-red-200";
-    if (activeAuctions === 0) return "bg-yellow-100 text-yellow-700 border-yellow-200";
+    if (!hasWebsite) return "bg-gray-100 text-gray-700 border-gray-200";
+    if (activeAuctions === 0) return "bg-red-100 text-red-700 border-red-200";
     return "bg-green-100 text-green-700 border-green-200";
   };
 
@@ -162,6 +162,24 @@ const Leiloeiros = () => {
           {leiloeiro.website.replace('https://', '')}
         </a>
       </div>
+    );
+  };
+
+  const getAuctionsDisplay = (leiloeiro: Leiloeiro) => {
+    if (!leiloeiro.website) {
+      return (
+        <Badge className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-gray-100 text-gray-700 border-gray-200">
+          Sem site
+        </Badge>
+      );
+    }
+    
+    return (
+      <Badge 
+        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
+      >
+        {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
+      </Badge>
     );
   };
 
@@ -232,15 +250,15 @@ const Leiloeiros = () => {
                             </div>
                           </div>
 
-                          {/* Tabela com larguras fixas */}
+                          {/* Tabela com larguras fixas ajustadas */}
                           <div className="overflow-x-auto">
                             <table className="w-full table-fixed">
                               <colgroup>
                                 <col className="w-80" />
-                                <col className="w-40" />
-                                <col className="w-60" />
-                                <col className="w-32" />
-                                <col className="w-24" />
+                                <col className="w-48" />
+                                <col className="w-48" />
+                                <col className="w-48" />
+                                <col className="w-16" />
                               </colgroup>
                               <thead className="bg-gray-50">
                                 <tr className="h-12">
@@ -294,11 +312,7 @@ const Leiloeiros = () => {
                                     </td>
                                     <td className="px-6 py-4">
                                       <div className="flex items-center h-full">
-                                        <Badge 
-                                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
-                                        >
-                                          {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
-                                        </Badge>
+                                        {getAuctionsDisplay(leiloeiro)}
                                       </div>
                                     </td>
                                     <td className="px-6 py-4">
@@ -410,11 +424,7 @@ const Leiloeiros = () => {
                                 </div>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Badge 
-                                  className={`text-xs px-2 py-1 ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
-                                >
-                                  {leiloeiro.activeAuctions}
-                                </Badge>
+                                {getAuctionsDisplay(leiloeiro)}
                                 <Button
                                   variant="ghost"
                                   size="sm"
