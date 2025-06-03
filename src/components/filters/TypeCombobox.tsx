@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { designTokens } from '../../styles/design-tokens';
 
 interface TypeOption {
   value: string;
@@ -30,7 +31,13 @@ export const TypeCombobox = ({
 }: TypeComboboxProps) => {
   return (
     <Select value={selected} onValueChange={onSelect} disabled={disabled}>
-      <SelectTrigger>
+      <SelectTrigger 
+        className="h-10 rounded-lg border-gray-200 hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-all"
+        style={{
+          height: '40px',
+          borderRadius: designTokens.borderRadius.lg,
+        }}
+      >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

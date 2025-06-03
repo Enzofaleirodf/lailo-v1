@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -9,6 +10,7 @@ import { Checkbox } from '../ui/checkbox';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { ItemType } from '../../types/search';
+import { designTokens } from '../../styles/design-tokens';
 
 interface OriginFilterProps {
   itemType: ItemType;
@@ -43,7 +45,6 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
 
   const handleApply = () => {
     setOpen(false);
-    // Aqui seria aplicado o filtro
     console.log('Aplicando filtros de origem:', selectedOrigins);
   };
 
@@ -66,14 +67,26 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full h-10 justify-between rounded-lg"
+            className="w-full h-10 justify-between rounded-lg border-gray-200 hover:border-gray-300 hover:bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-all"
+            style={{
+              height: '40px',
+              borderRadius: designTokens.borderRadius.lg,
+            }}
           >
             {getDisplayText()}
             <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[240px] p-0 rounded-lg">
-          <div className="p-4 space-y-3">
+        <PopoverContent 
+          className="w-[240px] p-0 rounded-lg"
+          style={{
+            borderRadius: designTokens.borderRadius.lg,
+          }}
+        >
+          <div 
+            className="p-4 space-y-3"
+            style={{ padding: designTokens.spacing.lg }}
+          >
             <Label className="text-sm font-medium text-gray-900">Origem</Label>
             {originOptions.map((option) => (
               <div key={option.value} className="flex items-center space-x-2">
@@ -86,7 +99,7 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
                 />
                 <label
                   htmlFor={option.value}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
                 >
                   {option.label}
                 </label>
@@ -94,8 +107,10 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
             ))}
           </div>
           
-          {/* Footer com botões */}
-          <div className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100">
+          <div 
+            className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-t border-gray-100"
+            style={{ padding: `${designTokens.spacing.md} ${designTokens.spacing.lg}` }}
+          >
             {hasSelectedItems ? (
               <Button 
                 variant="ghost" 

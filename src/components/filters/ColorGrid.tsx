@@ -2,26 +2,27 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
+import { designTokens } from '../../styles/design-tokens';
 
 const colorMap: Record<string, string> = {
-  'todas-cores': '#f3f4f6', // gray-100
-  'amarelo': '#fbbf24', // yellow-400
-  'azul': '#3b82f6', // blue-500
+  'todas-cores': '#f3f4f6',
+  'amarelo': '#fbbf24',
+  'azul': '#3b82f6',
   'bege': '#f5f5dc',
   'branco': '#ffffff',
   'bronze': '#cd7f32',
-  'cinza': '#6b7280', // gray-500
+  'cinza': '#6b7280',
   'dourado': '#ffd700',
   'grafite': '#2f2f2f',
-  'laranja': '#f97316', // orange-500
-  'marrom': '#92400e', // amber-800
+  'laranja': '#f97316',
+  'marrom': '#92400e',
   'prata': '#c0c0c0',
   'preto': '#000000',
-  'rosa': '#ec4899', // pink-500
-  'roxo': '#8b5cf6', // violet-500
-  'verde': '#10b981', // emerald-500
-  'vermelho': '#ef4444', // red-500
-  'vinho': '#7f1d1d' // red-900
+  'rosa': '#ec4899',
+  'roxo': '#8b5cf6',
+  'verde': '#10b981',
+  'vermelho': '#ef4444',
+  'vinho': '#7f1d1d'
 };
 
 interface ColorGridProps {
@@ -32,7 +33,10 @@ interface ColorGridProps {
 
 export const ColorGrid = ({ colors, selected, onSelect }: ColorGridProps) => {
   return (
-    <div className="grid grid-cols-6 gap-2">
+    <div 
+      className="grid grid-cols-6 gap-2"
+      style={{ gap: designTokens.spacing.sm }}
+    >
       {colors.map((color) => {
         const colorKey = color.toLowerCase().replace(/\s+/g, '-');
         const bgColor = colorMap[colorKey] || '#f3f4f6';
@@ -51,7 +55,11 @@ export const ColorGrid = ({ colors, selected, onSelect }: ColorGridProps) => {
                   ? "border-gray-300 hover:border-gray-400"
                   : "border-gray-200 hover:border-gray-300"
             )}
-            style={{ backgroundColor: bgColor }}
+            style={{ 
+              backgroundColor: bgColor,
+              width: '32px',
+              height: '32px',
+            }}
             title={color}
           >
             {isSelected && (

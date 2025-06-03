@@ -30,7 +30,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -91,6 +91,8 @@
     margin: 0;
     padding: 0;
     font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
   }
   
   #root {
@@ -99,49 +101,96 @@
     padding: 0;
   }
 
-  /* Padronização de texto */
+  /* Padronização de tipografia com design tokens */
   h1, h2, h3, h4, h5, h6 {
     @apply text-gray-900 font-semibold;
+    line-height: 1.25;
   }
+
+  h1 { font-size: 1.5rem; }      /* 24px */
+  h2 { font-size: 1.25rem; }     /* 20px */
+  h3 { font-size: 1.125rem; }    /* 18px */
+  h4, h5, h6 { font-size: 1rem; }  /* 16px */
 
   p, span, div {
     @apply text-gray-700;
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
   /* Labels padronizados */
   label {
-    @apply text-gray-700 font-medium text-sm;
+    @apply text-gray-700 font-medium;
+    font-size: 0.875rem;
+    line-height: 1.25;
   }
 
   /* Placeholders padronizados */
   input::placeholder,
-  textarea::placeholder {
+  textarea::placeholder,
+  select::placeholder {
     @apply text-gray-400;
+    font-size: 0.875rem;
   }
 
   /* Botões padronizados */
   button {
     @apply font-medium;
+    transition: all 0.2s ease-out;
   }
 
   /* Links padronizados */
   a {
     @apply text-blue-600 hover:text-blue-700;
+    transition: color 0.2s ease-out;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Estados de foco globais */
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
+    ring: 2px;
+    ring-color: rgb(59 130 246);
+    ring-offset: 2px;
   }
 
   /* Texto secundário */
   .text-secondary {
     @apply text-gray-600;
+    font-size: 0.875rem;
   }
 
   /* Texto discreto */
   .text-muted {
     @apply text-gray-500;
+    font-size: 0.875rem;
   }
 
   /* Texto desabilitado */
   .text-disabled {
     @apply text-gray-300;
+  }
+
+  /* Estados de hover padronizados */
+  .hover-lift:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Transições padronizadas */
+  .transition-smooth {
+    transition: all 0.2s ease-out;
+  }
+
+  .transition-fast {
+    transition: all 0.15s ease-out;
   }
 }
 
@@ -159,20 +208,79 @@
     @apply bg-white/95 backdrop-blur-md;
   }
 
-  /* Classes utilitárias para texto */
+  /* Classes utilitárias para texto com design tokens */
   .text-primary {
     @apply text-gray-900;
+    font-size: 1rem;
+    font-weight: 400;
   }
 
   .text-body {
     @apply text-gray-700;
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
   .text-caption {
-    @apply text-gray-500 text-sm;
+    @apply text-gray-500;
+    font-size: 0.875rem;
+    line-height: 1.25;
   }
 
   .text-placeholder {
     @apply text-gray-400;
+    font-size: 0.875rem;
   }
+
+  /* Altura padrão de 40px para componentes */
+  .component-height {
+    height: 40px;
+  }
+
+  /* Border radius padrão */
+  .component-radius {
+    border-radius: 0.75rem; /* 12px */
+  }
+
+  /* Espaçamentos padronizados */
+  .spacing-xs { gap: 0.25rem; }    /* 4px */
+  .spacing-sm { gap: 0.5rem; }     /* 8px */
+  .spacing-md { gap: 0.75rem; }    /* 12px */
+  .spacing-lg { gap: 1rem; }       /* 16px */
+  .spacing-xl { gap: 1.25rem; }    /* 20px */
+  .spacing-2xl { gap: 1.5rem; }    /* 24px */
+
+  /* Estados padronizados */
+  .state-hover:hover {
+    background-color: rgb(249 250 251);
+    border-color: rgb(209 213 219);
+  }
+
+  .state-focus:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: rgb(59 130 246);
+    border-color: rgb(59 130 246);
+  }
+
+  .state-active:active {
+    background-color: rgb(243 244 246);
+    transform: translateY(1px);
+  }
+
+  .state-disabled:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* Scrollbar invisível para sidebar */
+.invisible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
 }
