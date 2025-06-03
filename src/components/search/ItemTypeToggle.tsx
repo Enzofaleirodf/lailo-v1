@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Home, Car } from 'lucide-react';
-import { SimpleToggle } from '../ui/simple-toggle';
+import { SegmentedControl } from '../ui/segmented-control';
 import { ItemType } from '../../types/search';
 
 interface ItemTypeToggleProps {
@@ -24,7 +24,7 @@ export const ItemTypeToggle = ({ currentType, onTypeChange }: ItemTypeToggleProp
   ];
 
   return (
-    <SimpleToggle
+    <SegmentedControl
       options={options}
       value={currentType}
       onValueChange={onTypeChange as (value: string) => void}
