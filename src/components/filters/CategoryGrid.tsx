@@ -38,7 +38,7 @@ export const CategoryGrid = ({
 }: CategoryGridProps) => {
   return (
     <div 
-      className="grid grid-cols-2 md:grid-cols-3 gap-3"
+      className="grid grid-cols-3 gap-3"
       style={{ gap: designTokens.spacing.md }}
     >
       {options.map((option) => {
