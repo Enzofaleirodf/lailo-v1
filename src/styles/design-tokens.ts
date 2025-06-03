@@ -45,6 +45,13 @@ export const designTokens = {
       700: '#374151',
       800: '#1f2937',
       900: '#111827',
+    },
+    text: {
+      primary: '#111827',     // gray-900 - texto principal
+      secondary: '#4b5563',   // gray-600 - texto secundário
+      muted: '#6b7280',       // gray-500 - texto discreto
+      placeholder: '#9ca3af', // gray-400 - placeholders
+      disabled: '#d1d5db',    // gray-300 - texto desabilitado
     }
   },
   
@@ -58,10 +65,16 @@ export const designTokens = {
       '2xl': '1.5rem',  // 24px
     },
     weights: {
-      normal: '400',
-      medium: '500',
-      semibold: '600',
-      bold: '700',
+      normal: '400',    // texto normal
+      medium: '500',    // labels e texto de destaque
+      semibold: '600',  // botões e títulos
+      bold: '700',      // títulos principais
+    },
+    lineHeights: {
+      none: '1',
+      tight: '1.25',
+      normal: '1.5',
+      relaxed: '1.75',
     }
   }
 } as const;

@@ -12,7 +12,7 @@ export const SidebarHeader = ({ onClearFilters }: SidebarHeaderProps) => {
       <h2 className="text-lg font-semibold text-gray-900">Filtros</h2>
       <Button 
         variant="ghost" 
-        className="text-sm text-gray-600 hover:text-gray-800 p-0 h-auto font-normal"
+        className="text-sm text-gray-500 hover:text-gray-700 p-0 h-auto font-medium"
         onClick={onClearFilters}
       >
         Resetar filtros

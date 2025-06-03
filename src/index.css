@@ -86,16 +86,62 @@
   }
   
   html, body {
-    @apply bg-white text-foreground;
+    @apply bg-white text-gray-900;
     height: 100%;
     margin: 0;
     padding: 0;
+    font-weight: 400;
   }
   
   #root {
     height: 100%;
     margin: 0;
     padding: 0;
+  }
+
+  /* Padronização de texto */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-gray-900 font-semibold;
+  }
+
+  p, span, div {
+    @apply text-gray-700;
+  }
+
+  /* Labels padronizados */
+  label {
+    @apply text-gray-700 font-medium text-sm;
+  }
+
+  /* Placeholders padronizados */
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-gray-400;
+  }
+
+  /* Botões padronizados */
+  button {
+    @apply font-medium;
+  }
+
+  /* Links padronizados */
+  a {
+    @apply text-blue-600 hover:text-blue-700;
+  }
+
+  /* Texto secundário */
+  .text-secondary {
+    @apply text-gray-600;
+  }
+
+  /* Texto discreto */
+  .text-muted {
+    @apply text-gray-500;
+  }
+
+  /* Texto desabilitado */
+  .text-disabled {
+    @apply text-gray-300;
   }
 }
 
@@ -111,5 +157,22 @@
   
   .glass-effect {
     @apply bg-white/95 backdrop-blur-md;
+  }
+
+  /* Classes utilitárias para texto */
+  .text-primary {
+    @apply text-gray-900;
+  }
+
+  .text-body {
+    @apply text-gray-700;
+  }
+
+  .text-caption {
+    @apply text-gray-500 text-sm;
+  }
+
+  .text-placeholder {
+    @apply text-gray-400;
   }
 }
