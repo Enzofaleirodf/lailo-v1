@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { SessionNavBar } from "../SessionNavBar";
 import { BottomNavigation } from "../BottomNavigation";
@@ -42,42 +43,103 @@ export const SearchPageLayout = ({
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
+  
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     window.location.href = newPath;
   };
-  return <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
-      {/* Navbar lateral - posicionada dentro do container */}
-      <div className="absolute left-0 top-0 h-full w-12 z-50">
-        <SessionNavBar />
-      </div>
-      
-      {/* Top bar desktop - posicionada dentro do container */}
-      <div className="absolute top-0 left-12 right-0 h-20 z-40">
-        <DesktopTopBar title={config.title} isLoading={isLoading} itemType={config.type} onItemTypeChange={handleItemTypeChange} />
+
+  return (
+    <div className="w-full relative min-h-screen bg-white">
+      {/* Desktop Layout - apenas em desktop */}
+      <div className="hidden md:block">
+        <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+          {/* Navbar lateral - apenas desktop */}
+          <div className="absolute left-0 top-0 h-full w-12 z-50">
+            <SessionNavBar />
+          </div>
+          
+          {/* Top bar desktop */}
+          <div className="absolute top-0 left-12 right-0 h-20 z-40">
+            <DesktopTopBar 
+              title={config.title} 
+              isLoading={isLoading} 
+              itemType={config.type} 
+              onItemTypeChange={handleItemTypeChange} 
+            />
+          </div>
+
+          {/* Sidebar de filtros desktop */}
+          <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
+            <DesktopFilterSidebar itemType={config.type} onClearFilters={onClearFilters} />
+          </div>
+
+          {/* Conteúdo principal desktop */}
+          <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white px-6 pb-6">
+            <div className="py-[20px]">
+              <SearchStatusAndControls 
+                totalAuctions={finalResultsCount} 
+                totalSites={finalSitesCount} 
+                newAuctions={newAuctions} 
+                isVertical={isVertical} 
+                onToggleLayout={onToggleLayout} 
+                sortBy={sortBy} 
+                onSortChange={onSortChange} 
+                sortOptions={sortOptions} 
+              />
+              
+              <SearchMainContent 
+                items={items} 
+                isVertical={isVertical} 
+                config={config} 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                onPageChange={onPageChange} 
+              />
+            </div>
+          </main>
+        </div>
       </div>
 
-      {/* Sidebar de filtros - posicionada dentro do container */}
-      <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
-        <DesktopFilterSidebar itemType={config.type} onClearFilters={onClearFilters} />
-      </div>
+      {/* Mobile Layout - apenas em mobile */}
+      <div className="block md:hidden">
+        <div className="w-full min-h-screen bg-white">
+          {/* Conteúdo principal mobile */}
+          <main className="w-full min-h-screen bg-white px-4 pb-20 py-[20px]">
+            <SearchPageHeader 
+              title={config.title} 
+              isLoading={isLoading} 
+              itemType={config.type} 
+              onItemTypeChange={handleItemTypeChange} 
+            />
 
-      {/* Conteúdo principal */}
-      <main className="flex h-screen grow flex-col overflow-y-auto invisible-scrollbar md:ml-12 md:pl-[512px] md:pt-20">
-        <div className="min-h-screen bg-white px-4 pb-20 md:px-6 md:pb-6 py-[20px]">
-          <div className="w-full">
-            <SearchPageHeader title={config.title} isLoading={isLoading} itemType={config.type} onItemTypeChange={handleItemTypeChange} />
-
-            <SearchStatusAndControls totalAuctions={finalResultsCount} totalSites={finalSitesCount} newAuctions={newAuctions} isVertical={isVertical} onToggleLayout={onToggleLayout} sortBy={sortBy} onSortChange={onSortChange} sortOptions={sortOptions} />
+            <SearchStatusAndControls 
+              totalAuctions={finalResultsCount} 
+              totalSites={finalSitesCount} 
+              newAuctions={newAuctions} 
+              isVertical={isVertical} 
+              onToggleLayout={onToggleLayout} 
+              sortBy={sortBy} 
+              onSortChange={onSortChange} 
+              sortOptions={sortOptions} 
+            />
             
-            <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+            <SearchMainContent 
+              items={items} 
+              isVertical={isVertical} 
+              config={config} 
+              currentPage={currentPage} 
+              totalPages={totalPages} 
+              onPageChange={onPageChange} 
+            />
+          </main>
+          
+          {/* Bottom navigation mobile */}
+          <div className="fixed bottom-0 left-0 right-0 z-50">
+            <BottomNavigation />
           </div>
         </div>
-      </main>
-      
-      {/* Bottom navigation - posicionada dentro do container */}
-      <div className="absolute bottom-0 left-0 right-0 z-50">
-        <BottomNavigation />
       </div>
-    </div>;
+    </div>
+  );
 };
