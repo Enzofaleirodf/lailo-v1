@@ -108,20 +108,20 @@ export const TopBarFilters = ({
   };
 
   return (
-    <div className="flex items-center gap-3 flex-shrink-0">
+    <div className="flex items-center gap-3 flex-shrink-0 overflow-visible">
       {/* Filtro de Localização */}
       <div className="flex-shrink-0">
         <LocationFilter />
       </div>
 
-      {/* Filtro Formato */}
-      <div className="flex-shrink-0">
+      {/* Filtro Formato - VOLTANDO LARGURA ORIGINAL */}
+      <div className="flex-shrink-0 w-[180px]">
         <FilterPopover
           label={format ? `${formatOptions.find(opt => opt.value === format)?.label}` : "Formato"}
           selectedValue={format ? formatOptions.find(opt => opt.value === format)?.label : undefined}
           isActive={!!format}
           onClear={() => setFormat('')}
-          className="w-[140px]"
+          className="w-full"
           aria-label="Filtro de formato do leilão"
           id="format-filter"
         >
@@ -155,8 +155,8 @@ export const TopBarFilters = ({
         </FilterPopover>
       </div>
 
-      {/* Filtro Origem */}
-      <div className="flex-shrink-0">
+      {/* Filtro Origem - VOLTANDO LARGURA ORIGINAL */}
+      <div className="flex-shrink-0 w-[180px]">
         <FilterPopover
           label="Origem"
           selectedItems={getSelectedOriginLabels()}
@@ -165,7 +165,7 @@ export const TopBarFilters = ({
           onClear={() => setOrigins([])}
           onRemoveItem={removeOrigin}
           onSelectAll={handleSelectAllOrigins}
-          className="w-[140px]"
+          className="w-full"
           aria-label="Filtro de origem do leilão"
           id="origin-filter"
         >
@@ -197,8 +197,8 @@ export const TopBarFilters = ({
         </FilterPopover>
       </div>
 
-      {/* Filtro Etapa */}
-      <div className="flex-shrink-0">
+      {/* Filtro Etapa - VOLTANDO LARGURA ORIGINAL */}
+      <div className="flex-shrink-0 w-[180px]">
         <FilterPopover
           label="Etapa"
           selectedItems={getSelectedStageLabels()}
@@ -208,7 +208,7 @@ export const TopBarFilters = ({
           onClear={() => setStages([])}
           onRemoveItem={removeStage}
           onSelectAll={handleSelectAllStages}
-          className="w-[140px]"
+          className="w-full"
           aria-label="Filtro de etapa do leilão"
           id="stage-filter"
         >

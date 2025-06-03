@@ -20,13 +20,13 @@ export const DesktopTopBar = ({
   onItemTypeChange
 }: DesktopTopBarProps) => {
   return (
-    <div className="hidden md:block fixed top-0 right-0 left-12 h-20 bg-white/95 backdrop-blur-md border-b border-gray-200/50 z-40 shadow-sm">
+    <div className="hidden md:block fixed top-0 right-0 left-12 h-20 bg-white/95 backdrop-blur-md border-b border-gray-200/50 z-40 shadow-sm overflow-visible">
       {/* Gradiente sutil de fundo */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 via-white to-purple-50/20 pointer-events-none" />
       
-      <div className="relative flex items-center justify-between h-full px-6">
+      <div className="relative flex items-center justify-between h-full px-6 overflow-visible">
         {/* Zona esquerda - Type Toggle com largura fixa */}
-        <div className="flex items-center flex-shrink-0 w-[280px]">
+        <div className="flex items-center flex-shrink-0 w-[300px] overflow-visible">
           <div className="flex-shrink-0">
             <ItemTypeToggle 
               currentType={itemType} 
@@ -54,9 +54,9 @@ export const DesktopTopBar = ({
           )}
         </div>
 
-        {/* Zona direita - Filtros */}
-        <div className="flex-1 flex justify-end min-w-0">
-          <div className="flex items-center gap-3 min-w-0">
+        {/* Zona direita - Filtros com overflow visível */}
+        <div className="flex-1 flex justify-end min-w-0 overflow-visible">
+          <div className="flex items-center gap-3 min-w-0 overflow-visible">
             <TopBarFilters itemType={itemType} />
           </div>
         </div>
