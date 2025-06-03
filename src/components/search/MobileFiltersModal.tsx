@@ -37,6 +37,11 @@ export const MobileFiltersModal = ({
   const [areaRange, setAreaRange] = useState<[number, number]>([50, 500]);
   const [yearRange, setYearRange] = useState<[number, number]>([2010, 2025]);
   const [priceRange, setPriceRange] = useState<[number, number]>([50000, 1000000]);
+  
+  // Estados específicos para veículos
+  const [brand, setBrand] = useState('todas-marcas');
+  const [model, setModel] = useState('todos-modelos');
+  const [color, setColor] = useState('todas-cores');
 
   const isStageEnabled = formatValue === 'Leilão';
 
@@ -99,7 +104,14 @@ export const MobileFiltersModal = ({
                   />
                 ) : (
                   <VehicleSpecificFilters
+                    brand={brand}
+                    model={model}
+                    color={color}
                     yearRange={yearRange}
+                    vehicleType={type.toLowerCase()}
+                    onBrandChange={setBrand}
+                    onModelChange={setModel}
+                    onColorChange={setColor}
                     onYearRangeChange={setYearRange}
                   />
                 )}
