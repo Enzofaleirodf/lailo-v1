@@ -101,8 +101,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
         </div>
         
         <div className="flex-1 min-w-0 space-y-2">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between">
+            <div className="flex-1 min-w-0 pr-2">
               <BaseItemHeader 
                 item={item}
                 itemType={itemType}
@@ -110,11 +110,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               />
             </div>
             
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`h-6 w-6 p-0 flex-shrink-0 transition-colors ${
-                isItemFavorite ? 'text-blue-500 hover:text-blue-600' : 'text-gray-400 hover:text-blue-500'
+            <button
+              className={`flex-shrink-0 p-0 m-0 w-4 h-4 transition-colors ${
+                isItemFavorite ? 'text-blue-500' : 'text-gray-400'
               }`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -122,8 +120,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               }}
               aria-label={isItemFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
             >
-              <Heart className={`h-4 w-4 ${isItemFavorite ? 'fill-current' : ''}`} />
-            </Button>
+              <Heart className={`w-4 h-4 ${isItemFavorite ? 'fill-current' : ''}`} />
+            </button>
           </div>
           
           <BaseItemPrice 
