@@ -4,7 +4,17 @@ import { Building2, Phone, Globe, ExternalLink, AlertCircle } from "lucide-react
 import { BaseCard } from "../base/BaseCard";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Leiloeiro } from "../../data/leiloeiroData";
+
+interface Leiloeiro {
+  id: number;
+  name: string;
+  websiteName: string;
+  state: string;
+  phone: string;
+  website?: string;
+  logo?: string;
+  activeAuctions: number;
+}
 
 interface LeiloeiroCardProps {
   leiloeiro: Leiloeiro;
