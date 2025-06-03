@@ -173,7 +173,7 @@ const Leiloeiros = () => {
           <SessionNavBar />
           <main className="ml-12 min-h-screen flex flex-col">
             <div className="bg-white px-6 py-8">
-              <div className="max-w-4xl mx-auto">
+              <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="flex items-center gap-2 mb-8">
                   <Building2 className="w-8 h-8 text-blue-600" />
@@ -232,11 +232,18 @@ const Leiloeiros = () => {
                             </div>
                           </div>
 
-                          {/* Tabela */}
+                          {/* Tabela com larguras fixas */}
                           <div className="overflow-x-auto">
-                            <table className="w-full">
+                            <table className="w-full table-fixed">
+                              <colgroup>
+                                <col className="w-80" />
+                                <col className="w-40" />
+                                <col className="w-60" />
+                                <col className="w-32" />
+                                <col className="w-24" />
+                              </colgroup>
                               <thead className="bg-gray-50">
-                                <tr>
+                                <tr className="h-12">
                                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Leiloeiro
                                   </th>
@@ -256,50 +263,56 @@ const Leiloeiros = () => {
                               </thead>
                               <tbody className="bg-white divide-y divide-gray-200">
                                 {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
-                                  <tr key={leiloeiro.id} className="hover:bg-gray-50">
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                      <div className="flex items-center">
+                                  <tr key={leiloeiro.id} className="hover:bg-gray-50 h-16">
+                                    <td className="px-6 py-4">
+                                      <div className="flex items-center h-full">
                                         <div className="flex-shrink-0 h-10 w-10">
                                           <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center">
                                             <Building2 className="w-5 h-5 text-blue-600" />
                                           </div>
                                         </div>
-                                        <div className="ml-4">
-                                          <div className="text-sm font-medium text-gray-900">
+                                        <div className="ml-4 min-w-0 flex-1">
+                                          <div className="text-sm font-medium text-gray-900 truncate">
                                             {leiloeiro.websiteName}
                                           </div>
-                                          <div className="text-sm font-normal text-gray-500">
+                                          <div className="text-sm font-normal text-gray-500 truncate">
                                             {leiloeiro.name}
                                           </div>
                                         </div>
                                       </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                      <div className="flex items-center text-sm text-gray-500">
-                                        <Phone className="w-4 h-4 mr-2" />
-                                        {leiloeiro.phone}
+                                    <td className="px-6 py-4">
+                                      <div className="flex items-center text-sm text-gray-500 h-full">
+                                        <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
+                                        <span className="truncate">{leiloeiro.phone}</span>
                                       </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                      {getWebsiteDisplay(leiloeiro)}
+                                    <td className="px-6 py-4">
+                                      <div className="h-full flex items-center">
+                                        {getWebsiteDisplay(leiloeiro)}
+                                      </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                      <Badge 
-                                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
-                                      >
-                                        {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
-                                      </Badge>
+                                    <td className="px-6 py-4">
+                                      <div className="flex items-center h-full">
+                                        <Badge 
+                                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getAuctionsBadgeColor(leiloeiro.activeAuctions, !!leiloeiro.website)}`}
+                                        >
+                                          {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
+                                        </Badge>
+                                      </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-right">
-                                      <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
-                                        disabled={!leiloeiro.website}
-                                        className="h-8 w-8 p-0"
-                                      >
-                                        <ExternalLink className="w-4 h-4" />
-                                      </Button>
+                                    <td className="px-6 py-4">
+                                      <div className="flex justify-end items-center h-full">
+                                        <Button
+                                          variant="ghost"
+                                          size="sm"
+                                          onClick={() => leiloeiro.website && window.open(leiloeiro.website, '_blank')}
+                                          disabled={!leiloeiro.website}
+                                          className="h-8 w-8 p-0"
+                                        >
+                                          <ExternalLink className="w-4 h-4" />
+                                        </Button>
+                                      </div>
                                     </td>
                                   </tr>
                                 ))}
