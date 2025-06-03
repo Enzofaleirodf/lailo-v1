@@ -60,7 +60,7 @@ export const LocationFilter = () => {
                    address;
 
   return (
-    <div className="w-[240px]">
+    <div className="w-[180px]">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -96,10 +96,10 @@ export const LocationFilter = () => {
                       setSelectedCity('');
                     }
                   }}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                  className="w-full px-3 py-2 pr-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white appearance-none"
                   style={{
                     borderRadius: designTokens.borderRadius.lg,
-                    padding: `${designTokens.spacing.sm} ${designTokens.spacing.md}`,
+                    padding: `${designTokens.spacing.sm} 2.5rem ${designTokens.spacing.sm} ${designTokens.spacing.md}`,
                   }}
                   aria-describedby="state-help"
                 >
@@ -107,6 +107,7 @@ export const LocationFilter = () => {
                     <option key={state} value={state}>{state}</option>
                   ))}
                 </select>
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <div id="state-help" className="sr-only">
                   Selecione um estado para filtrar os resultados
                 </div>
@@ -128,10 +129,10 @@ export const LocationFilter = () => {
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
                   disabled={!selectedState || selectedState === 'Todos os estados'}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed bg-white"
+                  className="w-full px-3 py-2 pr-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed bg-white appearance-none"
                   style={{
                     borderRadius: designTokens.borderRadius.lg,
-                    padding: `${designTokens.spacing.sm} ${designTokens.spacing.md}`,
+                    padding: `${designTokens.spacing.sm} 2.5rem ${designTokens.spacing.sm} ${designTokens.spacing.md}`,
                   }}
                   aria-describedby="city-help"
                 >
@@ -139,6 +140,7 @@ export const LocationFilter = () => {
                     <option key={city} value={city}>{city}</option>
                   ))}
                 </select>
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <div id="city-help" className="sr-only">
                   Selecione uma cidade específica ou mantenha "Todas as cidades"
                 </div>
