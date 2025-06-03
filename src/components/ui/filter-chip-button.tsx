@@ -16,7 +16,7 @@ interface FilterChipButtonProps {
   children: React.ReactNode;
 }
 
-export const FilterChipButton = ({
+export const FilterChipButton = React.forwardRef<HTMLButtonElement, FilterChipButtonProps>(({
   onClick,
   onKeyDown,
   isDisabled = false,
@@ -26,9 +26,10 @@ export const FilterChipButton = ({
   id,
   className,
   children
-}: FilterChipButtonProps) => {
+}, ref) => {
   return (
     <button
+      ref={ref}
       onClick={onClick}
       onKeyDown={onKeyDown}
       disabled={isDisabled}
@@ -62,4 +63,6 @@ export const FilterChipButton = ({
       />
     </button>
   );
-};
+});
+
+FilterChipButton.displayName = 'FilterChipButton';
