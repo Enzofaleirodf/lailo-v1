@@ -36,6 +36,7 @@ interface AuthStore {
   setLoading: (loading: boolean) => void;
   logout: () => void;
   isAdmin: () => boolean;
+  simulateLogin: () => void;
   
   // Future Supabase integration
   login?: (email: string, password: string) => Promise<void>;
@@ -47,10 +48,27 @@ interface AuthStore {
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set, get) => ({
-      user: null,
-      profile: null,
+      user: {
+        id: 'demo-user-123',
+        email: 'usuario@exemplo.com',
+        name: 'Usuário Demo'
+      },
+      profile: {
+        id: 'profile-123',
+        userId: 'demo-user-123',
+        name: 'Usuário Demo',
+        email: 'usuario@exemplo.com',
+        phone: '(11) 99999-9999',
+        preferences: {
+          notifications: true,
+          emailUpdates: true,
+          favoriteCategories: ['property', 'vehicle']
+        },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
       isLoading: false,
-      isAuthenticated: false,
+      isAuthenticated: true,
 
       setUser: (user) => 
         set({ 
@@ -73,8 +91,35 @@ export const useAuthStore = create<AuthStore>()(
 
       isAdmin: () => {
         const { user } = get();
-        // Placeholder logic - will be implemented with Supabase
         return user?.email === 'admin@example.com';
+      },
+
+      simulateLogin: () => {
+        const demoUser = {
+          id: 'demo-user-123',
+          email: 'usuario@exemplo.com',
+          name: 'Usuário Demo'
+        };
+        const demoProfile = {
+          id: 'profile-123',
+          userId: 'demo-user-123',
+          name: 'Usuário Demo',
+          email: 'usuario@exemplo.com',
+          phone: '(11) 99999-9999',
+          preferences: {
+            notifications: true,
+            emailUpdates: true,
+            favoriteCategories: ['property', 'vehicle']
+          },
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        
+        set({ 
+          user: demoUser,
+          profile: demoProfile,
+          isAuthenticated: true 
+        });
       },
     }),
     {

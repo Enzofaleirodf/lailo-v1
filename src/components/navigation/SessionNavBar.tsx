@@ -52,7 +52,7 @@ export const SessionNavBar = () => {
         <Icon className="w-4 h-4" />
         
         {/* Tooltip */}
-        <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+        <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-[100]">
           {item.label}
         </div>
       </Link>
@@ -60,7 +60,7 @@ export const SessionNavBar = () => {
   };
 
   return (
-    <nav className="hidden md:flex absolute left-0 top-0 h-full w-12 bg-white border-r border-gray-200 border-l border-gray-100 flex-col items-center pt-4 pb-4 z-50">
+    <nav className="hidden md:flex fixed left-0 top-0 h-full w-12 bg-white border-r border-gray-200 flex-col items-center pt-4 pb-4 z-[60]">
       {/* Logo/Brand */}
       <div className="mb-8">
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -85,7 +85,7 @@ export const SessionNavBar = () => {
             <LogOut className="w-4 h-4" />
             
             {/* Tooltip */}
-            <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+            <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-[100]">
               Sair
             </div>
           </Button>
@@ -97,7 +97,7 @@ export const SessionNavBar = () => {
             <LogIn className="w-4 h-4" />
             
             {/* Tooltip */}
-            <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+            <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-[100]">
               Entrar
             </div>
           </Link>

@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { 
   Home, 
@@ -20,12 +20,35 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-export const BottomNavigation = () => {
+// Memoizar o item de navegação para evitar re-renders
+const NavItem = memo(({ item }: { item: any }) => {
+  const Icon = item.icon;
+  return (
+    <Link
+      to={item.to}
+      className={`
+        flex flex-col items-center justify-center py-2 transition-colors
+        w-1/5 h-full
+        ${item.active 
+          ? 'text-blue-600' 
+          : 'text-gray-500 hover:text-gray-700'
+        }
+      `}
+    >
+      <Icon className="w-5 h-5 mb-1" />
+      <span className="text-xs font-medium text-center leading-tight">{item.label}</span>
+    </Link>
+  );
+});
+
+NavItem.displayName = 'NavItem';
+
+export const BottomNavigation = memo(() => {
   const { isAuthenticated, logout } = useAuth();
   const { isActive } = useNavigation();
   const [isMoreMenuOpen, setIsMoreMenuOpen] = React.useState(false);
 
-  const mainNavItems = [
+  const mainNavItems = React.useMemo(() => [
     {
       to: "/",
       icon: Home,
@@ -48,11 +71,11 @@ export const BottomNavigation = () => {
       to: "/favoritos/imoveis",
       icon: Heart,
       label: "Favoritos",
-      active: isActive("/favoritos/imoveis")
+      active: isActive("/favoritos/imoveis") || isActive("/favoritos/veiculos")
     }
-  ];
+  ], [isActive]);
 
-  const publicMenuItems = [
+  const publicMenuItems = React.useMemo(() => [
     {
       to: "/leiloeiros",
       icon: Gavel,
@@ -63,9 +86,9 @@ export const BottomNavigation = () => {
       icon: Calendar,
       label: "Agenda"
     }
-  ];
+  ], []);
 
-  const userMenuItems = [
+  const userMenuItems = React.useMemo(() => [
     {
       to: "/configuracoes",
       icon: Settings,
@@ -76,45 +99,28 @@ export const BottomNavigation = () => {
       icon: User,
       label: "Perfil"
     }
-  ];
+  ], []);
 
-  const handleMenuItemClick = () => {
+  const handleMenuItemClick = useCallback(() => {
     setIsMoreMenuOpen(false);
-  };
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout();
     setIsMoreMenuOpen(false);
-  };
+  }, [logout]);
 
   // Check if any "more menu" item is active
-  const isMoreMenuActive = ["/leiloeiros", "/agenda", "/configuracoes", "/perfil"].some(path => 
-    isActive(path)
-  );
+  const isMoreMenuActive = React.useMemo(() => 
+    ["/leiloeiros", "/agenda", "/configuracoes", "/perfil"].some(path => isActive(path))
+  , [isActive]);
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-[50]">
       <div className="flex items-center w-full h-16">
-        {mainNavItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={`
-                flex flex-col items-center justify-center py-2 transition-colors
-                w-1/5 h-full
-                ${item.active 
-                  ? 'text-blue-600' 
-                  : 'text-gray-500 hover:text-gray-700'
-                }
-              `}
-            >
-              <Icon className="w-5 h-5 mb-1" />
-              <span className="text-xs font-medium text-center leading-tight">{item.label}</span>
-            </Link>
-          );
-        })}
+        {mainNavItems.map((item) => (
+          <NavItem key={item.to} item={item} />
+        ))}
         
         {/* Botão Mais com Menu */}
         <div className="w-1/5 h-full flex justify-center">
@@ -136,10 +142,11 @@ export const BottomNavigation = () => {
             </PopoverTrigger>
             
             <PopoverContent 
-              className="w-48 p-0 mb-2 h-[240px]" 
+              className="w-48 p-0 mb-2" 
               side="top" 
               align="center"
               sideOffset={8}
+              style={{ maxHeight: '240px' }}
             >
               <div className="py-2 h-full flex flex-col">
                 {/* Seção Pública */}
@@ -211,4 +218,6 @@ export const BottomNavigation = () => {
       </div>
     </nav>
   );
-};
+});
+
+BottomNavigation.displayName = 'BottomNavigation';
