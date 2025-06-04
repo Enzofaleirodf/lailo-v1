@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Heart } from "lucide-react";
 import { BaseItemCard } from "../components/base/BaseItemCard";
 import { LayoutToggle } from "../components/LayoutToggle";
-import { SessionNavBar } from "../components/SessionNavBar";
+import { BasePageLayout } from "../components/layout/BasePageLayout";
 import { EmptyState } from "../components/ui/EmptyState";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
@@ -29,60 +29,52 @@ const FavoritosImoveis = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen w-screen flex-row">
-        <SessionNavBar />
-        <main className="flex h-screen grow flex-col overflow-auto ml-12">
-          <div className="bg-white px-3 py-3 flex justify-center items-center h-full">
-            <LoadingSpinner size="lg" />
-          </div>
-        </main>
-      </div>
+      <BasePageLayout>
+        <div className="flex justify-center items-center h-64">
+          <LoadingSpinner size="lg" />
+        </div>
+      </BasePageLayout>
     );
   }
 
   return (
-    <div className="flex h-screen w-screen flex-row">
-      <SessionNavBar />
-      <main className="flex h-screen grow flex-col overflow-auto ml-12">
-        <div className="bg-white px-3 py-3">
-          <div className="w-full">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <Heart className="w-6 h-6 text-red-500" />
-                <h1 className="text-2xl font-bold text-gray-900">
-                  Imóveis Favoritos ({favoriteProperties.length})
-                </h1>
-              </div>
-            </div>
-
-            {propertyItems.length > 0 ? (
-              <>
-                <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-                
-                <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
-                  {propertyItems.map((property) => (
-                    <BaseItemCard 
-                      key={property.id} 
-                      item={property} 
-                      itemType="property"
-                      isVertical={isVertical} 
-                    />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <EmptyState
-                icon={Heart}
-                title="Nenhum imóvel favoritado"
-                description="Comece a favoritar imóveis para vê-los aqui."
-                actionLabel="Buscar Imóveis"
-                onAction={() => window.location.href = '/buscador/imoveis'}
-              />
-            )}
+    <BasePageLayout>
+      <div className="w-full">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <Heart className="w-6 h-6 text-red-500" />
+            <h1 className="text-2xl font-bold text-gray-900">
+              Imóveis Favoritos ({favoriteProperties.length})
+            </h1>
           </div>
         </div>
-      </main>
-    </div>
+
+        {propertyItems.length > 0 ? (
+          <>
+            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+            
+            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'} mt-6`}>
+              {propertyItems.map((property) => (
+                <BaseItemCard 
+                  key={property.id} 
+                  item={property} 
+                  itemType="property"
+                  isVertical={isVertical} 
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <EmptyState
+            icon={Heart}
+            title="Nenhum imóvel favoritado"
+            description="Comece a favoritar imóveis para vê-los aqui."
+            actionLabel="Buscar Imóveis"
+            onAction={() => window.location.href = '/buscador/imoveis'}
+          />
+        )}
+      </div>
+    </BasePageLayout>
   );
 };
 
