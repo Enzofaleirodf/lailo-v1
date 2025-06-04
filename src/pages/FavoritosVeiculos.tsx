@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Heart } from "lucide-react";
 import { BaseItemCard } from "../components/base/BaseItemCard";
 import { LayoutToggle } from "../components/LayoutToggle";
-import { BasePageLayout } from "../components/layout/BasePageLayout";
+import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { EmptyState } from "../components/ui/EmptyState";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
@@ -30,42 +30,43 @@ const FavoritosVeiculos = () => {
 
   if (isLoading) {
     return (
-      <BasePageLayout>
+      <ContentPageLayout
+        title="Veículos Favoritos"
+        titleIcon={Heart}
+      >
         <div className="flex justify-center items-center h-64">
           <LoadingSpinner size="lg" />
         </div>
-      </BasePageLayout>
+      </ContentPageLayout>
     );
   }
 
   return (
-    <BasePageLayout>
-      <div className="w-full">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <Heart className="w-6 h-6 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">
-              Veículos Favoritos ({favoriteVehicles.length})
-            </h1>
+    <ContentPageLayout
+      title={`Veículos Favoritos (${favoriteVehicles.length})`}
+      subtitle="Seus veículos favoritados aparecem aqui"
+      titleIcon={Heart}
+      headerActions={
+        vehicleItems.length > 0 ? (
+          <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        ) : null
+      }
+    >
+      {vehicleItems.length > 0 ? (
+        <div className="p-6">
+          <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+            {vehicleItems.map((vehicle) => (
+              <BaseItemCard 
+                key={vehicle.id} 
+                item={vehicle} 
+                itemType="vehicle"
+                isVertical={isVertical} 
+              />
+            ))}
           </div>
         </div>
-
-        {vehicleItems.length > 0 ? (
-          <>
-            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-            
-            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'} mt-6`}>
-              {vehicleItems.map((vehicle) => (
-                <BaseItemCard 
-                  key={vehicle.id} 
-                  item={vehicle} 
-                  itemType="vehicle"
-                  isVertical={isVertical} 
-                />
-              ))}
-            </div>
-          </>
-        ) : (
+      ) : (
+        <div className="p-12">
           <EmptyState
             icon={Heart}
             title="Nenhum veículo favoritado"
@@ -73,9 +74,9 @@ const FavoritosVeiculos = () => {
             actionLabel="Buscar Veículos"
             onAction={() => window.location.href = '/buscador/veiculos'}
           />
-        )}
-      </div>
-    </BasePageLayout>
+        </div>
+      )}
+    </ContentPageLayout>
   );
 };
 

@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Calendar, Clock, MapPin, ExternalLink } from "lucide-react";
-import { BasePageLayout } from "../components/layout/BasePageLayout";
+import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { StateSelect } from "../components/search/location/StateSelect";
 import { CitySelect } from "../components/search/location/CitySelect";
 import { FilterSection } from "../components/filters/FilterSection";
@@ -62,7 +62,6 @@ const mockEvents = [
 const Agenda = () => {
   const [selectedState, setSelectedState] = useState('Todos os estados');
   const [selectedCity, setSelectedCity] = useState('Todas as cidades');
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const handleClearCity = () => {
     setSelectedCity('Todas as cidades');
@@ -75,142 +74,135 @@ const Agenda = () => {
     return stateMatch && cityMatch;
   });
 
+  const filtersContent = (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <FilterSection title="">
+        <StateSelect
+          value={selectedState}
+          onChange={setSelectedState}
+          onClearCity={handleClearCity}
+        />
+      </FilterSection>
+
+      <FilterSection title="">
+        <CitySelect
+          value={selectedCity}
+          onChange={setSelectedCity}
+          selectedState={selectedState}
+        />
+      </FilterSection>
+    </div>
+  );
+
   return (
-    <BasePageLayout>
-      <div className="w-full max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Agenda de Leilões Presenciais
-          </h1>
-          <p className="text-gray-600">
-            Acompanhe os próximos leilões presenciais em sua região
-          </p>
-        </div>
-
-        {/* Filtros */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FilterSection title="">
-              <StateSelect
-                value={selectedState}
-                onChange={setSelectedState}
-                onClearCity={handleClearCity}
-              />
-            </FilterSection>
-
-            <FilterSection title="">
-              <CitySelect
-                value={selectedCity}
-                onChange={setSelectedCity}
-                selectedState={selectedState}
-              />
-            </FilterSection>
-          </div>
-        </div>
-
-        {/* Calendário - Mobile: stack, Desktop: lado a lado */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Calendário */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-blue-600" />
-                Calendário
-              </h3>
-              {/* Placeholder para calendário - será implementado depois */}
-              <div className="bg-gray-50 rounded-lg p-8 text-center">
-                <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                <p className="text-gray-500 text-sm">Calendário será implementado</p>
-              </div>
+    <ContentPageLayout
+      title="Agenda de Leilões Presenciais"
+      subtitle="Acompanhe os próximos leilões presenciais em sua região"
+      titleIcon={Calendar}
+      showFilters={true}
+      filtersContent={filtersContent}
+    >
+      {/* Calendário - Mobile: stack, Desktop: lado a lado */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+        {/* Calendário */}
+        <div className="lg:col-span-1">
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-blue-600" />
+              Calendário
+            </h3>
+            {/* Placeholder para calendário - será implementado depois */}
+            <div className="bg-white rounded-lg p-8 text-center">
+              <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+              <p className="text-gray-500 text-sm">Calendário será implementado</p>
             </div>
           </div>
+        </div>
 
-          {/* Listagem de Eventos */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Próximos Eventos ({filteredEvents.length})
-                </h3>
-              </div>
-              
-              <div className="divide-y divide-gray-200">
-                {filteredEvents.length > 0 ? (
-                  filteredEvents.map((event) => (
-                    <div key={event.id} className="p-6 hover:bg-gray-50 transition-colors">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        {/* Informações principais */}
-                        <div className="flex-1">
-                          <div className="flex items-start gap-4">
-                            {/* Logo do leiloeiro */}
-                            <div className="flex-shrink-0">
-                              <img
-                                src={event.logo}
-                                alt={`Logo ${event.auctioneerName}`}
-                                className="w-12 h-12 rounded-lg object-cover border border-gray-200"
-                              />
+        {/* Listagem de Eventos */}
+        <div className="lg:col-span-2">
+          <div className="bg-gray-50 rounded-lg">
+            <div className="p-6 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Próximos Eventos ({filteredEvents.length})
+              </h3>
+            </div>
+            
+            <div className="divide-y divide-gray-200">
+              {filteredEvents.length > 0 ? (
+                filteredEvents.map((event) => (
+                  <div key={event.id} className="p-6 hover:bg-gray-100 transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      {/* Informações principais */}
+                      <div className="flex-1">
+                        <div className="flex items-start gap-4">
+                          {/* Logo do leiloeiro */}
+                          <div className="flex-shrink-0">
+                            <img
+                              src={event.logo}
+                              alt={`Logo ${event.auctioneerName}`}
+                              className="w-12 h-12 rounded-lg object-cover border border-gray-200"
+                            />
+                          </div>
+                          
+                          {/* Detalhes do evento */}
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-gray-900 mb-1">
+                              {event.auctioneerName}
+                            </h4>
+                            <p className="text-sm text-gray-600 mb-2">
+                              {event.website}
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm text-gray-600">
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-4 h-4" />
+                                <span>{event.date} às {event.time}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-4 h-4" />
+                                <span>{event.address}</span>
+                              </div>
                             </div>
                             
-                            {/* Detalhes do evento */}
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-gray-900 mb-1">
-                                {event.auctioneerName}
-                              </h4>
-                              <p className="text-sm text-gray-600 mb-2">
-                                {event.website}
-                              </p>
-                              
-                              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm text-gray-600">
-                                <div className="flex items-center gap-1">
-                                  <Clock className="w-4 h-4" />
-                                  <span>{event.date} às {event.time}</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <MapPin className="w-4 h-4" />
-                                  <span>{event.address}</span>
-                                </div>
-                              </div>
-                              
-                              <p className="text-sm text-gray-500 mt-1">
-                                {event.city} - {event.state}
-                              </p>
-                            </div>
+                            <p className="text-sm text-gray-500 mt-1">
+                              {event.city} - {event.state}
+                            </p>
                           </div>
                         </div>
+                      </div>
 
-                        {/* Botão de ação */}
-                        <div className="flex-shrink-0">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => window.open(event.websiteUrl, '_blank')}
-                            className="w-full sm:w-auto"
-                          >
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            Visitar Site
-                          </Button>
-                        </div>
+                      {/* Botão de ação */}
+                      <div className="flex-shrink-0">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(event.websiteUrl, '_blank')}
+                          className="w-full sm:w-auto"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Visitar Site
+                        </Button>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div className="p-12 text-center">
-                    <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h4 className="text-lg font-medium text-gray-900 mb-2">
-                      Nenhum evento encontrado
-                    </h4>
-                    <p className="text-gray-600">
-                      Não há leilões presenciais programados para os filtros selecionados.
-                    </p>
                   </div>
-                )}
-              </div>
+                ))
+              ) : (
+                <div className="p-12 text-center">
+                  <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <h4 className="text-lg font-medium text-gray-900 mb-2">
+                    Nenhum evento encontrado
+                  </h4>
+                  <p className="text-gray-600">
+                    Não há leilões presenciais programados para os filtros selecionados.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
-    </BasePageLayout>
+    </ContentPageLayout>
   );
 };
 

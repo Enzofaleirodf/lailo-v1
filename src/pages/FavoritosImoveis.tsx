@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Heart } from "lucide-react";
 import { BaseItemCard } from "../components/base/BaseItemCard";
 import { LayoutToggle } from "../components/LayoutToggle";
-import { BasePageLayout } from "../components/layout/BasePageLayout";
+import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { EmptyState } from "../components/ui/EmptyState";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
@@ -29,42 +29,43 @@ const FavoritosImoveis = () => {
 
   if (isLoading) {
     return (
-      <BasePageLayout>
+      <ContentPageLayout
+        title="Imóveis Favoritos"
+        titleIcon={Heart}
+      >
         <div className="flex justify-center items-center h-64">
           <LoadingSpinner size="lg" />
         </div>
-      </BasePageLayout>
+      </ContentPageLayout>
     );
   }
 
   return (
-    <BasePageLayout>
-      <div className="w-full">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <Heart className="w-6 h-6 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">
-              Imóveis Favoritos ({favoriteProperties.length})
-            </h1>
+    <ContentPageLayout
+      title={`Imóveis Favoritos (${favoriteProperties.length})`}
+      subtitle="Seus imóveis favoritados aparecem aqui"
+      titleIcon={Heart}
+      headerActions={
+        propertyItems.length > 0 ? (
+          <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
+        ) : null
+      }
+    >
+      {propertyItems.length > 0 ? (
+        <div className="p-6">
+          <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
+            {propertyItems.map((property) => (
+              <BaseItemCard 
+                key={property.id} 
+                item={property} 
+                itemType="property"
+                isVertical={isVertical} 
+              />
+            ))}
           </div>
         </div>
-
-        {propertyItems.length > 0 ? (
-          <>
-            <LayoutToggle isVertical={isVertical} onToggle={setIsVertical} />
-            
-            <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'} mt-6`}>
-              {propertyItems.map((property) => (
-                <BaseItemCard 
-                  key={property.id} 
-                  item={property} 
-                  itemType="property"
-                  isVertical={isVertical} 
-                />
-              ))}
-            </div>
-          </>
-        ) : (
+      ) : (
+        <div className="p-12">
           <EmptyState
             icon={Heart}
             title="Nenhum imóvel favoritado"
@@ -72,9 +73,9 @@ const FavoritosImoveis = () => {
             actionLabel="Buscar Imóveis"
             onAction={() => window.location.href = '/buscador/imoveis'}
           />
-        )}
-      </div>
-    </BasePageLayout>
+        </div>
+      )}
+    </ContentPageLayout>
   );
 };
 

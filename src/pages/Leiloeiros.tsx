@@ -1,8 +1,10 @@
 
 import React, { useState, useMemo } from "react";
-import { BasePageLayout } from "../components/layout/BasePageLayout";
-import { LeiloeiroDesktopContent } from "../components/leiloeiros/LeiloeiroDesktopContent";
-import { LeiloeiroMobileContent } from "../components/leiloeiros/LeiloeiroMobileContent";
+import { Building2 } from "lucide-react";
+import { ContentPageLayout } from "../components/layout/ContentPageLayout";
+import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
+import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
+import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
 import { leiloeiros, juntasComerciais } from "../data/leiloeiros";
 import { JuntaComercial } from "../types/leiloeiro";
 
@@ -62,38 +64,37 @@ const Leiloeiros = () => {
     return juntasComerciais.find(j => j.state === state);
   };
 
-  return (
-    <BasePageLayout containerClass="px-0 py-8">
-      {/* Desktop Content */}
-      <div className="hidden md:block px-6">
-        <LeiloeiroDesktopContent
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          selectedState={selectedState}
-          setSelectedState={setSelectedState}
-          activeAuctionsFilter={activeAuctionsFilter}
-          setActiveAuctionsFilter={setActiveAuctionsFilter}
-          estados={estados}
-          filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
-          getJuntaComercial={getJuntaComercial}
-        />
-      </div>
+  const filtersContent = (
+    <LeiloeiroFilters
+      searchTerm={searchTerm}
+      setSearchTerm={setSearchTerm}
+      selectedState={selectedState}
+      setSelectedState={setSelectedState}
+      activeAuctionsFilter={activeAuctionsFilter}
+      setActiveAuctionsFilter={setActiveAuctionsFilter}
+      estados={estados}
+    />
+  );
 
-      {/* Mobile Content */}
-      <div className="block md:hidden">
-        <LeiloeiroMobileContent
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          selectedState={selectedState}
-          setSelectedState={setSelectedState}
-          activeAuctionsFilter={activeAuctionsFilter}
-          setActiveAuctionsFilter={setActiveAuctionsFilter}
-          estados={estados}
-          filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
-          getJuntaComercial={getJuntaComercial}
-        />
+  return (
+    <ContentPageLayout
+      title="Leiloeiros Oficiais do Brasil"
+      subtitle="Encontre leiloeiros credenciados em todo o país"
+      titleIcon={Building2}
+      showFilters={true}
+      filtersContent={filtersContent}
+    >
+      <div className="p-6">
+        {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
+          <LeiloeiroStateAccordion
+            filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+            getJuntaComercial={getJuntaComercial}
+          />
+        ) : (
+          <LeiloeiroEmptyState />
+        )}
       </div>
-    </BasePageLayout>
+    </ContentPageLayout>
   );
 };
 
