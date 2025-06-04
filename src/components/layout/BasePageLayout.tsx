@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { SessionNavBar } from "@/components/SessionNavBar";
-import { BottomNavigation } from "@/components/BottomNavigation";
+import { SessionNavBar } from "@/components/navigation/SessionNavBar";
+import { BottomNavigation } from "@/components/navigation/BottomNavigation";
 
 interface BasePageLayoutProps {
   children: React.ReactNode;
@@ -19,10 +19,7 @@ export const BasePageLayout = ({
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
-          {/* Navbar lateral - apenas desktop */}
-          <div className="absolute left-0 top-0 h-full w-12 z-50">
-            <SessionNavBar />
-          </div>
+          <SessionNavBar />
           
           <main className="ml-12 min-h-screen flex flex-col">
             <div className={`bg-white flex-1 ${containerClass}`}>
