@@ -66,7 +66,7 @@ export const LeiloeiroTableRow: React.FC<LeiloeiroTableRowProps> = ({ leiloeiro 
 
   return (
     <tr className="hover:bg-gray-50 h-16">
-      <td className="px-6 py-4 w-80">
+      <td className="px-6 py-4">
         <div className="flex items-center h-full">
           <div className="flex-shrink-0 h-10 w-10">
             <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center">
@@ -83,23 +83,23 @@ export const LeiloeiroTableRow: React.FC<LeiloeiroTableRowProps> = ({ leiloeiro 
           </div>
         </div>
       </td>
-      <td className="px-6 py-4 w-48">
+      <td className="px-6 py-4">
         <div className="flex items-center text-sm text-gray-500 h-full">
           <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
           <span className="truncate">{leiloeiro.phone}</span>
         </div>
       </td>
-      <td className="px-6 py-4 w-48">
+      <td className="px-6 py-4">
         <div className="h-full flex items-center">
           {getWebsiteDisplay()}
         </div>
       </td>
-      <td className="px-6 py-4 w-48">
+      <td className="px-6 py-4">
         <div className="flex items-center h-full">
           {getAuctionsDisplay()}
         </div>
       </td>
-      <td className="px-6 py-4 w-24">
+      <td className="px-6 py-4">
         <div className="flex justify-center items-center h-full">
           <Button
             variant="ghost"

@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from "react";
 import { Building2, Search, ExternalLink } from "lucide-react";
 import { BasePageLayout } from "../components/layout/BasePageLayout";
@@ -166,7 +167,7 @@ const Leiloeiros = () => {
   };
 
   const DesktopContent = () => (
-    <div className="max-w-6xl mx-auto">
+    <div className="w-full max-w-[1200px] mx-auto">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <Building2 className="w-8 h-8 text-blue-600" />
@@ -239,40 +240,42 @@ const Leiloeiros = () => {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="p-0">
-                  <div className="overflow-x-auto">
-                    <table className="w-full table-fixed">
-                      <colgroup>
-                        <col className="w-80" />
-                        <col className="w-48" />
-                        <col className="w-48" />
-                        <col className="w-48" />
-                        <col className="w-24" />
-                      </colgroup>
-                      <thead className="bg-gray-50">
-                        <tr className="h-12">
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Leiloeiro
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Telefone
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Website
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Leilões Ativos
-                          </th>
-                          <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Acesso
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
-                        {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
-                          <LeiloeiroTableRow key={leiloeiro.id} leiloeiro={leiloeiro} />
-                        ))}
-                      </tbody>
-                    </table>
+                  <div className="w-full overflow-hidden">
+                    <div className="overflow-x-auto">
+                      <table className="w-full min-w-[1000px]">
+                        <colgroup>
+                          <col className="w-[300px]" />
+                          <col className="w-[200px]" />
+                          <col className="w-[250px]" />
+                          <col className="w-[180px]" />
+                          <col className="w-[70px]" />
+                        </colgroup>
+                        <thead className="bg-gray-50">
+                          <tr className="h-12">
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Leiloeiro
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Telefone
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Website
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Leilões Ativos
+                            </th>
+                            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Acesso
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
+                            <LeiloeiroTableRow key={leiloeiro.id} leiloeiro={leiloeiro} />
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </AccordionContent>
               </AccordionItem>
