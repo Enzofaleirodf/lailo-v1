@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
 import { BottomNavigation } from "../navigation/BottomNavigation";
 import { DesktopTopBar } from "./DesktopTopBar";
-import { LazyDesktopFilterSidebar } from "./LazyDesktopFilterSidebar";
+import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
 import { MobileTopBar } from "./MobileTopBar";
@@ -76,7 +76,7 @@ export const SearchPageLayout = ({
       </div>
 
       <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
-        <LazyDesktopFilterSidebar 
+        <DesktopFilterSidebar 
           itemType={config.type} 
           onClearFilters={onClearFilters} 
         />
