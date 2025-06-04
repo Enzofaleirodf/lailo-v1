@@ -88,7 +88,7 @@ export const SearchPageLayout = ({
 
           {/* Conteúdo principal desktop - ajustado para a nova altura */}
           <main className="ml-12 pl-[512px] pt-16 min-h-screen bg-white px-6 pb-6">
-            <div className="py-[20px] px-[20px]">
+            <div className="py-[16px] px-[16px]">
               <SearchStatusAndControls 
                 totalAuctions={finalResultsCount} 
                 totalSites={finalSitesCount} 
