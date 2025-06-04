@@ -25,15 +25,15 @@ export const useNavigation = () => {
 
   const navigationConfig = {
     main: [
+      { to: "/", icon: "Home", label: "Início", pattern: "home" },
+      { to: "/buscador/imoveis", icon: "Building", label: "Imóveis", pattern: "imoveis" },
       { to: "/buscador/veiculos", icon: "Car", label: "Veículos", pattern: "veiculos" },
-      { to: "/buscador/imoveis", icon: "Home", label: "Imóveis", pattern: "imoveis" },
       { to: "/leiloeiros", icon: "Gavel", label: "Leiloeiros", pattern: "leiloeiros" },
       { to: "/agenda", icon: "Calendar", label: "Agenda", pattern: "agenda" },
     ] as NavItem[],
     
     favorites: [
-      { to: "/favoritos/veiculos", icon: "Heart", label: "Favoritos Veículos", pattern: "favoritos/veiculos" },
-      { to: "/favoritos/imoveis", icon: "Heart", label: "Favoritos Imóveis", pattern: "favoritos/imoveis" },
+      { to: "/favoritos/imoveis", icon: "Heart", label: "Favoritos", pattern: "favoritos" },
       { to: "/perfil", icon: "User", label: "Perfil", pattern: "perfil" },
     ] as NavItem[],
     
