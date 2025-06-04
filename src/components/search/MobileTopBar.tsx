@@ -30,7 +30,7 @@ export const MobileTopBar = ({
     <>
       <div className="fixed top-0 left-0 right-0 z-50 bg-white md:hidden">
         <div className="flex items-center justify-center px-4 py-3 h-14">
-          {/* Todos os botões unidos em um só componente */}
+          {/* Botões unidos sem o toggle de tipo */}
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-md shadow-md">
             <Button 
               variant="ghost" 
