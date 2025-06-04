@@ -34,23 +34,9 @@ const App = () => (
           <Route path="/buscador/imoveis" element={<BuscadorImoveis />} />
           <Route path="/buscador/veiculos" element={<BuscadorVeiculos />} />
           
-          {/* Rotas de favoritos (protegidas) */}
-          <Route 
-            path="/favoritos/imoveis" 
-            element={
-              <ProtectedRoute>
-                <FavoritosImoveis />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/favoritos/veiculos" 
-            element={
-              <ProtectedRoute>
-                <FavoritosVeiculos />
-              </ProtectedRoute>
-            } 
-          />
+          {/* Rotas de favoritos (agora públicas, mas com conteúdo diferente por status de login) */}
+          <Route path="/favoritos/imoveis" element={<FavoritosImoveis />} />
+          <Route path="/favoritos/veiculos" element={<FavoritosVeiculos />} />
           
           {/* Outras rotas */}
           <Route path="/leiloeiros" element={<Leiloeiros />} />

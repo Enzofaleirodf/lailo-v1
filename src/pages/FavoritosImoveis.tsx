@@ -7,10 +7,12 @@ import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { EmptyState } from "../components/ui/EmptyState";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
+import { useAuth } from "../hooks/useAuth";
 
 const FavoritosImoveis = () => {
   const [isVertical, setIsVertical] = useState(false);
   const { getFavoritesByType, isLoading } = useFavoritesStore();
+  const { isAuthenticated } = useAuth();
   const favoriteProperties = getFavoritesByType('property');
 
   // Converter favoritos para formato do BaseItemCard
@@ -40,6 +42,28 @@ const FavoritosImoveis = () => {
     );
   }
 
+  // Conteúdo para usuários não autenticados
+  if (!isAuthenticated) {
+    return (
+      <ContentPageLayout
+        title="Imóveis Favoritos"
+        subtitle="Faça login para gerenciar seus imóveis favoritos"
+        titleIcon={Heart}
+      >
+        <div className="p-12">
+          <EmptyState
+            icon={Heart}
+            title="Acesso aos favoritos requer login"
+            description="Entre na sua conta para ver e gerenciar seus imóveis favoritos. É rápido e gratuito!"
+            actionLabel="Fazer Login"
+            onAction={() => window.location.href = '/auth/login'}
+          />
+        </div>
+      </ContentPageLayout>
+    );
+  }
+
+  // Conteúdo para usuários autenticados
   return (
     <ContentPageLayout
       title={`Imóveis Favoritos (${favoriteProperties.length})`}
