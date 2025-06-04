@@ -1,17 +1,21 @@
+
 import React from 'react';
 import { SessionNavBar } from "../SessionNavBar";
 import { BottomNavigation } from "../BottomNavigation";
+
 interface BasePageLayoutProps {
   children: React.ReactNode;
   showBottomNav?: boolean;
   containerClass?: string;
 }
-export const BasePageLayout = ({
-  children,
+
+export const BasePageLayout = ({ 
+  children, 
   showBottomNav = true,
   containerClass = "px-6 py-8"
 }: BasePageLayoutProps) => {
-  return <div className="w-full relative min-h-screen bg-white">
+  return (
+    <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
@@ -21,7 +25,7 @@ export const BasePageLayout = ({
           </div>
           
           <main className="ml-12 min-h-screen flex flex-col">
-            <div className="">
+            <div className={`bg-white ${containerClass}`}>
               {children}
             </div>
           </main>
@@ -35,10 +39,13 @@ export const BasePageLayout = ({
             {children}
           </main>
           
-          {showBottomNav && <div className="fixed bottom-0 left-0 right-0 z-50">
+          {showBottomNav && (
+            <div className="fixed bottom-0 left-0 right-0 z-50">
               <BottomNavigation />
-            </div>}
+            </div>
+          )}
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
