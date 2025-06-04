@@ -7,19 +7,13 @@ interface BasePageLayoutProps {
   children: React.ReactNode;
   showBottomNav?: boolean;
   containerClass?: string;
-  noPadding?: boolean; // Nova prop para controlar padding
 }
 
 export const BasePageLayout = ({ 
   children, 
   showBottomNav = true,
-  containerClass,
-  noPadding = false
+  containerClass = "px-6 py-8"
 }: BasePageLayoutProps) => {
-  // Padding padrão ou customizado
-  const defaultPadding = noPadding ? "" : "px-6 py-8";
-  const finalContainerClass = containerClass || defaultPadding;
-
   return (
     <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
@@ -31,7 +25,7 @@ export const BasePageLayout = ({
           </div>
           
           <main className="ml-12 min-h-screen flex flex-col">
-            <div className={`bg-white ${finalContainerClass}`}>
+            <div className={`bg-white ${containerClass}`}>
               {children}
             </div>
           </main>
@@ -41,7 +35,7 @@ export const BasePageLayout = ({
       {/* Mobile Layout */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
-          <main className={`w-full min-h-screen flex flex-col ${noPadding ? 'px-0 py-0' : 'px-4 py-6'} pb-20`}>
+          <main className="w-full min-h-screen flex flex-col px-4 py-6 pb-20">
             {children}
           </main>
           
