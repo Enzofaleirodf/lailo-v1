@@ -75,7 +75,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           
           <Separator className="!my-3" />
           
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between min-w-0">
             <BaseBadges badges={item.badges} isVertical={true} />
             <BaseDate 
               date={item.date} 
@@ -139,7 +139,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
       
       <Separator className="!my-3" />
       
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between min-w-0">
         <BaseBadges badges={item.badges} isVertical={false} />
         <BaseDate 
           date={item.date} 

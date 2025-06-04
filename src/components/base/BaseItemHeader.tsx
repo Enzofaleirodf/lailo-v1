@@ -14,26 +14,26 @@ export const BaseItemHeader = ({
   isVertical = false
 }: BaseItemHeaderProps) => {
   const titleClass = isVertical 
-    ? "font-semibold text-gray-900 text-base sm:text-base leading-tight font-urbanist mb-1" 
-    : "font-semibold text-gray-900 text-sm sm:text-base leading-tight truncate font-urbanist mb-1";
+    ? "font-semibold text-gray-900 text-sm sm:text-sm leading-tight font-urbanist mb-1" 
+    : "font-semibold text-gray-900 text-xs sm:text-sm leading-tight font-urbanist mb-1";
 
   const detailsClass = isVertical 
-    ? "text-xs font-medium"
-    : "text-xs sm:text-sm font-medium";
+    ? "text-[10px] font-medium"
+    : "text-[10px] sm:text-xs font-medium";
 
   if (itemType === 'vehicle') {
     const vehicle = item as any;
     return (
       <div className="space-y-1">
-        <h3 className={titleClass}>
+        <h3 className={`${titleClass} truncate`}>
           {vehicle.name}
         </h3>
         <div className="flex items-center gap-2 text-gray-500">
-          <span className={detailsClass}>{vehicle.color}</span>
-          <span className="w-1 h-1 bg-gray-300 rounded-full" />
-          <span className={detailsClass}>{vehicle.year}</span>
-          <span className="w-1 h-1 bg-gray-300 rounded-full" />
-          <span className={`${detailsClass} truncate`}>{vehicle.location}</span>
+          <span className={`${detailsClass} truncate flex-shrink`}>{vehicle.color}</span>
+          <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
+          <span className={`${detailsClass} flex-shrink-0`}>{vehicle.year}</span>
+          <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
+          <span className={`${detailsClass} truncate flex-shrink min-w-0`}>{vehicle.location}</span>
         </div>
       </div>
     );
@@ -42,13 +42,15 @@ export const BaseItemHeader = ({
   const property = item as any;
   return (
     <div className="space-y-1">
-      <h3 className={titleClass}>
-        {property.type}
-        <span className="inline-block w-1 h-1 bg-gray-300 rounded-full mx-2 align-middle" />
-        <span className={`${detailsClass} text-gray-500`}>
+      <div className="flex items-center gap-2">
+        <h3 className={`${titleClass} truncate flex-shrink min-w-0`}>
+          {property.type}
+        </h3>
+        <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
+        <span className={`${detailsClass} text-gray-500 flex-shrink-0`}>
           {property.area}
         </span>
-      </h3>
+      </div>
       <div className="flex items-center gap-2 text-gray-500">
         <span className={`${detailsClass} truncate`}>{property.location}</span>
       </div>
