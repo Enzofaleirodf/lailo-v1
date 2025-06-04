@@ -75,13 +75,17 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           
           <Separator className="!my-3" />
           
-          <div className="flex items-center justify-between">
-            <BaseBadges badges={item.badges} isVertical={true} />
-            <BaseDate 
-              date={item.date} 
-              isVertical={true}
-              href={(item as any).href || "#"}
-            />
+          <div className="flex items-center justify-between gap-2 min-w-0">
+            <div className="flex-shrink min-w-0">
+              <BaseBadges badges={item.badges} isVertical={true} />
+            </div>
+            <div className="flex-shrink-0">
+              <BaseDate 
+                date={item.date} 
+                isVertical={true}
+                href={(item as any).href || "#"}
+              />
+            </div>
           </div>
         </div>
       </BaseCard>

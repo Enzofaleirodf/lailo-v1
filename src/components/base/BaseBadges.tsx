@@ -15,11 +15,11 @@ export const BaseBadges = ({
   const textSize = isVertical ? "text-[10px]" : "text-xs";
   
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className={`flex flex-wrap gap-1 ${isVertical ? 'max-w-full' : ''}`}>
       {badges.map((badge, index) => (
         <span 
           key={index} 
-          className={`px-2 py-1 ${textSize} font-medium rounded-md font-urbanist ${badgeColor}`}
+          className={`px-1.5 py-1 ${textSize} font-medium rounded-md font-urbanist ${badgeColor} ${isVertical ? 'whitespace-nowrap' : ''}`}
         >
           {badge}
         </span>
