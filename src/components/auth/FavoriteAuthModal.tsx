@@ -1,32 +1,23 @@
-
 import React from "react";
 import { Heart, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-
 interface FavoriteAuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onLogin: () => void;
   onSignUp: () => void;
 }
-
 export const FavoriteAuthModal: React.FC<FavoriteAuthModalProps> = ({
   isOpen,
   onClose,
   onLogin,
   onSignUp
 }) => {
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+  return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="text-center">
-          <button
-            onClick={onClose}
-            className="absolute right-4 top-4 p-1 rounded-sm opacity-70 hover:opacity-100 transition-opacity"
-          >
-            <X className="h-4 w-4" />
-          </button>
+          
           <div className="flex justify-center mb-4">
             <Heart className="w-12 h-12 text-blue-600" />
           </div>
@@ -47,6 +38,5 @@ export const FavoriteAuthModal: React.FC<FavoriteAuthModalProps> = ({
           </Button>
         </div>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 };
