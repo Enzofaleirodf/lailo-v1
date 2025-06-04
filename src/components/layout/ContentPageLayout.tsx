@@ -26,7 +26,7 @@ export const ContentPageLayout = ({
   showFilters = false,
   filtersContent,
   showHeader = true,
-  containerClass = "w-full max-w-6xl mx-auto",
+  containerClass = "w-full max-w-[1440px] mx-auto",
   contentClass = "bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6 min-h-[400px]"
 }: ContentPageLayoutProps) => {
   return (

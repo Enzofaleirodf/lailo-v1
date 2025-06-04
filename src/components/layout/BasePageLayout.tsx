@@ -12,13 +12,13 @@ interface BasePageLayoutProps {
 export const BasePageLayout = ({ 
   children, 
   showBottomNav = true,
-  containerClass = "px-6 py-8"
+  containerClass = "px-4 md:px-6 py-8"
 }: BasePageLayoutProps) => {
   return (
-    <div className="w-full relative min-h-screen bg-white">
+    <div className="w-full relative min-h-screen bg-white overflow-x-hidden">
       {/* Desktop Layout */}
       <div className="hidden md:block">
-        <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+        <div className="w-full relative min-h-screen bg-white">
           <SessionNavBar />
           
           <main className="ml-12 min-h-screen flex flex-col">

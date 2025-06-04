@@ -2,7 +2,6 @@
 import React, { useState, useMemo } from "react";
 import { Building2 } from "lucide-react";
 import { ContentPageLayout } from "../components/layout/ContentPageLayout";
-import { BottomNavigation } from "../components/BottomNavigation";
 import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
@@ -79,61 +78,26 @@ const Leiloeiros = () => {
   );
 
   return (
-    <>
-      {/* Mobile Layout */}
-      <div className="block md:hidden">
-        <div className="w-full min-h-screen bg-white">
-          <main className="w-full min-h-screen flex flex-col px-4 py-6 pb-20">
-            {/* Header Mobile */}
-            <div className="flex items-center gap-3 mb-6">
-              <Building2 className="w-6 h-6 text-blue-600" />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
-                <p className="text-sm text-gray-600">Encontre leiloeiros credenciados</p>
-              </div>
-            </div>
-
-            <LeiloeiroMobileContent
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              selectedState={selectedState}
-              setSelectedState={setSelectedState}
-              activeAuctionsFilter={activeAuctionsFilter}
-              setActiveAuctionsFilter={setActiveAuctionsFilter}
-              estados={estados}
-              filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
-              getJuntaComercial={getJuntaComercial}
-            />
-          </main>
-          
-          <div className="fixed bottom-0 left-0 right-0 z-50">
-            <BottomNavigation />
-          </div>
-        </div>
+    <ContentPageLayout
+      title="Leiloeiros Oficiais do Brasil"
+      subtitle="Encontre leiloeiros credenciados em todo o país"
+      titleIcon={Building2}
+      showFilters={true}
+      filtersContent={filtersContent}
+      containerClass="w-full max-w-[1440px] mx-auto"
+      contentClass="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6 min-h-[400px]"
+    >
+      <div className="p-4 md:p-6">
+        {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
+          <LeiloeiroStateAccordion
+            filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+            getJuntaComercial={getJuntaComercial}
+          />
+        ) : (
+          <LeiloeiroEmptyState />
+        )}
       </div>
-
-      {/* Desktop Layout */}
-      <div className="hidden md:block">
-        <ContentPageLayout
-          title="Leiloeiros Oficiais do Brasil"
-          subtitle="Encontre leiloeiros credenciados em todo o país"
-          titleIcon={Building2}
-          showFilters={true}
-          filtersContent={filtersContent}
-        >
-          <div className="p-6">
-            {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
-              <LeiloeiroStateAccordion
-                filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
-                getJuntaComercial={getJuntaComercial}
-              />
-            ) : (
-              <LeiloeiroEmptyState />
-            )}
-          </div>
-        </ContentPageLayout>
-      </div>
-    </>
+    </ContentPageLayout>
   );
 };
 

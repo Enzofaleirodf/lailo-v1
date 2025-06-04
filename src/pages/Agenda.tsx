@@ -1,8 +1,7 @@
-
 import React, { useState } from "react";
 import { Calendar, Clock, MapPin, ExternalLink } from "lucide-react";
 import { ContentPageLayout } from "../components/layout/ContentPageLayout";
-import { BottomNavigation } from "../components/BottomNavigation";
+import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { StateSelect } from "../components/search/location/StateSelect";
 import { CitySelect } from "../components/search/location/CitySelect";
 import { FilterSection } from "../components/filters/FilterSection";
