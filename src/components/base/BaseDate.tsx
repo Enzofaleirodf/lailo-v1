@@ -21,7 +21,7 @@ export const BaseDate = ({
         <span>{date}</span>
       </div>
       
-      <Button variant="ghost" size="icon" onClick={handleClick} aria-label="Abrir leilão em nova aba" className="h-3 w-4 p-0 text-gray-400 hover:text-gray-600 transition-colors bg-transparent px-[16px]">
+      <Button variant="ghost" size="icon" onClick={handleClick} aria-label="Abrir leilão em nova aba" className="h-3 w-4 p-0 text-gray-400 hover:text-gray-600 transition-colors bg-transparent">
         <ArrowUpRight className="h-3 w-3" />
       </Button>
     </div>;
