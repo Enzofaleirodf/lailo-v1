@@ -1,6 +1,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Building2 } from "lucide-react";
+import { BasePageLayout } from "../components/layout/BasePageLayout";
 import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
@@ -78,22 +79,29 @@ const Leiloeiros = () => {
   );
 
   return (
-    <>
+    <BasePageLayout>
       {/* Mobile Layout */}
       <div className="block md:hidden">
-        <div className="p-4">
-          <LeiloeiroMobileContent
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            selectedState={selectedState}
-            setSelectedState={setSelectedState}
-            activeAuctionsFilter={activeAuctionsFilter}
-            setActiveAuctionsFilter={setActiveAuctionsFilter}
-            estados={estados}
-            filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
-            getJuntaComercial={getJuntaComercial}
-          />
+        {/* Header Mobile */}
+        <div className="flex items-center gap-3 mb-6">
+          <Building2 className="w-6 h-6 text-blue-600" />
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
+            <p className="text-sm text-gray-600">Encontre leiloeiros credenciados</p>
+          </div>
         </div>
+
+        <LeiloeiroMobileContent
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          selectedState={selectedState}
+          setSelectedState={setSelectedState}
+          activeAuctionsFilter={activeAuctionsFilter}
+          setActiveAuctionsFilter={setActiveAuctionsFilter}
+          estados={estados}
+          filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+          getJuntaComercial={getJuntaComercial}
+        />
       </div>
 
       {/* Desktop Layout */}
@@ -117,7 +125,7 @@ const Leiloeiros = () => {
           </div>
         </ContentPageLayout>
       </div>
-    </>
+    </BasePageLayout>
   );
 };
 

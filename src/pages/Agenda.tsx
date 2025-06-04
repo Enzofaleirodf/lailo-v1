@@ -1,6 +1,6 @@
-
 import React, { useState } from "react";
 import { Calendar, Clock, MapPin, ExternalLink } from "lucide-react";
+import { BasePageLayout } from "../components/layout/BasePageLayout";
 import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { StateSelect } from "../components/search/location/StateSelect";
 import { CitySelect } from "../components/search/location/CitySelect";
@@ -95,86 +95,84 @@ const Agenda = () => {
   );
 
   return (
-    <>
+    <BasePageLayout>
       {/* Mobile Layout */}
       <div className="block md:hidden">
-        <div className="p-4">
-          {/* Header Mobile */}
-          <div className="flex items-center gap-3 mb-6">
-            <Calendar className="w-6 h-6 text-blue-600" />
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Agenda de Leilões</h1>
-              <p className="text-sm text-gray-600">Leilões presenciais em sua região</p>
-            </div>
+        {/* Header Mobile */}
+        <div className="flex items-center gap-3 mb-6">
+          <Calendar className="w-6 h-6 text-blue-600" />
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">Agenda de Leilões</h1>
+            <p className="text-sm text-gray-600">Leilões presenciais em sua região</p>
           </div>
+        </div>
 
-          {/* Filtros Mobile */}
-          <div className="bg-gray-50 rounded-lg p-4 mb-6">
-            {filtersContent}
-          </div>
+        {/* Filtros Mobile */}
+        <div className="bg-gray-50 rounded-lg p-4 mb-6">
+          {filtersContent}
+        </div>
 
-          {/* Lista de Eventos Mobile */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Próximos Eventos ({filteredEvents.length})
-            </h3>
-            
-            {filteredEvents.length > 0 ? (
-              filteredEvents.map((event) => (
-                <div key={event.id} className="bg-white rounded-lg border border-gray-200 p-4">
-                  <div className="flex gap-3 mb-3">
-                    <img
-                      src={event.logo}
-                      alt={`Logo ${event.auctioneerName}`}
-                      className="w-12 h-12 rounded-lg object-cover border border-gray-200 flex-shrink-0"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 mb-1">
-                        {event.auctioneerName}
-                      </h4>
-                      <p className="text-sm text-gray-600 mb-2">
-                        {event.website}
-                      </p>
-                    </div>
+        {/* Lista de Eventos Mobile */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900">
+            Próximos Eventos ({filteredEvents.length})
+          </h3>
+          
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((event) => (
+              <div key={event.id} className="bg-white rounded-lg border border-gray-200 p-4">
+                <div className="flex gap-3 mb-3">
+                  <img
+                    src={event.logo}
+                    alt={`Logo ${event.auctioneerName}`}
+                    className="w-12 h-12 rounded-lg object-cover border border-gray-200 flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-gray-900 mb-1">
+                      {event.auctioneerName}
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-2">
+                      {event.website}
+                    </p>
                   </div>
-
-                  <div className="space-y-2 text-sm text-gray-600 mb-4">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 flex-shrink-0" />
-                      <span>{event.date} às {event.time}</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <div>{event.address}</div>
-                        <div className="text-gray-500">{event.city} - {event.state}</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => window.open(event.websiteUrl, '_blank')}
-                    className="w-full"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Visitar Site
-                  </Button>
                 </div>
-              ))
-            ) : (
-              <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
-                <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h4 className="text-lg font-medium text-gray-900 mb-2">
-                  Nenhum evento encontrado
-                </h4>
-                <p className="text-gray-600">
-                  Não há leilões presenciais programados para os filtros selecionados.
-                </p>
+
+                <div className="space-y-2 text-sm text-gray-600 mb-4">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 flex-shrink-0" />
+                    <span>{event.date} às {event.time}</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div>{event.address}</div>
+                      <div className="text-gray-500">{event.city} - {event.state}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open(event.websiteUrl, '_blank')}
+                  className="w-full"
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Visitar Site
+                </Button>
               </div>
-            )}
-          </div>
+            ))
+          ) : (
+            <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
+              <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <h4 className="text-lg font-medium text-gray-900 mb-2">
+                Nenhum evento encontrado
+              </h4>
+              <p className="text-gray-600">
+                Não há leilões presenciais programados para os filtros selecionados.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -289,7 +287,7 @@ const Agenda = () => {
           </div>
         </ContentPageLayout>
       </div>
-    </>
+    </BasePageLayout>
   );
 };
 

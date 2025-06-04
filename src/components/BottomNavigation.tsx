@@ -12,8 +12,15 @@ export const BottomNavigation = () => {
   const { isAuthenticated, logout } = useAuth();
   const [isMoreMenuOpen, setIsMoreMenuOpen] = React.useState(false);
 
+  // Simplified and stable isActive logic to prevent layout shift
   const isActive = (path: string) => {
-    return location.pathname === path || location.pathname.startsWith(path);
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    if (path === "/favoritos/imoveis") {
+      return location.pathname.startsWith("/favoritos");
+    }
+    return location.pathname === path;
   };
 
   const mainNavItems = [
@@ -21,7 +28,7 @@ export const BottomNavigation = () => {
       to: "/",
       icon: Home,
       label: "Início",
-      active: location.pathname === "/"
+      active: isActive("/")
     },
     {
       to: "/buscador/imoveis",
@@ -39,7 +46,7 @@ export const BottomNavigation = () => {
       to: "/favoritos/imoveis",
       icon: Heart,
       label: "Favoritos",
-      active: isActive("/favoritos")
+      active: isActive("/favoritos/imoveis")
     }
   ];
 
@@ -78,6 +85,11 @@ export const BottomNavigation = () => {
     setIsMoreMenuOpen(false);
   };
 
+  // Check if any "more menu" item is active
+  const isMoreMenuActive = ["/leiloeiros", "/agenda", "/configuracoes", "/perfil"].some(path => 
+    location.pathname === path
+  );
+
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50">
       <div className="flex items-center w-full h-16">
@@ -102,7 +114,7 @@ export const BottomNavigation = () => {
           );
         })}
         
-        {/* Botão Mais com Menu */}
+        {/* Botão Mais com Menu - altura fixa para prevenir layout shift */}
         <div className="w-1/5 h-full flex justify-center">
           <Popover open={isMoreMenuOpen} onOpenChange={setIsMoreMenuOpen}>
             <PopoverTrigger asChild>
@@ -110,7 +122,7 @@ export const BottomNavigation = () => {
                 className={`
                   flex flex-col items-center justify-center py-2 transition-colors
                   w-full h-full
-                  ${isActive("/leiloeiros") || isActive("/agenda") || isActive("/configuracoes") || isActive("/perfil")
+                  ${isMoreMenuActive
                     ? 'text-blue-600' 
                     : 'text-gray-500 hover:text-gray-700'
                   }
@@ -122,12 +134,12 @@ export const BottomNavigation = () => {
             </PopoverTrigger>
             
             <PopoverContent 
-              className="w-48 p-0 mb-2" 
+              className="w-48 p-0 mb-2 h-[240px]" 
               side="top" 
               align="center"
               sideOffset={8}
             >
-              <div className="py-2 min-h-[200px] max-h-[280px] flex flex-col">
+              <div className="py-2 h-full flex flex-col">
                 {/* Seção Pública */}
                 <div className="px-2 flex-shrink-0">
                   {publicMenuItems.map((item) => {
@@ -168,7 +180,7 @@ export const BottomNavigation = () => {
                   </div>
                   
                   {/* Container fixo para botão de autenticação */}
-                  <div className="flex-shrink-0 pt-2 mt-auto">
+                  <div className="flex-shrink-0 pt-2 mt-auto h-12 flex items-center">
                     {isAuthenticated ? (
                       <Button
                         variant="ghost"
@@ -182,7 +194,7 @@ export const BottomNavigation = () => {
                       <Link
                         to="/auth/login"
                         onClick={handleMenuItemClick}
-                        className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors w-full"
                       >
                         <LogIn className="w-4 h-4 flex-shrink-0" />
                         <span className="truncate">Entrar</span>
