@@ -19,7 +19,7 @@ export const BaseBadges = ({
       {badges.map((badge, index) => (
         <span 
           key={index} 
-          className={`px-1.5 py-1 ${textSize} font-medium rounded-md font-urbanist ${badgeColor} ${isVertical ? 'whitespace-nowrap' : ''} ${index === 0 && isVertical ? 'truncate max-w-[80px]' : ''}`}
+          className={`px-1.5 py-1 ${textSize} font-medium rounded-md font-urbanist ${badgeColor} ${isVertical ? 'whitespace-nowrap' : ''} ${index === 0 && isVertical ? 'truncate max-w-[70px]' : ''}`}
         >
           {badge}
         </span>

@@ -40,6 +40,12 @@ export const BaseItemHeader = ({
   }
 
   const property = item as any;
+  
+  // Separar endereço de cidade/estado
+  const locationParts = property.location.split(' - ');
+  const address = locationParts[0] || '';
+  const cityState = locationParts.slice(1).join(' - ') || '';
+
   return (
     <div className="space-y-1">
       <div className="flex items-center gap-2">
@@ -51,7 +57,13 @@ export const BaseItemHeader = ({
         </span>
       </div>
       <div className="flex items-center gap-2 text-gray-500">
-        <span className={`${detailsClass}`}>{property.location}</span>
+        <span className={`${detailsClass} truncate flex-1 min-w-0`}>{address}</span>
+        {cityState && (
+          <>
+            <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
+            <span className={`${detailsClass} flex-shrink-0`}>{cityState}</span>
+          </>
+        )}
       </div>
     </div>
   );
