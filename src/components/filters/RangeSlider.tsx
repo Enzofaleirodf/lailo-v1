@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { Slider } from '@/components/ui/slider';
+
 interface RangeSliderProps {
   min: number;
   max: number;
@@ -10,6 +12,7 @@ interface RangeSliderProps {
   step?: number;
   formatValue?: (value: number) => string;
 }
+
 export const RangeSlider = ({
   min,
   max,
@@ -25,6 +28,7 @@ export const RangeSlider = ({
     min: value[0].toString(),
     max: value[1].toString()
   });
+
   useEffect(() => {
     setLocalValue(value);
     setInputValues({
@@ -32,6 +36,7 @@ export const RangeSlider = ({
       max: value[1].toString()
     });
   }, [value]);
+
   const handleSliderChange = (newValue: number[]) => {
     const range: [number, number] = [newValue[0], newValue[1]];
     setLocalValue(range);
@@ -41,21 +46,25 @@ export const RangeSlider = ({
     });
     onChange(range);
   };
+
   const handleInputChange = (type: 'min' | 'max', inputValue: string) => {
     setInputValues(prev => ({
       ...prev,
       [type]: inputValue
     }));
   };
+
   const handleInputBlur = (type: 'min' | 'max') => {
     const numValue = parseInt(inputValues[type]) || (type === 'min' ? min : max);
     const clampedValue = Math.max(min, Math.min(max, numValue));
+    
     let newRange: [number, number];
     if (type === 'min') {
       newRange = [clampedValue, Math.max(clampedValue, localValue[1])];
     } else {
       newRange = [Math.min(localValue[0], clampedValue), clampedValue];
     }
+    
     setLocalValue(newRange);
     setInputValues({
       min: newRange[0].toString(),
@@ -63,10 +72,12 @@ export const RangeSlider = ({
     });
     onChange(newRange);
   };
+
   const formatDisplayValue = (val: number) => {
     if (formatValue) return formatValue(val);
     return `${prefix}${val.toLocaleString('pt-BR')}${suffix}`;
   };
+
   const resetToInitial = () => {
     const initialRange: [number, number] = [min, max];
     setLocalValue(initialRange);
@@ -76,25 +87,71 @@ export const RangeSlider = ({
     });
     onChange(initialRange);
   };
-  return <div className="space-y-4">
+
+  return (
+    <div className="space-y-4">
       <div className="px-2">
-        <Slider value={localValue} onValueChange={handleSliderChange} min={min} max={max} step={step} className="w-full" />
+        <Slider
+          value={localValue}
+          onValueChange={handleSliderChange}
+          min={min}
+          max={max}
+          step={step}
+          className="w-full"
+        />
       </div>
       
       <div className="flex items-center gap-3">
-        <div className="flex-1">
-          <input type="number" value={inputValues.min} onChange={e => handleInputChange('min', e.target.value)} onBlur={() => handleInputBlur('min')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" min={min} max={max} />
-          
+        <div className="flex-1 relative">
+          {prefix && (
+            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 pointer-events-none">
+              {prefix}
+            </span>
+          )}
+          <input
+            type="number"
+            value={inputValues.min}
+            onChange={e => handleInputChange('min', e.target.value)}
+            onBlur={() => handleInputBlur('min')}
+            className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+              prefix ? 'pl-8' : ''
+            } ${suffix ? 'pr-8' : ''}`}
+            min={min}
+            max={max}
+          />
+          {suffix && (
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 pointer-events-none">
+              {suffix}
+            </span>
+          )}
         </div>
         
         <span className="text-gray-400 text-sm">até</span>
         
-        <div className="flex-1">
-          <input type="number" value={inputValues.max} onChange={e => handleInputChange('max', e.target.value)} onBlur={() => handleInputBlur('max')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" min={min} max={max} />
-          
+        <div className="flex-1 relative">
+          {prefix && (
+            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 pointer-events-none">
+              {prefix}
+            </span>
+          )}
+          <input
+            type="number"
+            value={inputValues.max}
+            onChange={e => handleInputChange('max', e.target.value)}
+            onBlur={() => handleInputBlur('max')}
+            className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+              prefix ? 'pl-8' : ''
+            } ${suffix ? 'pr-8' : ''}`}
+            min={min}
+            max={max}
+          />
+          {suffix && (
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 pointer-events-none">
+              {suffix}
+            </span>
+          )}
         </div>
       </div>
-      
-      
-    </div>;
+    </div>
+  );
 };
