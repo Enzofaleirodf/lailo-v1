@@ -1,6 +1,5 @@
 
 import React from "react";
-import { Building2 } from "lucide-react";
 import { LeiloeiroFilters } from "./LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "./LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "./LeiloeiroEmptyState";
@@ -31,12 +30,6 @@ export const LeiloeiroMobileContent = ({
 }: LeiloeiroMobileContentProps) => {
   return (
     <>
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <Building2 className="w-6 h-6 text-blue-600" />
-        <h1 className="text-xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
-      </div>
-
       {/* Filtros Mobile */}
       <LeiloeiroFilters
         searchTerm={searchTerm}

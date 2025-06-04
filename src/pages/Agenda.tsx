@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Calendar, Clock, MapPin, ExternalLink } from "lucide-react";
 import { BasePageLayout } from "../components/layout/BasePageLayout";
