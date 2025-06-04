@@ -2,6 +2,7 @@
 import React from 'react';
 import { LoadingSpinner } from '../ui/LoadingSpinner';
 import { TopBarFilters } from './TopBarFilters';
+import { ItemTypeToggle } from './ItemTypeToggle';
 import { ItemType } from '../../types/search';
 import { designTokens } from '../../styles/design-tokens';
 
@@ -24,11 +25,17 @@ export const DesktopTopBar = ({
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 via-white to-purple-50/20 pointer-events-none" />
       
       <div className="relative flex items-center justify-between h-full px-8 py-6">
-        {/* Zona esquerda - apenas loading se houver */}
+        {/* Zona esquerda - Toggle de tipo de item */}
         <div className="flex items-center flex-shrink-0">
+          <ItemTypeToggle 
+            currentType={itemType}
+            onTypeChange={onItemTypeChange}
+          />
+          
+          {/* Loading indicator ao lado do toggle */}
           {isLoading && (
             <div 
-              className="flex items-center gap-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-200/50"
+              className="flex items-center gap-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-200/50 ml-4"
               style={{
                 padding: `${designTokens.spacing.sm} ${designTokens.spacing.md}`,
                 borderRadius: designTokens.borderRadius.lg,
