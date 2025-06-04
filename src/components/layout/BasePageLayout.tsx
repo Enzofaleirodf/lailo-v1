@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { SessionNavBar } from "../SessionNavBar";
-import { BottomNavigation } from "../BottomNavigation";
+import { SessionNavBar } from "@/components/SessionNavBar";
+import { BottomNavigation } from "@/components/BottomNavigation";
 
 interface BasePageLayoutProps {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export const BasePageLayout = ({
           </div>
           
           <main className="ml-12 min-h-screen flex flex-col">
-            <div className={`bg-white ${containerClass}`}>
+            <div className={`bg-white flex-1 ${containerClass}`}>
               {children}
             </div>
           </main>

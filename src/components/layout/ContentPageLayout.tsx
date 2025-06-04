@@ -56,7 +56,7 @@ export const ContentPageLayout = ({
         )}
 
         {/* Conteúdo principal */}
-        <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6">
+        <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6 min-h-[400px]">
           {children}
         </div>
       </div>

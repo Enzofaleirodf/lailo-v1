@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { designTokens } from '../../styles/design-tokens';
+import { designTokens } from '@/styles/design-tokens';
 
 interface FilterSectionProps {
   title: string;
@@ -16,16 +16,18 @@ export const FilterSection = ({ title, children, className = "" }: FilterSection
         gap: designTokens.spacing.md,
       }}
     >
-      <h3 
-        className="text-sm font-medium text-gray-900"
-        style={{
-          fontSize: designTokens.typography.sizes.sm,
-          fontWeight: designTokens.typography.weights.medium,
-          color: designTokens.colors.text.primary,
-        }}
-      >
-        {title}
-      </h3>
+      {title && (
+        <h3 
+          className="text-sm font-medium text-gray-900"
+          style={{
+            fontSize: designTokens.typography.sizes.sm,
+            fontWeight: designTokens.typography.weights.medium,
+            color: designTokens.colors.text.primary,
+          }}
+        >
+          {title}
+        </h3>
+      )}
       {children}
     </div>
   );
