@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ItemType } from '../../types/search';
 import { SidebarHeader } from '../filters/SidebarHeader';
+import { LocationFilter } from './LocationFilter';
 import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
@@ -70,6 +71,14 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
           <SidebarHeader onClearFilters={handleClearAllFilters} />
 
           <div className="space-y-8">
+            {/* Localização como primeiro filtro */}
+            <div>
+              <label className="block text-sm font-medium text-gray-900 mb-3">
+                Localização
+              </label>
+              <LocationFilter placeholder="Selecione uma localização" />
+            </div>
+
             <CategoryTypeFilters
               itemType={itemType}
               category={category}

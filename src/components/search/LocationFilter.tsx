@@ -9,7 +9,11 @@ import {
 import { Button } from '../ui/button';
 import { LocationFilterPopover } from './location/LocationFilterPopover';
 
-export const LocationFilter = () => {
+interface LocationFilterProps {
+  placeholder?: string;
+}
+
+export const LocationFilter = ({ placeholder = 'Localização' }: LocationFilterProps) => {
   const [selectedState, setSelectedState] = React.useState('');
   const [selectedCity, setSelectedCity] = React.useState('');
   const [address, setAddress] = React.useState('');
@@ -36,11 +40,11 @@ export const LocationFilter = () => {
     if (selectedState && selectedState !== 'Todos os estados') {
       return selectedState;
     }
-    return 'Localização';
+    return placeholder;
   };
 
   return (
-    <div className="w-[220px]">
+    <div className="w-full">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
