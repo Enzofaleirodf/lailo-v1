@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from "react";
 import { Building2, Search, ExternalLink } from "lucide-react";
 import { BasePageLayout } from "../components/layout/BasePageLayout";
@@ -166,7 +167,7 @@ const Leiloeiros = () => {
   };
 
   const DesktopContent = () => (
-    <div className="max-w-6xl mx-auto">
+    <div className="w-full">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <Building2 className="w-8 h-8 text-blue-600" />
@@ -403,9 +404,9 @@ const Leiloeiros = () => {
   );
 
   return (
-    <BasePageLayout>
+    <BasePageLayout containerClass="px-0 py-8">
       {/* Desktop Content */}
-      <div className="hidden md:block">
+      <div className="hidden md:block px-6">
         <DesktopContent />
       </div>
 
