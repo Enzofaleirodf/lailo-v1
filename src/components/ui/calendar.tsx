@@ -17,7 +17,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3 pointer-events-auto", className)}
+      className={cn("p-3", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -53,8 +53,40 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        IconLeft: () => <ChevronLeft className="h-4 w-4" />,
+        IconRight: () => <ChevronRight className="h-4 w-4" />,
+      }}
+      locale={{
+        localize: {
+          day: (n: number) => String(n),
+          month: (n: number) => [
+            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+          ][n],
+          ordinalNumber: (n: number) => String(n),
+          era: () => '',
+          quarter: () => '',
+          dayPeriod: () => '',
+        },
+        formatLong: {},
+        match: {},
+        options: {
+          weekStartsOn: 0,
+          firstWeekContainsDate: 1,
+        },
+      }}
+      formatters={{
+        formatCaption: (month, options) => {
+          const monthNames = [
+            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+          ];
+          return `${monthNames[month.getMonth()]} ${month.getFullYear()}`;
+        },
+        formatWeekdayName: (day) => {
+          const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+          return weekdays[day.getDay()];
+        },
       }}
       {...props}
     />

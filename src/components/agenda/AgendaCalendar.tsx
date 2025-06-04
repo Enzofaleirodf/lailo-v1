@@ -15,13 +15,6 @@ export const AgendaCalendar = ({
   onDateSelect, 
   eventDates = [] 
 }: AgendaCalendarProps) => {
-  // Função para verificar se uma data tem eventos
-  const hasEvent = (date: Date) => {
-    return eventDates.some(eventDate => 
-      eventDate.toDateString() === date.toDateString()
-    );
-  };
-
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
       <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
