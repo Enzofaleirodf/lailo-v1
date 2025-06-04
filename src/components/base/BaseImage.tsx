@@ -39,7 +39,7 @@ export const BaseImage = ({
         <div className={`absolute bg-blue-500 text-white text-xs font-bold rounded-md shadow-md font-urbanist ${
           isVertical 
             ? 'top-2 left-2 px-2 py-2' 
-            : 'top-1 left-1 px-0.5 py-0.5'
+            : 'top-1 left-1 px-2 py-2'
         }`}>
           Novo
         </div>
