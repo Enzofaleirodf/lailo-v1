@@ -12,7 +12,7 @@ export const BaseBadges = ({
   badgeColor = "bg-blue-50 text-blue-700 border border-blue-100",
   isVertical = false
 }: BaseBadgesProps): JSX.Element => {
-  const textSize = isVertical ? "text-xs" : "text-xs";
+  const textSize = isVertical ? "text-[10px]" : "text-xs";
   
   return (
     <div className="flex flex-wrap gap-1.5">
