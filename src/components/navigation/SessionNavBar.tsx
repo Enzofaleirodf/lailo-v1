@@ -32,7 +32,38 @@ const iconMap = {
 
 export const SessionNavBar = () => {
   const { isAuthenticated, logout, isAdmin } = useAuth();
-  const { isActive, getVisibleItems } = useNavigation();
+  const { isActive } = useNavigation();
+
+  // Items principais que sempre aparecem (mesmo deslogado)
+  const mainNavItems = [
+    { to: "/", icon: "Home", label: "Início" },
+    { to: "/buscador/imoveis", icon: "Building", label: "Imóveis" },
+    { to: "/buscador/veiculos", icon: "Car", label: "Veículos" },
+    { to: "/favoritos/imoveis", icon: "Heart", label: "Favoritos" }, // Sempre visível
+  ];
+
+  // Items secundários que sempre aparecem
+  const secondaryNavItems = [
+    { to: "/leiloeiros", icon: "Gavel", label: "Leiloeiros" },
+    { to: "/agenda", icon: "Calendar", label: "Agenda" },
+  ];
+
+  // Items que só aparecem quando logado
+  const authenticatedItems = [
+    { to: "/perfil", icon: "User", label: "Perfil" },
+  ];
+
+  // Items de admin
+  const adminItems = isAdmin() ? [
+    { to: "/admin", icon: "Shield", label: "Admin" },
+  ] : [];
+
+  const allNavItems = [
+    ...mainNavItems,
+    ...secondaryNavItems,
+    ...(isAuthenticated ? authenticatedItems : []),
+    ...adminItems
+  ];
 
   const renderNavItem = (item: any) => {
     const Icon = iconMap[item.icon as keyof typeof iconMap];
@@ -70,7 +101,7 @@ export const SessionNavBar = () => {
 
       {/* Navigation Items */}
       <div className="flex-1 flex flex-col gap-2">
-        {getVisibleItems('sidebar').map(renderNavItem)}
+        {allNavItems.map(renderNavItem)}
       </div>
 
       {/* Auth Section */}
