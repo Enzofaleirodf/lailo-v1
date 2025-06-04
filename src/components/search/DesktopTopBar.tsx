@@ -19,11 +19,11 @@ export const DesktopTopBar = ({
   onItemTypeChange
 }: DesktopTopBarProps) => {
   return (
-    <div className="hidden md:block h-14 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
+    <div className="hidden md:block h-16 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
       {/* Gradiente sutil de fundo */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 via-white to-purple-50/20 pointer-events-none" />
       
-      <div className="relative flex items-center justify-between h-full px-6">
+      <div className="relative flex items-center justify-between h-full px-8 py-4">
         {/* Zona esquerda - apenas loading se houver */}
         <div className="flex items-center flex-shrink-0">
           {isLoading && (
