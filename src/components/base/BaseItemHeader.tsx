@@ -14,11 +14,11 @@ export const BaseItemHeader = ({
   isVertical = false
 }: BaseItemHeaderProps) => {
   const titleClass = isVertical 
-    ? "font-semibold text-gray-900 text-lg sm:text-lg leading-tight font-urbanist mb-1" 
+    ? "font-semibold text-gray-900 text-base sm:text-base leading-tight font-urbanist mb-1" 
     : "font-semibold text-gray-900 text-sm sm:text-base leading-tight truncate font-urbanist mb-1";
 
   const detailsClass = isVertical 
-    ? "text-sm font-medium"
+    ? "text-xs font-medium"
     : "text-xs sm:text-sm font-medium";
 
   if (itemType === 'vehicle') {
