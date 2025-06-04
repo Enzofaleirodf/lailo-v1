@@ -20,7 +20,7 @@ export const BaseDate = ({
   };
 
   return (
-    <div className={`flex items-center ${isVertical ? 'gap-0' : 'gap-2'} text-gray-500 font-urbanist ${isVertical ? 'text-[10px]' : 'text-xs md:text-sm'}`}>
+    <div className={`flex items-center gap-2 text-gray-500 font-urbanist ${isVertical ? 'text-[10px]' : 'text-xs md:text-sm'}`}>
       <div className="flex items-center gap-1">
         <Clock className="h-3 w-3" />
         <span>{date}</span>
