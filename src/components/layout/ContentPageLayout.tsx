@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { BasePageLayout } from './BasePageLayout';
+
 interface ContentPageLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -12,6 +14,7 @@ interface ContentPageLayoutProps {
   filtersContent?: React.ReactNode;
   showHeader?: boolean;
 }
+
 export const ContentPageLayout = ({
   children,
   title,
@@ -22,10 +25,12 @@ export const ContentPageLayout = ({
   filtersContent,
   showHeader = true
 }: ContentPageLayoutProps) => {
-  return <BasePageLayout>
+  return (
+    <BasePageLayout containerClass="p-0">
       <div className="w-full max-w-6xl mx-auto">
-        {/* Header padronizado - só exibe se showHeader for true */}
-        {showHeader && <div className="mb-8">
+        {/* Header padronizado - desktop apenas */}
+        {showHeader && (
+          <div className="hidden md:block mb-8 px-6 pt-8">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 {TitleIcon && <TitleIcon className="w-8 h-8 text-blue-600" />}
@@ -34,21 +39,27 @@ export const ContentPageLayout = ({
                   {subtitle && <p className="text-gray-600 mt-1">{subtitle}</p>}
                 </div>
               </div>
-              {headerActions && <div className="flex items-center gap-2">
+              {headerActions && (
+                <div className="flex items-center gap-2">
                   {headerActions}
-                </div>}
+                </div>
+              )}
             </div>
-          </div>}
+          </div>
+        )}
 
-        {/* Filtros padronizados (quando necessário) */}
-        {showFilters && filtersContent && <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6 px-[16px]">
+        {/* Filtros padronizados */}
+        {showFilters && filtersContent && (
+          <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 mb-6 md:mx-6">
             {filtersContent}
-          </div>}
+          </div>
+        )}
 
         {/* Conteúdo principal */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6">
           {children}
         </div>
       </div>
-    </BasePageLayout>;
+    </BasePageLayout>
+  );
 };

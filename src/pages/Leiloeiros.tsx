@@ -1,11 +1,14 @@
+
 import React, { useState, useMemo } from "react";
 import { Building2 } from "lucide-react";
 import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
+import { LeiloeiroMobileContent } from "../components/leiloeiros/LeiloeiroMobileContent";
 import { leiloeiros, juntasComerciais } from "../data/leiloeiros";
 import { JuntaComercial } from "../types/leiloeiro";
+
 const Leiloeiros = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedState, setSelectedState] = useState("todos");
@@ -28,7 +31,10 @@ const Leiloeiros = () => {
 
     // Filtrar por busca
     if (searchTerm) {
-      filtered = filtered.filter(l => l.name.toLowerCase().includes(searchTerm.toLowerCase()) || l.websiteName.toLowerCase().includes(searchTerm.toLowerCase()));
+      filtered = filtered.filter(l => 
+        l.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        l.websiteName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     }
 
     // Filtrar por leilões ativos
@@ -51,16 +57,68 @@ const Leiloeiros = () => {
     Object.keys(grouped).forEach(state => {
       grouped[state].sort((a, b) => a.name.localeCompare(b.name));
     });
+    
     return grouped;
   }, [selectedState, searchTerm, activeAuctionsFilter]);
+
   const getJuntaComercial = (state: string): JuntaComercial | undefined => {
     return juntasComerciais.find(j => j.state === state);
   };
-  const filtersContent = <LeiloeiroFilters searchTerm={searchTerm} setSearchTerm={setSearchTerm} selectedState={selectedState} setSelectedState={setSelectedState} activeAuctionsFilter={activeAuctionsFilter} setActiveAuctionsFilter={setActiveAuctionsFilter} estados={estados} />;
-  return <ContentPageLayout title="Leiloeiros Oficiais do Brasil" subtitle="Encontre leiloeiros credenciados em todo o país" titleIcon={Building2} showFilters={true} filtersContent={filtersContent}>
-      <div className="p-6 px-[16px]">
-        {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? <LeiloeiroStateAccordion filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros} getJuntaComercial={getJuntaComercial} /> : <LeiloeiroEmptyState />}
+
+  const filtersContent = (
+    <LeiloeiroFilters
+      searchTerm={searchTerm}
+      setSearchTerm={setSearchTerm}
+      selectedState={selectedState}
+      setSelectedState={setSelectedState}
+      activeAuctionsFilter={activeAuctionsFilter}
+      setActiveAuctionsFilter={setActiveAuctionsFilter}
+      estados={estados}
+    />
+  );
+
+  return (
+    <>
+      {/* Mobile Layout */}
+      <div className="block md:hidden">
+        <div className="p-4">
+          <LeiloeiroMobileContent
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            selectedState={selectedState}
+            setSelectedState={setSelectedState}
+            activeAuctionsFilter={activeAuctionsFilter}
+            setActiveAuctionsFilter={setActiveAuctionsFilter}
+            estados={estados}
+            filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+            getJuntaComercial={getJuntaComercial}
+          />
+        </div>
       </div>
-    </ContentPageLayout>;
+
+      {/* Desktop Layout */}
+      <div className="hidden md:block">
+        <ContentPageLayout
+          title="Leiloeiros Oficiais do Brasil"
+          subtitle="Encontre leiloeiros credenciados em todo o país"
+          titleIcon={Building2}
+          showFilters={true}
+          filtersContent={filtersContent}
+        >
+          <div className="p-6">
+            {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
+              <LeiloeiroStateAccordion
+                filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+                getJuntaComercial={getJuntaComercial}
+              />
+            ) : (
+              <LeiloeiroEmptyState />
+            )}
+          </div>
+        </ContentPageLayout>
+      </div>
+    </>
+  );
 };
+
 export default Leiloeiros;
