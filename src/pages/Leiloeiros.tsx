@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from "react";
 import { Building2, Search, ExternalLink } from "lucide-react";
 import { BasePageLayout } from "../components/layout/BasePageLayout";
@@ -240,42 +239,40 @@ const Leiloeiros = () => {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="p-0">
-                  <div className="w-full overflow-hidden">
-                    <div className="overflow-x-auto">
-                      <table className="w-full min-w-[1000px]">
-                        <colgroup>
-                          <col className="w-[300px]" />
-                          <col className="w-[200px]" />
-                          <col className="w-[250px]" />
-                          <col className="w-[180px]" />
-                          <col className="w-[70px]" />
-                        </colgroup>
-                        <thead className="bg-gray-50">
-                          <tr className="h-12">
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Leiloeiro
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Telefone
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Website
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Leilões Ativos
-                            </th>
-                            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Acesso
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
-                            <LeiloeiroTableRow key={leiloeiro.id} leiloeiro={leiloeiro} />
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                  <div className="w-full">
+                    <table className="w-full table-fixed">
+                      <colgroup>
+                        <col className="w-[35%]" />
+                        <col className="w-[20%]" />
+                        <col className="w-[30%]" />
+                        <col className="w-[10%]" />
+                        <col className="w-[5%]" />
+                      </colgroup>
+                      <thead className="bg-gray-50">
+                        <tr className="h-12">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Leiloeiro
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Telefone
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Website
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Leilões Ativos
+                          </th>
+                          <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Acesso
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {filteredAndGroupedLeiloeiros[state].map((leiloeiro) => (
+                          <LeiloeiroTableRow key={leiloeiro.id} leiloeiro={leiloeiro} />
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </AccordionContent>
               </AccordionItem>
