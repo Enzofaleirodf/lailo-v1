@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../SessionNavBar";
 import { BottomNavigation } from "../BottomNavigation";
 import { DesktopTopBar } from "./DesktopTopBar";
@@ -9,6 +10,7 @@ import { SearchMainContent } from "./SearchMainContent";
 import { MobileTopBar } from "./MobileTopBar";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
+
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
   config: SearchConfig;
   items: SearchItem[];
@@ -20,6 +22,7 @@ interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'>
   resultsCount?: number;
   sitesCount?: number;
 }
+
 export const SearchPageLayout = ({
   config,
   items,
@@ -36,21 +39,27 @@ export const SearchPageLayout = ({
   onSortChange,
   sortOptions
 }: SearchPageLayoutProps) => {
+  const navigate = useNavigate();
+  
   // Usar hook de status se os valores não forem fornecidos
   const statusData = useAuctionStatus(items);
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
+
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
-    window.location.href = newPath;
+    navigate(newPath);
   };
+
   const handleShowFilters = () => {
     console.log("Abrir modal de filtros");
   };
+
   const handleShowSort = () => {
     console.log("Abrir modal de ordenação");
   };
+
   return <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout - apenas em desktop */}
       <div className="hidden md:block">
