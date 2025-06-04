@@ -4,7 +4,7 @@ import { ItemType } from '../../types/search';
 import { SidebarHeader } from '../filters/SidebarHeader';
 import { LocationFilter } from './LocationFilter';
 import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
-import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
+import { LazyVehicleSpecificFilters } from '../filters/LazyVehicleSpecificFilters';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { PriceFilter } from '../filters/PriceFilter';
 
@@ -88,7 +88,7 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
             />
 
             {itemType === 'vehicle' && (
-              <VehicleSpecificFilters
+              <LazyVehicleSpecificFilters
                 brand={brand}
                 model={model}
                 color={color}
