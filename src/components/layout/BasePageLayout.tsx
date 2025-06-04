@@ -18,14 +18,14 @@ export const BasePageLayout = ({
     <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
-        <div className="w-full relative min-h-screen bg-white">
+        <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
           {/* Navbar lateral - apenas desktop */}
           <div className="absolute left-0 top-0 h-full w-12 z-50">
             <SessionNavBar />
           </div>
           
           <main className="ml-12 min-h-screen flex flex-col">
-            <div className={`bg-white min-w-[1200px] ${containerClass}`}>
+            <div className={`bg-white ${containerClass}`}>
               {children}
             </div>
           </main>
