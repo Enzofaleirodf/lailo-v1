@@ -36,11 +36,10 @@ export const BottomNavigation = () => {
       active: isActive("/buscador/veiculos")
     },
     {
-      to: isAuthenticated ? "/favoritos/veiculos" : "/auth/login",
+      to: "/favoritos/imoveis",
       icon: Heart,
       label: "Favoritos",
-      active: isActive("/favoritos"),
-      requiresAuth: true
+      active: isActive("/favoritos")
     }
   ];
 

@@ -36,7 +36,7 @@ export const SessionNavBar = () => {
 
   const protectedItems = [
     {
-      to: "/favoritos/veiculos",
+      to: "/favoritos/imoveis",
       icon: Heart,
       label: "Favoritos",
       active: isActive("/favoritos")
@@ -93,19 +93,16 @@ export const SessionNavBar = () => {
         {/* Protected Items */}
         {protectedItems.map((item) => {
           const Icon = item.icon;
-          const linkTo = !isAuthenticated && item.to.includes('/favoritos') ? '/auth/login' : item.to;
           
           return (
             <Link
               key={item.to}
-              to={linkTo}
+              to={item.to}
               className={`
                 w-8 h-8 rounded-lg flex items-center justify-center transition-colors relative group
                 ${item.active 
                   ? 'bg-blue-50 text-blue-600' 
-                  : !isAuthenticated && item.to.includes('/favoritos')
-                    ? 'text-gray-400 hover:text-blue-600 hover:bg-blue-50'
-                    : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                  : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
                 }
               `}
             >
@@ -113,7 +110,7 @@ export const SessionNavBar = () => {
               
               {/* Tooltip */}
               <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-                {!isAuthenticated && item.to.includes('/favoritos') ? 'Favoritos - Faça login' : item.label}
+                {item.label}
               </div>
             </Link>
           );
