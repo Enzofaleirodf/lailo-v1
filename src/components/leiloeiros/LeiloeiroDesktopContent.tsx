@@ -1,9 +1,11 @@
+
 import React from "react";
 import { Building2 } from "lucide-react";
 import { LeiloeiroFilters } from "./LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "./LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "./LeiloeiroEmptyState";
 import { Leiloeiro, JuntaComercial } from "../../types/leiloeiro";
+
 interface LeiloeiroDesktopContentProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
@@ -15,6 +17,7 @@ interface LeiloeiroDesktopContentProps {
   filteredAndGroupedLeiloeiros: Record<string, Leiloeiro[]>;
   getJuntaComercial: (state: string) => JuntaComercial | undefined;
 }
+
 export const LeiloeiroDesktopContent = ({
   searchTerm,
   setSearchTerm,
@@ -26,7 +29,8 @@ export const LeiloeiroDesktopContent = ({
   filteredAndGroupedLeiloeiros,
   getJuntaComercial
 }: LeiloeiroDesktopContentProps) => {
-  return <div className="w-full px-[24px]">
+  return (
+    <div className="w-full">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <Building2 className="w-8 h-8 text-blue-600" />
@@ -34,9 +38,25 @@ export const LeiloeiroDesktopContent = ({
       </div>
 
       {/* Filtros */}
-      <LeiloeiroFilters searchTerm={searchTerm} setSearchTerm={setSearchTerm} selectedState={selectedState} setSelectedState={setSelectedState} activeAuctionsFilter={activeAuctionsFilter} setActiveAuctionsFilter={setActiveAuctionsFilter} estados={estados} />
+      <LeiloeiroFilters
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        selectedState={selectedState}
+        setSelectedState={setSelectedState}
+        activeAuctionsFilter={activeAuctionsFilter}
+        setActiveAuctionsFilter={setActiveAuctionsFilter}
+        estados={estados}
+      />
 
       {/* Accordion com tabelas agrupadas por estado */}
-      {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? <LeiloeiroStateAccordion filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros} getJuntaComercial={getJuntaComercial} /> : <LeiloeiroEmptyState />}
-    </div>;
+      {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
+        <LeiloeiroStateAccordion
+          filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+          getJuntaComercial={getJuntaComercial}
+        />
+      ) : (
+        <LeiloeiroEmptyState />
+      )}
+    </div>
+  );
 };
