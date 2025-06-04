@@ -4,7 +4,7 @@ import { BasePageLayout } from './BasePageLayout';
 
 interface ContentPageLayoutProps {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   subtitle?: string;
   titleIcon?: React.ComponentType<{
     className?: string;
@@ -13,6 +13,8 @@ interface ContentPageLayoutProps {
   showFilters?: boolean;
   filtersContent?: React.ReactNode;
   showHeader?: boolean;
+  containerClass?: string;
+  contentClass?: string;
 }
 
 export const ContentPageLayout = ({
@@ -23,13 +25,15 @@ export const ContentPageLayout = ({
   headerActions,
   showFilters = false,
   filtersContent,
-  showHeader = true
+  showHeader = true,
+  containerClass = "w-full max-w-6xl mx-auto",
+  contentClass = "bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6 min-h-[400px]"
 }: ContentPageLayoutProps) => {
   return (
     <BasePageLayout containerClass="p-0">
-      <div className="w-full max-w-6xl mx-auto">
+      <div className={containerClass}>
         {/* Header padronizado - desktop apenas */}
-        {showHeader && (
+        {showHeader && title && (
           <div className="hidden md:block mb-8 px-6 pt-8">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -56,7 +60,7 @@ export const ContentPageLayout = ({
         )}
 
         {/* Conteúdo principal */}
-        <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6 min-h-[400px]">
+        <div className={contentClass}>
           {children}
         </div>
       </div>

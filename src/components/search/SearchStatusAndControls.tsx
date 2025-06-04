@@ -8,6 +8,9 @@ interface SearchStatusAndControlsProps extends Omit<SearchControlsProps, 'result
   totalAuctions: number;
   totalSites: number;
   newAuctions: number;
+  showControls?: boolean;
+  statusClassName?: string;
+  controlsClassName?: string;
 }
 
 export const SearchStatusAndControls = ({
@@ -18,7 +21,10 @@ export const SearchStatusAndControls = ({
   onToggleLayout,
   sortBy,
   onSortChange,
-  sortOptions
+  sortOptions,
+  showControls = true,
+  statusClassName = "text-xs md:text-sm",
+  controlsClassName = "hidden md:flex items-center gap-4"
 }: SearchStatusAndControlsProps) => {
   return (
     <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between">
@@ -26,20 +32,22 @@ export const SearchStatusAndControls = ({
         totalAuctions={totalAuctions}
         totalSites={totalSites}
         newAuctions={newAuctions}
-        className="text-xs md:text-sm"
+        className={statusClassName}
       />
       
       {/* Desktop controls - só ordenação e layout */}
-      <div className="hidden md:flex items-center gap-4">
-        <SearchControls
-          isVertical={isVertical}
-          onToggleLayout={onToggleLayout}
-          sortBy={sortBy}
-          onSortChange={onSortChange}
-          sortOptions={sortOptions}
-          resultsText=""
-        />
-      </div>
+      {showControls && (
+        <div className={controlsClassName}>
+          <SearchControls
+            isVertical={isVertical}
+            onToggleLayout={onToggleLayout}
+            sortBy={sortBy}
+            onSortChange={onSortChange}
+            sortOptions={sortOptions}
+            resultsText=""
+          />
+        </div>
+      )}
     </div>
   );
 };

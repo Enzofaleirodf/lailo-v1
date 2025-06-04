@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SessionNavBar } from "../SessionNavBar";
-import { BottomNavigation } from "../BottomNavigation";
+import { SessionNavBar } from "../navigation/SessionNavBar";
+import { BottomNavigation } from "../navigation/BottomNavigation";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
@@ -59,85 +59,107 @@ export const SearchPageLayout = ({
     console.log("Abrir modal de ordenação");
   };
 
-  // Shared content component to avoid duplication
-  const renderMainContent = () => (
-    <>
-      <SearchStatusAndControls 
-        totalAuctions={finalResultsCount} 
-        totalSites={finalSitesCount} 
-        newAuctions={newAuctions} 
+  // Desktop Layout Component
+  const DesktopLayout = () => (
+    <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+      <div className="absolute left-0 top-0 h-full w-12 z-50">
+        <SessionNavBar />
+      </div>
+      
+      <div className="absolute top-0 left-12 right-0 h-20 z-40">
+        <DesktopTopBar 
+          title={config.title} 
+          isLoading={isLoading} 
+          itemType={config.type} 
+          onItemTypeChange={handleItemTypeChange} 
+        />
+      </div>
+
+      <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
+        <DesktopFilterSidebar 
+          itemType={config.type} 
+          onClearFilters={onClearFilters} 
+        />
+      </div>
+
+      <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white px-6 pb-6">
+        <div className="px-6 py-5">
+          <SearchStatusAndControls 
+            totalAuctions={finalResultsCount} 
+            totalSites={finalSitesCount} 
+            newAuctions={newAuctions} 
+            isVertical={isVertical} 
+            onToggleLayout={onToggleLayout} 
+            sortBy={sortBy} 
+            onSortChange={onSortChange} 
+            sortOptions={sortOptions} 
+          />
+          
+          <SearchMainContent 
+            items={items} 
+            isVertical={isVertical} 
+            config={config} 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+            onPageChange={onPageChange} 
+          />
+        </div>
+      </main>
+    </div>
+  );
+
+  // Mobile Layout Component
+  const MobileLayout = () => (
+    <div className="w-full min-h-screen bg-white">
+      <MobileTopBar 
         isVertical={isVertical} 
         onToggleLayout={onToggleLayout} 
-        sortBy={sortBy} 
-        onSortChange={onSortChange} 
-        sortOptions={sortOptions} 
+        onShowFilters={handleShowFilters} 
+        onShowSort={handleShowSort} 
+        itemType={config.type} 
       />
       
-      <SearchMainContent 
-        items={items} 
-        isVertical={isVertical} 
-        config={config} 
-        currentPage={currentPage} 
-        totalPages={totalPages} 
-        onPageChange={onPageChange} 
-      />
-    </>
+      <main className="w-full min-h-screen bg-white px-4 pb-20 pt-14">
+        <div className="py-5">
+          <SearchStatusAndControls 
+            totalAuctions={finalResultsCount} 
+            totalSites={finalSitesCount} 
+            newAuctions={newAuctions} 
+            isVertical={isVertical} 
+            onToggleLayout={onToggleLayout} 
+            sortBy={sortBy} 
+            onSortChange={onSortChange} 
+            sortOptions={sortOptions}
+            showControls={false}
+          />
+          
+          <SearchMainContent 
+            items={items} 
+            isVertical={isVertical} 
+            config={config} 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+            onPageChange={onPageChange} 
+          />
+        </div>
+      </main>
+      
+      <div className="fixed bottom-0 left-0 right-0 z-50">
+        <BottomNavigation />
+      </div>
+    </div>
   );
 
   return (
     <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
-        <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
-          <div className="absolute left-0 top-0 h-full w-12 z-50">
-            <SessionNavBar />
-          </div>
-          
-          <div className="absolute top-0 left-12 right-0 h-20 z-40">
-            <DesktopTopBar 
-              title={config.title} 
-              isLoading={isLoading} 
-              itemType={config.type} 
-              onItemTypeChange={handleItemTypeChange} 
-            />
-          </div>
-
-          <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
-            <DesktopFilterSidebar 
-              itemType={config.type} 
-              onClearFilters={onClearFilters} 
-            />
-          </div>
-
-          <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white px-6 pb-6">
-            <div className="px-6 py-5">
-              {renderMainContent()}
-            </div>
-          </main>
-        </div>
+        <DesktopLayout />
       </div>
 
       {/* Mobile Layout */}
       <div className="block md:hidden">
-        <div className="w-full min-h-screen bg-white">
-          <MobileTopBar 
-            isVertical={isVertical} 
-            onToggleLayout={onToggleLayout} 
-            onShowFilters={handleShowFilters} 
-            onShowSort={handleShowSort} 
-            itemType={config.type} 
-          />
-          
-          <main className="w-full min-h-screen bg-white px-4 pb-20 pt-14">
-            <div className="py-5">
-              {renderMainContent()}
-            </div>
-          </main>
-          
-          <div className="fixed bottom-0 left-0 right-0 z-50">
-            <BottomNavigation />
-          </div>
-        </div>
+        <MobileLayout />
       </div>
     </div>
   );

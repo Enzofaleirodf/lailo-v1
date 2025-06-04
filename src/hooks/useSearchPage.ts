@@ -1,12 +1,27 @@
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { SearchConfig } from '@/types/search';
 
-export const useSearchPage = (config: SearchConfig) => {
-  const [isVertical, setIsVertical] = useState(false);
+interface UseSearchPageOptions {
+  initialVertical?: boolean;
+  initialSort?: string;
+  initialPage?: number;
+}
+
+export const useSearchPage = (
+  config: SearchConfig, 
+  options: UseSearchPageOptions = {}
+) => {
+  const { 
+    initialVertical = false, 
+    initialSort = config.sortOptions[0], 
+    initialPage = 1 
+  } = options;
+
+  const [isVertical, setIsVertical] = useState(initialVertical);
   const [isLoading, setIsLoading] = useState(false);
-  const [sortBy, setSortBy] = useState(config.sortOptions[0]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState(initialSort);
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
@@ -21,21 +36,38 @@ export const useSearchPage = (config: SearchConfig) => {
 
   const handleLayoutToggle = useCallback((vertical: boolean) => {
     setIsVertical(vertical);
+    console.log(`Layout alterado para: ${vertical ? 'vertical' : 'horizontal'}`);
   }, []);
 
   const resetPage = useCallback(() => {
     setCurrentPage(1);
   }, []);
 
-  return {
+  const resetFilters = useCallback(() => {
+    setCurrentPage(1);
+    setSortBy(config.sortOptions[0]);
+    console.log('Filtros resetados');
+  }, [config.sortOptions]);
+
+  // Computed values
+  const searchState = useMemo(() => ({
     isVertical,
     isLoading,
     sortBy,
     currentPage,
+    config
+  }), [isVertical, isLoading, sortBy, currentPage, config]);
+
+  return {
+    // State
+    ...searchState,
+    
+    // Actions
     setIsLoading,
     handlePageChange,
     handleSortChange,
     handleLayoutToggle,
     resetPage,
+    resetFilters,
   };
 };

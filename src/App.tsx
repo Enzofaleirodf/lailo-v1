@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Index from "./pages/Index";
 import BuscadorImoveis from "./pages/BuscadorImoveis";
@@ -19,7 +19,14 @@ import AuthCallback from "./pages/auth/AuthCallback";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -34,11 +41,11 @@ const App = () => (
           <Route path="/buscador/imoveis" element={<BuscadorImoveis />} />
           <Route path="/buscador/veiculos" element={<BuscadorVeiculos />} />
           
-          {/* Rotas de favoritos (agora públicas, mas com conteúdo diferente por status de login) */}
+          {/* Rotas de favoritos */}
           <Route path="/favoritos/imoveis" element={<FavoritosImoveis />} />
           <Route path="/favoritos/veiculos" element={<FavoritosVeiculos />} />
           
-          {/* Outras rotas */}
+          {/* Outras rotas públicas */}
           <Route path="/leiloeiros" element={<Leiloeiros />} />
           <Route path="/agenda" element={<Agenda />} />
           
@@ -66,9 +73,9 @@ const App = () => (
           <Route path="/auth/callback" element={<AuthCallback />} />
           
           {/* Rotas de compatibilidade (redirecionamento das antigas) */}
-          <Route path="/buscador" element={<Index />} />
-          <Route path="/veiculos" element={<BuscadorVeiculos />} />
-          <Route path="/imoveis" element={<BuscadorImoveis />} />
+          <Route path="/buscador" element={<Navigate to="/buscador/imoveis" replace />} />
+          <Route path="/veiculos" element={<Navigate to="/buscador/veiculos" replace />} />
+          <Route path="/imoveis" element={<Navigate to="/buscador/imoveis" replace />} />
           
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
