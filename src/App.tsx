@@ -11,6 +11,7 @@ import BuscadorVeiculos from "./pages/BuscadorVeiculos";
 import FavoritosImoveis from "./pages/FavoritosImoveis";
 import FavoritosVeiculos from "./pages/FavoritosVeiculos";
 import Leiloeiros from "./pages/Leiloeiros";
+import Agenda from "./pages/Agenda";
 import Perfil from "./pages/Perfil";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
@@ -53,6 +54,7 @@ const App = () => (
           
           {/* Outras rotas */}
           <Route path="/leiloeiros" element={<Leiloeiros />} />
+          <Route path="/agenda" element={<Agenda />} />
           
           {/* Rotas protegidas */}
           <Route 
