@@ -24,11 +24,11 @@ export const BaseItemHeader = ({
   if (itemType === 'vehicle') {
     const vehicle = item as any;
     return (
-      <div className="space-y-1">
+      <div className={isVertical ? "space-y-3" : "space-y-1"}>
         <h3 className={`${titleClass} truncate`}>
           {vehicle.name}
         </h3>
-        <div className="flex items-center gap-2 text-gray-500">
+        <div className={`flex items-center gap-2 text-gray-500 ${isVertical ? "mt-1" : ""}`}>
           <span className={`${detailsClass} truncate flex-shrink`}>{vehicle.color}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
           <span className={`${detailsClass} flex-shrink-0`}>{vehicle.year}</span>
@@ -41,7 +41,7 @@ export const BaseItemHeader = ({
 
   const property = item as any;
   return (
-    <div className="space-y-1">
+    <div className={isVertical ? "space-y-3" : "space-y-1"}>
       <div className="flex items-center gap-2">
         <h3 className={`${titleClass} truncate flex-shrink min-w-0`}>
           {property.type}
@@ -51,7 +51,7 @@ export const BaseItemHeader = ({
           {property.area}
         </span>
       </div>
-      <div className="flex items-center gap-2 text-gray-500">
+      <div className={`flex items-center gap-2 text-gray-500 ${isVertical ? "mt-1" : ""}`}>
         <span className={`${detailsClass} truncate`}>{property.location}</span>
       </div>
     </div>
