@@ -56,25 +56,6 @@ function Calendar({
         IconLeft: () => <ChevronLeft className="h-4 w-4" />,
         IconRight: () => <ChevronRight className="h-4 w-4" />,
       }}
-      locale={{
-        localize: {
-          day: (n: number) => String(n),
-          month: (n: number) => [
-            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-          ][n],
-          ordinalNumber: (n: number) => String(n),
-          era: () => '',
-          quarter: () => '',
-          dayPeriod: () => '',
-        },
-        formatLong: {},
-        match: {},
-        options: {
-          weekStartsOn: 0,
-          firstWeekContainsDate: 1,
-        },
-      }}
       formatters={{
         formatCaption: (month, options) => {
           const monthNames = [
