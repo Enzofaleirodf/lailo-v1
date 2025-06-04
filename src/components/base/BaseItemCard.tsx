@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -75,13 +74,17 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           
           <Separator className="!my-3" />
           
-          <div className="flex items-center justify-between min-w-0">
-            <BaseBadges badges={item.badges} isVertical={true} />
-            <BaseDate 
-              date={item.date} 
-              isVertical={true}
-              href={(item as any).href || "#"}
-            />
+          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <div className="flex-shrink min-w-0">
+              <BaseBadges badges={item.badges} isVertical={true} />
+            </div>
+            <div className="flex-shrink-0 ml-auto">
+              <BaseDate 
+                date={item.date} 
+                isVertical={true}
+                href={(item as any).href || "#"}
+              />
+            </div>
           </div>
         </div>
       </BaseCard>
@@ -139,13 +142,17 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
       
       <Separator className="!my-3" />
       
-      <div className="flex items-center justify-between min-w-0">
-        <BaseBadges badges={item.badges} isVertical={false} />
-        <BaseDate 
-          date={item.date} 
-          isVertical={false}
-          href={(item as any).href || "#"}
-        />
+      <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+        <div className="flex-shrink min-w-0">
+          <BaseBadges badges={item.badges} isVertical={false} />
+        </div>
+        <div className="flex-shrink-0 ml-auto">
+          <BaseDate 
+            date={item.date} 
+            isVertical={false}
+            href={(item as any).href || "#"}
+          />
+        </div>
       </div>
     </BaseCard>
   );
