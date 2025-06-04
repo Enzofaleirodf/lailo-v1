@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { LocationFilter } from './LocationFilter';
 import { FormatFilter } from './FormatFilter';
 import { OriginFilter } from './OriginFilter';
 import { StageFilter } from './StageFilter';
@@ -19,22 +18,17 @@ export const TopBarFilters = ({
 
   return (
     <div className="flex items-start gap-3 min-w-0">
-      {/* Filtro de Localização - sempre primeiro */}
-      <div className="flex-shrink-0 w-[220px]">
-        <LocationFilter />
-      </div>
-
-      {/* Filtro de Formato - mesma largura da localização */}
+      {/* Filtro de Formato - agora primeiro */}
       <div className="flex-shrink-0 w-[220px]">
         <FormatFilter itemType={itemType} />
       </div>
 
-      {/* Filtro de Origem - mesma largura da localização */}
+      {/* Filtro de Origem */}
       <div className="flex-shrink-0 w-[220px]">
         <OriginFilter itemType={itemType} />
       </div>
 
-      {/* Filtro de Etapa - mesma largura da localização - dependente do formato */}
+      {/* Filtro de Etapa - dependente do formato */}
       <div className="flex-shrink-0 w-[220px]">
         <StageFilter 
           itemType={itemType} 
