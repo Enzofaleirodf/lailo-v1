@@ -52,8 +52,8 @@ const FavoritosImoveis = () => {
         <div className="p-12">
           <EmptyState
             icon={Heart}
-            title="Acesso aos favoritos requer login"
-            description="Entre na sua conta para ver e gerenciar seus imóveis favoritos. É rápido e gratuito!"
+            title="Acesse seus favoritos"
+            description="Faça login ou crie uma conta gratuita."
             actionLabel="Fazer Login"
             onAction={() => window.location.href = '/auth/login'}
           />
