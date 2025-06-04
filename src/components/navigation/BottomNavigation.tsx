@@ -2,16 +2,8 @@
 import React, { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { 
-  Home, 
-  Search, 
-  Heart, 
-  User, 
-  LogIn, 
-  Car, 
   MoreHorizontal, 
-  Calendar, 
-  Gavel, 
-  Settings, 
+  LogIn, 
   LogOut 
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -20,9 +12,51 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
+// Icon mapping para renderizar os ícones dinamicamente
+const iconMap = {
+  Home: () => import("lucide-react").then(mod => mod.Home),
+  Building: () => import("lucide-react").then(mod => mod.Building),
+  Car: () => import("lucide-react").then(mod => mod.Car),
+  Heart: () => import("lucide-react").then(mod => mod.Heart),
+  User: () => import("lucide-react").then(mod => mod.User),
+  Gavel: () => import("lucide-react").then(mod => mod.Gavel),
+  Calendar: () => import("lucide-react").then(mod => mod.Calendar),
+  Shield: () => import("lucide-react").then(mod => mod.Shield),
+  Settings: () => import("lucide-react").then(mod => mod.Settings),
+  Search: () => import("lucide-react").then(mod => mod.Search),
+};
+
+// Importar ícones staticamente para melhor performance
+import { 
+  Home, 
+  Building,
+  Car, 
+  Heart, 
+  User, 
+  Gavel, 
+  Calendar, 
+  Shield,
+  Settings,
+  Search 
+} from "lucide-react";
+
+const staticIconMap = {
+  Home,
+  Building, 
+  Car,
+  Heart,
+  User,
+  Gavel,
+  Calendar,
+  Shield,
+  Settings,
+  Search,
+};
+
 // Memoizar o item de navegação para evitar re-renders
 const NavItem = memo(({ item }: { item: any }) => {
-  const Icon = item.icon;
+  const IconComponent = staticIconMap[item.icon as keyof typeof staticIconMap];
+  
   return (
     <Link
       to={item.to}
@@ -35,7 +69,7 @@ const NavItem = memo(({ item }: { item: any }) => {
         }
       `}
     >
-      <Icon className="w-5 h-5 mb-1" />
+      <IconComponent className="w-5 h-5 mb-1" />
       <span className="text-xs font-medium text-center leading-tight">{item.label}</span>
     </Link>
   );
@@ -45,61 +79,22 @@ NavItem.displayName = 'NavItem';
 
 export const BottomNavigation = memo(() => {
   const { isAuthenticated, logout } = useAuth();
-  const { isActive } = useNavigation();
+  const { isActive, getVisibleItems } = useNavigation();
   const [isMoreMenuOpen, setIsMoreMenuOpen] = React.useState(false);
 
-  const mainNavItems = React.useMemo(() => [
-    {
-      to: "/",
-      icon: Home,
-      label: "Início",
-      active: isActive("/")
-    },
-    {
-      to: "/buscador/imoveis",
-      icon: Search,
-      label: "Imóveis",
-      active: isActive("/buscador/imoveis")
-    },
-    {
-      to: "/buscador/veiculos",
-      icon: Car,
-      label: "Veículos",
-      active: isActive("/buscador/veiculos")
-    },
-    {
-      to: "/favoritos/imoveis",
-      icon: Heart,
-      label: "Favoritos",
-      active: isActive("/favoritos/imoveis") || isActive("/favoritos/veiculos")
-    }
-  ], [isActive]);
+  // Usar a lógica centralizada do useNavigation
+  const allNavItems = React.useMemo(() => {
+    const items = getVisibleItems('bottom');
+    return items.map(item => ({
+      ...item,
+      active: isActive(item.to),
+      icon: item.icon
+    }));
+  }, [getVisibleItems, isActive]);
 
-  const publicMenuItems = React.useMemo(() => [
-    {
-      to: "/leiloeiros",
-      icon: Gavel,
-      label: "Leiloeiros"
-    },
-    {
-      to: "/agenda",
-      icon: Calendar,
-      label: "Agenda"
-    }
-  ], []);
-
-  const userMenuItems = React.useMemo(() => [
-    {
-      to: "/configuracoes",
-      icon: Settings,
-      label: "Configurações"
-    },
-    {
-      to: "/perfil",
-      icon: User,
-      label: "Perfil"
-    }
-  ], []);
+  // Separar itens principais (primeiros 4) dos itens do menu "Mais"
+  const mainNavItems = React.useMemo(() => allNavItems.slice(0, 4), [allNavItems]);
+  const moreMenuItems = React.useMemo(() => allNavItems.slice(4), [allNavItems]);
 
   const handleMenuItemClick = useCallback(() => {
     setIsMoreMenuOpen(false);
@@ -112,8 +107,8 @@ export const BottomNavigation = memo(() => {
 
   // Check if any "more menu" item is active
   const isMoreMenuActive = React.useMemo(() => 
-    ["/leiloeiros", "/agenda", "/configuracoes", "/perfil"].some(path => isActive(path))
-  , [isActive]);
+    moreMenuItems.some(item => item.active)
+  , [moreMenuItems]);
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-[50]">
@@ -122,7 +117,7 @@ export const BottomNavigation = memo(() => {
           <NavItem key={item.to} item={item} />
         ))}
         
-        {/* Botão Mais com Menu */}
+        {/* Botão Mais com Menu - só aparece se houver itens adicionais ou precisa de autenticação */}
         <div className="w-1/5 h-full flex justify-center">
           <Popover open={isMoreMenuOpen} onOpenChange={setIsMoreMenuOpen}>
             <PopoverTrigger asChild>
@@ -149,31 +144,11 @@ export const BottomNavigation = memo(() => {
               style={{ maxHeight: '240px' }}
             >
               <div className="py-2 h-full flex flex-col">
-                {/* Seção Pública */}
-                <div className="px-2 flex-shrink-0">
-                  {publicMenuItems.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link
-                        key={item.to}
-                        to={item.to}
-                        onClick={handleMenuItemClick}
-                        className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-                      >
-                        <Icon className="w-4 h-4 flex-shrink-0" />
-                        <span className="truncate">{item.label}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-                
-                <Separator className="my-2 flex-shrink-0" />
-                
-                {/* Seção do Usuário */}
-                <div className="px-2 flex-1 flex flex-col min-h-0">
-                  <div className="flex-1">
-                    {userMenuItems.map((item) => {
-                      const Icon = item.icon;
+                {/* Itens adicionais da navegação */}
+                {moreMenuItems.length > 0 && (
+                  <div className="px-2 flex-shrink-0">
+                    {moreMenuItems.map((item) => {
+                      const IconComponent = staticIconMap[item.icon as keyof typeof staticIconMap];
                       return (
                         <Link
                           key={item.to}
@@ -181,14 +156,18 @@ export const BottomNavigation = memo(() => {
                           onClick={handleMenuItemClick}
                           className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                         >
-                          <Icon className="w-4 h-4 flex-shrink-0" />
+                          <IconComponent className="w-4 h-4 flex-shrink-0" />
                           <span className="truncate">{item.label}</span>
                         </Link>
                       );
                     })}
                   </div>
-                  
-                  {/* Container fixo para botão de autenticação */}
+                )}
+                
+                {moreMenuItems.length > 0 && <Separator className="my-2 flex-shrink-0" />}
+                
+                {/* Seção de autenticação */}
+                <div className="px-2 flex-1 flex flex-col min-h-0">
                   <div className="flex-shrink-0 pt-2 mt-auto h-12 flex items-center">
                     {isAuthenticated ? (
                       <Button
