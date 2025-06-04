@@ -1,5 +1,6 @@
 
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export interface User {
   id: string;
@@ -34,38 +35,55 @@ interface AuthStore {
   setProfile: (profile: UserProfile | null) => void;
   setLoading: (loading: boolean) => void;
   logout: () => void;
+  isAdmin: () => boolean;
   
-  // Estas funções serão implementadas quando o Supabase for conectado
+  // Future Supabase integration
   login?: (email: string, password: string) => Promise<void>;
   signup?: (email: string, password: string, name?: string) => Promise<void>;
   updateProfile?: (updates: Partial<UserProfile>) => Promise<void>;
   refreshUser?: () => Promise<void>;
 }
 
-export const useAuthStore = create<AuthStore>((set, get) => ({
-  user: null,
-  profile: null,
-  isLoading: false,
-  isAuthenticated: false,
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set, get) => ({
+      user: null,
+      profile: null,
+      isLoading: false,
+      isAuthenticated: false,
 
-  setUser: (user) => 
-    set({ 
-      user, 
-      isAuthenticated: !!user 
+      setUser: (user) => 
+        set({ 
+          user, 
+          isAuthenticated: !!user 
+        }),
+
+      setProfile: (profile) => set({ profile }),
+
+      setLoading: (loading) => set({ isLoading: loading }),
+
+      logout: () => {
+        set({ 
+          user: null, 
+          profile: null, 
+          isAuthenticated: false 
+        });
+        console.log('User logged out locally');
+      },
+
+      isAdmin: () => {
+        const { user } = get();
+        // Placeholder logic - will be implemented with Supabase
+        return user?.email === 'admin@example.com';
+      },
     }),
-
-  setProfile: (profile) => set({ profile }),
-
-  setLoading: (loading) => set({ isLoading: loading }),
-
-  logout: () => {
-    set({ 
-      user: null, 
-      profile: null, 
-      isAuthenticated: false 
-    });
-    
-    // TODO: Quando Supabase estiver conectado, fazer logout real
-    console.log('User logged out locally');
-  },
-}));
+    {
+      name: 'auction-auth',
+      partialize: (state) => ({
+        user: state.user,
+        profile: state.profile,
+        isAuthenticated: state.isAuthenticated,
+      }),
+    }
+  )
+);

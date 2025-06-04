@@ -2,6 +2,13 @@
 import { useLocation } from 'react-router-dom';
 import { useAuth } from './useAuth';
 
+interface NavItem {
+  to: string;
+  icon: string;
+  label: string;
+  pattern: string;
+}
+
 export const useNavigation = () => {
   const location = useLocation();
   const { isAuthenticated, isAdmin } = useAuth();
@@ -16,32 +23,34 @@ export const useNavigation = () => {
     return location.pathname === path || location.pathname.startsWith(path);
   };
 
-  const mainNavItems = [
-    { to: "/buscador/veiculos", icon: "Car", label: "Veículos", pattern: "veiculos" },
-    { to: "/buscador/imoveis", icon: "Home", label: "Imóveis", pattern: "imoveis" },
-    { to: "/leiloeiros", icon: "Gavel", label: "Leiloeiros", pattern: "leiloeiros" },
-    { to: "/agenda", icon: "Calendar", label: "Agenda", pattern: "agenda" },
-  ];
+  const navigationConfig = {
+    main: [
+      { to: "/buscador/veiculos", icon: "Car", label: "Veículos", pattern: "veiculos" },
+      { to: "/buscador/imoveis", icon: "Home", label: "Imóveis", pattern: "imoveis" },
+      { to: "/leiloeiros", icon: "Gavel", label: "Leiloeiros", pattern: "leiloeiros" },
+      { to: "/agenda", icon: "Calendar", label: "Agenda", pattern: "agenda" },
+    ] as NavItem[],
+    
+    favorites: [
+      { to: "/favoritos/veiculos", icon: "Heart", label: "Favoritos Veículos", pattern: "favoritos/veiculos" },
+      { to: "/favoritos/imoveis", icon: "Heart", label: "Favoritos Imóveis", pattern: "favoritos/imoveis" },
+      { to: "/perfil", icon: "User", label: "Perfil", pattern: "perfil" },
+    ] as NavItem[],
+    
+    admin: [
+      { to: "/admin", icon: "Shield", label: "Admin", pattern: "admin" },
+    ] as NavItem[],
+  };
 
-  const favoriteNavItems = [
-    { to: "/favoritos/veiculos", icon: "Heart", label: "Favoritos Veículos", pattern: "favoritos/veiculos" },
-    { to: "/favoritos/imoveis", icon: "Heart", label: "Favoritos Imóveis", pattern: "favoritos/imoveis" },
-    { to: "/perfil", icon: "User", label: "Perfil", pattern: "perfil" },
-  ];
-
-  const adminNavItems = [
-    { to: "/admin", icon: "Shield", label: "Admin", pattern: "admin" },
-  ];
-
-  const getVisibleItems = (context: 'sidebar' | 'bottom') => {
-    const items = [...mainNavItems];
+  const getVisibleItems = (context: 'sidebar' | 'bottom' = 'sidebar') => {
+    const items = [...navigationConfig.main];
     
     if (isAuthenticated) {
-      items.push(...favoriteNavItems);
+      items.push(...navigationConfig.favorites);
     }
     
     if (isAdmin()) {
-      items.push(...adminNavItems);
+      items.push(...navigationConfig.admin);
     }
 
     return items;
@@ -49,11 +58,14 @@ export const useNavigation = () => {
 
   return {
     isActive,
-    mainNavItems,
-    favoriteNavItems,
-    adminNavItems,
     getVisibleItems,
+    navigationConfig,
     isAuthenticated,
     currentPath: location.pathname,
+    
+    // Legacy support - will be removed in next phase
+    mainNavItems: navigationConfig.main,
+    favoriteNavItems: navigationConfig.favorites,
+    adminNavItems: navigationConfig.admin,
   };
 };
