@@ -1,6 +1,6 @@
 
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "../../hooks/useAuth";
 import { showSuccess, showError } from "../../components/ui/NotificationToast";
+import { useFavoritesStore } from "../../stores/favoritesStore";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,26 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { setUser, setProfile } = useAuth();
+  const { addFavorite } = useFavoritesStore();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handlePostLoginActions = (redirectData: any) => {
+    if (redirectData && redirectData.action === 'favorite' && redirectData.item) {
+      // Executar ação de favoritar
+      addFavorite(redirectData.item);
+      showSuccess("Adicionado aos favoritos", redirectData.item.title);
+      
+      // Redirecionar para a página original
+      if (redirectData.returnUrl) {
+        navigate(redirectData.returnUrl);
+      } else {
+        navigate("/");
+      }
+    } else {
+      navigate("/");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +70,22 @@ const Login = () => {
         setUser(mockUser);
         setProfile(mockProfile);
         showSuccess("Login realizado com sucesso!", `Bem-vindo, ${mockUser.name}`);
-        navigate("/");
+        
+        // Verificar se há dados de redirecionamento
+        const urlParams = new URLSearchParams(location.search);
+        const redirectBackTo = urlParams.get('redirectBackTo');
+        
+        if (redirectBackTo) {
+          try {
+            const redirectData = JSON.parse(decodeURIComponent(redirectBackTo));
+            handlePostLoginActions(redirectData);
+          } catch (error) {
+            console.error('Erro ao processar dados de redirecionamento:', error);
+            navigate("/");
+          }
+        } else {
+          navigate("/");
+        }
       } else {
         showError("Erro no login", "Email ou senha incorretos");
       }
@@ -113,7 +148,10 @@ const Login = () => {
           <div className="mt-6 text-center space-y-2">
             <p className="text-sm text-gray-600">
               Não tem uma conta?{" "}
-              <Link to="/auth/sign-up" className="text-blue-600 hover:underline">
+              <Link 
+                to={`/auth/sign-up${location.search}`} 
+                className="text-blue-600 hover:underline"
+              >
                 Criar conta
               </Link>
             </p>
