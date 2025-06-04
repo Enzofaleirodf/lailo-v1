@@ -46,7 +46,8 @@ const FavoritosImoveis = () => {
   if (!isAuthenticated) {
     return (
       <ContentPageLayout
-        title=""
+        title="Imóveis Favoritos"
+        subtitle="Faça login para gerenciar seus imóveis favoritos"
         titleIcon={Heart}
       >
         <div className="p-12">

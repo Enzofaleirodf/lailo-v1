@@ -47,7 +47,8 @@ const FavoritosVeiculos = () => {
   if (!isAuthenticated) {
     return (
       <ContentPageLayout
-        title=""
+        title="Veículos Favoritos"
+        subtitle="Faça login para gerenciar seus veículos favoritos"
         titleIcon={Heart}
       >
         <div className="p-12">
