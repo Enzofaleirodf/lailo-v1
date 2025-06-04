@@ -126,10 +126,11 @@ export const BottomNavigation = () => {
               side="top" 
               align="center"
               sideOffset={8}
+              style={{ minHeight: '200px' }}
             >
-              <div className="py-2">
+              <div className="py-2 min-h-[196px] flex flex-col">
                 {/* Seção Pública */}
-                <div className="px-2">
+                <div className="px-2 flex-shrink-0">
                   {publicMenuItems.map((item) => {
                     const Icon = item.icon;
                     return (
@@ -146,10 +147,10 @@ export const BottomNavigation = () => {
                   })}
                 </div>
                 
-                <Separator className="my-2" />
+                <Separator className="my-2 flex-shrink-0" />
                 
                 {/* Seção do Usuário */}
-                <div className="px-2">
+                <div className="px-2 flex-1 flex flex-col">
                   {userMenuItems.map((item) => {
                     const Icon = item.icon;
                     return (
@@ -165,29 +166,28 @@ export const BottomNavigation = () => {
                     );
                   })}
                   
-                  {/* Botão Sair - só aparece se logado */}
-                  {isAuthenticated && (
-                    <Button
-                      variant="ghost"
-                      onClick={handleLogout}
-                      className="w-full justify-start gap-3 px-3 py-2 h-auto text-sm text-gray-700 hover:bg-gray-100 rounded-lg"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      Sair
-                    </Button>
-                  )}
-                  
-                  {/* Botão Login - só aparece se não logado */}
-                  {!isAuthenticated && (
-                    <Link
-                      to="/auth/login"
-                      onClick={handleMenuItemClick}
-                      className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-                    >
-                      <LogIn className="w-4 h-4" />
-                      Entrar
-                    </Link>
-                  )}
+                  {/* Container fixo para botão de autenticação */}
+                  <div className="mt-auto pt-2">
+                    {isAuthenticated ? (
+                      <Button
+                        variant="ghost"
+                        onClick={handleLogout}
+                        className="w-full justify-start gap-3 px-3 py-2 h-auto text-sm text-gray-700 hover:bg-gray-100 rounded-lg"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sair
+                      </Button>
+                    ) : (
+                      <Link
+                        to="/auth/login"
+                        onClick={handleMenuItemClick}
+                        className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                      >
+                        <LogIn className="w-4 h-4" />
+                        Entrar
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
             </PopoverContent>
