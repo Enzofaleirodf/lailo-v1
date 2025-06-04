@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from "react";
 import { Building2, Search, ExternalLink } from "lucide-react";
 import { BasePageLayout } from "../components/layout/BasePageLayout";
@@ -182,7 +181,7 @@ const Leiloeiros = () => {
             placeholder="Pesquisar por nome do leiloeiro ou website..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 h-12"
+            className="pl-12 h-12"
           />
         </div>
         <Select value={selectedState} onValueChange={setSelectedState}>
@@ -311,7 +310,7 @@ const Leiloeiros = () => {
               placeholder="Pesquisar leiloeiro..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-12 h-12"
             />
           </div>
         </div>
