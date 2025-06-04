@@ -14,18 +14,18 @@ export const BaseItemHeader = ({
   isVertical = false
 }: BaseItemHeaderProps) => {
   const titleClass = isVertical 
-    ? "font-semibold text-gray-900 text-base sm:text-base leading-tight font-urbanist mb-1" 
-    : "font-semibold text-gray-900 text-sm sm:text-base leading-tight font-urbanist mb-1";
+    ? "font-semibold text-gray-900 text-lg sm:text-lg leading-tight font-urbanist mb-1" 
+    : "font-semibold text-gray-900 text-sm sm:text-base leading-tight truncate font-urbanist mb-1";
 
   const detailsClass = isVertical 
-    ? "text-xs font-medium"
+    ? "text-sm font-medium"
     : "text-xs sm:text-sm font-medium";
 
   if (itemType === 'vehicle') {
     const vehicle = item as any;
     return (
       <div className="space-y-1">
-        <h3 className={`${titleClass} truncate`}>
+        <h3 className={titleClass}>
           {vehicle.name}
         </h3>
         <div className="flex items-center gap-2 text-gray-500">
@@ -33,37 +33,24 @@ export const BaseItemHeader = ({
           <span className="w-1 h-1 bg-gray-300 rounded-full" />
           <span className={detailsClass}>{vehicle.year}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full" />
-          <span className={detailsClass}>{vehicle.location}</span>
+          <span className={`${detailsClass} truncate`}>{vehicle.location}</span>
         </div>
       </div>
     );
   }
 
   const property = item as any;
-  
-  // Separar endereço de cidade/estado
-  const locationParts = property.location.split(' - ');
-  const address = locationParts[0] || '';
-  const cityState = locationParts.slice(1).join(' - ') || '';
-
   return (
     <div className="space-y-1">
-      <div className="flex items-center gap-2">
-        <h3 className={`${titleClass} truncate flex-1 min-w-0`}>
-          {property.type}
-        </h3>
-        <span className={`${detailsClass} text-gray-500 flex-shrink-0`}>
+      <h3 className={titleClass}>
+        {property.type}
+        <span className="inline-block w-1 h-1 bg-gray-300 rounded-full mx-2 align-middle" />
+        <span className={`${detailsClass} text-gray-500`}>
           {property.area}
         </span>
-      </div>
+      </h3>
       <div className="flex items-center gap-2 text-gray-500">
-        <span className={`${detailsClass} truncate flex-1 min-w-0`}>{address}</span>
-        {cityState && (
-          <>
-            <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
-            <span className={`${detailsClass} flex-shrink-0`}>{cityState}</span>
-          </>
-        )}
+        <span className={`${detailsClass} truncate`}>{property.location}</span>
       </div>
     </div>
   );

@@ -38,9 +38,10 @@ export const BaseImage = ({
       {showNewBadge && (
         <div className={`absolute bg-blue-500 text-white text-xs font-bold rounded-md shadow-md font-urbanist ${
           isVertical 
-            ? 'top-2 left-2 px-2 py-2' 
-            : 'top-1 left-1 px-2 py-2'
-        }`}>
+            ? 'top-2 left-2 md:px-2 md:py-1' 
+            : 'top-1 left-1 px-0.5 py-0.5'
+        }`} 
+        style={isVertical ? { margin: '10px', padding: '0' } : { margin: '4px', padding: '2px 4px' }}>
           Novo
         </div>
       )}
