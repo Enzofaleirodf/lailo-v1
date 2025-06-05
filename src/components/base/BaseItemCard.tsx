@@ -72,7 +72,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             />
           </div>
           
-          <div className="space-y-3">
+          <div className="space-y-2">
             <BaseItemHeader 
               item={item}
               itemType={itemType}
@@ -86,7 +86,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={true}
             />
             
-            <Separator className="!my-3" />
+            <Separator className="!my-2" />
             
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               <div className="flex-shrink min-w-0">
@@ -163,7 +163,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           </div>
         </div>
         
-        <Separator className="!my-3" />
+        <Separator className="!my-2" />
         
         <div className="flex items-center gap-2 min-w-0 overflow-hidden">
           <div className="flex-shrink min-w-0">

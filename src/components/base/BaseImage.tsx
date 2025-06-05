@@ -36,11 +36,7 @@ export const BaseImage = ({
       />
       
       {showNewBadge && (
-        <div className={`absolute bg-blue-500 text-white text-xs font-bold rounded-md shadow-md font-urbanist ${
-          isVertical 
-            ? 'top-2 left-2 px-2 py-2' 
-            : 'top-1 left-1 px-0.5 py-0.5'
-        }`}>
+        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow-md font-urbanist">
           Novo
         </div>
       )}
@@ -61,7 +57,7 @@ export const BaseImage = ({
           }}
           aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
         >
-          <Heart className={`${isVertical ? 'h-4 w-4' : 'h-4 w-4'} ${isFavorited ? 'fill-current' : ''}`} />
+          <Heart className="h-4 w-4 ${isFavorited ? 'fill-current' : ''}" />
         </Button>
       )}
     </div>

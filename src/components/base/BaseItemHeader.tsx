@@ -13,13 +13,9 @@ export const BaseItemHeader = ({
   itemType,
   isVertical = false
 }: BaseItemHeaderProps) => {
-  const titleClass = isVertical 
-    ? "font-semibold text-gray-900 text-base sm:text-base leading-tight font-urbanist mb-1" 
-    : "font-semibold text-gray-900 text-xs sm:text-sm leading-tight font-urbanist mb-1";
-
-  const detailsClass = isVertical 
-    ? "text-xs font-medium"
-    : "text-[10px] sm:text-xs font-medium";
+  // Padronização: tamanhos únicos para títulos e detalhes
+  const titleClass = "font-semibold text-gray-900 text-sm leading-tight font-urbanist mb-1";
+  const detailsClass = "text-xs font-medium";
 
   if (itemType === 'vehicle') {
     const vehicle = item as any;

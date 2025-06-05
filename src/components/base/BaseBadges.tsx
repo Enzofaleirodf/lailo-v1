@@ -12,7 +12,8 @@ export const BaseBadges = ({
   badgeColor = "bg-blue-50 text-blue-700 border border-blue-100",
   isVertical = false
 }: BaseBadgesProps): JSX.Element => {
-  const textSize = isVertical ? "text-[10px]" : "text-xs";
+  // Padronização: tamanho único para badges independente do layout
+  const textSize = "text-xs";
   
   return (
     <div className="flex items-center gap-1.5 min-w-0">
