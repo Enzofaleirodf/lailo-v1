@@ -73,10 +73,10 @@ const Leiloeiros = () => {
           estados={estados}
         />
       }
-      contentClass="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 md:mx-6 min-h-[400px]"
+      contentClass="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-0 md:p-6 md:mx-6 min-h-[400px]"
     >
       {/* Header Mobile */}
-      <div className="block md:hidden mb-6">
+      <div className="block md:hidden mb-6 px-4">
         <div className="flex items-center gap-3 mb-2">
           <Building2 className="w-6 h-6 text-blue-600" />
           <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
@@ -85,7 +85,7 @@ const Leiloeiros = () => {
       </div>
 
       {totalLeiloeiros > 0 ? (
-        <div className="space-y-8">
+        <div className="space-y-8 px-4 md:px-0">
           {filteredAndGroupedLeiloeiros.map(({ state, leiloeiros }) => (
             <div key={state}>
               {/* Título do Estado */}
@@ -105,7 +105,9 @@ const Leiloeiros = () => {
           ))}
         </div>
       ) : (
-        <LeiloeiroEmptyState />
+        <div className="px-4 md:px-0">
+          <LeiloeiroEmptyState />
+        </div>
       )}
     </ContentPageLayout>
   );
