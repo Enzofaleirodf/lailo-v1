@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
@@ -8,7 +9,6 @@ import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
-import { MobileTopBar } from "./MobileTopBar";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
 
@@ -50,12 +50,6 @@ export const SearchPageLayout = ({
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
   };
-  const handleShowFilters = () => {
-    console.log("Abrir modal de filtros");
-  };
-  const handleShowSort = () => {
-    console.log("Abrir modal de ordenação");
-  };
 
   // Desktop Layout Component
   const DesktopLayout = () => <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
@@ -86,16 +80,8 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      <MobileTopBar 
-        isVertical={isVertical} 
-        onToggleLayout={onToggleLayout} 
-        onShowFilters={handleShowFilters} 
-        onShowSort={handleShowSort} 
-        itemType={config.type} 
-      />
-      
-      <main className="w-full min-h-screen bg-white px-3 pt-28 pb-20">
-        <div className="py-5">
+      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-20">
+        <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
             totalSites={finalSitesCount} 

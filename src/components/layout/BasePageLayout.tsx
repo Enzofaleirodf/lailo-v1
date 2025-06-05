@@ -39,7 +39,7 @@ export const BasePageLayout = ({
           <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
           <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
           
-          <main className="w-full min-h-screen flex flex-col pt-14 pb-16 px-3">
+          <main className="w-full min-h-screen flex flex-col pt-16 pb-16 px-3">
             {children}
           </main>
           
