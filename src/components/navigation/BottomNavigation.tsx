@@ -8,7 +8,7 @@ import {
   User, 
   LogIn, 
   Car, 
-  MoreHorizontal, 
+  CircleEllipsis, 
   Calendar, 
   Gavel, 
   Settings, 
@@ -136,7 +136,7 @@ export const BottomNavigation = memo(() => {
                   }
                 `}
               >
-                <MoreHorizontal className="w-5 h-5 mb-1" />
+                <CircleEllipsis className="w-5 h-5 mb-1" />
                 <span className="text-xs font-medium text-center leading-tight">Mais</span>
               </button>
             </PopoverTrigger>
