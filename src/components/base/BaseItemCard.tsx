@@ -115,8 +115,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <>
       <BaseCard>
-        <div className={`flex ${cardTokens.spacing.contentGap} items-stretch`}>
-          <div className="relative flex-shrink-0 w-24">
+        <div className={`flex ${cardTokens.spacing.contentGap} items-stretch h-full`}>
+          <div className="relative flex-shrink-0 w-24 h-full">
             <BaseImage 
               src={item.image} 
               alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -125,11 +125,11 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={false}
               showNewBadge={item.showNewBadge}
               showFavoriteButton={false}
-              className="w-24 h-full"
+              className="w-24 h-full object-cover"
             />
           </div>
           
-          <div className="flex-1 min-w-0 flex flex-col">
+          <div className="flex-1 min-w-0 flex flex-col justify-between h-full">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
                 <BaseItemHeader 
