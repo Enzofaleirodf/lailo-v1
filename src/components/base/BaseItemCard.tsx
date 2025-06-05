@@ -87,7 +87,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               />
             </div>
             
-            <Separator className="my-0.5" />
+            <Separator className="my-2.5" />
             
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               <div className="flex-shrink min-w-0">
@@ -169,7 +169,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           </div>
           
           {/* Divider ocupando toda a largura */}
-          <Separator className="my-0.5" />
+          <Separator className="my-2.5" />
           
           {/* Conteúdo inferior ocupando toda a largura */}
           <div className="flex items-center gap-2 min-w-0 overflow-hidden">
