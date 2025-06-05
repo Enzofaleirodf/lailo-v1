@@ -29,12 +29,11 @@ export const BaseDate = ({
       
       <Button 
         variant="ghost" 
-        size="icon" 
         onClick={handleClick} 
         aria-label="Abrir leilão em nova aba" 
-        className="h-4 w-4 p-0 text-gray-400 hover:text-gray-600 transition-colors bg-transparent flex-shrink-0"
+        className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600 transition-colors bg-transparent flex-shrink-0"
       >
-        <ArrowUpRight className="h-2.5 w-2.5" />
+        <ArrowUpRight className="h-3 w-3" />
       </Button>
     </div>
   );
