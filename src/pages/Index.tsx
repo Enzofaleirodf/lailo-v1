@@ -1,6 +1,6 @@
 
 import { SessionNavBar } from "../components/navigation/SessionNavBar";
-import { StaticMobileNav } from "../components/navigation/StaticMobileNav";
+import { MobileNavigation } from "../components/navigation/MobileNavigation";
 
 const Index = () => {
   return (
@@ -32,7 +32,7 @@ const Index = () => {
             </div>
           </main>
           
-          <StaticMobileNav />
+          <MobileNavigation />
         </div>
       </div>
     </div>
