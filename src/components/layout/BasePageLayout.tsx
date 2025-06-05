@@ -29,12 +29,12 @@ export const BasePageLayout = ({
         </div>
       </div>
 
-      {/* Mobile Layout - removido padding top */}
+      {/* Mobile Layout - sem padding top fixo */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
           <MobileNavigation />
           
-          <main className="w-full min-h-screen flex flex-col px-3 pb-20 pt-14">
+          <main className="w-full min-h-screen flex flex-col px-3 pb-20">
             {children}
           </main>
         </div>
