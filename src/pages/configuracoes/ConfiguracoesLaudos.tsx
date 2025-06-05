@@ -1,5 +1,5 @@
 
-import { FileText, Download, Eye, Clock, CheckCircle, Trash2 } from "lucide-react";
+import { FileText, Download, Eye, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SettingsCard } from "../../components/settings/SettingsCard";
 
@@ -9,19 +9,13 @@ const ConfiguracoesLaudos = () => {
       id: 1,
       titulo: "Apartamento na Vila Madalena",
       tipo: "Imóvel",
-      data: "15/12/2024",
-      status: "Concluído",
-      icon: CheckCircle,
-      iconColor: "text-green-600"
+      data: "15/12/2024"
     },
     {
       id: 2,
       titulo: "Honda Civic 2020",
       tipo: "Veículo",
-      data: "10/12/2024", 
-      status: "Em análise",
-      icon: Clock,
-      iconColor: "text-yellow-600"
+      data: "10/12/2024"
     }
   ];
 
@@ -52,7 +46,6 @@ const ConfiguracoesLaudos = () => {
               <div key={laudo.id} className="p-4 border border-gray-200 rounded-lg bg-white">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-start gap-3 flex-1 min-w-0">
-                    <laudo.icon className={`w-5 h-5 mt-0.5 ${laudo.iconColor} shrink-0`} />
                     <div className="min-w-0 flex-1">
                       <h3 className="font-medium text-sm text-gray-900 line-clamp-2 mb-1">{laudo.titulo}</h3>
                       <p className="text-xs text-blue-600 mb-1">{laudo.tipo}</p>
@@ -62,18 +55,14 @@ const ConfiguracoesLaudos = () => {
                 </div>
                 
                 <div className="flex gap-2 pt-2 border-t border-gray-100">
-                  {laudo.status === "Concluído" ? (
-                    <>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <Eye className="w-4 h-4 mr-1" />
-                        Visualizar
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <Download className="w-4 h-4 mr-1" />
-                        Baixar PDF
-                      </Button>
-                    </>
-                  ) : null}
+                  <Button variant="outline" size="sm" className="flex-1">
+                    <Eye className="w-4 h-4 mr-1" />
+                    Visualizar
+                  </Button>
+                  <Button variant="outline" size="sm" className="flex-1">
+                    <Download className="w-4 h-4 mr-1" />
+                    Baixar PDF
+                  </Button>
                   <Button 
                     variant="outline" 
                     size="sm" 
