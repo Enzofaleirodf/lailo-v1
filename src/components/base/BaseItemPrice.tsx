@@ -21,7 +21,7 @@ export const BaseItemPrice = ({
       <span className={`${cardTokens.text.price} text-gray-900 font-urbanist`}>
         {price}
       </span>
-      <Badge className="bg-green-100 text-green-700 font-medium text-xs px-2 py-1 rounded-md font-urbanist">
+      <Badge className="bg-green-100 text-green-700 font-medium text-xs px-2 py-0.5 rounded-md font-urbanist">
         {discount}
       </Badge>
     </div>
