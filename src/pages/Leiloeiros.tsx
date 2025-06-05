@@ -75,8 +75,8 @@ const Leiloeiros = () => {
       }
       contentClass="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 md:mx-6 min-h-[400px]"
     >
-      {/* Header Mobile - movido para o topo */}
-      <div className="block md:hidden mb-6">
+      {/* Header Mobile - no topo antes dos filtros */}
+      <div className="block md:hidden mb-6 -mt-4">
         <div className="flex items-center gap-3 mb-2">
           <Gavel className="w-6 h-6 text-blue-600" />
           <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
