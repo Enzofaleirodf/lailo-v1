@@ -5,12 +5,10 @@ import { BasePageLayout } from "../components/layout/BasePageLayout";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
 const Configuracoes = () => {
   const location = useLocation();
   const currentTab = location.pathname.split('/').pop() || 'perfil';
   const isMainConfigPage = location.pathname === '/configuracoes';
-
   const tabs = [{
     value: 'perfil',
     label: 'Perfil',
@@ -39,9 +37,7 @@ const Configuracoes = () => {
 
   // Encontrar a seção atual
   const currentSection = tabs.find(tab => tab.value === currentTab);
-
-  return (
-    <BasePageLayout containerClass="p-0">
+  return <BasePageLayout containerClass="p-0">
       <div className="w-full max-w-[1440px] mx-auto">
         {/* Header Desktop - sempre visível */}
         <div className="hidden md:block px-6 py-6 border-b border-gray-100 bg-white">
@@ -69,8 +65,7 @@ const Configuracoes = () => {
         </div>
 
         {/* Mobile - Página principal de configurações */}
-        {isMainConfigPage && (
-          <div className="block md:hidden">
+        {isMainConfigPage && <div className="block md:hidden">
             {/* Header principal mobile */}
             <div className="px-4 py-4 border-b border-gray-100 bg-white">
               <div className="flex items-center gap-3">
@@ -84,8 +79,7 @@ const Configuracoes = () => {
 
             {/* Lista de navegação mobile */}
             <div className="bg-white">
-              {tabs.map(tab => (
-                <Link key={tab.value} to={tab.path} className="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+              {tabs.map(tab => <Link key={tab.value} to={tab.path} className="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center gap-3">
                     <tab.icon className="w-5 h-5 text-gray-600" />
                     <div>
@@ -94,15 +88,12 @@ const Configuracoes = () => {
                     </div>
                   </div>
                   <ChevronRight className="w-4 h-4 text-gray-400" />
-                </Link>
-              ))}
+                </Link>)}
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Mobile - Header das subpáginas com botão voltar */}
-        {!isMainConfigPage && (
-          <div className="block md:hidden">
+        {!isMainConfigPage && <div className="block md:hidden">
             <div className="px-4 py-3 border-b border-gray-100 bg-white">
               <div className="flex items-center gap-3">
                 <Link to="/configuracoes" className="p-1 -ml-1">
@@ -114,20 +105,15 @@ const Configuracoes = () => {
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Conteúdo das subpáginas - apenas quando não é a página principal */}
-        {!isMainConfigPage && (
-          <div className="bg-gray-50 min-h-screen md:min-h-0">
-            <div className="p-4 md:p-6">
+        {!isMainConfigPage && <div className="bg-gray-50 min-h-screen md:min-h-0">
+            <div className="p-4 md:p-6 px-0">
               <Outlet />
             </div>
-          </div>
-        )}
+          </div>}
       </div>
-    </BasePageLayout>
-  );
+    </BasePageLayout>;
 };
-
 export default Configuracoes;
