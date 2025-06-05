@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -10,7 +11,9 @@ import {
   Car, 
   Calendar,
   Shield,
-  CircleUser
+  CircleUser,
+  Bell,
+  Settings
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -27,6 +30,8 @@ const iconMap = {
   Calendar,
   Shield,
   CircleUser,
+  Bell,
+  Settings,
 };
 
 export const SessionNavBar = () => {
@@ -106,19 +111,48 @@ export const SessionNavBar = () => {
       {/* Auth Section */}
       <div className="flex flex-col gap-2">
         {isAuthenticated ? (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={logout}
-            className="w-8 h-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50 group relative rounded-lg"
-          >
-            <LogOut className="w-4 h-4" />
-            
-            {/* Tooltip */}
-            <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-[9999]">
-              Sair
-            </div>
-          </Button>
+          <>
+            {/* Ícone de Notificações (Sino) */}
+            <Link
+              to="/notificacoes"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors relative group"
+            >
+              <Bell className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-[9999]">
+                Notificações
+              </div>
+            </Link>
+
+            {/* Ícone de Configurações */}
+            <Link
+              to="/configuracoes"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors relative group"
+            >
+              <Settings className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-[9999]">
+                Configurações
+              </div>
+            </Link>
+
+            {/* Botão de Logout */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              className="w-8 h-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50 group relative rounded-lg"
+            >
+              <LogOut className="w-4 h-4" />
+              
+              {/* Tooltip */}
+              <div className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-[9999]">
+                Sair
+              </div>
+            </Button>
+          </>
         ) : (
           <Link
             to="/auth/login"
