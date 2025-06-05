@@ -47,8 +47,9 @@ const FavoritosVeiculos = () => {
   if (!isAuthenticated) {
     return (
       <ContentPageLayout
-        title=""
-        showHeader={false}
+        title="Veículos Favoritos"
+        subtitle="Seus veículos favoritados aparecem aqui"
+        titleIcon={Heart}
       >
         <div className="p-12">
           <EmptyState
