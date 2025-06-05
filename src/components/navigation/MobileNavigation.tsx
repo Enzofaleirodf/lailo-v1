@@ -59,8 +59,8 @@ export const MobileNavigation = () => {
   const isMoreActive = ["/leiloeiros", "/agenda", "/perfil", "/configuracoes"].some(path => isActive(path));
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 z-50 h-16">
-      <div className="flex items-center justify-center h-full">
+    <header className="md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-16">
+      <div className="flex items-center justify-center h-full px-4">
         {/* Main navigation items */}
         {mainItems.map((item) => {
           const Icon = item.icon;
@@ -109,8 +109,8 @@ export const MobileNavigation = () => {
             </PopoverTrigger>
             
             <PopoverContent 
-              className="w-48 p-2 mb-2" 
-              side="top" 
+              className="w-48 p-2 mt-2" 
+              side="bottom" 
               align="center"
               sideOffset={8}
             >
@@ -158,6 +158,6 @@ export const MobileNavigation = () => {
           </Popover>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };

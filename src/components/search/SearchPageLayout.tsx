@@ -81,6 +81,8 @@ export const SearchPageLayout = ({
   // Mobile Layout Component
   const MobileLayout = () => (
     <div className="w-full min-h-screen bg-white">
+      <MobileNavigation />
+      
       <MobileTopBar 
         isVertical={isVertical} 
         onToggleLayout={onToggleLayout} 
@@ -89,7 +91,7 @@ export const SearchPageLayout = ({
         itemType={config.type} 
       />
       
-      <main className="w-full min-h-screen bg-white px-3 pb-20 pt-20 py-0">
+      <main className="w-full min-h-screen bg-white px-3 pt-32 pb-6">
         <div className="py-5">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
@@ -113,10 +115,6 @@ export const SearchPageLayout = ({
           />
         </div>
       </main>
-      
-      <div className="fixed bottom-0 left-0 right-0 z-50">
-        <MobileNavigation />
-      </div>
     </div>
   );
 

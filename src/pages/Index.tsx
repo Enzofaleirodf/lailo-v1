@@ -23,7 +23,9 @@ const Index = () => {
       {/* Mobile Layout */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
-          <main className="w-full min-h-screen flex flex-col px-3 pb-20">
+          <MobileNavigation />
+          
+          <main className="w-full min-h-screen flex flex-col px-3 pt-16">
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">
                 <h1 className="text-2xl font-bold text-gray-900 mb-4">Em construção</h1>
@@ -31,8 +33,6 @@ const Index = () => {
               </div>
             </div>
           </main>
-          
-          <MobileNavigation />
         </div>
       </div>
     </div>
