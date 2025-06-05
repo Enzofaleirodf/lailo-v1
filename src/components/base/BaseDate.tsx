@@ -21,7 +21,7 @@ export const BaseDate = ({
   };
 
   return (
-    <div className={`flex items-center gap-2 text-gray-500 ${cardTokens.text.body} font-urbanist`}>
+    <div className={`flex items-center gap-2 text-gray-500 text-[10px] font-urbanist`}>
       <div className="flex items-center gap-1">
         <Clock className="h-3 w-3" />
         <span>{date}</span>
@@ -32,9 +32,9 @@ export const BaseDate = ({
         size="icon" 
         onClick={handleClick} 
         aria-label="Abrir leilão em nova aba" 
-        className="h-5 w-5 p-0 text-gray-400 hover:text-gray-600 transition-colors bg-transparent flex-shrink-0"
+        className="h-4 w-4 p-0 text-gray-400 hover:text-gray-600 transition-colors bg-transparent flex-shrink-0"
       >
-        <ArrowUpRight className="h-3 w-3" />
+        <ArrowUpRight className="h-2.5 w-2.5" />
       </Button>
     </div>
   );
