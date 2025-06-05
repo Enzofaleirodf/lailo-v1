@@ -41,19 +41,17 @@ export const CategoryGrid = ({
 }: CategoryGridProps) => {
   const isMobile = useIsMobile();
   
-  // Use responsive layout if enabled
-  const useResponsiveLayout = responsive && isMobile;
+  // Layout responsivo: 2 colunas no mobile, 3 colunas no desktop
+  const getGridLayout = () => {
+    if (!responsive) return "space-y-2 max-w-md";
+    return isMobile ? "grid grid-cols-2 gap-3" : "grid grid-cols-3 gap-4";
+  };
   
   return (
     <div 
-      className={cn(
-        "w-full",
-        useResponsiveLayout 
-          ? "grid grid-cols-2 gap-3" 
-          : "space-y-2 max-w-md"
-      )}
+      className={cn("w-full", getGridLayout())}
       style={{ 
-        gap: useResponsiveLayout ? designTokens.spacing.sm : undefined,
+        gap: responsive ? designTokens.spacing.sm : undefined,
       }}
     >
       {options.map((option) => {

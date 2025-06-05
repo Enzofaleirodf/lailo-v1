@@ -5,6 +5,7 @@ import { FilterSection } from './FilterSection';
 import { CategoryGrid } from './CategoryGrid';
 import { TypeCombobox } from './TypeCombobox';
 import { propertyCategories, propertyTypes, vehicleCategories, vehicleTypes } from '../../config/filterData';
+import { useIsMobile } from '../../hooks/use-mobile';
 
 interface CategoryTypeFiltersProps {
   itemType: ItemType;
@@ -21,6 +22,7 @@ export const CategoryTypeFilters = ({
   onCategoryChange,
   onTypeChange
 }: CategoryTypeFiltersProps) => {
+  const isMobile = useIsMobile();
   
   const handleCategoryChange = (newCategory: string) => {
     console.log('CategoryTypeFilters - Categoria mudou para:', newCategory);
@@ -41,7 +43,7 @@ export const CategoryTypeFilters = ({
   };
 
   return (
-    <div className="w-full min-w-0 space-y-4">
+    <div className="w-full min-w-0 space-y-6">
       <FilterSection title={itemType === 'property' ? 'Categoria do Imóvel' : 'Categoria do Veículo'}>
         <div className="w-full min-w-0">
           <CategoryGrid
