@@ -1,35 +1,30 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronDown, Search } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
-interface ComboboxOption {
+interface SelectOption {
   value: string;
   label: string;
 }
 
-interface SearchableComboboxProps {
-  options: ComboboxOption[];
+interface SimpleSelectProps {
+  options: SelectOption[];
   selected: string;
   onSelect: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
 }
 
-export const SearchableCombobox = ({ 
+export const SimpleSelect = ({ 
   options, 
   selected, 
   onSelect, 
   placeholder = "Selecione...",
   disabled = false
-}: SearchableComboboxProps) => {
+}: SimpleSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const filteredOptions = options.filter(option =>
-    option.label.toLowerCase().includes(search.toLowerCase())
-  );
 
   const selectedOption = options.find(opt => opt.value === selected);
 
@@ -37,7 +32,6 @@ export const SearchableCombobox = ({
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
-        setSearch('');
       }
     };
 
@@ -51,10 +45,9 @@ export const SearchableCombobox = ({
   }, [isOpen]);
 
   const handleSelect = (value: string) => {
-    console.log(`Selecionando valor: ${value}`);
+    console.log(`Selecionando origem: ${value}`);
     onSelect(value);
     setIsOpen(false);
-    setSearch('');
   };
 
   return (
@@ -81,20 +74,8 @@ export const SearchableCombobox = ({
 
       {isOpen && !disabled && (
         <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-hidden">
-          <div className="p-2 border-b border-gray-100">
-            <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Buscar..."
-                className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-          </div>
           <div className="max-h-44 overflow-y-auto">
-            {filteredOptions.map((option) => (
+            {options.map((option) => (
               <button
                 key={option.value}
                 type="button"
@@ -107,11 +88,6 @@ export const SearchableCombobox = ({
                 {option.label}
               </button>
             ))}
-            {filteredOptions.length === 0 && (
-              <div className="px-3 py-2 text-sm text-gray-500 text-center">
-                Nenhum resultado encontrado
-              </div>
-            )}
           </div>
         </div>
       )}

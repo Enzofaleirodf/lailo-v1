@@ -1,6 +1,7 @@
 
 import React from "react";
 import { SearchableCombobox } from "@/components/filters/SearchableCombobox";
+import { SimpleSelect } from "@/components/filters/SimpleSelect";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface AgendaFiltersProps {
@@ -106,7 +107,7 @@ export const AgendaFilters = ({
         
         <div className="space-y-2 w-1/4">
           <label className="text-sm font-medium text-gray-700">Origem</label>
-          <SearchableCombobox
+          <SimpleSelect
             options={origins}
             selected={selectedOrigin}
             onSelect={onOriginChange}
@@ -141,7 +142,7 @@ export const AgendaFilters = ({
           
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">Origem</label>
-            <SearchableCombobox
+            <SimpleSelect
               options={origins}
               selected={selectedOrigin}
               onSelect={onOriginChange}
