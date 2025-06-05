@@ -18,7 +18,7 @@ export const BaseBadges = ({
       {badges.map((badge, index) => (
         <span 
           key={index} 
-          className={`px-2 py-1 ${cardTokens.text.body} font-medium rounded-md font-urbanist ${badgeColor} ${
+          className={`px-2 py-1 text-[10px] font-medium rounded-md font-urbanist ${badgeColor} ${
             index === 0 ? 'truncate flex-shrink min-w-0' : 'flex-shrink-0'
           }`}
         >
