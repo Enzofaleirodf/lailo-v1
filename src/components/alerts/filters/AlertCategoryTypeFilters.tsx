@@ -50,22 +50,25 @@ export const AlertCategoryTypeFilters = ({ type, filters, onFiltersChange }: Ale
               updateFilter('vehicleType', 'carros'); // Reset tipo
             }
           }}
+          columns={2} // Mobile-first: 2 colunas
         />
       </FilterSection>
 
       {/* Tipo */}
       <FilterSection title="Tipo">
-        <ChipSelector
-          options={getTypeOptions()}
-          selected={type === 'property' ? (filters.propertyType || 'todos') : (filters.vehicleType || 'carros')}
-          onSelect={(value) => {
-            if (type === 'property') {
-              updateFilter('propertyType', value);
-            } else {
-              updateFilter('vehicleType', value);
-            }
-          }}
-        />
+        <div className="w-full">
+          <ChipSelector
+            options={getTypeOptions()}
+            selected={type === 'property' ? (filters.propertyType || 'todos') : (filters.vehicleType || 'carros')}
+            onSelect={(value) => {
+              if (type === 'property') {
+                updateFilter('propertyType', value);
+              } else {
+                updateFilter('vehicleType', value);
+              }
+            }}
+          />
+        </div>
       </FilterSection>
     </>
   );

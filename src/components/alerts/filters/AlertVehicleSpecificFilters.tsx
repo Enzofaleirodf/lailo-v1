@@ -66,7 +66,7 @@ export const AlertVehicleSpecificFilters = ({ filters, onFiltersChange }: AlertV
   return (
     <>
       <FilterSection title="Marca e Modelo">
-        <div className="space-y-1">
+        <div className="space-y-2 sm:space-y-1">
           <SearchableCombobox
             options={carBrandOptions}
             selected={filters.brand || 'todas-marcas'}
@@ -87,11 +87,13 @@ export const AlertVehicleSpecificFilters = ({ filters, onFiltersChange }: AlertV
       </FilterSection>
 
       <FilterSection title="Cor">
-        <ColorPopover
-          colors={colorOptions}
-          selected={filters.color || 'todas-cores'}
-          onSelect={(value) => updateFilter('color', value)}
-        />
+        <div className="w-full">
+          <ColorPopover
+            colors={colorOptions}
+            selected={filters.color || 'todas-cores'}
+            onSelect={(value) => updateFilter('color', value)}
+          />
+        </div>
       </FilterSection>
 
       <FilterSection title="Ano do veículo">

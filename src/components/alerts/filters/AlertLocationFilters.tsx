@@ -47,7 +47,7 @@ export const AlertLocationFilters = ({ filters, onFiltersChange }: AlertLocation
 
   return (
     <FilterSection title="Localização">
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         <SearchableCombobox
           options={stateOptions}
           selected={filters.state || 'todos-estados'}

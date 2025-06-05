@@ -21,16 +21,25 @@ const originOptions = [
   { value: 'publico', label: 'Público' },
 ];
 
+const stageOptions = [
+  { value: 'praca-unica', label: 'Praça Única' },
+  { value: '1a-praca', label: '1ª Praça' },
+  { value: '2a-praca', label: '2ª Praça' },
+  { value: '3a-praca', label: '3ª Praça' },
+];
+
 export const AlertConditionFilters = ({ filters, onFiltersChange }: AlertConditionFiltersProps) => {
   const updateFilter = (key: keyof AlertFilters, value: any) => {
     onFiltersChange({ ...filters, [key]: value });
   };
 
+  const isStageEnabled = filters.format === 'leilao' || !filters.format;
+
   return (
     <>
       {/* Formato */}
       <FilterSection title="Formato">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {formatOptions.map((option) => (
             <button
               key={option.value}
@@ -53,7 +62,7 @@ export const AlertConditionFilters = ({ filters, onFiltersChange }: AlertConditi
           type="multiple"
           value={filters.origin || []}
           onValueChange={(value) => updateFilter('origin', value)}
-          className="grid grid-cols-2 gap-2"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-2"
         >
           {originOptions.map((option) => (
             <ToggleGroupItem
@@ -65,6 +74,35 @@ export const AlertConditionFilters = ({ filters, onFiltersChange }: AlertConditi
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
+      </FilterSection>
+
+      {/* Etapa */}
+      <FilterSection title="Etapa">
+        <ToggleGroup
+          type="multiple"
+          value={filters.stage || []}
+          onValueChange={(value) => updateFilter('stage', value)}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-2"
+          disabled={!isStageEnabled}
+        >
+          {stageOptions.map((option) => (
+            <ToggleGroupItem
+              key={option.value}
+              value={option.value}
+              className={`data-[state=on]:bg-blue-50 data-[state=on]:border-blue-200 data-[state=on]:text-blue-700 ${
+                !isStageEnabled ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              disabled={!isStageEnabled}
+            >
+              {option.label}
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+        {!isStageEnabled && (
+          <p className="text-xs text-gray-500 mt-1">
+            Disponível apenas para leilões
+          </p>
+        )}
       </FilterSection>
     </>
   );
