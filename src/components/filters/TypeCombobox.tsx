@@ -34,19 +34,38 @@ export const TypeCombobox = ({
   return (
     <Select value={selected} onValueChange={onSelect} disabled={disabled}>
       <SelectTrigger 
-        className="w-full h-10 rounded-lg border-gray-200 hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-all font-medium"
+        className="w-full h-10 rounded-lg border-gray-200 hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-all"
         style={{
           height: '40px',
           borderRadius: designTokens.borderRadius.lg,
+          fontSize: designTokens.typography.sizes.sm,
+          fontWeight: designTokens.typography.weights.medium,
+          fontFamily: designTokens.typography.fonts.primary,
         }}
       >
-        <SelectValue placeholder={placeholder}>
+        <SelectValue 
+          placeholder={placeholder}
+          style={{
+            fontSize: designTokens.typography.sizes.sm,
+            fontWeight: designTokens.typography.weights.medium,
+            fontFamily: designTokens.typography.fonts.primary,
+          }}
+        >
           {selectedOption ? selectedOption.label : placeholder}
         </SelectValue>
       </SelectTrigger>
       <SelectContent className="max-h-60">
         {options.map((option) => (
-          <SelectItem key={option.value} value={option.value} className="font-medium">
+          <SelectItem 
+            key={option.value} 
+            value={option.value} 
+            className="font-medium"
+            style={{
+              fontSize: designTokens.typography.sizes.sm,
+              fontWeight: designTokens.typography.weights.medium,
+              fontFamily: designTokens.typography.fonts.primary,
+            }}
+          >
             {option.label}
           </SelectItem>
         ))}

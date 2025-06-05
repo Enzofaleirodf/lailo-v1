@@ -63,14 +63,16 @@ export const CategoryGrid = ({
             key={option.value}
             onClick={() => onSelect(option.value)}
             className={cn(
-              "w-full flex items-center gap-3 px-3 py-3 border rounded-lg transition-all duration-200 font-medium text-left justify-start min-h-[48px]",
+              "w-full flex items-center gap-3 px-3 py-3 border rounded-lg transition-all duration-200 text-left justify-start min-h-[48px]",
               isSelected
                 ? "bg-blue-50 border-blue-500 text-blue-700 ring-2 ring-blue-200/50 shadow-sm"
                 : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
             )}
             style={{
               borderRadius: designTokens.borderRadius.lg,
+              fontSize: designTokens.typography.sizes.xs,
               fontWeight: designTokens.typography.weights.medium,
+              fontFamily: designTokens.typography.fonts.primary,
             }}
           >
             {IconComponent && (
@@ -83,9 +85,14 @@ export const CategoryGrid = ({
             )}
             <span 
               className={cn(
-                "text-xs leading-tight flex-1",
+                "leading-tight flex-1",
                 isSelected ? "text-blue-700 font-semibold" : "text-gray-700"
               )}
+              style={{
+                fontSize: designTokens.typography.sizes.xs,
+                fontWeight: isSelected ? designTokens.typography.weights.semibold : designTokens.typography.weights.medium,
+                fontFamily: designTokens.typography.fonts.primary,
+              }}
             >
               {option.label}
             </span>

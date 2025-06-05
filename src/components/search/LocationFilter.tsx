@@ -8,6 +8,7 @@ import {
 } from '../ui/popover';
 import { Button } from '../ui/button';
 import { LocationFilterPopover } from './location/LocationFilterPopover';
+import { designTokens } from '../../styles/design-tokens';
 
 interface LocationFilterProps {
   placeholder?: string;
@@ -52,6 +53,11 @@ export const LocationFilter = ({ placeholder = 'Localização' }: LocationFilter
             role="combobox"
             aria-expanded={open}
             className="w-full h-10 justify-between rounded-lg"
+            style={{
+              fontSize: designTokens.typography.sizes.sm,
+              fontWeight: designTokens.typography.weights.medium,
+              fontFamily: designTokens.typography.fonts.primary,
+            }}
           >
             {getDisplayText()}
             <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

@@ -71,6 +71,9 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
             style={{
               height: '40px',
               borderRadius: designTokens.borderRadius.lg,
+              fontSize: designTokens.typography.sizes.sm,
+              fontWeight: designTokens.typography.weights.medium,
+              fontFamily: designTokens.typography.fonts.primary,
             }}
           >
             {getDisplayText()}
@@ -87,7 +90,16 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
             className="p-4 space-y-3"
             style={{ padding: designTokens.spacing.lg }}
           >
-            <Label className="text-sm font-medium text-gray-900">Origem</Label>
+            <Label 
+              className="text-gray-900"
+              style={{
+                fontSize: designTokens.typography.sizes.sm,
+                fontWeight: designTokens.typography.weights.medium,
+                fontFamily: designTokens.typography.fonts.primary,
+              }}
+            >
+              Origem
+            </Label>
             {originOptions.map((option) => (
               <div key={option.value} className="flex items-center space-x-2">
                 <Checkbox
@@ -99,7 +111,12 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
                 />
                 <label
                   htmlFor={option.value}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+                  className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+                  style={{
+                    fontSize: designTokens.typography.sizes.sm,
+                    fontWeight: designTokens.typography.weights.medium,
+                    fontFamily: designTokens.typography.fonts.primary,
+                  }}
                 >
                   {option.label}
                 </label>
@@ -117,6 +134,11 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
                 size="sm" 
                 onClick={handleClear} 
                 className="text-gray-600 hover:text-gray-800"
+                style={{
+                  fontSize: designTokens.typography.sizes.sm,
+                  fontWeight: designTokens.typography.weights.medium,
+                  fontFamily: designTokens.typography.fonts.primary,
+                }}
               >
                 Resetar ({selectedOrigins.length})
               </Button>
@@ -126,6 +148,11 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
                 size="sm" 
                 onClick={handleSelectAll} 
                 className="text-gray-600 hover:text-gray-800"
+                style={{
+                  fontSize: designTokens.typography.sizes.sm,
+                  fontWeight: designTokens.typography.weights.medium,
+                  fontFamily: designTokens.typography.fonts.primary,
+                }}
               >
                 Marcar todos
               </Button>
@@ -136,6 +163,11 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
               size="sm" 
               onClick={handleApply} 
               className="text-gray-600 hover:text-gray-800 border-gray-300"
+              style={{
+                fontSize: designTokens.typography.sizes.sm,
+                fontWeight: designTokens.typography.weights.medium,
+                fontFamily: designTokens.typography.fonts.primary,
+              }}
             >
               Aplicar
             </Button>

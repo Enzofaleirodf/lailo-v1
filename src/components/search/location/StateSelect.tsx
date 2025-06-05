@@ -31,8 +31,12 @@ export const StateSelect = ({ value, onChange, onClearCity }: StateSelectProps) 
     <div>
       <label 
         htmlFor="state-select" 
-        className="block text-sm font-medium text-gray-700 mb-2"
-        style={{ fontSize: designTokens.typography.sizes.sm }}
+        className="block text-gray-700 mb-2"
+        style={{ 
+          fontSize: designTokens.typography.sizes.sm,
+          fontWeight: designTokens.typography.weights.medium,
+          fontFamily: designTokens.typography.fonts.primary,
+        }}
       >
         Estado
       </label>
@@ -45,6 +49,9 @@ export const StateSelect = ({ value, onChange, onClearCity }: StateSelectProps) 
           style={{
             borderRadius: designTokens.borderRadius.lg,
             padding: `${designTokens.spacing.sm} 2.5rem ${designTokens.spacing.sm} ${designTokens.spacing.md}`,
+            fontSize: designTokens.typography.sizes.sm,
+            fontWeight: designTokens.typography.weights.medium,
+            fontFamily: designTokens.typography.fonts.primary,
           }}
           aria-describedby="state-help"
         >

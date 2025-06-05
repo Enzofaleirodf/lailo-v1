@@ -73,6 +73,9 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
             style={{
               height: '40px',
               borderRadius: designTokens.borderRadius.lg,
+              fontSize: designTokens.typography.sizes.sm,
+              fontWeight: designTokens.typography.weights.medium,
+              fontFamily: designTokens.typography.fonts.primary,
             }}
           >
             {getDisplayText()}
@@ -89,7 +92,16 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
             className="p-4 space-y-3"
             style={{ padding: designTokens.spacing.lg }}
           >
-            <Label className="text-sm font-medium text-gray-900">Etapa</Label>
+            <Label 
+              className="text-gray-900"
+              style={{
+                fontSize: designTokens.typography.sizes.sm,
+                fontWeight: designTokens.typography.weights.medium,
+                fontFamily: designTokens.typography.fonts.primary,
+              }}
+            >
+              Etapa
+            </Label>
             {stageOptions.map((option) => (
               <div key={option.value} className="flex items-center space-x-2">
                 <Checkbox
@@ -102,7 +114,12 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
                 />
                 <label
                   htmlFor={option.value}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+                  className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+                  style={{
+                    fontSize: designTokens.typography.sizes.sm,
+                    fontWeight: designTokens.typography.weights.medium,
+                    fontFamily: designTokens.typography.fonts.primary,
+                  }}
                 >
                   {option.label}
                 </label>
@@ -121,6 +138,11 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
                 onClick={handleClear} 
                 className="text-gray-600 hover:text-gray-800"
                 disabled={!isEnabled}
+                style={{
+                  fontSize: designTokens.typography.sizes.sm,
+                  fontWeight: designTokens.typography.weights.medium,
+                  fontFamily: designTokens.typography.fonts.primary,
+                }}
               >
                 Resetar ({selectedStages.length})
               </Button>
@@ -131,6 +153,11 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
                 onClick={handleSelectAll} 
                 className="text-gray-600 hover:text-gray-800"
                 disabled={!isEnabled}
+                style={{
+                  fontSize: designTokens.typography.sizes.sm,
+                  fontWeight: designTokens.typography.weights.medium,
+                  fontFamily: designTokens.typography.fonts.primary,
+                }}
               >
                 Marcar todos
               </Button>
@@ -142,6 +169,11 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
               onClick={handleApply} 
               className="text-gray-600 hover:text-gray-800 border-gray-300"
               disabled={!isEnabled}
+              style={{
+                fontSize: designTokens.typography.sizes.sm,
+                fontWeight: designTokens.typography.weights.medium,
+                fontFamily: designTokens.typography.fonts.primary,
+              }}
             >
               Aplicar
             </Button>

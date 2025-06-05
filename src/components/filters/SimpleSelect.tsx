@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
+import { designTokens } from '../../styles/design-tokens';
 
 interface SelectOption {
   value: string;
@@ -62,8 +63,13 @@ export const SimpleSelect = ({
             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
             : "bg-white border-gray-200 hover:border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         )}
+        style={{
+          fontSize: designTokens.typography.sizes.sm,
+          fontWeight: designTokens.typography.weights.medium,
+          fontFamily: designTokens.typography.fonts.primary,
+        }}
       >
-        <span className="text-sm">
+        <span>
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <ChevronDown className={cn(
@@ -81,9 +87,14 @@ export const SimpleSelect = ({
                 type="button"
                 onClick={() => handleSelect(option.value)}
                 className={cn(
-                  "w-full px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors",
+                  "w-full px-3 py-2 text-left hover:bg-gray-50 transition-colors",
                   selected === option.value && "bg-blue-50 text-blue-700"
                 )}
+                style={{
+                  fontSize: designTokens.typography.sizes.sm,
+                  fontWeight: designTokens.typography.weights.medium,
+                  fontFamily: designTokens.typography.fonts.primary,
+                }}
               >
                 {option.label}
               </button>
