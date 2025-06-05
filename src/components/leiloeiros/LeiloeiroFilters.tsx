@@ -39,7 +39,7 @@ export const LeiloeiroFilters = ({
               placeholder="Pesquisar leiloeiro..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 h-12"
+              className="pl-9 h-12"
             />
           </div>
         </div>
@@ -90,7 +90,7 @@ export const LeiloeiroFilters = ({
           placeholder="Pesquisar por nome do leiloeiro ou website..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-12 h-12"
+          className="pl-9 h-12"
         />
       </div>
       <Select value={selectedState} onValueChange={setSelectedState}>
