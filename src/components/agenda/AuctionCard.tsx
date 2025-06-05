@@ -3,7 +3,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, MapPin, Clock, Building2 } from "lucide-react";
+import { ExternalLink, MapPin, Clock, Gavel } from "lucide-react";
 
 interface AuctionEvent {
   id: string;
@@ -36,13 +36,6 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
     return address.replace(/,?\s*CEP:\s*\d{5}-?\d{3}/gi, '').trim();
   };
 
-  // Truncar título para 3 palavras no desktop apenas
-  const formatTitle = (title: string, isMobile: boolean = false) => {
-    if (isMobile) return title; // No mobile, mostra o título completo
-    const words = title.split(' ');
-    return words.slice(0, 3).join(' ');
-  };
-
   const getOriginBadgeColor = (origin: string) => {
     switch (origin.toLowerCase()) {
       case 'judicial':
@@ -73,10 +66,10 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 text-base leading-tight mb-1">
-                {formatTitle(auction.title)}
+                {auction.title}
               </h3>
               <div className="flex items-center gap-1.5 text-gray-600">
-                <Building2 className="w-4 h-4 flex-shrink-0" />
+                <Gavel className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">{auction.company}</span>
               </div>
             </div>
@@ -126,10 +119,10 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 text-sm leading-tight mb-1">
-                {formatTitle(auction.title, true)}
+                {auction.title}
               </h3>
               <div className="flex items-center gap-1.5 text-gray-600">
-                <Building2 className="w-4 h-4 flex-shrink-0" />
+                <Gavel className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">{auction.company}</span>
               </div>
             </div>
@@ -169,7 +162,7 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
             <Button
               size="sm"
               onClick={() => window.open(auction.href, '_blank')}
-              className="flex-shrink-0 h-7 px-2 text-xs"
+              className="flex-shrink-0 h-6 px-2 text-xs"
             >
               Ver lotes
               <ExternalLink className="w-2.5 h-2.5 ml-1" />
