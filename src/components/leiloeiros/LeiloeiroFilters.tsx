@@ -1,7 +1,6 @@
-
 import React from "react";
 import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { InputWithIcon } from "@/components/ui/input-with-icon";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 
@@ -33,15 +32,13 @@ export const LeiloeiroFilters = ({
           <Label className="text-sm font-medium text-gray-700 mb-2 block">
             Buscar Leiloeiro
           </Label>
-          <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10" />
-            <Input
-              placeholder="Pesquisar leiloeiro..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 h-12"
-            />
-          </div>
+          <InputWithIcon
+            icon={Search}
+            placeholder="Pesquisar leiloeiro..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            containerClassName="h-12"
+          />
         </div>
         
         <div className="grid grid-cols-2 gap-3">
@@ -84,13 +81,13 @@ export const LeiloeiroFilters = ({
 
   return (
     <div className="flex gap-4 mb-8">
-      <div className="relative flex-1">
-        <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10" />
-        <Input
+      <div className="flex-1">
+        <InputWithIcon
+          icon={Search}
           placeholder="Pesquisar por nome do leiloeiro ou website..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-9 h-12"
+          containerClassName="h-12"
         />
       </div>
       <Select value={selectedState} onValueChange={setSelectedState}>
