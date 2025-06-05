@@ -18,8 +18,8 @@ const Leiloeiros = () => {
     return uniqueStates;
   }, []);
 
-  // Filtrar leiloeiros
-  const filteredLeiloeiros = useMemo(() => {
+  // Filtrar e agrupar leiloeiros por estado
+  const filteredAndGroupedLeiloeiros = useMemo(() => {
     let filtered = leiloeiros;
 
     // Filtrar por estado
@@ -42,9 +42,29 @@ const Leiloeiros = () => {
       filtered = filtered.filter(l => l.activeAuctions === 0);
     }
 
-    // Ordenar por nome
-    return filtered.sort((a, b) => a.name.localeCompare(b.name));
+    // Agrupar por estado
+    const grouped = filtered.reduce((acc, leiloeiro) => {
+      const state = leiloeiro.state;
+      if (!acc[state]) {
+        acc[state] = [];
+      }
+      acc[state].push(leiloeiro);
+      return acc;
+    }, {} as Record<string, typeof leiloeiros>);
+
+    // Ordenar estados alfabeticamente e leiloeiros dentro de cada estado
+    const sortedStates = Object.keys(grouped).sort();
+    const result: { state: string; leiloeiros: typeof leiloeiros }[] = [];
+
+    sortedStates.forEach(state => {
+      const sortedLeiloeiros = grouped[state].sort((a, b) => a.name.localeCompare(b.name));
+      result.push({ state, leiloeiros: sortedLeiloeiros });
+    });
+
+    return result;
   }, [selectedState, searchTerm, activeAuctionsFilter]);
+
+  const totalLeiloeiros = filteredAndGroupedLeiloeiros.reduce((total, group) => total + group.leiloeiros.length, 0);
 
   return (
     <BasePageLayout>
@@ -81,18 +101,30 @@ const Leiloeiros = () => {
         />
       </div>
 
-      {/* Grid de Cards */}
-      <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:p-6 min-h-[400px]">
-        {filteredLeiloeiros.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-            {filteredLeiloeiros.map((leiloeiro) => (
-              <LeiloeiroCard key={leiloeiro.id} leiloeiro={leiloeiro} />
+      {/* Conteúdo Principal */}
+      <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 min-h-[400px]">
+        {totalLeiloeiros > 0 ? (
+          <div className="space-y-8">
+            {filteredAndGroupedLeiloeiros.map(({ state, leiloeiros }) => (
+              <div key={state}>
+                {/* Título do Estado */}
+                <div className="mb-4">
+                  <h2 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                    {state} ({leiloeiros.length})
+                  </h2>
+                </div>
+                
+                {/* Grid de Cards do Estado */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                  {leiloeiros.map((leiloeiro) => (
+                    <LeiloeiroCard key={leiloeiro.id} leiloeiro={leiloeiro} />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         ) : (
-          <div className="p-4 md:p-0">
-            <LeiloeiroEmptyState />
-          </div>
+          <LeiloeiroEmptyState />
         )}
       </div>
     </BasePageLayout>
