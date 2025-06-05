@@ -76,7 +76,7 @@ export const AgendaFilters = ({
       <div className="hidden md:flex items-end gap-4">
         <div className="w-1/4">
           <Tabs value={selectedType} onValueChange={onTypeChange} className="h-full">
-            <TabsList className="grid grid-cols-2 w-full h-[42px]">
+            <TabsList className="grid grid-cols-2 w-full h-full">
               <TabsTrigger value="imoveis" className="h-full">Imóveis</TabsTrigger>
               <TabsTrigger value="veiculos" className="h-full">Veículos</TabsTrigger>
             </TabsList>
