@@ -57,20 +57,49 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
       <CardContent className="p-4">
         <div className="space-y-3">
           {/* Header */}
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 text-sm md:text-base leading-tight mb-1">
                 {auction.title}
               </h3>
               <div className="flex items-center gap-1.5 text-gray-600">
                 <Building2 className="w-4 h-4 flex-shrink-0" />
-                <span className="text-sm truncate">{auction.company}</span>
+                <span className="text-sm">{auction.company}</span>
+              </div>
+            </div>
+            
+            <Button
+              size="sm"
+              onClick={() => window.open(auction.href, '_blank')}
+              className="flex-shrink-0"
+            >
+              <span className="hidden sm:inline">Ver lotes</span>
+              <span className="sm:hidden">Ver</span>
+              <ExternalLink className="w-3 h-3 ml-1" />
+            </Button>
+          </div>
+
+          {/* Desktop Layout - Informações em grid compacto */}
+          <div className="hidden md:block">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+              <div className="flex items-center gap-1.5 text-gray-600">
+                <span className="font-medium">Data:</span>
+                <span>{formatDate(auction.date)}</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-gray-600">
+                <Clock className="w-4 h-4 flex-shrink-0" />
+                <span>{auction.time}</span>
+              </div>
+              <div className="col-span-2 flex items-start gap-1.5 text-gray-600">
+                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                <span className="font-medium">Local:</span>
+                <span className="text-sm">{auction.address}</span>
               </div>
             </div>
           </div>
 
-          {/* Informações de data, horário e local */}
-          <div className="space-y-2">
+          {/* Mobile Layout - Informações empilhadas */}
+          <div className="md:hidden space-y-2">
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div className="flex items-center gap-1.5 text-gray-600">
                 <span className="font-medium">Data:</span>
@@ -91,28 +120,16 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
             </div>
           </div>
 
-          {/* Badges e botão */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex flex-wrap gap-1.5">
-              <Badge className={`text-xs ${getOriginBadgeColor(auction.origin)}`}>
-                {auction.origin}
+          {/* Badges */}
+          <div className="flex flex-wrap gap-1.5">
+            <Badge className={`text-xs ${getOriginBadgeColor(auction.origin)}`}>
+              {auction.origin}
+            </Badge>
+            {auction.types.map((type, index) => (
+              <Badge key={index} className={`text-xs ${getTypeBadgeColor(type)}`}>
+                {type}
               </Badge>
-              {auction.types.map((type, index) => (
-                <Badge key={index} className={`text-xs ${getTypeBadgeColor(type)}`}>
-                  {type}
-                </Badge>
-              ))}
-            </div>
-            
-            <Button
-              size="sm"
-              onClick={() => window.open(auction.href, '_blank')}
-              className="flex-shrink-0"
-            >
-              <span className="hidden sm:inline">Ver lotes</span>
-              <span className="sm:hidden">Ver</span>
-              <ExternalLink className="w-3 h-3 ml-1" />
-            </Button>
+            ))}
           </div>
         </div>
       </CardContent>

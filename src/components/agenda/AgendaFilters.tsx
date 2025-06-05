@@ -62,9 +62,19 @@ export const AgendaFilters = ({
 }: AgendaFiltersProps) => {
   return (
     <div className="space-y-4">
-      {/* Filtros de localização */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="space-y-2">
+      {/* Mobile: Tipo no topo */}
+      <div className="md:hidden">
+        <Tabs value={selectedType} onValueChange={onTypeChange}>
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="imoveis">Imóveis</TabsTrigger>
+            <TabsTrigger value="veiculos">Veículos</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+
+      {/* Desktop: Todos os filtros na mesma linha */}
+      <div className="hidden md:flex items-end gap-4">
+        <div className="space-y-2 flex-1">
           <label className="text-sm font-medium text-gray-700">Estado</label>
           <SearchableCombobox
             options={states}
@@ -73,8 +83,8 @@ export const AgendaFilters = ({
             placeholder="Selecione um estado"
           />
         </div>
-        
-        <div className="space-y-2">
+
+        <div className="space-y-2 flex-1">
           <label className="text-sm font-medium text-gray-700">Cidade</label>
           <SearchableCombobox
             options={cities}
@@ -85,7 +95,7 @@ export const AgendaFilters = ({
           />
         </div>
         
-        <div className="space-y-2">
+        <div className="space-y-2 flex-1">
           <label className="text-sm font-medium text-gray-700">Origem</label>
           <SearchableCombobox
             options={origins}
@@ -94,17 +104,51 @@ export const AgendaFilters = ({
             placeholder="Selecione uma origem"
           />
         </div>
+
+        <div className="space-y-2">
+          <Tabs value={selectedType} onValueChange={onTypeChange}>
+            <TabsList className="grid grid-cols-2">
+              <TabsTrigger value="imoveis">Imóveis</TabsTrigger>
+              <TabsTrigger value="veiculos">Veículos</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
       </div>
 
-      {/* Filtro de tipo */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700">Tipo</label>
-        <Tabs value={selectedType} onValueChange={onTypeChange}>
-          <TabsList className="grid w-full grid-cols-2 max-w-md">
-            <TabsTrigger value="imoveis">Imóveis</TabsTrigger>
-            <TabsTrigger value="veiculos">Veículos</TabsTrigger>
-          </TabsList>
-        </Tabs>
+      {/* Mobile: Filtros empilhados */}
+      <div className="md:hidden space-y-4">
+        <div className="grid grid-cols-1 gap-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Estado</label>
+            <SearchableCombobox
+              options={states}
+              selected={selectedState}
+              onSelect={onStateChange}
+              placeholder="Selecione um estado"
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Cidade</label>
+            <SearchableCombobox
+              options={cities}
+              selected={selectedCity}
+              onSelect={onCityChange}
+              placeholder="Selecione uma cidade"
+              disabled={selectedState === "todos"}
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Origem</label>
+            <SearchableCombobox
+              options={origins}
+              selected={selectedOrigin}
+              onSelect={onOriginChange}
+              placeholder="Selecione uma origem"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
