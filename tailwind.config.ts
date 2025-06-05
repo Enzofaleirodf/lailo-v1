@@ -97,9 +97,11 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			},
 			fontFamily: {
-				'sans': ['Urbanist', 'sans-serif'],
-				'urbanist': ['Urbanist', 'sans-serif'],
-				'roboto': ['Roboto', 'sans-serif']
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
+				'heading': ['Geist', 'system-ui', 'sans-serif'],
+				'body': ['Inter', 'system-ui', 'sans-serif'],
+				'geist': ['Geist', 'system-ui', 'sans-serif'],
+				'inter': ['Inter', 'system-ui', 'sans-serif']
 			},
 			boxShadow: {
 				'shadows-shadow-xs': '0 1px 2px 0 rgba(16, 24, 40, 0.05)'

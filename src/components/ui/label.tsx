@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { designTokens } from "../../styles/design-tokens"
 
 const labelVariants = cva(
-  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700 font-inter"
 )
 
 const Label = React.forwardRef<
@@ -19,8 +19,9 @@ const Label = React.forwardRef<
     className={cn(labelVariants(), className)}
     style={{
       fontSize: designTokens.typography.sizes.sm,
-      fontWeight: designTokens.typography.weights.medium,
+      fontWeight: '500',
       color: designTokens.colors.text.primary,
+      fontFamily: "'Inter', system-ui, sans-serif",
     }}
     {...props}
   />
