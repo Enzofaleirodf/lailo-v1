@@ -116,7 +116,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
     <>
       <BaseCard>
         <div className="flex h-full">
-          <div className="relative flex-shrink-0 w-24">
+          <div className="relative flex-shrink-0 w-24 h-20">
             <BaseImage 
               src={item.image} 
               alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -125,7 +125,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={false}
               showNewBadge={item.showNewBadge}
               showFavoriteButton={false}
-              className="w-24 h-full object-cover"
+              className="w-24 h-20 object-cover"
             />
           </div>
           
