@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { SessionNavBar } from "@/components/navigation/SessionNavBar";
-import { SimpleMobileNav } from "@/components/navigation/SimpleMobileNav";
+import { MobileNavigation } from "@/components/navigation/MobileNavigation";
 
 interface BasePageLayoutProps {
   children: React.ReactNode;
@@ -36,7 +36,7 @@ export const BasePageLayout = ({
             {children}
           </main>
           
-          {showBottomNav && <SimpleMobileNav />}
+          {showBottomNav && <MobileNavigation />}
         </div>
       </div>
     </div>

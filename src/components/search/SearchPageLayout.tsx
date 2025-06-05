@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
-import { SimpleMobileNav } from "../navigation/SimpleMobileNav";
+import { MobileNavigation } from "../navigation/MobileNavigation";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
@@ -143,7 +144,9 @@ export const SearchPageLayout = ({
         </div>
       </main>
       
-      <SimpleMobileNav />
+      <div className="fixed bottom-0 left-0 right-0 z-50">
+        <MobileNavigation />
+      </div>
     </div>
   );
 
