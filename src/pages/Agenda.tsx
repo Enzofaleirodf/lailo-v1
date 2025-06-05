@@ -1,7 +1,8 @@
 
 import React from "react";
 import { Calendar } from "lucide-react";
-import { BasePageLayout } from "../components/layout/BasePageLayout";
+import { ContentPageLayout } from "../components/layout/ContentPageLayout";
+import { AgendaCalendar } from "../components/agenda/AgendaCalendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -37,24 +38,21 @@ const Agenda = () => {
   ];
 
   return (
-    <BasePageLayout containerClass="p-0">
-      <div className="w-full max-w-[1440px] mx-auto">
-        {/* Header padronizado - desktop apenas */}
-        <div className="hidden md:block mb-8 px-6 pt-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-blue-600" />
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">Agenda de Leilões</h1>
-                <p className="text-gray-600 mt-1">Acompanhe os próximos leilões e não perca nenhuma oportunidade</p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <ContentPageLayout
+      title="Agenda de Leilões"
+      subtitle="Acompanhe os próximos leilões e não perca nenhuma oportunidade"
+      titleIcon={Calendar}
+    >
+      <div className="p-4 md:p-6 space-y-6">
+        {/* Calendário */}
+        <AgendaCalendar auctions={upcomingAuctions} />
 
-        {/* Conteúdo principal */}
-        <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6 min-h-[400px]">
-          <div className="p-4 md:p-6">
+        {/* Lista de próximos leilões */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Próximos Leilões</CardTitle>
+          </CardHeader>
+          <CardContent>
             <div className="grid gap-4">
               {upcomingAuctions.map((auction) => (
                 <Card key={auction.id} className="hover:shadow-md transition-shadow">
@@ -97,10 +95,10 @@ const Agenda = () => {
                 </p>
               </div>
             )}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
-    </BasePageLayout>
+    </ContentPageLayout>
   );
 };
 
