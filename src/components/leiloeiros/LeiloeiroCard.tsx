@@ -25,7 +25,8 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
     if (!leiloeiro.website) {
       return (
         <Badge className="bg-gray-100 text-gray-700 border-gray-200 text-xs font-medium">
-          Sem site
+          <span className="hidden md:inline">Leiloeiro sem site</span>
+          <span className="md:hidden">Sem site</span>
         </Badge>
       );
     }
@@ -34,9 +35,31 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
       ? "bg-red-100 text-red-700 border-red-200" 
       : "bg-green-100 text-green-700 border-green-200";
     
+    const getAuctionText = () => {
+      if (leiloeiro.activeAuctions === 0) {
+        return {
+          desktop: "0 leilões ativos",
+          mobile: "0 leilões"
+        };
+      } else if (leiloeiro.activeAuctions === 1) {
+        return {
+          desktop: "1 leilão ativo",
+          mobile: "1 leilão"
+        };
+      } else {
+        return {
+          desktop: `${leiloeiro.activeAuctions} leilões ativos`,
+          mobile: `${leiloeiro.activeAuctions} leilões`
+        };
+      }
+    };
+
+    const auctionText = getAuctionText();
+    
     return (
       <Badge className={`${badgeColor} text-xs font-medium`}>
-        {leiloeiro.activeAuctions} {leiloeiro.activeAuctions === 1 ? 'leilão' : 'leilões'}
+        <span className="hidden md:inline">{auctionText.desktop}</span>
+        <span className="md:hidden">{auctionText.mobile}</span>
       </Badge>
     );
   };
