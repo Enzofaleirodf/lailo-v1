@@ -64,7 +64,7 @@ const ConfiguracoesLaudos = () => {
                       <p className="text-xs text-blue-600 mb-1">{laudo.tipo}</p>
                       <div className="flex items-center gap-3 text-xs text-gray-500">
                         <span>Solicitado em {laudo.data}</span>
-                        <span className="font-medium">{laudo.preco}</span>
+                        {laudo.preco}
                       </div>
                     </div>
                   </div>
