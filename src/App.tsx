@@ -12,7 +12,11 @@ import FavoritosImoveis from "./pages/FavoritosImoveis";
 import FavoritosVeiculos from "./pages/FavoritosVeiculos";
 import Leiloeiros from "./pages/Leiloeiros";
 import Agenda from "./pages/Agenda";
-import Perfil from "./pages/Perfil";
+import Configuracoes from "./pages/Configuracoes";
+import ConfiguracoesPerfil from "./pages/configuracoes/ConfiguracoesPerfil";
+import ConfiguracoesAssinatura from "./pages/configuracoes/ConfiguracoesAssinatura";
+import ConfiguracoesAlertas from "./pages/configuracoes/ConfiguracoesAlertas";
+import ConfiguracoesLaudos from "./pages/configuracoes/ConfiguracoesLaudos";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
 import AuthCallback from "./pages/auth/AuthCallback";
@@ -50,15 +54,22 @@ const App = () => (
           <Route path="/leiloeiros" element={<Leiloeiros />} />
           <Route path="/agenda" element={<Agenda />} />
           
-          {/* Rotas protegidas */}
+          {/* Rotas de configurações protegidas */}
           <Route 
-            path="/perfil" 
+            path="/configuracoes" 
             element={
               <ProtectedRoute>
-                <Perfil />
+                <Configuracoes />
               </ProtectedRoute>
             } 
-          />
+          >
+            <Route path="perfil" element={<ConfiguracoesPerfil />} />
+            <Route path="assinatura" element={<ConfiguracoesAssinatura />} />
+            <Route path="alertas" element={<ConfiguracoesAlertas />} />
+            <Route path="laudos" element={<ConfiguracoesLaudos />} />
+          </Route>
+          
+          {/* Rota protegida de admin */}
           <Route 
             path="/admin" 
             element={
@@ -73,7 +84,8 @@ const App = () => (
           <Route path="/auth/sign-up" element={<SignUp />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
           
-          {/* Rotas de compatibilidade (redirecionamento das antigas) */}
+          {/* Redirecionamentos de compatibilidade */}
+          <Route path="/perfil" element={<Navigate to="/configuracoes/perfil" replace />} />
           <Route path="/buscador" element={<Navigate to="/buscador/imoveis" replace />} />
           <Route path="/veiculos" element={<Navigate to="/buscador/veiculos" replace />} />
           <Route path="/imoveis" element={<Navigate to="/buscador/imoveis" replace />} />

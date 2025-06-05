@@ -54,7 +54,7 @@ export const SessionNavBar = () => {
 
   // Items que só aparecem quando logado
   const authenticatedItems = [
-    { to: "/perfil", icon: "User", label: "Perfil" },
+    { to: "/configuracoes/perfil", icon: "User", label: "Perfil" },
   ];
 
   // Items de admin
