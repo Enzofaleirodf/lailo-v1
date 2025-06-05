@@ -3,6 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Home, Building, TreePine, Factory, Car, Truck, Wrench, Waves, Plane, Bed } from 'lucide-react';
 import { designTokens } from '../../styles/design-tokens';
+import { useIsMobile } from '../../hooks/use-mobile';
 
 interface CategoryOption {
   value: string;
@@ -15,6 +16,7 @@ interface CategoryGridProps {
   selected: string;
   onSelect: (value: string) => void;
   columns?: number;
+  responsive?: boolean;
 }
 
 const iconMap = {
@@ -34,13 +36,24 @@ export const CategoryGrid = ({
   options, 
   selected, 
   onSelect, 
-  columns = 1 
+  columns = 1,
+  responsive = false
 }: CategoryGridProps) => {
+  const isMobile = useIsMobile();
+  
+  // Use responsive layout if enabled
+  const useResponsiveLayout = responsive && isMobile;
+  
   return (
     <div 
-      className="w-full space-y-2"
+      className={cn(
+        "w-full",
+        useResponsiveLayout 
+          ? "grid grid-cols-2 gap-3" 
+          : "space-y-2 max-w-md"
+      )}
       style={{ 
-        gap: designTokens.spacing.sm,
+        gap: useResponsiveLayout ? designTokens.spacing.sm : undefined,
       }}
     >
       {options.map((option) => {

@@ -49,6 +49,7 @@ export const CategoryTypeFilters = ({
             selected={category}
             onSelect={handleCategoryChange}
             columns={1}
+            responsive={true}
           />
         </div>
       </FilterSection>
