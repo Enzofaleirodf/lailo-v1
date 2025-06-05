@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { SettingsCard } from "../../components/settings/SettingsCard";
 import { AlertModal } from "../../components/alerts/AlertModal";
+import { AlertSheet } from "../../components/alerts/AlertSheet";
 import { useAlertsStore } from "../../stores/alertsStore";
 import { useAlerts } from "../../hooks/useAlerts";
+import { useIsMobile } from "../../hooks/use-mobile";
 import { Alert, AlertFilters } from "../../types/alert";
 import { showSuccess } from "../../components/ui/NotificationToast";
 
@@ -34,6 +36,7 @@ const ConfiguracoesAlertas = () => {
   } = useAlertsStore();
 
   const { formatFiltersForDisplay } = useAlerts();
+  const isMobile = useIsMobile();
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAlert, setEditingAlert] = useState<Alert | undefined>();
@@ -205,13 +208,22 @@ const ConfiguracoesAlertas = () => {
         )}
       </SettingsCard>
 
-      {/* Modal de Criação/Edição */}
-      <AlertModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSave={handleSaveAlert}
-        editingAlert={editingAlert}
-      />
+      {/* Modal responsivo */}
+      {isMobile ? (
+        <AlertSheet
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveAlert}
+          editingAlert={editingAlert}
+        />
+      ) : (
+        <AlertModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveAlert}
+          editingAlert={editingAlert}
+        />
+      )}
     </div>
   );
 };

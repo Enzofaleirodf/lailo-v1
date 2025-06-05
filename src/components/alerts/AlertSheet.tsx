@@ -3,17 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '../ui/dialog';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { SegmentedControl } from '../ui/segmented-control';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import { X, MapPin, Settings, Gavel } from 'lucide-react';
 import { StateSelect } from '../search/location/StateSelect';
 import { CitySelect } from '../search/location/CitySelect';
 import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
@@ -32,14 +28,14 @@ const alertSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório').max(50, 'Nome deve ter no máximo 50 caracteres'),
 });
 
-interface AlertModalProps {
+interface AlertSheetProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (name: string, type: 'property' | 'vehicle', filters: AlertFilters) => void;
   editingAlert?: Alert;
 }
 
-export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModalProps) => {
+export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheetProps) => {
   const [alertType, setAlertType] = useState<'property' | 'vehicle'>('property');
   const [filters, setFilters] = useState<AlertFilters>({});
   const { validateAlert, formatFiltersForDisplay } = useAlerts();
@@ -189,119 +185,144 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
   const isStageEnabled = formatValue === 'Leilão';
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="bottom" className="h-[98vh] rounded-t-3xl flex flex-col">
+        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
+          <SheetTitle className="text-lg font-semibold">
             {editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}
-          </DialogTitle>
-        </DialogHeader>
+          </SheetTitle>
+          <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
+            <X className="h-4 w-4" />
+          </Button>
+        </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Nome do Alerta */}
-          <div>
-            <Label htmlFor="name">Nome do Alerta</Label>
-            <Input
-              id="name"
-              {...register('name')}
-              placeholder="Ex: Casas em São Paulo até R$ 500k"
-              className="mt-1"
-            />
-            {errors.name && (
-              <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
-            )}
-          </div>
-
-          {/* Tipo do Alerta */}
-          <div>
-            <Label>Tipo de Leilão</Label>
-            <SegmentedControl
-              options={typeOptions}
-              value={alertType}
-              onValueChange={handleTypeChange}
-              className="mt-1"
-            />
-          </div>
-
-          {/* Filtros Inline */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Localização */}
-            <div className="space-y-4">
-              <h3 className="font-medium text-gray-900">Localização</h3>
-              <StateSelect 
-                value={selectedState} 
-                onChange={setSelectedState} 
-                onClearCity={() => setSelectedCity('')} 
+        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 overflow-hidden flex flex-col py-6 px-0">
+          {/* Nome e Tipo */}
+          <div className="space-y-4 mb-6 flex-shrink-0">
+            <div>
+              <Label htmlFor="name">Nome do Alerta</Label>
+              <Input
+                id="name"
+                {...register('name')}
+                placeholder="Ex: Casas em São Paulo até R$ 500k"
+                className="mt-1"
               />
-              <CitySelect 
-                value={selectedCity} 
-                onChange={setSelectedCity} 
-                selectedState={selectedState} 
-              />
-            </div>
-
-            {/* Condições */}
-            <div className="space-y-4">
-              <h3 className="font-medium text-gray-900">Condições</h3>
-              <FormatFilter itemType={alertType} />
-              <OriginFilter itemType={alertType} />
-              <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
-            </div>
-
-            {/* Características */}
-            <div className="space-y-4 lg:col-span-2">
-              <h3 className="font-medium text-gray-900">Características</h3>
-              <CategoryTypeFilters 
-                itemType={alertType} 
-                category={category} 
-                type={type} 
-                onCategoryChange={setCategory} 
-                onTypeChange={setType} 
-              />
-
-              {alertType === 'property' ? (
-                <PropertySpecificFilters 
-                  areaRange={areaRange} 
-                  onAreaRangeChange={setAreaRange} 
-                />
-              ) : (
-                <VehicleSpecificFilters 
-                  brand={brand} 
-                  model={model} 
-                  color={color} 
-                  yearRange={yearRange} 
-                  vehicleType={type.toLowerCase()} 
-                  onBrandChange={setBrand} 
-                  onModelChange={setModel} 
-                  onColorChange={setColor} 
-                  onYearRangeChange={setYearRange} 
-                />
+              {errors.name && (
+                <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
               )}
-
-              <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
             </div>
+
+            <div>
+              <Label>Tipo de Leilão</Label>
+              <SegmentedControl
+                options={typeOptions}
+                value={alertType}
+                onValueChange={handleTypeChange}
+                className="mt-1"
+              />
+            </div>
+          </div>
+
+          {/* Filtros em Tabs */}
+          <div className="flex-1 overflow-hidden">
+            <Tabs defaultValue="location" className="w-full flex flex-col flex-1 overflow-hidden">
+              <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
+                <TabsTrigger value="location" className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                </TabsTrigger>
+                <TabsTrigger value="characteristics" className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                </TabsTrigger>
+                <TabsTrigger value="conditions" className="flex items-center gap-2">
+                  <Gavel className="h-4 w-4" />
+                </TabsTrigger>
+              </TabsList>
+
+              <div className="flex-1 overflow-hidden">
+                <TabsContent value="location" className="mt-0 h-full overflow-y-auto">
+                  <div className="pr-4 space-y-4 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    <StateSelect 
+                      value={selectedState} 
+                      onChange={setSelectedState} 
+                      onClearCity={() => setSelectedCity('')} 
+                    />
+                    <CitySelect 
+                      value={selectedCity} 
+                      onChange={setSelectedCity} 
+                      selectedState={selectedState} 
+                    />
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto">
+                  <div className="pr-4 space-y-6 pb-20" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    <CategoryTypeFilters 
+                      itemType={alertType} 
+                      category={category} 
+                      type={type} 
+                      onCategoryChange={setCategory} 
+                      onTypeChange={setType} 
+                    />
+
+                    {alertType === 'property' ? (
+                      <PropertySpecificFilters 
+                        areaRange={areaRange} 
+                        onAreaRangeChange={setAreaRange} 
+                      />
+                    ) : (
+                      <VehicleSpecificFilters 
+                        brand={brand} 
+                        model={model} 
+                        color={color} 
+                        yearRange={yearRange} 
+                        vehicleType={type.toLowerCase()} 
+                        onBrandChange={setBrand} 
+                        onModelChange={setModel} 
+                        onColorChange={setColor} 
+                        onYearRangeChange={setYearRange} 
+                      />
+                    )}
+
+                    <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto">
+                  <div className="pr-4 space-y-6 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    <FormatFilter itemType={alertType} />
+                    <OriginFilter itemType={alertType} />
+                    <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
+                  </div>
+                </TabsContent>
+              </div>
+            </Tabs>
           </div>
 
           {/* Preview */}
           {alertName && (
-            <AlertPreview
-              name={alertName}
-              type={alertType}
-              filters={filters}
-              filtersDisplay={formatFiltersForDisplay(filters, alertType)}
-            />
+            <div className="flex-shrink-0 mb-4">
+              <AlertPreview
+                name={alertName}
+                type={alertType}
+                filters={filters}
+                filtersDisplay={formatFiltersForDisplay(filters, alertType)}
+              />
+            </div>
           )}
 
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancelar
-            </Button>
-            <Button type="submit">
-              {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
-            </Button>
-          </DialogFooter>
+          {/* Footer */}
+          <div className="border-t border-gray-100 pt-4 flex-shrink-0 bg-white">
+            <div className="flex gap-3">
+              <Button type="button" variant="outline" onClick={onClose} className="flex-1">
+                Cancelar
+              </Button>
+              <Button type="submit" className="flex-1">
+                {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
+              </Button>
+            </div>
+          </div>
         </form>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 };

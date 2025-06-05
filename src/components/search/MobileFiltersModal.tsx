@@ -28,7 +28,6 @@ export const MobileFiltersModal = ({
       isOpen={isOpen}
       onClose={onClose}
       itemType={itemType}
-      mode="search"
       onApplyFilters={handleApplyFilters}
       onClearFilters={handleClearFilters}
     />

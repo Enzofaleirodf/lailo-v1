@@ -15,32 +15,23 @@ import { PriceFilter } from './PriceFilter';
 import { PropertySpecificFilters } from './PropertySpecificFilters';
 import { VehicleSpecificFilters } from './VehicleSpecificFilters';
 import { ItemType } from '../../types/search';
-import { AlertFilters } from '../../types/alert';
 
 interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
   itemType: ItemType;
-  mode?: 'search' | 'alert';
-  // Para modo search
   onApplyFilters?: () => void;
   onClearFilters?: () => void;
-  // Para modo alert
-  alertFilters?: AlertFilters;
-  onAlertFiltersChange?: (filters: AlertFilters) => void;
 }
 
 export const FilterModal = ({
   isOpen,
   onClose,
   itemType,
-  mode = 'search',
   onApplyFilters,
-  onClearFilters,
-  alertFilters,
-  onAlertFiltersChange
+  onClearFilters
 }: FilterModalProps) => {
-  // Estados para modo search (valores atuais do MobileFiltersModal)
+  // Estados para filtros de busca
   const [category, setCategory] = useState(itemType === 'property' ? 'residenciais' : 'leves');
   const [type, setType] = useState(itemType === 'property' ? 'todos' : 'carros');
   const [formatValue, setFormatValue] = useState('Leilão');
@@ -56,87 +47,38 @@ export const FilterModal = ({
 
   const isStageEnabled = formatValue === 'Leilão';
 
-  // Sincronizar com alertFilters quando estiver no modo alert
-  useEffect(() => {
-    if (mode === 'alert' && alertFilters) {
-      setCategory(alertFilters.propertyCategory || alertFilters.vehicleCategory || (itemType === 'property' ? 'residenciais' : 'leves'));
-      setType(alertFilters.propertyType || alertFilters.vehicleType || (itemType === 'property' ? 'todos' : 'carros'));
-      setSelectedState(alertFilters.state || '');
-      setSelectedCity(alertFilters.city || '');
-      setPriceRange(alertFilters.priceRange || [50000, 1000000]);
-      
-      if (itemType === 'property') {
-        setAreaRange(alertFilters.areaRange || [50, 500]);
-      } else {
-        setBrand(alertFilters.brand || 'todas-marcas');
-        setModel(alertFilters.model || 'todos-modelos');
-        setColor(alertFilters.color || 'todas-cores');
-        setYearRange(alertFilters.yearRange || [2010, 2025]);
-      }
-    }
-  }, [mode, alertFilters, itemType]);
-
   // Aplicar estados padrão quando modal abre
   useEffect(() => {
-    if (isOpen && mode === 'search') {
+    if (isOpen) {
       const defaultCategory = itemType === 'property' ? 'residenciais' : 'leves';
       const defaultType = itemType === 'property' ? 'todos' : 'carros';
       
       setCategory(defaultCategory);
       setType(defaultType);
     }
-  }, [isOpen, itemType, mode]);
-
-  // Atualizar alertFilters quando valores mudam (apenas no modo alert)
-  const updateAlertFilter = (updates: Partial<AlertFilters>) => {
-    if (mode === 'alert' && onAlertFiltersChange && alertFilters) {
-      onAlertFiltersChange({ ...alertFilters, ...updates });
-    }
-  };
+  }, [isOpen, itemType]);
 
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory);
     const defaultType = itemType === 'property' ? 'todos' : 'carros';
     setType(defaultType);
-    
-    if (mode === 'alert') {
-      updateAlertFilter(itemType === 'property' 
-        ? { propertyCategory: newCategory, propertyType: defaultType }
-        : { vehicleCategory: newCategory, vehicleType: defaultType }
-      );
-    }
   };
 
   const handleTypeChange = (newType: string) => {
     setType(newType);
-    if (mode === 'alert') {
-      updateAlertFilter(itemType === 'property' 
-        ? { propertyType: newType }
-        : { vehicleType: newType }
-      );
-    }
   };
 
   const handleStateChange = (newState: string) => {
     setSelectedState(newState);
     setSelectedCity(''); // Reset city
-    if (mode === 'alert') {
-      updateAlertFilter({ state: newState, city: '' });
-    }
   };
 
   const handleCityChange = (newCity: string) => {
     setSelectedCity(newCity);
-    if (mode === 'alert') {
-      updateAlertFilter({ city: newCity });
-    }
   };
 
   const handlePriceRangeChange = (newRange: [number, number]) => {
     setPriceRange(newRange);
-    if (mode === 'alert') {
-      updateAlertFilter({ priceRange: newRange });
-    }
   };
 
   const handleClearFilters = () => {
@@ -155,15 +97,13 @@ export const FilterModal = ({
     setSelectedCity('');
     setAddress('');
 
-    if (mode === 'search' && onClearFilters) {
+    if (onClearFilters) {
       onClearFilters();
-    } else if (mode === 'alert' && onAlertFiltersChange) {
-      onAlertFiltersChange({});
     }
   };
 
   const handleApplyFilters = () => {
-    if (mode === 'search' && onApplyFilters) {
+    if (onApplyFilters) {
       onApplyFilters();
     }
     onClose();
@@ -171,9 +111,6 @@ export const FilterModal = ({
 
   const handleClearCity = () => {
     setSelectedCity('');
-    if (mode === 'alert') {
-      updateAlertFilter({ city: '' });
-    }
   };
 
   return (
@@ -181,7 +118,7 @@ export const FilterModal = ({
       <SheetContent side="bottom" className="h-[98vh] rounded-t-3xl flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
           <SheetTitle className="text-lg font-semibold">
-            {mode === 'alert' ? 'Filtros do Alerta' : 'Filtros'}
+            Filtros
           </SheetTitle>
           <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
             <X className="h-4 w-4" />
@@ -207,9 +144,7 @@ export const FilterModal = ({
                 <div className="pr-4 space-y-4 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                   <StateSelect value={selectedState} onChange={handleStateChange} onClearCity={handleClearCity} />
                   <CitySelect value={selectedCity} onChange={handleCityChange} selectedState={selectedState} />
-                  {mode === 'search' && (
-                    <AddressInput value={address} onChange={setAddress} />
-                  )}
+                  <AddressInput value={address} onChange={setAddress} />
                 </div>
               </TabsContent>
 
@@ -226,10 +161,7 @@ export const FilterModal = ({
                   {itemType === 'property' ? (
                     <PropertySpecificFilters 
                       areaRange={areaRange} 
-                      onAreaRangeChange={(range) => {
-                        setAreaRange(range);
-                        if (mode === 'alert') updateAlertFilter({ areaRange: range });
-                      }} 
+                      onAreaRangeChange={setAreaRange} 
                     />
                   ) : (
                     <VehicleSpecificFilters 
@@ -238,22 +170,10 @@ export const FilterModal = ({
                       color={color} 
                       yearRange={yearRange} 
                       vehicleType={type.toLowerCase()} 
-                      onBrandChange={(newBrand) => {
-                        setBrand(newBrand);
-                        if (mode === 'alert') updateAlertFilter({ brand: newBrand });
-                      }} 
-                      onModelChange={(newModel) => {
-                        setModel(newModel);
-                        if (mode === 'alert') updateAlertFilter({ model: newModel });
-                      }} 
-                      onColorChange={(newColor) => {
-                        setColor(newColor);
-                        if (mode === 'alert') updateAlertFilter({ color: newColor });
-                      }} 
-                      onYearRangeChange={(range) => {
-                        setYearRange(range);
-                        if (mode === 'alert') updateAlertFilter({ yearRange: range });
-                      }} 
+                      onBrandChange={setBrand} 
+                      onModelChange={setModel} 
+                      onColorChange={setColor} 
+                      onYearRangeChange={setYearRange} 
                     />
                   )}
 
@@ -287,7 +207,7 @@ export const FilterModal = ({
               Limpar filtros
             </Button>
             <Button onClick={handleApplyFilters} className="flex-1">
-              {mode === 'alert' ? 'Aplicar filtros' : 'Aplicar filtros'}
+              Aplicar filtros
             </Button>
           </div>
         </div>
