@@ -17,7 +17,7 @@ export const BaseItemHeader = ({
   if (itemType === 'vehicle') {
     const vehicle = item as any;
     return (
-      <div className="mb-2">
+      <div>
         <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist mb-1 truncate`}>
           {vehicle.name}
         </h3>
@@ -34,7 +34,7 @@ export const BaseItemHeader = ({
 
   const property = item as any;
   return (
-    <div className="mb-2">
+    <div>
       <div className="flex items-center gap-2">
         <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist truncate flex-shrink min-w-0`}>
           {property.type}

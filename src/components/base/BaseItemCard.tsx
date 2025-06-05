@@ -1,5 +1,4 @@
 
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -79,7 +78,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={true}
             />
             
-            <div className="mt-3">
+            <div className="mt-2">
               <BaseItemPrice 
                 price={item.price}
                 discount={item.discount}
