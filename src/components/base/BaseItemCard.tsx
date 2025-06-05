@@ -78,7 +78,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={true}
             />
             
-            <div className="mt-2">
+            <div className="mt-3">
               <BaseItemPrice 
                 price={item.price}
                 discount={item.discount}
@@ -157,7 +157,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 </button>
               </div>
               
-              <div className="mt-2">
+              <div className="mt-3">
                 <BaseItemPrice 
                   price={item.price}
                   discount={item.discount}
