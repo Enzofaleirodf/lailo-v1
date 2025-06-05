@@ -1,4 +1,5 @@
 
+
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -114,7 +115,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
 
   return (
     <>
-      <BaseCard>
+      <BaseCard className="h-24">
         <div className="flex flex-col h-full">
           {/* Área superior com imagem e conteúdo lado a lado */}
           <div className="flex">
@@ -194,3 +195,4 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
     </>
   );
 };
+
