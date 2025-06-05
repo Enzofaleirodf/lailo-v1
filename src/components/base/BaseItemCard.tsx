@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -131,7 +130,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               />
             </div>
             
-            <div className="flex-1 min-w-0 flex flex-col ml-3">
+            <div className="flex-1 min-w-0 flex flex-col ml-3 h-20">
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <BaseItemHeader 
