@@ -4,6 +4,7 @@ import { Building2 } from "lucide-react";
 import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
+import { LeiloeiroCard } from "../components/leiloeiros/LeiloeiroCard";
 import { leiloeiros, juntasComerciais } from "../data/leiloeiros";
 import { JuntaComercial } from "../types/leiloeiro";
 
@@ -59,6 +60,12 @@ const Leiloeiros = () => {
     return grouped;
   }, [selectedState, searchTerm, activeAuctionsFilter]);
 
+  // Lista plana de leiloeiros filtrados para mobile
+  const filteredLeiloeiros = useMemo(() => {
+    const allFiltered = Object.values(filteredAndGroupedLeiloeiros).flat();
+    return allFiltered.sort((a, b) => a.name.localeCompare(b.name));
+  }, [filteredAndGroupedLeiloeiros]);
+
   const getJuntaComercial = (state: string): JuntaComercial | undefined => {
     return juntasComerciais.find(j => j.state === state);
   };
@@ -73,7 +80,7 @@ const Leiloeiros = () => {
             <Building2 className="w-6 h-6 text-blue-600" />
             <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
           </div>
-          <p className="text-gray-600">Encontre leiloeiros credenciados</p>
+          <p className="text-gray-600 text-sm">Encontre leiloeiros credenciados</p>
         </div>
 
         {/* Filtros Mobile */}
@@ -88,12 +95,13 @@ const Leiloeiros = () => {
           isMobile={true}
         />
 
-        {/* Conteúdo Mobile */}
-        {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
-          <LeiloeiroStateAccordion
-            filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
-            getJuntaComercial={getJuntaComercial}
-          />
+        {/* Grid de Cards Mobile */}
+        {filteredLeiloeiros.length > 0 ? (
+          <div className="space-y-4">
+            {filteredLeiloeiros.map((leiloeiro) => (
+              <LeiloeiroCard key={leiloeiro.id} leiloeiro={leiloeiro} />
+            ))}
+          </div>
         ) : (
           <LeiloeiroEmptyState />
         )}
@@ -103,10 +111,10 @@ const Leiloeiros = () => {
       <div className="hidden md:block">
         <div className="w-full relative min-h-screen bg-white">
           <main className="ml-12 min-h-screen flex flex-col">
-            <div className="bg-white flex-1 p-0">
+            <div className="bg-white flex-1 p-6">
               <div className="w-full max-w-[1440px] mx-auto">
                 {/* Header Desktop */}
-                <div className="mb-8 px-6 pt-8">
+                <div className="mb-8">
                   <div className="flex items-center gap-3">
                     <Building2 className="w-8 h-8 text-blue-600" />
                     <div>
@@ -117,7 +125,7 @@ const Leiloeiros = () => {
                 </div>
 
                 {/* Filtros Desktop */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6 mx-6">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
                   <LeiloeiroFilters
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
@@ -130,7 +138,7 @@ const Leiloeiros = () => {
                 </div>
 
                 {/* Conteúdo Desktop */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 mx-6 min-h-[400px]">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 min-h-[400px]">
                   <div className="p-6">
                     {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
                       <LeiloeiroStateAccordion
