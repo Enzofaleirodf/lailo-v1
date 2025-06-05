@@ -21,7 +21,7 @@ export const BaseItemHeader = ({
         <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist mb-1 truncate`}>
           {vehicle.name}
         </h3>
-        <div className="flex items-center gap-2 text-gray-500">
+        <div className="flex items-center gap-2 text-gray-500 mt-1">
           <span className={`${cardTokens.text.body} truncate flex-shrink`}>{vehicle.color}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
           <span className={`${cardTokens.text.body} flex-shrink-0`}>{vehicle.year}</span>
@@ -44,7 +44,7 @@ export const BaseItemHeader = ({
           {property.area}
         </span>
       </div>
-      <div className="flex items-center gap-2 text-gray-500">
+      <div className="flex items-center gap-2 text-gray-500 mt-1">
         <span className={`${cardTokens.text.body} truncate`}>{property.location}</span>
       </div>
     </div>
