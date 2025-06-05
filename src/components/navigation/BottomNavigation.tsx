@@ -3,7 +3,7 @@ import React, { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { 
   Home, 
-  Search, 
+  Building, 
   Heart, 
   User, 
   LogIn, 
@@ -57,7 +57,7 @@ export const BottomNavigation = memo(() => {
     },
     {
       to: "/buscador/imoveis",
-      icon: Search,
+      icon: Building,
       label: "Imóveis",
       active: isActive("/buscador/imoveis")
     },
