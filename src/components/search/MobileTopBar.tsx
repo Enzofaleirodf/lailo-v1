@@ -28,7 +28,7 @@ export const MobileTopBar = ({
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 md:hidden">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white md:hidden">
         <div className="flex items-center justify-center px-4 h-14 my-[24px] py-[12px]">
           {/* Botões unidos sem o toggle de tipo */}
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-md shadow-md">
