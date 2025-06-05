@@ -73,8 +73,8 @@ export const SimpleSelect = ({
       </button>
 
       {isOpen && !disabled && (
-        <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-hidden">
-          <div className="max-h-44 overflow-y-auto">
+        <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+          <div className="py-1">
             {options.map((option) => (
               <button
                 key={option.value}

@@ -26,6 +26,7 @@ export const SearchableCombobox = ({
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const filteredOptions = options.filter(option =>
     option.label.toLowerCase().includes(search.toLowerCase())
@@ -43,6 +44,10 @@ export const SearchableCombobox = ({
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      // Focus no input quando abrir
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
     }
 
     return () => {
@@ -57,11 +62,17 @@ export const SearchableCombobox = ({
     setSearch('');
   };
 
+  const handleButtonClick = () => {
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
     <div className="relative" ref={containerRef}>
       <button
         type="button"
-        onClick={() => !disabled && setIsOpen(!isOpen)}
+        onClick={handleButtonClick}
         disabled={disabled}
         className={cn(
           "w-full px-3 py-2 text-left border rounded-lg transition-colors flex items-center justify-between",
@@ -80,11 +91,12 @@ export const SearchableCombobox = ({
       </button>
 
       {isOpen && !disabled && (
-        <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-hidden">
+        <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
           <div className="p-2 border-b border-gray-100">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
+                ref={inputRef}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

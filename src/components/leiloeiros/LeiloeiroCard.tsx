@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Building2, Phone, Globe, ExternalLink, AlertCircle } from "lucide-react";
+import { Gavel, Phone, Globe, ExternalLink, AlertCircle } from "lucide-react";
 import { BaseCard } from "../base/BaseCard";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
@@ -95,7 +95,7 @@ export const LeiloeiroCard: React.FC<LeiloeiroCardProps> = ({ leiloeiro }) => {
         {/* Header com ícone, nome e badge */}
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 flex items-center justify-center">
-            <Building2 className="w-6 h-6 text-blue-600" />
+            <Gavel className="w-6 h-6 text-blue-600" />
           </div>
           <div className="flex-1 min-w-0 flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">

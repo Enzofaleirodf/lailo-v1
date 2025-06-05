@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo } from "react";
-import { Building2 } from "lucide-react";
+import { Gavel } from "lucide-react";
 import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
 import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
 import { LeiloeiroCard } from "../components/leiloeiros/LeiloeiroCard";
@@ -62,7 +62,7 @@ const Leiloeiros = () => {
     <ContentPageLayout
       title="Leiloeiros Oficiais do Brasil"
       subtitle="Encontre leiloeiros credenciados em todo o país"
-      titleIcon={Building2}
+      titleIcon={Gavel}
       showFilters={true}
       filtersContent={
         <LeiloeiroFilters
@@ -78,7 +78,7 @@ const Leiloeiros = () => {
       {/* Header Mobile */}
       <div className="block md:hidden mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <Building2 className="w-6 h-6 text-blue-600" />
+          <Gavel className="w-6 h-6 text-blue-600" />
           <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
         </div>
         <p className="text-gray-600 text-sm">Encontre leiloeiros credenciados</p>
