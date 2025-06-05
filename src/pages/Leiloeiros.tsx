@@ -5,6 +5,8 @@ import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
 import { LeiloeiroCard } from "../components/leiloeiros/LeiloeiroCard";
+import { SessionNavBar } from "@/components/navigation/SessionNavBar";
+import { BottomNavigation } from "@/components/navigation/BottomNavigation";
 import { leiloeiros, juntasComerciais } from "../data/leiloeiros";
 import { JuntaComercial } from "../types/leiloeiro";
 
@@ -105,11 +107,16 @@ const Leiloeiros = () => {
         ) : (
           <LeiloeiroEmptyState />
         )}
+
+        {/* Menu Mobile */}
+        <BottomNavigation />
       </div>
 
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <div className="w-full relative min-h-screen bg-white">
+          <SessionNavBar />
+          
           <main className="ml-12 min-h-screen flex flex-col">
             <div className="bg-white flex-1 p-6">
               <div className="w-full max-w-[1440px] mx-auto">

@@ -4,6 +4,8 @@ import { Calendar } from "lucide-react";
 import { AgendaCalendar } from "../components/agenda/AgendaCalendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SessionNavBar } from "@/components/navigation/SessionNavBar";
+import { BottomNavigation } from "@/components/navigation/BottomNavigation";
 
 const Agenda = () => {
   const upcomingAuctions = [
@@ -104,11 +106,16 @@ const Agenda = () => {
             </div>
           )}
         </div>
+
+        {/* Menu Mobile */}
+        <BottomNavigation />
       </div>
 
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <div className="w-full relative min-h-screen bg-white">
+          <SessionNavBar />
+          
           <main className="ml-12 min-h-screen flex flex-col">
             <div className="bg-white flex-1 p-6">
               <div className="w-full max-w-[1440px] mx-auto">
