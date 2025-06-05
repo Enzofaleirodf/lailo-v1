@@ -43,7 +43,7 @@ const Agenda = () => {
 
   return (
     <ContentPageLayout
-      title="Agenda de Leilões Presenciais"
+      title="Agenda de Leilões"
       subtitle="Acompanhe os próximos leilões presenciais"
       titleIcon={Calendar}
       showFilters={true}
