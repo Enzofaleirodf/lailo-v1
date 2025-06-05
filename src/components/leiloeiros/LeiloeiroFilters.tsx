@@ -78,7 +78,7 @@ export const LeiloeiroFilters = ({
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:flex gap-4">
+      <div className="hidden md:flex gap-4 items-end">
         <div className="flex-1">
           <InputWithIcon
             icon={Search}
