@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
 import { MobileHeader } from "../navigation/MobileHeader";
-import { MobileBottomNav } from "../navigation/MobileBottomNav";
 import { MobileDrawer } from "../navigation/MobileDrawer";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
@@ -80,7 +79,7 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-20">
+      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
         <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
@@ -104,8 +103,6 @@ export const SearchPageLayout = ({
           />
         </div>
       </main>
-      
-      <MobileBottomNav />
     </div>
   );
 

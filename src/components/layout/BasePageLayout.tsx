@@ -2,18 +2,15 @@
 import React, { useState } from 'react';
 import { SessionNavBar } from "@/components/navigation/SessionNavBar";
 import { MobileHeader } from "@/components/navigation/MobileHeader";
-import { MobileBottomNav } from "@/components/navigation/MobileBottomNav";
 import { MobileDrawer } from "@/components/navigation/MobileDrawer";
 
 interface BasePageLayoutProps {
   children: React.ReactNode;
-  showBottomNav?: boolean;
   containerClass?: string;
 }
 
 export const BasePageLayout = ({ 
   children, 
-  showBottomNav = true,
   containerClass = "px-4 md:px-6 py-3 md:py-8"
 }: BasePageLayoutProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -39,11 +36,9 @@ export const BasePageLayout = ({
           <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
           <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
           
-          <main className="w-full min-h-screen flex flex-col pt-16 pb-16 px-3">
+          <main className="w-full min-h-screen flex flex-col pt-16 pb-6 px-3">
             {children}
           </main>
-          
-          {showBottomNav && <MobileBottomNav />}
         </div>
       </div>
     </div>
