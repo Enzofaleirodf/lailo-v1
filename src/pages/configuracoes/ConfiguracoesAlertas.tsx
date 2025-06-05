@@ -1,4 +1,3 @@
-
 import { Bell, Plus, Trash2, Settings as SettingsIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -27,7 +26,7 @@ const ConfiguracoesAlertas = () => {
     {
       id: 'site',
       title: 'No Site',
-      description: 'Receber notificações quando navegar no site',
+      description: 'Receber notificações no site',
       enabled: true
     },
     {
