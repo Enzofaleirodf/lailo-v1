@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Calendar } from "lucide-react";
 import { CompactCalendar } from "../components/agenda/CompactCalendar";
 import { AuctionCard } from "../components/agenda/AuctionCard";
@@ -67,6 +67,32 @@ const Agenda = () => {
     setSelectedAuctions(auctions);
   };
 
+  // Agrupar leilões por mês
+  const auctionsByMonth = useMemo(() => {
+    const auctions = selectedDate ? selectedAuctions : upcomingAuctions;
+    const grouped: Record<string, AuctionEvent[]> = {};
+    
+    auctions.forEach(auction => {
+      const date = new Date(auction.date);
+      const monthKey = date.toLocaleDateString('pt-BR', { 
+        year: 'numeric', 
+        month: 'long' 
+      });
+      
+      if (!grouped[monthKey]) {
+        grouped[monthKey] = [];
+      }
+      grouped[monthKey].push(auction);
+    });
+    
+    // Ordenar por data dentro de cada mês
+    Object.keys(grouped).forEach(month => {
+      grouped[month].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    });
+    
+    return grouped;
+  }, [selectedDate, selectedAuctions, upcomingAuctions]);
+
   const filtersContent = (
     <AgendaFilters
       selectedState={selectedState}
@@ -96,8 +122,8 @@ const Agenda = () => {
           onDateSelect={handleDateSelect}
         />
 
-        {/* Lista de leilões selecionados ou todos */}
-        <div className="space-y-4">
+        {/* Lista de leilões agrupados por mês */}
+        <div className="space-y-6">
           <h2 className="text-lg font-semibold text-gray-900">
             {selectedDate 
               ? `Leilões em ${new Date(selectedDate).toLocaleDateString('pt-BR')}`
@@ -105,11 +131,20 @@ const Agenda = () => {
             }
           </h2>
           
-          {(selectedDate ? selectedAuctions : upcomingAuctions).map((auction) => (
-            <AuctionCard key={auction.id} auction={auction} />
-          ))}
-
-          {(selectedDate ? selectedAuctions : upcomingAuctions).length === 0 && (
+          {Object.keys(auctionsByMonth).length > 0 ? (
+            Object.entries(auctionsByMonth).map(([month, auctions]) => (
+              <div key={month} className="space-y-4">
+                <h3 className="text-base font-medium text-gray-700 capitalize border-b border-gray-200 pb-2">
+                  {month}
+                </h3>
+                <div className="space-y-4">
+                  {auctions.map((auction) => (
+                    <AuctionCard key={auction.id} auction={auction} />
+                  ))}
+                </div>
+              </div>
+            ))
+          ) : (
             <div className="text-center py-12">
               <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">
@@ -160,13 +195,20 @@ const Agenda = () => {
                 )}
               </div>
               
-              <div className="space-y-4">
-                {(selectedDate ? selectedAuctions : upcomingAuctions).map((auction) => (
-                  <AuctionCard key={auction.id} auction={auction} />
-                ))}
-              </div>
-
-              {(selectedDate ? selectedAuctions : upcomingAuctions).length === 0 && (
+              {Object.keys(auctionsByMonth).length > 0 ? (
+                Object.entries(auctionsByMonth).map(([month, auctions]) => (
+                  <div key={month} className="space-y-4">
+                    <h3 className="text-lg font-medium text-gray-700 capitalize border-b border-gray-200 pb-2">
+                      {month}
+                    </h3>
+                    <div className="space-y-4">
+                      {auctions.map((auction) => (
+                        <AuctionCard key={auction.id} auction={auction} />
+                      ))}
+                    </div>
+                  </div>
+                ))
+              ) : (
                 <div className="text-center py-12">
                   <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-gray-900 mb-2">

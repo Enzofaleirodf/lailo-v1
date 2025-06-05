@@ -143,7 +143,7 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
             
             <div className="flex items-start gap-1.5 text-gray-600">
               <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-              <p className="text-sm">{formatAddress(auction.address)}</p>
+              <p className="text-xs">{formatAddress(auction.address)}</p>
             </div>
           </div>
 

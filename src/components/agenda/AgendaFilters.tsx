@@ -75,9 +75,9 @@ export const AgendaFilters = ({
 
       {/* Desktop: Todos os filtros na mesma linha com larguras iguais */}
       <div className="hidden md:flex items-end gap-4">
-        <div className="w-1/4 flex flex-col h-full">
+        <div className="w-1/4 flex flex-col">
           <Tabs value={selectedType} onValueChange={onTypeChange} className="h-full">
-            <TabsList className="grid grid-cols-2 w-full h-10">
+            <TabsList className="grid grid-cols-2 w-full h-[42px]">
               <TabsTrigger value="imoveis" className="h-full">Imóveis</TabsTrigger>
               <TabsTrigger value="veiculos" className="h-full">Veículos</TabsTrigger>
             </TabsList>
