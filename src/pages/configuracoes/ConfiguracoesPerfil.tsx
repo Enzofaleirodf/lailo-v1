@@ -68,8 +68,8 @@ const ConfiguracoesPerfil = () => {
                   <stat.icon className={`w-8 h-8 ${stat.color}`} />
                 </div>
               </CardContent>
-            ))}
-          </div>
+            </Card>
+          ))}
         </div>
       </div>
 
