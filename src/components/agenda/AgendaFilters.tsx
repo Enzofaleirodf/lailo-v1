@@ -2,7 +2,7 @@ import React from "react";
 import { SearchableCombobox } from "@/components/filters/SearchableCombobox";
 import { SimpleSelect } from "@/components/filters/SimpleSelect";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Build, Car } from "lucide-react";
+import { Home, Car } from "lucide-react";
 
 interface AgendaFiltersProps {
   selectedState: string;
@@ -68,7 +68,7 @@ export const AgendaFilters = ({
         <Tabs value={selectedType} onValueChange={onTypeChange}>
           <TabsList className="grid w-full grid-cols-2 h-12">
             <TabsTrigger value="imoveis" className="h-full flex items-center gap-2">
-              <Build className="w-4 h-4" />
+              <Home className="w-4 h-4" />
               Imóveis
             </TabsTrigger>
             <TabsTrigger value="veiculos" className="h-full flex items-center gap-2">
@@ -85,7 +85,7 @@ export const AgendaFilters = ({
           <Tabs value={selectedType} onValueChange={onTypeChange} className="h-full">
             <TabsList className="grid grid-cols-2 w-full h-12">
               <TabsTrigger value="imoveis" className="h-full flex items-center gap-2">
-                <Build className="w-4 h-4" />
+                <Home className="w-4 h-4" />
                 Imóveis
               </TabsTrigger>
               <TabsTrigger value="veiculos" className="h-full flex items-center gap-2">
