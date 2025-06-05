@@ -60,7 +60,7 @@ const Leiloeiros = () => {
 
   return (
     <ContentPageLayout
-      title="Leiloeiros Oficiais do Brasil"
+      title="Leiloeiros Oficiais"
       subtitle="Encontre todos os leiloeiros credenciados do país"
       titleIcon={Gavel}
       showFilters={true}
