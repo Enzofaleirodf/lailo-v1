@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -125,7 +126,7 @@ export const SessionNavBar = () => {
 
             {/* Ícone de Configurações */}
             <Link
-              to="/configuracoes"
+              to="/configuracoes/perfil"
               className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors relative group"
             >
               <Settings className="w-4 h-4" />
