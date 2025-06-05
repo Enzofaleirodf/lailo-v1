@@ -26,21 +26,21 @@ const ConfiguracoesAlertas = () => {
 
   const notificationSettings = [
     {
-      id: 'email',
-      title: 'Email',
-      description: 'Receber alertas por email',
+      id: 'site',
+      title: 'No Site',
+      description: 'Receber notificações quando navegar no site',
       enabled: true
     },
     {
-      id: 'push',
-      title: 'Push',
-      description: 'Notificações no navegador',
+      id: 'whatsapp',
+      title: 'WhatsApp',
+      description: 'Receber alertas via WhatsApp',
       enabled: false
     },
     {
       id: 'frequency',
       title: 'Limite Diário',
-      description: 'Máximo de 1 email por dia',
+      description: 'Máximo de 1 notificação por dia',
       enabled: true
     }
   ];
