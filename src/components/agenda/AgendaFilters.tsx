@@ -1,8 +1,9 @@
+
 import React from "react";
 import { SearchableCombobox } from "@/components/filters/SearchableCombobox";
 import { SimpleSelect } from "@/components/filters/SimpleSelect";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Home, Car } from "lucide-react";
+import { ItemTypeToggle } from "../search/ItemTypeToggle";
+import { ItemType } from "../../types/search";
 
 interface AgendaFiltersProps {
   selectedState: string;
@@ -11,8 +12,8 @@ interface AgendaFiltersProps {
   onCityChange: (value: string) => void;
   selectedOrigin: string;
   onOriginChange: (value: string) => void;
-  selectedType: string;
-  onTypeChange: (value: string) => void;
+  selectedType: ItemType;
+  onTypeChange: (type: ItemType) => void;
 }
 
 const states = [
@@ -65,35 +66,19 @@ export const AgendaFilters = ({
     <div className="space-y-4">
       {/* Mobile: Tipo no topo */}
       <div className="md:hidden">
-        <Tabs value={selectedType} onValueChange={onTypeChange}>
-          <TabsList className="grid w-full grid-cols-2 h-12">
-            <TabsTrigger value="imoveis" className="h-full flex items-center gap-2">
-              <Home className="w-4 h-4" />
-              Imóveis
-            </TabsTrigger>
-            <TabsTrigger value="veiculos" className="h-full flex items-center gap-2">
-              <Car className="w-4 h-4" />
-              Veículos
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <ItemTypeToggle 
+          currentType={selectedType}
+          onTypeChange={onTypeChange}
+        />
       </div>
 
       {/* Desktop: Todos os filtros na mesma linha com larguras iguais */}
       <div className="hidden md:flex items-end gap-4">
         <div className="w-1/4 flex flex-col">
-          <Tabs value={selectedType} onValueChange={onTypeChange} className="h-full">
-            <TabsList className="grid grid-cols-2 w-full h-12">
-              <TabsTrigger value="imoveis" className="h-full flex items-center gap-2">
-                <Home className="w-4 h-4" />
-                Imóveis
-              </TabsTrigger>
-              <TabsTrigger value="veiculos" className="h-full flex items-center gap-2">
-                <Car className="w-4 h-4" />
-                Veículos
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <ItemTypeToggle 
+            currentType={selectedType}
+            onTypeChange={onTypeChange}
+          />
         </div>
 
         <div className="space-y-2 w-1/4">
