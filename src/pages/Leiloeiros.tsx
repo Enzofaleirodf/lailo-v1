@@ -35,11 +35,11 @@ const Leiloeiros = () => {
       );
     }
 
-    // Filtrar por leilões ativos
-    if (activeAuctionsFilter === "com-leiloes") {
-      filtered = filtered.filter(l => l.activeAuctions > 0);
-    } else if (activeAuctionsFilter === "sem-leiloes") {
-      filtered = filtered.filter(l => l.activeAuctions === 0);
+    // Filtrar por presença de site
+    if (activeAuctionsFilter === "com-site") {
+      filtered = filtered.filter(l => l.website && l.website.trim() !== "");
+    } else if (activeAuctionsFilter === "sem-site") {
+      filtered = filtered.filter(l => !l.website || l.website.trim() === "");
     }
 
     // Agrupar por estado

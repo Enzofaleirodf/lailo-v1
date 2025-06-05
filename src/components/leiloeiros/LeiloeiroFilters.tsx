@@ -61,16 +61,16 @@ export const LeiloeiroFilters = ({
           
           <div>
             <Label className="text-sm font-medium text-gray-700 mb-2 block">
-              Status dos Leilões
+              Presença Online
             </Label>
             <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
               <SelectTrigger className="h-12">
-                <SelectValue placeholder="Status" />
+                <SelectValue placeholder="Site" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="todos">Todos</SelectItem>
-                <SelectItem value="com-leiloes">Com leilões</SelectItem>
-                <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
+                <SelectItem value="com-site">Com site</SelectItem>
+                <SelectItem value="sem-site">Sem site</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -106,16 +106,16 @@ export const LeiloeiroFilters = ({
         </div>
         <div className="flex flex-col">
           <Label className="text-sm font-medium text-gray-700 mb-2">
-            Status dos Leilões
+            Presença Online
           </Label>
           <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
             <SelectTrigger className="w-[180px] h-12">
-              <SelectValue placeholder="Status dos leilões" />
+              <SelectValue placeholder="Filtrar por site" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todos">Todos</SelectItem>
-              <SelectItem value="com-leiloes">Com leilões</SelectItem>
-              <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
+              <SelectItem value="com-site">Com site</SelectItem>
+              <SelectItem value="sem-site">Sem site</SelectItem>
             </SelectContent>
           </Select>
         </div>
