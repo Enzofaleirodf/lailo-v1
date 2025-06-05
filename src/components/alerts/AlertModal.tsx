@@ -19,7 +19,6 @@ import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
 import { FormatFilter } from '../search/FormatFilter';
 import { OriginFilter } from '../search/OriginFilter';
 import { StageFilter } from '../search/StageFilter';
-import { PriceFilter } from '../filters/PriceFilter';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { AlertPreview } from './AlertPreview';
@@ -257,7 +256,9 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
               {alertType === 'property' ? (
                 <PropertySpecificFilters 
                   areaRange={areaRange} 
-                  onAreaRangeChange={setAreaRange} 
+                  onAreaRangeChange={setAreaRange}
+                  priceRange={priceRange}
+                  onPriceRangeChange={setPriceRange}
                 />
               ) : (
                 <VehicleSpecificFilters 
@@ -265,15 +266,15 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
                   model={model} 
                   color={color} 
                   yearRange={yearRange} 
+                  priceRange={priceRange}
                   vehicleType={type.toLowerCase()} 
                   onBrandChange={setBrand} 
                   onModelChange={setModel} 
                   onColorChange={setColor} 
-                  onYearRangeChange={setYearRange} 
+                  onYearRangeChange={setYearRange}
+                  onPriceRangeChange={setPriceRange}
                 />
               )}
-
-              <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
             </div>
           </div>
 

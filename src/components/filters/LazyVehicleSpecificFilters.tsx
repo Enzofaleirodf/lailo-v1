@@ -11,11 +11,13 @@ interface LazyVehicleSpecificFiltersProps {
   model: string;
   color: string;
   yearRange: [number, number];
+  priceRange: [number, number];
   vehicleType: string;
   onBrandChange: (brand: string) => void;
   onModelChange: (model: string) => void;
   onColorChange: (color: string) => void;
   onYearRangeChange: (range: [number, number]) => void;
+  onPriceRangeChange: (range: [number, number]) => void;
 }
 
 // Fallback que mantém o espaçamento

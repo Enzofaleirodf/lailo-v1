@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Bell, Plus, Trash2, Settings as SettingsIcon, Edit, X } from "lucide-react";
 import { useForm } from 'react-hook-form';
@@ -28,7 +27,6 @@ import { CategoryTypeFilters } from '../../components/filters/CategoryTypeFilter
 import { FormatFilter } from '../../components/search/FormatFilter';
 import { OriginFilter } from '../../components/search/OriginFilter';
 import { StageFilter } from '../../components/search/StageFilter';
-import { PriceFilter } from '../../components/filters/PriceFilter';
 import { PropertySpecificFilters } from '../../components/filters/PropertySpecificFilters';
 import { VehicleSpecificFilters } from '../../components/filters/VehicleSpecificFilters';
 import { AlertPreview } from '../../components/alerts/AlertPreview';
@@ -328,7 +326,9 @@ const ConfiguracoesAlertas = () => {
               {alertType === 'property' ? (
                 <PropertySpecificFilters 
                   areaRange={areaRange} 
-                  onAreaRangeChange={setAreaRange} 
+                  onAreaRangeChange={setAreaRange}
+                  priceRange={priceRange}
+                  onPriceRangeChange={setPriceRange}
                 />
               ) : (
                 <VehicleSpecificFilters 
@@ -336,15 +336,15 @@ const ConfiguracoesAlertas = () => {
                   model={model} 
                   color={color} 
                   yearRange={yearRange} 
+                  priceRange={priceRange}
                   vehicleType={type.toLowerCase()} 
                   onBrandChange={setBrand} 
                   onModelChange={setModel} 
                   onColorChange={setColor} 
-                  onYearRangeChange={setYearRange} 
+                  onYearRangeChange={setYearRange}
+                  onPriceRangeChange={setPriceRange}
                 />
               )}
-
-              <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
             </div>
 
             {/* Condições */}

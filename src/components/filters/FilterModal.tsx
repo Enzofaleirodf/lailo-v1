@@ -11,7 +11,6 @@ import { CategoryTypeFilters } from './CategoryTypeFilters';
 import { FormatFilter } from '../search/FormatFilter';
 import { OriginFilter } from '../search/OriginFilter';
 import { StageFilter } from '../search/StageFilter';
-import { PriceFilter } from './PriceFilter';
 import { PropertySpecificFilters } from './PropertySpecificFilters';
 import { VehicleSpecificFilters } from './VehicleSpecificFilters';
 import { ItemType } from '../../types/search';
@@ -161,7 +160,9 @@ export const FilterModal = ({
                   {itemType === 'property' ? (
                     <PropertySpecificFilters 
                       areaRange={areaRange} 
-                      onAreaRangeChange={setAreaRange} 
+                      onAreaRangeChange={setAreaRange}
+                      priceRange={priceRange}
+                      onPriceRangeChange={handlePriceRangeChange}
                     />
                   ) : (
                     <VehicleSpecificFilters 
@@ -169,15 +170,15 @@ export const FilterModal = ({
                       model={model} 
                       color={color} 
                       yearRange={yearRange} 
+                      priceRange={priceRange}
                       vehicleType={type.toLowerCase()} 
                       onBrandChange={setBrand} 
                       onModelChange={setModel} 
                       onColorChange={setColor} 
-                      onYearRangeChange={setYearRange} 
+                      onYearRangeChange={setYearRange}
+                      onPriceRangeChange={handlePriceRangeChange}
                     />
                   )}
-
-                  <PriceFilter priceRange={priceRange} onPriceRangeChange={handlePriceRangeChange} />
                 </div>
               </TabsContent>
 

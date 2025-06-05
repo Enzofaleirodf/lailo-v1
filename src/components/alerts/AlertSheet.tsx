@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +16,6 @@ import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
 import { FormatFilter } from '../search/FormatFilter';
 import { OriginFilter } from '../search/OriginFilter';
 import { StageFilter } from '../search/StageFilter';
-import { PriceFilter } from '../filters/PriceFilter';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { AlertPreview } from './AlertPreview';
@@ -283,7 +281,9 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
                   {alertType === 'property' ? (
                     <PropertySpecificFilters 
                       areaRange={areaRange} 
-                      onAreaRangeChange={setAreaRange} 
+                      onAreaRangeChange={setAreaRange}
+                      priceRange={priceRange}
+                      onPriceRangeChange={setPriceRange}
                     />
                   ) : (
                     <VehicleSpecificFilters 
@@ -291,15 +291,15 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
                       model={model} 
                       color={color} 
                       yearRange={yearRange} 
+                      priceRange={priceRange}
                       vehicleType={type.toLowerCase()} 
                       onBrandChange={setBrand} 
                       onModelChange={setModel} 
                       onColorChange={setColor} 
-                      onYearRangeChange={setYearRange} 
+                      onYearRangeChange={setYearRange}
+                      onPriceRangeChange={setPriceRange}
                     />
                   )}
-
-                  <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
                 </div>
               </TabsContent>
 

@@ -6,7 +6,6 @@ import { LocationFilter } from './LocationFilter';
 import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
 import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
 import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
-import { PriceFilter } from '../filters/PriceFilter';
 
 interface DesktopFilterSidebarProps {
   itemType: ItemType;
@@ -93,25 +92,24 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
                 model={model}
                 color={color}
                 yearRange={yearRange}
+                priceRange={priceRange}
                 vehicleType={type.toLowerCase()}
                 onBrandChange={setBrand}
                 onModelChange={setModel}
                 onColorChange={setColor}
                 onYearRangeChange={setYearRange}
+                onPriceRangeChange={setPriceRange}
               />
             )}
 
             {itemType === 'property' && (
               <PropertySpecificFilters
                 areaRange={areaRange}
+                priceRange={priceRange}
                 onAreaRangeChange={setAreaRange}
+                onPriceRangeChange={setPriceRange}
               />
             )}
-
-            <PriceFilter
-              priceRange={priceRange}
-              onPriceRangeChange={setPriceRange}
-            />
           </div>
         </div>
       </div>
