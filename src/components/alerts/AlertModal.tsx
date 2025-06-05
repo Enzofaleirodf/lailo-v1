@@ -14,11 +14,12 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { SegmentedControl } from '../ui/segmented-control';
-import { AlertFiltersForm } from './AlertFiltersForm';
+import { FilterModal } from '../filters/FilterModal';
 import { AlertPreview } from './AlertPreview';
 import { Alert, AlertFilters } from '../../types/alert';
 import { useAlerts } from '../../hooks/useAlerts';
 import { showSuccess, showError } from '../ui/NotificationToast';
+import { useIsMobile } from '../../hooks/use-mobile';
 
 const alertSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório').max(50, 'Nome deve ter no máximo 50 caracteres'),
@@ -34,7 +35,9 @@ interface AlertModalProps {
 export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModalProps) => {
   const [alertType, setAlertType] = useState<'property' | 'vehicle'>('property');
   const [filters, setFilters] = useState<AlertFilters>({});
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const { validateAlert, formatFiltersForDisplay } = useAlerts();
+  const isMobile = useIsMobile();
 
   const {
     register,
@@ -100,73 +103,105 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
     { value: 'vehicle', label: 'Veículos' },
   ];
 
+  const hasFilters = Object.keys(filters).length > 0;
+  const filtersCount = Object.values(filters).filter(value => 
+    value !== undefined && value !== null && 
+    (Array.isArray(value) ? value.length > 0 : true)
+  ).length;
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>
-            {editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}
-          </DialogTitle>
-        </DialogHeader>
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}
+            </DialogTitle>
+          </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Nome do Alerta */}
-          <div>
-            <Label htmlFor="name">Nome do Alerta</Label>
-            <Input
-              id="name"
-              {...register('name')}
-              placeholder="Ex: Casas em São Paulo até R$ 500k"
-              className="mt-1"
-            />
-            {errors.name && (
-              <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
-            )}
-          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {/* Nome do Alerta */}
+            <div>
+              <Label htmlFor="name">Nome do Alerta</Label>
+              <Input
+                id="name"
+                {...register('name')}
+                placeholder="Ex: Casas em São Paulo até R$ 500k"
+                className="mt-1"
+              />
+              {errors.name && (
+                <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+              )}
+            </div>
 
-          {/* Tipo do Alerta */}
-          <div>
-            <Label>Tipo de Leilão</Label>
-            <SegmentedControl
-              options={typeOptions}
-              value={alertType}
-              onValueChange={handleTypeChange}
-              className="mt-1"
-            />
-          </div>
-
-          {/* Filtros */}
-          <div>
-            <Label>Filtros de Busca</Label>
-            <div className="mt-3 p-4 border border-gray-200 rounded-lg">
-              <AlertFiltersForm
-                type={alertType}
-                filters={filters}
-                onFiltersChange={setFilters}
+            {/* Tipo do Alerta */}
+            <div>
+              <Label>Tipo de Leilão</Label>
+              <SegmentedControl
+                options={typeOptions}
+                value={alertType}
+                onValueChange={handleTypeChange}
+                className="mt-1"
               />
             </div>
-          </div>
 
-          {/* Preview */}
-          {alertName && (
-            <AlertPreview
-              name={alertName}
-              type={alertType}
-              filters={filters}
-              filtersDisplay={formatFiltersForDisplay(filters, alertType)}
-            />
-          )}
+            {/* Filtros */}
+            <div>
+              <Label>Filtros de Busca</Label>
+              <div className="mt-3 p-4 border border-gray-200 rounded-lg">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-sm text-gray-600">
+                    {hasFilters ? `${filtersCount} filtro(s) aplicado(s)` : 'Nenhum filtro aplicado'}
+                  </div>
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setIsFilterModalOpen(true)}
+                  >
+                    {hasFilters ? 'Editar Filtros' : 'Adicionar Filtros'}
+                  </Button>
+                </div>
+                
+                {hasFilters && (
+                  <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
+                    {formatFiltersForDisplay(filters, alertType)}
+                  </div>
+                )}
+              </div>
+            </div>
 
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancelar
-            </Button>
-            <Button type="submit">
-              {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+            {/* Preview */}
+            {alertName && (
+              <AlertPreview
+                name={alertName}
+                type={alertType}
+                filters={filters}
+                filtersDisplay={formatFiltersForDisplay(filters, alertType)}
+              />
+            )}
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={onClose}>
+                Cancelar
+              </Button>
+              <Button type="submit">
+                {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Filter Modal */}
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        itemType={alertType}
+        mode="alert"
+        alertFilters={filters}
+        onAlertFiltersChange={setFilters}
+      />
+    </>
   );
 };

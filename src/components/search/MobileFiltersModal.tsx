@@ -1,19 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Button } from "../ui/button";
-import { X, MapPin, Settings, Gavel } from "lucide-react";
-import { StateSelect } from './location/StateSelect';
-import { CitySelect } from './location/CitySelect';
-import { AddressInput } from './location/AddressInput';
-import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
-import { FormatFilter } from './FormatFilter';
-import { OriginFilter } from './OriginFilter';
-import { StageFilter } from './StageFilter';
-import { PriceFilter } from '../filters/PriceFilter';
-import { PropertySpecificFilters } from '../filters/PropertySpecificFilters';
-import { VehicleSpecificFilters } from '../filters/VehicleSpecificFilters';
+import React from 'react';
+import { FilterModal } from '../filters/FilterModal';
 import { ItemType } from '../../types/search';
 
 interface MobileFiltersModalProps {
@@ -27,170 +14,23 @@ export const MobileFiltersModal = ({
   onClose,
   itemType
 }: MobileFiltersModalProps) => {
-  // Estados iniciais conforme especificação - OBRIGATORIAMENTE marcados
-  const [category, setCategory] = useState(itemType === 'property' ? 'residenciais' : 'leves');
-  const [type, setType] = useState(itemType === 'property' ? 'todos' : 'carros');
-  const [formatValue, setFormatValue] = useState('Leilão');
-  const [areaRange, setAreaRange] = useState<[number, number]>([50, 500]);
-  const [yearRange, setYearRange] = useState<[number, number]>([2010, 2025]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([50000, 1000000]);
-
-  // Estados específicos para veículos
-  const [brand, setBrand] = useState('todas-marcas');
-  const [model, setModel] = useState('todos-modelos');
-  const [color, setColor] = useState('todas-cores');
-
-  // Estados para localização
-  const [selectedState, setSelectedState] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
-  const [address, setAddress] = useState('');
-  const isStageEnabled = formatValue === 'Leilão';
-
-  // UseEffect para garantir que as categorias e tipos padrão estejam sempre aplicados
-  useEffect(() => {
-    const defaultCategory = itemType === 'property' ? 'residenciais' : 'leves';
-    const defaultType = itemType === 'property' ? 'todos' : 'carros';
-    
-    console.log('MobileFiltersModal - Aplicando categoria e tipo padrão obrigatórios:', {
-      itemType,
-      category: defaultCategory,
-      type: defaultType
-    });
-    
-    setCategory(defaultCategory);
-    setType(defaultType);
-  }, [itemType]);
-
-  console.log('MobileFiltersModal - Estado atual:', { category, type });
-
   const handleClearFilters = () => {
     console.log('MobileFiltersModal - Limpando filtros');
-    // Reset para estados iniciais - mantendo categorias e tipos obrigatórios
-    const defaultCategory = itemType === 'property' ? 'residenciais' : 'leves';
-    const defaultType = itemType === 'property' ? 'todos' : 'carros';
-    
-    setCategory(defaultCategory);
-    setType(defaultType);
-    setBrand('todas-marcas');
-    setModel('todos-modelos');
-    setColor('todas-cores');
-    setYearRange([2010, 2025]);
-    setAreaRange([50, 500]);
-    setPriceRange([50000, 1000000]);
-    setSelectedState('');
-    setSelectedCity('');
-    setAddress('');
+    // Aqui você pode implementar a lógica específica de limpeza para busca
   };
 
   const handleApplyFilters = () => {
     console.log("Aplicar filtros");
-    onClose();
-  };
-
-  const handleClearCity = () => {
-    setSelectedCity('');
   };
 
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[98vh] rounded-t-3xl flex flex-col">
-        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
-          <SheetTitle className="text-lg font-semibold">
-            Filtros
-          </SheetTitle>
-          <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
-            <X className="h-4 w-4" />
-          </Button>
-        </SheetHeader>
-
-        <div className="flex-1 overflow-hidden flex flex-col py-6 px-0">
-          <Tabs defaultValue="location" className="w-full flex flex-col flex-1 overflow-hidden">
-            <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
-              <TabsTrigger value="location" className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-              </TabsTrigger>
-              <TabsTrigger value="characteristics" className="flex items-center gap-2">
-                <Settings className="h-4 w-4" />
-              </TabsTrigger>
-              <TabsTrigger value="conditions" className="flex items-center gap-2">
-                <Gavel className="h-4 w-4" />
-              </TabsTrigger>
-            </TabsList>
-
-            <div className="flex-1 overflow-hidden">
-              {/* Tab Localização */}
-              <TabsContent value="location" className="mt-0 h-full overflow-y-auto">
-                <div className="pr-4 space-y-4 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                  <StateSelect value={selectedState} onChange={setSelectedState} onClearCity={handleClearCity} />
-                  <CitySelect value={selectedCity} onChange={setSelectedCity} selectedState={selectedState} />
-                  <AddressInput value={address} onChange={setAddress} />
-                </div>
-              </TabsContent>
-
-              {/* Tab Características */}
-              <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto">
-                <div className="pr-4 space-y-6 pb-20" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                  <CategoryTypeFilters 
-                    itemType={itemType} 
-                    category={category} 
-                    type={type} 
-                    onCategoryChange={setCategory} 
-                    onTypeChange={setType} 
-                  />
-
-                  {itemType === 'property' ? (
-                    <PropertySpecificFilters 
-                      areaRange={areaRange} 
-                      onAreaRangeChange={setAreaRange} 
-                    />
-                  ) : (
-                    <VehicleSpecificFilters 
-                      brand={brand} 
-                      model={model} 
-                      color={color} 
-                      yearRange={yearRange} 
-                      vehicleType={type.toLowerCase()} 
-                      onBrandChange={setBrand} 
-                      onModelChange={setModel} 
-                      onColorChange={setColor} 
-                      onYearRangeChange={setYearRange} 
-                    />
-                  )}
-
-                  <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
-                </div>
-              </TabsContent>
-
-              {/* Tab Condições */}
-              <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto">
-                <div className="pr-4 space-y-6 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                  <div className="w-full">
-                    <FormatFilter itemType={itemType} />
-                  </div>
-                  <div className="adicionei w-full">
-                    <OriginFilter itemType={itemType} />
-                  </div>
-                  <div className="w-full">
-                    <StageFilter itemType={itemType} isEnabled={isStageEnabled} />
-                  </div>
-                </div>
-              </TabsContent>
-            </div>
-          </Tabs>
-        </div>
-
-        {/* Footer com botões - sempre visível */}
-        <div className="border-t border-gray-100 pt-4 pb-6 flex-shrink-0 bg-white px-0">
-          <div className="flex gap-3">
-            <Button variant="outline" onClick={handleClearFilters} className="flex-1">
-              Limpar filtros
-            </Button>
-            <Button onClick={handleApplyFilters} className="flex-1">
-              Aplicar filtros
-            </Button>
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+    <FilterModal
+      isOpen={isOpen}
+      onClose={onClose}
+      itemType={itemType}
+      mode="search"
+      onApplyFilters={handleApplyFilters}
+      onClearFilters={handleClearFilters}
+    />
   );
 };
