@@ -1,9 +1,15 @@
 
 import React, { useState } from "react";
-import { Bell, Plus, Trash2, Settings as SettingsIcon, Edit } from "lucide-react";
+import { Bell, Plus, Trash2, Settings as SettingsIcon, Edit, X } from "lucide-react";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { SegmentedControl } from '@/components/ui/segmented-control';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,13 +22,24 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { SettingsCard } from "../../components/settings/SettingsCard";
-import { AlertModal } from "../../components/alerts/AlertModal";
-import { AlertSheet } from "../../components/alerts/AlertSheet";
+import { StateSelect } from '../../components/search/location/StateSelect';
+import { CitySelect } from '../../components/search/location/CitySelect';
+import { CategoryTypeFilters } from '../../components/filters/CategoryTypeFilters';
+import { FormatFilter } from '../../components/search/FormatFilter';
+import { OriginFilter } from '../../components/search/OriginFilter';
+import { StageFilter } from '../../components/search/StageFilter';
+import { PriceFilter } from '../../components/filters/PriceFilter';
+import { PropertySpecificFilters } from '../../components/filters/PropertySpecificFilters';
+import { VehicleSpecificFilters } from '../../components/filters/VehicleSpecificFilters';
+import { AlertPreview } from '../../components/alerts/AlertPreview';
 import { useAlertsStore } from "../../stores/alertsStore";
 import { useAlerts } from "../../hooks/useAlerts";
-import { useIsMobile } from "../../hooks/use-mobile";
 import { Alert, AlertFilters } from "../../types/alert";
 import { showSuccess } from "../../components/ui/NotificationToast";
+
+const alertSchema = z.object({
+  name: z.string().min(1, 'Nome é obrigatório').max(50, 'Nome deve ter no máximo 50 caracteres'),
+});
 
 const ConfiguracoesAlertas = () => {
   const {
@@ -35,27 +52,162 @@ const ConfiguracoesAlertas = () => {
     updateNotificationSettings,
   } = useAlertsStore();
 
-  const { formatFiltersForDisplay } = useAlerts();
-  const isMobile = useIsMobile();
+  const { validateAlert, formatFiltersForDisplay } = useAlerts();
   
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const [editingAlert, setEditingAlert] = useState<Alert | undefined>();
+  const [alertType, setAlertType] = useState<'property' | 'vehicle'>('property');
+  const [filters, setFilters] = useState<AlertFilters>({});
+
+  // Form states
+  const [category, setCategory] = useState(alertType === 'property' ? 'residenciais' : 'leves');
+  const [type, setType] = useState(alertType === 'property' ? 'todos' : 'carros');
+  const [formatValue, setFormatValue] = useState('Leilão');
+  const [areaRange, setAreaRange] = useState<[number, number]>([50, 500]);
+  const [yearRange, setYearRange] = useState<[number, number]>([2010, 2025]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([50000, 1000000]);
+  const [brand, setBrand] = useState('todas-marcas');
+  const [model, setModel] = useState('todos-modelos');
+  const [color, setColor] = useState('todas-cores');
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm({
+    resolver: zodResolver(alertSchema),
+    defaultValues: {
+      name: '',
+    },
+  });
+
+  const alertName = watch('name');
 
   const handleCreateAlert = () => {
     setEditingAlert(undefined);
-    setIsModalOpen(true);
+    setIsCreating(true);
+    resetForm();
   };
 
   const handleEditAlert = (alert: Alert) => {
     setEditingAlert(alert);
-    setIsModalOpen(true);
+    setIsCreating(true);
+    
+    // Preencher formulário com dados do alerta
+    setValue('name', alert.name);
+    setAlertType(alert.type);
+    setFilters(alert.filters);
+    
+    setCategory(alert.filters.propertyCategory || alert.filters.vehicleCategory || (alert.type === 'property' ? 'residenciais' : 'leves'));
+    setType(alert.filters.propertyType || alert.filters.vehicleType || (alert.type === 'property' ? 'todos' : 'carros'));
+    setSelectedState(alert.filters.state || '');
+    setSelectedCity(alert.filters.city || '');
+    setPriceRange(alert.filters.priceRange || [50000, 1000000]);
+    
+    if (alert.type === 'property') {
+      setAreaRange(alert.filters.areaRange || [50, 500]);
+    } else {
+      setBrand(alert.filters.brand || 'todas-marcas');
+      setModel(alert.filters.model || 'todos-modelos');
+      setColor(alert.filters.color || 'todas-cores');
+      setYearRange(alert.filters.yearRange || [2010, 2025]);
+    }
   };
 
-  const handleSaveAlert = (name: string, type: 'property' | 'vehicle', filters: AlertFilters) => {
-    if (editingAlert) {
-      updateAlert(editingAlert.id, { name, type, filters });
+  const resetForm = () => {
+    reset();
+    setAlertType('property');
+    setFilters({});
+    setCategory('residenciais');
+    setType('todos');
+    setSelectedState('');
+    setSelectedCity('');
+    setPriceRange([50000, 1000000]);
+    setAreaRange([50, 500]);
+    setBrand('todas-marcas');
+    setModel('todos-modelos');
+    setColor('todas-cores');
+    setYearRange([2010, 2025]);
+  };
+
+  const handleCancel = () => {
+    setIsCreating(false);
+    setEditingAlert(undefined);
+    resetForm();
+  };
+
+  const handleTypeChange = (newType: 'property' | 'vehicle') => {
+    setAlertType(newType);
+    setFilters({});
+    
+    const defaultCategory = newType === 'property' ? 'residenciais' : 'leves';
+    const defaultType = newType === 'property' ? 'todos' : 'carros';
+    setCategory(defaultCategory);
+    setType(defaultType);
+  };
+
+  // Update filters as form values change
+  React.useEffect(() => {
+    const newFilters: AlertFilters = {};
+    
+    if (selectedState && selectedState !== 'todos-estados') {
+      newFilters.state = selectedState;
+    }
+    if (selectedCity && selectedCity !== 'todas-cidades') {
+      newFilters.city = selectedCity;
+    }
+    
+    if (alertType === 'property') {
+      if (category !== 'residenciais') newFilters.propertyCategory = category;
+      if (type !== 'todos') newFilters.propertyType = type;
+      if (areaRange[0] > 50 || areaRange[1] < 500) newFilters.areaRange = areaRange;
     } else {
-      createAlert(name, type, filters);
+      if (category !== 'leves') newFilters.vehicleCategory = category;
+      if (type !== 'carros') newFilters.vehicleType = type;
+      if (brand !== 'todas-marcas') newFilters.brand = brand;
+      if (model !== 'todos-modelos') newFilters.model = model;
+      if (color !== 'todas-cores') newFilters.color = color;
+      if (yearRange[0] > 2000 || yearRange[1] < 2025) newFilters.yearRange = yearRange;
+    }
+    
+    if (priceRange[0] > 50000 || priceRange[1] < 1000000) {
+      newFilters.priceRange = priceRange;
+    }
+    
+    setFilters(newFilters);
+  }, [selectedState, selectedCity, category, type, areaRange, yearRange, priceRange, brand, model, color, alertType]);
+
+  const onSubmit = (data: { name: string }) => {
+    const validationError = validateAlert(data.name, filters);
+    
+    if (validationError) {
+      showSuccess('Erro na validação', validationError);
+      return;
+    }
+
+    try {
+      if (editingAlert) {
+        updateAlert(editingAlert.id, { name: data.name, type: alertType, filters });
+      } else {
+        createAlert(data.name, alertType, filters);
+      }
+      
+      showSuccess(
+        editingAlert ? 'Alerta atualizado!' : 'Alerta criado!',
+        'Você será notificado sobre leilões que correspondam aos seus filtros.'
+      );
+      
+      handleCancel();
+    } catch (error) {
+      showSuccess(
+        'Erro ao salvar alerta',
+        'Tente novamente ou entre em contato com o suporte.'
+      );
     }
   };
 
@@ -88,6 +240,13 @@ const ConfiguracoesAlertas = () => {
     }
   ];
 
+  const typeOptions = [
+    { value: 'property', label: 'Imóveis' },
+    { value: 'vehicle', label: 'Veículos' },
+  ];
+
+  const isStageEnabled = formatValue === 'Leilão';
+
   return (
     <div className="space-y-4 md:space-y-6">
       {/* Header com ação */}
@@ -96,11 +255,130 @@ const ConfiguracoesAlertas = () => {
           <h2 className="text-lg md:text-xl font-bold text-gray-900">Meus Alertas</h2>
           <p className="text-sm text-gray-600">Receba notificações sobre leilões do seu interesse</p>
         </div>
-        <Button size="sm" onClick={handleCreateAlert}>
-          <Plus className="w-4 h-4 mr-2" />
-          Novo
-        </Button>
+        {!isCreating && (
+          <Button size="sm" onClick={handleCreateAlert}>
+            <Plus className="w-4 h-4 mr-2" />
+            Novo
+          </Button>
+        )}
       </div>
+
+      {/* Formulário de criação/edição */}
+      {isCreating && (
+        <SettingsCard 
+          title={editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'} 
+          description="Configure os filtros para receber notificações personalizadas"
+          icon={Bell}
+        >
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {/* Informações Básicas */}
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="name">Nome do Alerta</Label>
+                <Input
+                  id="name"
+                  {...register('name')}
+                  placeholder="Ex: Casas em São Paulo até R$ 500k"
+                  className="mt-1"
+                />
+                {errors.name && (
+                  <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+                )}
+              </div>
+
+              <div>
+                <Label>Tipo de Leilão</Label>
+                <SegmentedControl
+                  options={typeOptions}
+                  value={alertType}
+                  onValueChange={(value) => handleTypeChange(value as 'property' | 'vehicle')}
+                  className="mt-1"
+                />
+              </div>
+            </div>
+
+            {/* Localização */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-gray-900">Localização</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <StateSelect 
+                  value={selectedState} 
+                  onChange={setSelectedState} 
+                  onClearCity={() => setSelectedCity('')} 
+                />
+                <CitySelect 
+                  value={selectedCity} 
+                  onChange={setSelectedCity} 
+                  selectedState={selectedState} 
+                />
+              </div>
+            </div>
+
+            {/* Características */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-gray-900">Características</h3>
+              <CategoryTypeFilters 
+                itemType={alertType} 
+                category={category} 
+                type={type} 
+                onCategoryChange={setCategory} 
+                onTypeChange={setType} 
+              />
+
+              {alertType === 'property' ? (
+                <PropertySpecificFilters 
+                  areaRange={areaRange} 
+                  onAreaRangeChange={setAreaRange} 
+                />
+              ) : (
+                <VehicleSpecificFilters 
+                  brand={brand} 
+                  model={model} 
+                  color={color} 
+                  yearRange={yearRange} 
+                  vehicleType={type.toLowerCase()} 
+                  onBrandChange={setBrand} 
+                  onModelChange={setModel} 
+                  onColorChange={setColor} 
+                  onYearRangeChange={setYearRange} 
+                />
+              )}
+
+              <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
+            </div>
+
+            {/* Condições */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-gray-900">Condições</h3>
+              <div className="space-y-3">
+                <FormatFilter itemType={alertType} />
+                <OriginFilter itemType={alertType} />
+                <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
+              </div>
+            </div>
+
+            {/* Preview */}
+            {alertName && (
+              <AlertPreview
+                name={alertName}
+                type={alertType}
+                filters={filters}
+                filtersDisplay={formatFiltersForDisplay(filters, alertType)}
+              />
+            )}
+
+            {/* Botões */}
+            <div className="flex gap-3 pt-4 border-t border-gray-200">
+              <Button type="button" variant="outline" onClick={handleCancel} className="flex-1">
+                Cancelar
+              </Button>
+              <Button type="submit" className="flex-1">
+                {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
+              </Button>
+            </div>
+          </form>
+        </SettingsCard>
+      )}
 
       {/* Preferências de Notificação */}
       <SettingsCard
@@ -207,23 +485,6 @@ const ConfiguracoesAlertas = () => {
           </div>
         )}
       </SettingsCard>
-
-      {/* Modal responsivo */}
-      {isMobile ? (
-        <AlertSheet
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSave={handleSaveAlert}
-          editingAlert={editingAlert}
-        />
-      ) : (
-        <AlertModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSave={handleSaveAlert}
-          editingAlert={editingAlert}
-        />
-      )}
     </div>
   );
 };
