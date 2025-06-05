@@ -43,7 +43,7 @@ export const LeiloeiroFilters = ({
               <SelectValue placeholder="Estado" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="todos">Todos</SelectItem>
+              <SelectItem value="todos">Todos os estados</SelectItem>
               {estados.map(state => (
                 <SelectItem key={state} value={state}>{state}</SelectItem>
               ))}
