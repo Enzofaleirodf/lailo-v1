@@ -1,11 +1,8 @@
-
 import React from 'react';
-import { FilterSection } from './FilterSection';
 import { SearchableCombobox } from './SearchableCombobox';
-import { ColorPopover } from './ColorPopover';
+import { SimpleSelect } from './SimpleSelect';
 import { RangeSlider } from './RangeSlider';
-import { carBrandOptions, motoBrandOptions, modelOptions, colorOptions } from '../../config/filterData';
-import { useIsMobile } from '../../hooks/use-mobile';
+import { vehicleBrands, vehicleModels, vehicleColors } from '../../config/filterData';
 
 interface VehicleSpecificFiltersProps {
   brand: string;
@@ -19,6 +16,7 @@ interface VehicleSpecificFiltersProps {
   onColorChange: (color: string) => void;
   onYearRangeChange: (range: [number, number]) => void;
   onPriceRangeChange: (range: [number, number]) => void;
+  isAlert?: boolean;
 }
 
 export const VehicleSpecificFilters = ({
@@ -32,69 +30,155 @@ export const VehicleSpecificFilters = ({
   onModelChange,
   onColorChange,
   onYearRangeChange,
-  onPriceRangeChange
+  onPriceRangeChange,
+  isAlert = false
 }: VehicleSpecificFiltersProps) => {
-  const isMobile = useIsMobile();
+  const availableBrands = vehicleBrands[vehicleType] || [];
+  const availableModels = brand !== 'todas-marcas' ? vehicleModels[brand] || [] : [];
 
-  // Determinar quais marcas mostrar baseado no tipo de veículo
-  const getBrandOptions = () => {
-    if (vehicleType === 'moto') {
-      return motoBrandOptions;
+  const formatCurrency = (value: number) => {
+    if (value >= 1000000) {
+      return `R$ ${(value / 1000000).toFixed(1)}M`;
     }
-    return carBrandOptions;
+    return `R$ ${(value / 1000).toFixed(0)}k`;
   };
+
+  if (isAlert) {
+    return (
+      <>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-900 mb-3">
+              Marca e Modelo
+            </label>
+            <div className="space-y-1">
+              <SearchableCombobox
+                options={availableBrands}
+                value={brand}
+                onChange={onBrandChange}
+                placeholder="Selecione uma marca"
+                emptyText="Nenhuma marca encontrada"
+              />
+              <SearchableCombobox
+                options={availableModels}
+                value={model}
+                onChange={onModelChange}
+                placeholder="Selecione um modelo"
+                emptyText="Nenhum modelo encontrado"
+                disabled={brand === 'todas-marcas'}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-900 mb-3">
+              Cor
+            </label>
+            <SimpleSelect
+              options={vehicleColors}
+              value={color}
+              onChange={onColorChange}
+              placeholder="Selecione uma cor"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-900 mb-3">
+              Ano
+            </label>
+            <RangeSlider
+              min={2010}
+              max={2025}
+              value={yearRange}
+              onChange={onYearRangeChange}
+              step={1}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-900 mb-3">
+              Valor do Lance
+            </label>
+            <RangeSlider
+              min={50000}
+              max={1000000}
+              value={priceRange}
+              onChange={onPriceRangeChange}
+              prefix="R$"
+              step={10000}
+              formatValue={formatCurrency}
+            />
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
-      <FilterSection title="Marca e Modelo">
+      <div>
+        <label className="block text-sm font-medium text-gray-900 mb-3">
+          Marca e Modelo
+        </label>
         <div className="space-y-1">
           <SearchableCombobox
-            options={getBrandOptions()}
-            selected={brand}
-            onSelect={onBrandChange}
+            options={availableBrands}
+            value={brand}
+            onChange={onBrandChange}
             placeholder="Selecione uma marca"
+            emptyText="Nenhuma marca encontrada"
           />
           <SearchableCombobox
-            options={modelOptions}
-            selected={model}
-            onSelect={onModelChange}
+            options={availableModels}
+            value={model}
+            onChange={onModelChange}
             placeholder="Selecione um modelo"
+            emptyText="Nenhum modelo encontrado"
             disabled={brand === 'todas-marcas'}
           />
         </div>
-      </FilterSection>
+      </div>
 
-      <FilterSection title="Cor">
-        <ColorPopover
-          colors={colorOptions}
-          selected={color}
-          onSelect={onColorChange}
+      <div>
+        <label className="block text-sm font-medium text-gray-900 mb-3">
+          Cor
+        </label>
+        <SimpleSelect
+          options={vehicleColors}
+          value={color}
+          onChange={onColorChange}
+          placeholder="Selecione uma cor"
         />
-      </FilterSection>
+      </div>
 
-      <div className={`space-y-6 ${!isMobile ? 'grid grid-cols-2 gap-6 space-y-0' : ''}`}>
-        <FilterSection title="Ano do veículo">
-          <RangeSlider
-            value={yearRange}
-            onChange={onYearRangeChange}
-            min={2000}
-            max={2025}
-            step={1}
-            suffix=""
-          />
-        </FilterSection>
+      <div>
+        <label className="block text-sm font-medium text-gray-900 mb-3">
+          Ano
+        </label>
+        <RangeSlider
+          min={2010}
+          max={2025}
+          value={yearRange}
+          onChange={onYearRangeChange}
+          step={1}
+        />
+      </div>
 
-        <FilterSection title="Valor do Lance">
-          <RangeSlider
-            min={50000}
-            max={1000000}
-            value={priceRange}
-            onChange={onPriceRangeChange}
-            prefix="R$ "
-            step={1000}
-            formatValue={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
-          />
-        </FilterSection>
+      <div>
+        <label className="block text-sm font-medium text-gray-900 mb-3">
+          Valor do Lance
+        </label>
+        <RangeSlider
+          min={50000}
+          max={1000000}
+          value={priceRange}
+          onChange={onPriceRangeChange}
+          prefix="R$"
+          step={10000}
+          formatValue={formatCurrency}
+        />
       </div>
     </>
   );

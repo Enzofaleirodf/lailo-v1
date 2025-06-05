@@ -1,27 +1,70 @@
 
 import React from 'react';
-import { FilterSection } from './FilterSection';
 import { RangeSlider } from './RangeSlider';
-import { useIsMobile } from '../../hooks/use-mobile';
 
 interface PropertySpecificFiltersProps {
   areaRange: [number, number];
-  onAreaRangeChange: (range: [number, number]) => void;
   priceRange: [number, number];
+  onAreaRangeChange: (range: [number, number]) => void;
   onPriceRangeChange: (range: [number, number]) => void;
+  isAlert?: boolean;
 }
 
 export const PropertySpecificFilters = ({
   areaRange,
-  onAreaRangeChange,
   priceRange,
-  onPriceRangeChange
+  onAreaRangeChange,
+  onPriceRangeChange,
+  isAlert = false
 }: PropertySpecificFiltersProps) => {
-  const isMobile = useIsMobile();
+  const formatCurrency = (value: number) => {
+    if (value >= 1000000) {
+      return `R$ ${(value / 1000000).toFixed(1)}M`;
+    }
+    return `R$ ${(value / 1000).toFixed(0)}k`;
+  };
+
+  if (isAlert) {
+    return (
+      <>
+        <div>
+          <label className="block text-sm font-medium text-gray-900 mb-3">
+            Área útil
+          </label>
+          <RangeSlider
+            min={50}
+            max={500}
+            value={areaRange}
+            onChange={onAreaRangeChange}
+            suffix="m²"
+            step={10}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-900 mb-3">
+            Valor do Lance
+          </label>
+          <RangeSlider
+            min={50000}
+            max={1000000}
+            value={priceRange}
+            onChange={onPriceRangeChange}
+            prefix="R$"
+            step={10000}
+            formatValue={formatCurrency}
+          />
+        </div>
+      </>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      <FilterSection title="Área Útil">
+    <>
+      <div>
+        <label className="block text-sm font-medium text-gray-900 mb-3">
+          Área útil
+        </label>
         <RangeSlider
           min={50}
           max={500}
@@ -30,19 +73,22 @@ export const PropertySpecificFilters = ({
           suffix="m²"
           step={10}
         />
-      </FilterSection>
+      </div>
 
-      <FilterSection title="Valor do Lance">
+      <div>
+        <label className="block text-sm font-medium text-gray-900 mb-3">
+          Valor do Lance
+        </label>
         <RangeSlider
           min={50000}
           max={1000000}
           value={priceRange}
           onChange={onPriceRangeChange}
-          prefix="R$ "
-          step={1000}
-          formatValue={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
+          prefix="R$"
+          step={10000}
+          formatValue={formatCurrency}
         />
-      </FilterSection>
-    </div>
+      </div>
+    </>
   );
 };

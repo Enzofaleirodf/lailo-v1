@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -243,26 +242,32 @@ export const AlertForm = ({ editingAlert, onSave, onCancel }: AlertFormProps) =>
             />
 
             {alertType === 'property' ? (
-              <PropertySpecificFilters 
-                areaRange={areaRange} 
-                onAreaRangeChange={setAreaRange}
-                priceRange={priceRange}
-                onPriceRangeChange={setPriceRange}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <PropertySpecificFilters 
+                  areaRange={areaRange} 
+                  onAreaRangeChange={setAreaRange}
+                  priceRange={priceRange}
+                  onPriceRangeChange={setPriceRange}
+                  isAlert={true}
+                />
+              </div>
             ) : (
-              <VehicleSpecificFilters 
-                brand={brand} 
-                model={model} 
-                color={color} 
-                yearRange={yearRange} 
-                priceRange={priceRange}
-                vehicleType={type.toLowerCase()} 
-                onBrandChange={setBrand} 
-                onModelChange={setModel} 
-                onColorChange={setColor} 
-                onYearRangeChange={setYearRange}
-                onPriceRangeChange={setPriceRange}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <VehicleSpecificFilters 
+                  brand={brand} 
+                  model={model} 
+                  color={color} 
+                  yearRange={yearRange} 
+                  priceRange={priceRange}
+                  vehicleType={type.toLowerCase()} 
+                  onBrandChange={setBrand} 
+                  onModelChange={setModel} 
+                  onColorChange={setColor} 
+                  onYearRangeChange={setYearRange}
+                  onPriceRangeChange={setPriceRange}
+                  isAlert={true}
+                />
+              </div>
             )}
           </div>
 
