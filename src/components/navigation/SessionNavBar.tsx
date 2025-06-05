@@ -13,7 +13,8 @@ import {
   Shield,
   CircleUser,
   Bell,
-  Settings
+  Settings,
+  Search
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -32,6 +33,7 @@ const iconMap = {
   CircleUser,
   Bell,
   Settings,
+  Search,
 };
 
 export const SessionNavBar = () => {
@@ -41,8 +43,7 @@ export const SessionNavBar = () => {
   // Items principais que sempre aparecem (mesmo deslogado)
   const mainNavItems = [
     { to: "/", icon: "Home", label: "Início" },
-    { to: "/buscador/imoveis", icon: "Building", label: "Imóveis" },
-    { to: "/buscador/veiculos", icon: "Car", label: "Veículos" },
+    { to: "/buscador/imoveis", icon: "Search", label: "Buscador" },
     { to: "/favoritos/imoveis", icon: "Heart", label: "Favoritos" }, // Sempre visível
   ];
 
