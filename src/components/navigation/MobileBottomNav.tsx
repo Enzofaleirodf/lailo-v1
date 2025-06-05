@@ -1,13 +1,14 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Building, Car, Heart } from "lucide-react";
+import { Home, Search, Heart, Gavel, Calendar } from "lucide-react";
 
 export const MobileBottomNav = () => {
   const location = useLocation();
   
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
+    if (path === "/buscador") return location.pathname.startsWith("/buscador");
     if (path === "/favoritos") return location.pathname.startsWith("/favoritos");
     return location.pathname.startsWith(path);
   };
@@ -20,18 +21,23 @@ export const MobileBottomNav = () => {
     },
     {
       to: "/buscador/imoveis",
-      icon: Building,
-      label: "Imóveis"
-    },
-    {
-      to: "/buscador/veiculos",
-      icon: Car,
-      label: "Veículos"
+      icon: Search,
+      label: "Buscador"
     },
     {
       to: "/favoritos/imoveis",
       icon: Heart,
       label: "Favoritos"
+    },
+    {
+      to: "/leiloeiros",
+      icon: Gavel,
+      label: "Leiloeiros"
+    },
+    {
+      to: "/agenda",
+      icon: Calendar,
+      label: "Agenda"
     }
   ];
   

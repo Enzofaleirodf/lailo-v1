@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { X, Gavel, Calendar, User, Settings, LogIn, LogOut } from 'lucide-react';
+import { X, Home, Search, Heart, Gavel, Calendar, Settings, LogIn, LogOut, User } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
@@ -15,7 +15,22 @@ interface MobileDrawerProps {
 export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
   const { isAuthenticated, logout, user } = useAuth();
   
-  const menuItems = [
+  const mainMenuItems = [
+    {
+      to: "/",
+      icon: Home,
+      label: "Início"
+    },
+    {
+      to: "/buscador/imoveis",
+      icon: Search,
+      label: "Buscador"
+    },
+    {
+      to: "/favoritos/imoveis",
+      icon: Heart,
+      label: "Favoritos"
+    },
     {
       to: "/leiloeiros",
       icon: Gavel,
@@ -25,19 +40,7 @@ export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
       to: "/agenda",
       icon: Calendar,
       label: "Agenda"
-    },
-    ...(isAuthenticated ? [
-      {
-        to: "/configuracoes/perfil",
-        icon: User,
-        label: "Perfil"
-      },
-      {
-        to: "/configuracoes",
-        icon: Settings,
-        label: "Configurações"
-      }
-    ] : [])
+    }
   ];
   
   const handleItemClick = () => {
@@ -81,8 +84,9 @@ export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
         </SheetHeader>
         
         <div className="px-6 pb-6">
+          {/* Menu principal */}
           <div className="space-y-1">
-            {menuItems.map(item => {
+            {mainMenuItems.map(item => {
               const Icon = item.icon;
               return (
                 <Link
@@ -100,26 +104,40 @@ export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
           
           <Separator className="my-4" />
           
-          {/* Auth section */}
-          {isAuthenticated ? (
-            <Button
-              variant="ghost"
-              onClick={handleLogout}
-              className="w-full justify-start gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg h-auto"
-            >
-              <LogOut className="w-5 h-5" />
-              <span>Sair</span>
-            </Button>
-          ) : (
-            <Link
-              to="/auth/login"
-              onClick={handleItemClick}
-              className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <LogIn className="w-5 h-5" />
-              <span>Entrar</span>
-            </Link>
-          )}
+          {/* Seção de configurações e ações */}
+          <div className="space-y-1">
+            {isAuthenticated && (
+              <Link
+                to="/configuracoes"
+                onClick={handleItemClick}
+                className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <Settings className="w-5 h-5" />
+                <span>Configurações</span>
+              </Link>
+            )}
+            
+            {/* Auth section */}
+            {isAuthenticated ? (
+              <Button
+                variant="ghost"
+                onClick={handleLogout}
+                className="w-full justify-start gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg h-auto"
+              >
+                <LogOut className="w-5 h-5" />
+                <span>Sair</span>
+              </Button>
+            ) : (
+              <Link
+                to="/auth/login"
+                onClick={handleItemClick}
+                className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <LogIn className="w-5 h-5" />
+                <span>Entrar</span>
+              </Link>
+            )}
+          </div>
         </div>
       </SheetContent>
     </Sheet>
