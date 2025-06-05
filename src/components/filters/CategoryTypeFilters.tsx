@@ -41,27 +41,31 @@ export const CategoryTypeFilters = ({
   };
 
   return (
-    <>
+    <div className="w-full min-w-0 space-y-4">
       <FilterSection title={itemType === 'property' ? 'Categoria do Imóvel' : 'Categoria do Veículo'}>
-        <CategoryGrid
-          options={itemType === 'property' ? propertyCategories : vehicleCategories}
-          selected={category}
-          onSelect={handleCategoryChange}
-          columns={3}
-        />
+        <div className="w-full min-w-0">
+          <CategoryGrid
+            options={itemType === 'property' ? propertyCategories : vehicleCategories}
+            selected={category}
+            onSelect={handleCategoryChange}
+            columns={1}
+          />
+        </div>
       </FilterSection>
 
       <FilterSection title="Tipo">
-        <TypeCombobox
-          options={itemType === 'property' 
-            ? propertyTypes[category as keyof typeof propertyTypes] || []
-            : vehicleTypes[category as keyof typeof vehicleTypes] || []
-          }
-          selected={type}
-          onSelect={onTypeChange}
-          placeholder={`Selecione um tipo`}
-        />
+        <div className="w-full">
+          <TypeCombobox
+            options={itemType === 'property' 
+              ? propertyTypes[category as keyof typeof propertyTypes] || []
+              : vehicleTypes[category as keyof typeof vehicleTypes] || []
+            }
+            selected={type}
+            onSelect={onTypeChange}
+            placeholder={`Selecione um tipo`}
+          />
+        </div>
       </FilterSection>
-    </>
+    </div>
   );
 };

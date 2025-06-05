@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -184,7 +185,7 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-3xl flex flex-col">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-3xl flex flex-col overflow-x-hidden">
         <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0">
           <SheetTitle className="text-lg font-semibold">
             {editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}
@@ -194,8 +195,8 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
           </Button>
         </SheetHeader>
 
-        <div className="flex-1 overflow-y-auto py-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <div className="flex-1 overflow-y-auto py-6 px-1 min-w-0">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full min-w-0">
             {/* Informações Básicas */}
             <div className="space-y-4">
               <h3 className="font-medium text-gray-900 text-lg">Informações Básicas</h3>
@@ -218,16 +219,16 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
                 <SegmentedControl
                   options={typeOptions}
                   value={alertType}
-                  onValueChange={setAlertType}
+                  onValueChange={(value) => handleTypeChange(value as 'property' | 'vehicle')}
                   className="mt-1 w-full"
                 />
               </div>
             </div>
 
             {/* Localização */}
-            <div className="space-y-4">
+            <div className="space-y-4 min-w-0">
               <h3 className="font-medium text-gray-900 text-lg">Localização</h3>
-              <div className="space-y-3">
+              <div className="space-y-3 w-full">
                 <StateSelect 
                   value={selectedState} 
                   onChange={setSelectedState} 
@@ -242,16 +243,18 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
             </div>
 
             {/* Características */}
-            <div className="space-y-4">
+            <div className="space-y-4 min-w-0 w-full">
               <h3 className="font-medium text-gray-900 text-lg">Características</h3>
-              <div className="space-y-4">
-                <CategoryTypeFilters 
-                  itemType={alertType} 
-                  category={category} 
-                  type={type} 
-                  onCategoryChange={setCategory} 
-                  onTypeChange={setType} 
-                />
+              <div className="space-y-4 w-full min-w-0">
+                <div className="w-full min-w-0">
+                  <CategoryTypeFilters 
+                    itemType={alertType} 
+                    category={category} 
+                    type={type} 
+                    onCategoryChange={setCategory} 
+                    onTypeChange={setType} 
+                  />
+                </div>
 
                 {alertType === 'property' ? (
                   <PropertySpecificFilters 
@@ -277,9 +280,9 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
             </div>
 
             {/* Condições */}
-            <div className="space-y-4">
+            <div className="space-y-4 min-w-0">
               <h3 className="font-medium text-gray-900 text-lg">Condições</h3>
-              <div className="space-y-3">
+              <div className="space-y-3 w-full">
                 <FormatFilter itemType={alertType} />
                 <OriginFilter itemType={alertType} />
                 <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
@@ -299,7 +302,7 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
         </div>
 
         {/* Footer fixo */}
-        <div className="border-t border-gray-100 pt-4 pb-6 flex-shrink-0 bg-white">
+        <div className="border-t border-gray-100 pt-4 pb-6 flex-shrink-0 bg-white px-1">
           <div className="flex gap-3">
             <Button type="button" variant="outline" onClick={onClose} className="flex-1">
               Cancelar

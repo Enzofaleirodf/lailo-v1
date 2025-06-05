@@ -34,14 +34,13 @@ export const CategoryGrid = ({
   options, 
   selected, 
   onSelect, 
-  columns = 3 
+  columns = 1 
 }: CategoryGridProps) => {
   return (
     <div 
-      className="grid gap-3"
+      className="w-full space-y-2"
       style={{ 
-        gap: designTokens.spacing.md,
-        gridTemplateColumns: `repeat(${columns}, 1fr)`
+        gap: designTokens.spacing.sm,
       }}
     >
       {options.map((option) => {
@@ -53,7 +52,7 @@ export const CategoryGrid = ({
             key={option.value}
             onClick={() => onSelect(option.value)}
             className={cn(
-              "flex items-center gap-2 px-3 py-3 border rounded-lg transition-all duration-200 font-medium text-left justify-start min-h-[48px]",
+              "w-full flex items-center gap-3 px-3 py-3 border rounded-lg transition-all duration-200 font-medium text-left justify-start min-h-[48px]",
               isSelected
                 ? "bg-blue-50 border-blue-500 text-blue-700 ring-2 ring-blue-200/50 shadow-sm"
                 : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
@@ -73,7 +72,7 @@ export const CategoryGrid = ({
             )}
             <span 
               className={cn(
-                "text-sm leading-tight",
+                "text-sm leading-tight flex-1",
                 isSelected ? "text-blue-700 font-semibold" : "text-gray-700"
               )}
             >
