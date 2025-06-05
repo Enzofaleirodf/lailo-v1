@@ -41,13 +41,12 @@ const ConfiguracoesPerfil = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Informações do Usuário */}
         <SettingsCard
           title="Informações Pessoais"
           description="Seus dados de cadastro"
           icon={User}
-          className="lg:col-span-2"
         >
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -77,62 +76,46 @@ const ConfiguracoesPerfil = () => {
           </div>
         </SettingsCard>
 
-        {/* Ações Rápidas - Desktop */}
-        <div className="hidden lg:block space-y-4">
-          <SettingsCard title="Ações Rápidas" className="h-fit">
-            <div className="space-y-3">
-              <Button variant="outline" size="sm" className="w-full justify-start">
-                <Shield className="w-4 h-4 mr-2" />
-                Alterar Senha
-              </Button>
-              <Button variant="outline" size="sm" onClick={logout} className="w-full justify-start">
-                <LogOut className="w-4 h-4 mr-2" />
-                Sair da Conta
-              </Button>
-            </div>
-          </SettingsCard>
-        </div>
+        {/* Segurança da Conta */}
+        <SettingsCard title="Segurança da Conta" description="Configurações de segurança e acesso">
+          <div className="space-y-3">
+            <SettingsListItem
+              icon={Shield}
+              title="Alterar Senha"
+              description="Atualize sua senha de acesso"
+              action={{
+                label: "Alterar",
+                onClick: () => console.log('Alterar senha'),
+                variant: "outline"
+              }}
+            />
+            
+            <SettingsListItem
+              icon={LogOut}
+              title="Sair da Conta"
+              description="Fazer logout do sistema"
+              action={{
+                label: "Sair",
+                onClick: logout,
+                variant: "outline"
+              }}
+            />
+            
+            <SettingsListItem
+              icon={Trash2}
+              title="Excluir Conta"
+              description="Esta ação não pode ser desfeita"
+              className="border-red-200 bg-red-50"
+              action={{
+                label: "Excluir",
+                onClick: () => console.log('Excluir conta'),
+                variant: "destructive",
+                icon: Trash2
+              }}
+            />
+          </div>
+        </SettingsCard>
       </div>
-
-      {/* Ações da Conta */}
-      <SettingsCard title="Segurança da Conta" description="Configurações de segurança e acesso">
-        <div className="space-y-3">
-          <SettingsListItem
-            icon={Shield}
-            title="Alterar Senha"
-            description="Atualize sua senha de acesso"
-            action={{
-              label: "Alterar",
-              onClick: () => console.log('Alterar senha'),
-              variant: "outline"
-            }}
-          />
-          
-          <SettingsListItem
-            icon={LogOut}
-            title="Sair da Conta"
-            description="Fazer logout do sistema"
-            action={{
-              label: "Sair",
-              onClick: logout,
-              variant: "outline"
-            }}
-          />
-          
-          <SettingsListItem
-            icon={Trash2}
-            title="Excluir Conta"
-            description="Esta ação não pode ser desfeita"
-            className="border-red-200 bg-red-50"
-            action={{
-              label: "Excluir",
-              onClick: () => console.log('Excluir conta'),
-              variant: "destructive",
-              icon: Trash2
-            }}
-          />
-        </div>
-      </SettingsCard>
     </div>
   );
 };
