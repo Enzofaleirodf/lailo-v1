@@ -1,3 +1,4 @@
+
 import React from "react";
 import { SearchableCombobox } from "@/components/filters/SearchableCombobox";
 import { SimpleSelect } from "@/components/filters/SimpleSelect";
@@ -73,10 +74,10 @@ export const AgendaFilters = ({
       </div>
 
       {/* Desktop: Todos os filtros na mesma linha com larguras iguais */}
-      <div className="hidden md:flex items-stretch gap-4">
-        <div className="w-1/4">
-          <Tabs value={selectedType} onValueChange={onTypeChange}>
-            <TabsList className="grid grid-cols-2 w-full h-full">
+      <div className="hidden md:flex items-end gap-4">
+        <div className="w-1/4 flex flex-col">
+          <Tabs value={selectedType} onValueChange={onTypeChange} className="h-full">
+            <TabsList className="grid grid-cols-2 w-full h-[42px]">
               <TabsTrigger value="imoveis" className="h-full">Imóveis</TabsTrigger>
               <TabsTrigger value="veiculos" className="h-full">Veículos</TabsTrigger>
             </TabsList>
