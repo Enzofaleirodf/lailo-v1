@@ -1,4 +1,3 @@
-
 import { User, Settings, Heart, Bell, Trash2, Shield, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "../../hooks/useAuth";
@@ -77,7 +76,7 @@ const ConfiguracoesPerfil = () => {
         </SettingsCard>
 
         {/* Segurança da Conta */}
-        <SettingsCard title="Segurança da Conta" description="Configurações de segurança e acesso">
+        <SettingsCard title="Segurança e Acesso" description="Configurações de segurança e acesso">
           <div className="space-y-3">
             <SettingsListItem
               icon={Shield}
