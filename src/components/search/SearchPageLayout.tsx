@@ -69,8 +69,8 @@ export const SearchPageLayout = ({
         <DesktopFilterSidebar itemType={config.type} onClearFilters={onClearFilters} />
       </div>
 
-      <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white px-6 pb-6">
-        <div className="px-6 py-5">
+      <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white pb-6">
+        <div className="pl-6 pr-0 py-5">
           <SearchStatusAndControls totalAuctions={finalResultsCount} totalSites={finalSitesCount} newAuctions={newAuctions} isVertical={isVertical} onToggleLayout={onToggleLayout} sortBy={sortBy} onSortChange={onSortChange} sortOptions={sortOptions} />
           
           <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
