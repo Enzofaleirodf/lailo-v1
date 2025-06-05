@@ -1,7 +1,6 @@
 
 import React, { useState, useMemo } from "react";
 import { Building2 } from "lucide-react";
-import { ContentPageLayout } from "../components/layout/ContentPageLayout";
 import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
 import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
@@ -65,12 +64,19 @@ const Leiloeiros = () => {
   };
 
   return (
-    <ContentPageLayout
-      title="Leiloeiros Oficiais do Brasil"
-      subtitle="Encontre leiloeiros credenciados em todo o país"
-      titleIcon={Building2}
-      showFilters
-      filtersContent={
+    <div className="w-full min-h-screen bg-white">
+      {/* Mobile Layout */}
+      <div className="block md:hidden px-4 py-6 pb-20">
+        {/* Header Mobile */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <Building2 className="w-6 h-6 text-blue-600" />
+            <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
+          </div>
+          <p className="text-gray-600">Encontre leiloeiros credenciados</p>
+        </div>
+
+        {/* Filtros Mobile */}
         <LeiloeiroFilters
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -79,10 +85,10 @@ const Leiloeiros = () => {
           activeAuctionsFilter={activeAuctionsFilter}
           setActiveAuctionsFilter={setActiveAuctionsFilter}
           estados={estados}
+          isMobile={true}
         />
-      }
-    >
-      <div className="p-4 md:p-6">
+
+        {/* Conteúdo Mobile */}
         {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
           <LeiloeiroStateAccordion
             filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
@@ -92,7 +98,56 @@ const Leiloeiros = () => {
           <LeiloeiroEmptyState />
         )}
       </div>
-    </ContentPageLayout>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:block">
+        <div className="w-full relative min-h-screen bg-white">
+          <main className="ml-12 min-h-screen flex flex-col">
+            <div className="bg-white flex-1 p-0">
+              <div className="w-full max-w-[1440px] mx-auto">
+                {/* Header Desktop */}
+                <div className="mb-8 px-6 pt-8">
+                  <div className="flex items-center gap-3">
+                    <Building2 className="w-8 h-8 text-blue-600" />
+                    <div>
+                      <h1 className="text-3xl font-bold text-gray-900">Leiloeiros Oficiais do Brasil</h1>
+                      <p className="text-gray-600 mt-1">Encontre leiloeiros credenciados em todo o país</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Filtros Desktop */}
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6 mx-6">
+                  <LeiloeiroFilters
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    selectedState={selectedState}
+                    setSelectedState={setSelectedState}
+                    activeAuctionsFilter={activeAuctionsFilter}
+                    setActiveAuctionsFilter={setActiveAuctionsFilter}
+                    estados={estados}
+                  />
+                </div>
+
+                {/* Conteúdo Desktop */}
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 mx-6 min-h-[400px]">
+                  <div className="p-6">
+                    {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
+                      <LeiloeiroStateAccordion
+                        filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
+                        getJuntaComercial={getJuntaComercial}
+                      />
+                    ) : (
+                      <LeiloeiroEmptyState />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
   );
 };
 
