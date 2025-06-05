@@ -75,7 +75,7 @@ const Leiloeiros = () => {
       }
       contentClass="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 md:mx-6 min-h-[400px]"
     >
-      {/* Header Mobile */}
+      {/* Header Mobile - movido para o topo */}
       <div className="block md:hidden mb-6">
         <div className="flex items-center gap-3 mb-2">
           <Gavel className="w-6 h-6 text-blue-600" />

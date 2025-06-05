@@ -116,25 +116,24 @@ export const AgendaFilters = ({
       {/* Mobile: Filtros empilhados */}
       <div className="md:hidden space-y-4">
         <div className="grid grid-cols-1 gap-4">
+          {/* Estado e Cidade agrupados no mobile */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Estado</label>
-            <SearchableCombobox
-              options={states}
-              selected={selectedState}
-              onSelect={onStateChange}
-              placeholder="Selecione um estado"
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Cidade</label>
-            <SearchableCombobox
-              options={cities}
-              selected={selectedCity}
-              onSelect={onCityChange}
-              placeholder="Selecione uma cidade"
-              disabled={selectedState === "todos"}
-            />
+            <label className="text-sm font-medium text-gray-700">Estado e Cidade</label>
+            <div className="grid grid-cols-2 gap-2">
+              <SearchableCombobox
+                options={states}
+                selected={selectedState}
+                onSelect={onStateChange}
+                placeholder="Selecione um estado"
+              />
+              <SearchableCombobox
+                options={cities}
+                selected={selectedCity}
+                onSelect={onCityChange}
+                placeholder="Selecione uma cidade"
+                disabled={selectedState === "todos"}
+              />
+            </div>
           </div>
           
           <div className="space-y-2">

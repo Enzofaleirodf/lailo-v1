@@ -49,6 +49,15 @@ const Agenda = () => {
       showFilters={true}
       filtersContent={filtersContent}
     >
+      {/* Header Mobile */}
+      <div className="block md:hidden mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <Calendar className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold text-gray-900">Agenda de Leilões</h1>
+        </div>
+        <p className="text-gray-600 text-sm">Próximos leilões presenciais</p>
+      </div>
+
       {/* Mobile Layout */}
       <div className="block md:hidden space-y-6">
         <CompactCalendar 
