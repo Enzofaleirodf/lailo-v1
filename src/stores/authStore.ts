@@ -48,27 +48,10 @@ interface AuthStore {
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set, get) => ({
-      user: {
-        id: 'demo-user-123',
-        email: 'usuario@exemplo.com',
-        name: 'Usuário Demo'
-      },
-      profile: {
-        id: 'profile-123',
-        userId: 'demo-user-123',
-        name: 'Usuário Demo',
-        email: 'usuario@exemplo.com',
-        phone: '(11) 99999-9999',
-        preferences: {
-          notifications: true,
-          emailUpdates: true,
-          favoriteCategories: ['property', 'vehicle']
-        },
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      },
+      user: null,
+      profile: null,
       isLoading: false,
-      isAuthenticated: true,
+      isAuthenticated: false,
 
       setUser: (user) => 
         set({ 
