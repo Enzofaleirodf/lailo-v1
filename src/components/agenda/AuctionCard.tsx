@@ -36,6 +36,12 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
     return address.replace(/,?\s*CEP:\s*\d{5}-?\d{3}/gi, '').trim();
   };
 
+  // Truncar título para 3 palavras
+  const formatTitle = (title: string) => {
+    const words = title.split(' ');
+    return words.slice(0, 3).join(' ');
+  };
+
   const getOriginBadgeColor = (origin: string) => {
     switch (origin.toLowerCase()) {
       case 'judicial':
@@ -66,7 +72,7 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 text-base leading-tight mb-1">
-                {auction.title}
+                {formatTitle(auction.title)}
               </h3>
               <div className="flex items-center gap-1.5 text-gray-600">
                 <Building2 className="w-4 h-4 flex-shrink-0" />
@@ -87,7 +93,7 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
             </div>
           </div>
 
-          {/* Data, horário e local na mesma linha */}
+          {/* Data, horário, local e botão na mesma linha */}
           <div className="flex items-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-1.5">
               <span className="font-medium">Data:</span>
@@ -102,13 +108,10 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
               <span className="font-medium">Local:</span>
               <span className="truncate">{formatAddress(auction.address)}</span>
             </div>
-          </div>
-
-          {/* Botão na parte de baixo */}
-          <div className="flex justify-end">
             <Button
               size="sm"
               onClick={() => window.open(auction.href, '_blank')}
+              className="flex-shrink-0"
             >
               Ver lotes
               <ExternalLink className="w-3 h-3 ml-1" />
@@ -116,28 +119,19 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
           </div>
         </div>
 
-        {/* Mobile Layout - mantém o layout original */}
+        {/* Mobile Layout */}
         <div className="md:hidden space-y-3">
           {/* Header */}
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 text-sm leading-tight mb-1">
-                {auction.title}
+                {formatTitle(auction.title)}
               </h3>
               <div className="flex items-center gap-1.5 text-gray-600">
                 <Building2 className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">{auction.company}</span>
               </div>
             </div>
-            
-            <Button
-              size="sm"
-              onClick={() => window.open(auction.href, '_blank')}
-              className="flex-shrink-0"
-            >
-              <span className="sm:hidden">Ver</span>
-              <ExternalLink className="w-3 h-3 ml-1" />
-            </Button>
           </div>
 
           {/* Informações empilhadas no mobile */}
@@ -162,16 +156,26 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
             </div>
           </div>
 
-          {/* Badges */}
-          <div className="flex flex-wrap gap-1.5">
-            <Badge className={`text-xs ${getOriginBadgeColor(auction.origin)}`}>
-              {auction.origin}
-            </Badge>
-            {auction.types.map((type, index) => (
-              <Badge key={index} className={`text-xs ${getTypeBadgeColor(type)}`}>
-                {type}
+          {/* Badges e botão alinhados no mobile */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-1 flex-1">
+              <Badge className={`text-[10px] px-1.5 py-0.5 ${getOriginBadgeColor(auction.origin)}`}>
+                {auction.origin}
               </Badge>
-            ))}
+              {auction.types.map((type, index) => (
+                <Badge key={index} className={`text-[10px] px-1.5 py-0.5 ${getTypeBadgeColor(type)}`}>
+                  {type}
+                </Badge>
+              ))}
+            </div>
+            <Button
+              size="sm"
+              onClick={() => window.open(auction.href, '_blank')}
+              className="flex-shrink-0"
+            >
+              Ver lotes
+              <ExternalLink className="w-3 h-3 ml-1" />
+            </Button>
           </div>
         </div>
       </CardContent>
