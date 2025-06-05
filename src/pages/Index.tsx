@@ -1,3 +1,4 @@
+
 import { SessionNavBar } from "../components/SessionNavBar";
 import { BottomNavigation } from "../components/BottomNavigation";
 const Index = () => {
@@ -24,7 +25,7 @@ const Index = () => {
       {/* Mobile Layout */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
-          <main className="w-full min-h-screen flex flex-col px-4 pb-20">
+          <main className="w-full min-h-screen flex flex-col px-3 pb-20">
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">
                 <h1 className="text-2xl font-bold text-gray-900 mb-4">Em construção</h1>

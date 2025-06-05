@@ -27,7 +27,7 @@ export const ContentPageLayout = ({
   filtersContent,
   showHeader = true,
   containerClass = "w-full max-w-[1440px] mx-auto",
-  contentClass = "bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:mx-6 min-h-[400px]"
+  contentClass = "bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-3 md:p-6 md:mx-6 min-h-[400px]"
 }: ContentPageLayoutProps) => {
   return (
     <BasePageLayout containerClass="p-0">
@@ -54,7 +54,7 @@ export const ContentPageLayout = ({
 
         {/* Filtros padronizados */}
         {showFilters && filtersContent && (
-          <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 mb-6 md:mx-6">
+          <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-3 md:p-6 mb-6 md:mx-6">
             {filtersContent}
           </div>
         )}

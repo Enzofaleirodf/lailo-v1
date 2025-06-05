@@ -119,7 +119,7 @@ export const SearchPageLayout = ({
         itemType={config.type} 
       />
       
-      <main className="w-full min-h-screen bg-white px-4 pb-20 pt-14">
+      <main className="w-full min-h-screen bg-white px-3 pb-20 pt-14">
         <div className="py-5">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
