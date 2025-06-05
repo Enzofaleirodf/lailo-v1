@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Search } from "lucide-react";
 import { InputWithIcon } from "@/components/ui/input-with-icon";
@@ -35,12 +34,9 @@ export const LeiloeiroFilters = ({
         </div>
         
         <div>
-          <Label className="text-sm font-medium text-gray-700 mb-2 block">
-            Estado
-          </Label>
           <Select value={selectedState} onValueChange={setSelectedState}>
             <SelectTrigger className="h-12">
-              <SelectValue placeholder="Estado" />
+              <SelectValue placeholder="Selecionar estado" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todos">Todos os estados</SelectItem>
