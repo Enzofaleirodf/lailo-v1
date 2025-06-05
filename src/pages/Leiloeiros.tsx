@@ -61,7 +61,7 @@ const Leiloeiros = () => {
   return (
     <ContentPageLayout
       title="Leiloeiros Oficiais do Brasil"
-      subtitle="Encontre leiloeiros credenciados em todo o país"
+      subtitle="Encontre todos os leiloeiros credenciados do país"
       titleIcon={Gavel}
       showFilters={true}
       filtersContent={
@@ -81,7 +81,7 @@ const Leiloeiros = () => {
           <Gavel className="w-6 h-6 text-blue-600" />
           <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
         </div>
-        <p className="text-gray-600 text-sm">Encontre leiloeiros credenciados</p>
+        <p className="text-gray-600 text-sm">Encontre todos os leiloeiros credenciados do país</p>
       </div>
 
       {totalLeiloeiros > 0 ? (
