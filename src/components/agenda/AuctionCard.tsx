@@ -36,8 +36,9 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
     return address.replace(/,?\s*CEP:\s*\d{5}-?\d{3}/gi, '').trim();
   };
 
-  // Truncar título para 3 palavras
-  const formatTitle = (title: string) => {
+  // Truncar título para 3 palavras no desktop apenas
+  const formatTitle = (title: string, isMobile: boolean = false) => {
+    if (isMobile) return title; // No mobile, mostra o título completo
     const words = title.split(' ');
     return words.slice(0, 3).join(' ');
   };
@@ -125,7 +126,7 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 text-sm leading-tight mb-1">
-                {formatTitle(auction.title)}
+                {formatTitle(auction.title, true)}
               </h3>
               <div className="flex items-center gap-1.5 text-gray-600">
                 <Building2 className="w-4 h-4 flex-shrink-0" />
@@ -171,10 +172,10 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
             <Button
               size="sm"
               onClick={() => window.open(auction.href, '_blank')}
-              className="flex-shrink-0"
+              className="flex-shrink-0 h-7 px-2 text-xs"
             >
               Ver lotes
-              <ExternalLink className="w-3 h-3 ml-1" />
+              <ExternalLink className="w-2.5 h-2.5 ml-1" />
             </Button>
           </div>
         </div>
