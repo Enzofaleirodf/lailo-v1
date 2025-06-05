@@ -2,13 +2,10 @@
 import React, { useState, useMemo } from "react";
 import { Building2 } from "lucide-react";
 import { LeiloeiroFilters } from "../components/leiloeiros/LeiloeiroFilters";
-import { LeiloeiroStateAccordion } from "../components/leiloeiros/LeiloeiroStateAccordion";
 import { LeiloeiroEmptyState } from "../components/leiloeiros/LeiloeiroEmptyState";
 import { LeiloeiroCard } from "../components/leiloeiros/LeiloeiroCard";
-import { SessionNavBar } from "@/components/navigation/SessionNavBar";
-import { BottomNavigation } from "@/components/navigation/BottomNavigation";
-import { leiloeiros, juntasComerciais } from "../data/leiloeiros";
-import { JuntaComercial } from "../types/leiloeiro";
+import { BasePageLayout } from "@/components/layout/BasePageLayout";
+import { leiloeiros } from "../data/leiloeiros";
 
 const Leiloeiros = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,8 +18,8 @@ const Leiloeiros = () => {
     return uniqueStates;
   }, []);
 
-  // Filtrar e agrupar leiloeiros
-  const filteredAndGroupedLeiloeiros = useMemo(() => {
+  // Filtrar leiloeiros
+  const filteredLeiloeiros = useMemo(() => {
     let filtered = leiloeiros;
 
     // Filtrar por estado
@@ -45,47 +42,34 @@ const Leiloeiros = () => {
       filtered = filtered.filter(l => l.activeAuctions === 0);
     }
 
-    // Agrupar por estado
-    const grouped = filtered.reduce((acc, leiloeiro) => {
-      if (!acc[leiloeiro.state]) {
-        acc[leiloeiro.state] = [];
-      }
-      acc[leiloeiro.state].push(leiloeiro);
-      return acc;
-    }, {} as Record<string, typeof leiloeiros>);
-
-    // Ordenar leiloeiros dentro de cada estado
-    Object.keys(grouped).forEach(state => {
-      grouped[state].sort((a, b) => a.name.localeCompare(b.name));
-    });
-    
-    return grouped;
+    // Ordenar por nome
+    return filtered.sort((a, b) => a.name.localeCompare(b.name));
   }, [selectedState, searchTerm, activeAuctionsFilter]);
 
-  // Lista plana de leiloeiros filtrados para mobile
-  const filteredLeiloeiros = useMemo(() => {
-    const allFiltered = Object.values(filteredAndGroupedLeiloeiros).flat();
-    return allFiltered.sort((a, b) => a.name.localeCompare(b.name));
-  }, [filteredAndGroupedLeiloeiros]);
-
-  const getJuntaComercial = (state: string): JuntaComercial | undefined => {
-    return juntasComerciais.find(j => j.state === state);
-  };
-
   return (
-    <div className="w-full min-h-screen bg-white">
-      {/* Mobile Layout */}
-      <div className="block md:hidden px-4 py-6 pb-20">
-        {/* Header Mobile */}
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <Building2 className="w-6 h-6 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
-          </div>
-          <p className="text-gray-600 text-sm">Encontre leiloeiros credenciados</p>
+    <BasePageLayout>
+      {/* Header Mobile */}
+      <div className="block md:hidden mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <Building2 className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold text-gray-900">Leiloeiros Oficiais</h1>
         </div>
+        <p className="text-gray-600 text-sm">Encontre leiloeiros credenciados</p>
+      </div>
 
-        {/* Filtros Mobile */}
+      {/* Header Desktop */}
+      <div className="hidden md:block mb-8">
+        <div className="flex items-center gap-3">
+          <Building2 className="w-8 h-8 text-blue-600" />
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Leiloeiros Oficiais do Brasil</h1>
+            <p className="text-gray-600 mt-1">Encontre leiloeiros credenciados em todo o país</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Filtros */}
+      <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 mb-6">
         <LeiloeiroFilters
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -94,75 +78,24 @@ const Leiloeiros = () => {
           activeAuctionsFilter={activeAuctionsFilter}
           setActiveAuctionsFilter={setActiveAuctionsFilter}
           estados={estados}
-          isMobile={true}
         />
+      </div>
 
-        {/* Grid de Cards Mobile */}
+      {/* Grid de Cards */}
+      <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 md:p-6 min-h-[400px]">
         {filteredLeiloeiros.length > 0 ? (
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {filteredLeiloeiros.map((leiloeiro) => (
               <LeiloeiroCard key={leiloeiro.id} leiloeiro={leiloeiro} />
             ))}
           </div>
         ) : (
-          <LeiloeiroEmptyState />
+          <div className="p-4 md:p-0">
+            <LeiloeiroEmptyState />
+          </div>
         )}
-
-        {/* Menu Mobile */}
-        <BottomNavigation />
       </div>
-
-      {/* Desktop Layout */}
-      <div className="hidden md:block">
-        <div className="w-full relative min-h-screen bg-white">
-          <SessionNavBar />
-          
-          <main className="ml-12 min-h-screen flex flex-col">
-            <div className="bg-white flex-1 p-6">
-              <div className="w-full max-w-[1440px] mx-auto">
-                {/* Header Desktop */}
-                <div className="mb-8">
-                  <div className="flex items-center gap-3">
-                    <Building2 className="w-8 h-8 text-blue-600" />
-                    <div>
-                      <h1 className="text-3xl font-bold text-gray-900">Leiloeiros Oficiais do Brasil</h1>
-                      <p className="text-gray-600 mt-1">Encontre leiloeiros credenciados em todo o país</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Filtros Desktop */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-                  <LeiloeiroFilters
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    selectedState={selectedState}
-                    setSelectedState={setSelectedState}
-                    activeAuctionsFilter={activeAuctionsFilter}
-                    setActiveAuctionsFilter={setActiveAuctionsFilter}
-                    estados={estados}
-                  />
-                </div>
-
-                {/* Conteúdo Desktop */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 min-h-[400px]">
-                  <div className="p-6">
-                    {Object.keys(filteredAndGroupedLeiloeiros).length > 0 ? (
-                      <LeiloeiroStateAccordion
-                        filteredAndGroupedLeiloeiros={filteredAndGroupedLeiloeiros}
-                        getJuntaComercial={getJuntaComercial}
-                      />
-                    ) : (
-                      <LeiloeiroEmptyState />
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
+    </BasePageLayout>
   );
 };
 

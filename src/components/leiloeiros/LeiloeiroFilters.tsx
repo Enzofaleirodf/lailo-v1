@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Search } from "lucide-react";
 import { InputWithIcon } from "@/components/ui/input-with-icon";
@@ -12,7 +13,6 @@ interface LeiloeiroFiltersProps {
   activeAuctionsFilter: string;
   setActiveAuctionsFilter: (value: string) => void;
   estados: string[];
-  isMobile?: boolean;
 }
 
 export const LeiloeiroFilters = ({
@@ -22,12 +22,12 @@ export const LeiloeiroFilters = ({
   setSelectedState,
   activeAuctionsFilter,
   setActiveAuctionsFilter,
-  estados,
-  isMobile = false
+  estados
 }: LeiloeiroFiltersProps) => {
-  if (isMobile) {
-    return (
-      <div className="space-y-4 mb-6">
+  return (
+    <>
+      {/* Mobile Layout */}
+      <div className="block md:hidden space-y-4">
         <div>
           <Label className="text-sm font-medium text-gray-700 mb-2 block">
             Buscar Leiloeiro
@@ -76,41 +76,40 @@ export const LeiloeiroFilters = ({
           </div>
         </div>
       </div>
-    );
-  }
 
-  return (
-    <div className="flex gap-4 mb-8">
-      <div className="flex-1">
-        <InputWithIcon
-          icon={Search}
-          placeholder="Pesquisar por nome do leiloeiro ou website..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          containerClassName="h-12"
-        />
+      {/* Desktop Layout */}
+      <div className="hidden md:flex gap-4">
+        <div className="flex-1">
+          <InputWithIcon
+            icon={Search}
+            placeholder="Pesquisar por nome do leiloeiro ou website..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            containerClassName="h-12"
+          />
+        </div>
+        <Select value={selectedState} onValueChange={setSelectedState}>
+          <SelectTrigger className="w-[200px] h-12">
+            <SelectValue placeholder="Filtrar por estado" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="todos">Todos os estados</SelectItem>
+            {estados.map(state => (
+              <SelectItem key={state} value={state}>{state}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
+          <SelectTrigger className="w-[180px] h-12">
+            <SelectValue placeholder="Leilões ativos" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="todos">Todos</SelectItem>
+            <SelectItem value="com-leiloes">Com leilões</SelectItem>
+            <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
-      <Select value={selectedState} onValueChange={setSelectedState}>
-        <SelectTrigger className="w-[200px] h-12">
-          <SelectValue placeholder="Filtrar por estado" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="todos">Todos os estados</SelectItem>
-          {estados.map(state => (
-            <SelectItem key={state} value={state}>{state}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-        <SelectTrigger className="w-[180px] h-12">
-          <SelectValue placeholder="Leilões ativos" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="todos">Todos</SelectItem>
-          <SelectItem value="com-leiloes">Com leilões</SelectItem>
-          <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
+    </>
   );
 };
