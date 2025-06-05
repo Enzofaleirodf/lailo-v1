@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -115,66 +114,71 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <>
       <BaseCard>
-        <div className="flex h-full">
-          <div className="relative flex-shrink-0 w-24 h-20">
-            <BaseImage 
-              src={item.image} 
-              alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
-              isFavorited={isItemFavorite}
-              onToggleFavorite={handleFavoriteToggle}
-              isVertical={false}
-              showNewBadge={item.showNewBadge}
-              showFavoriteButton={false}
-              className="w-24 h-20 object-cover"
-            />
-          </div>
-          
-          <div className="flex-1 min-w-0 flex flex-col ml-3">
-            <div className="flex items-start justify-between">
-              <div className="flex-1 min-w-0">
-                <BaseItemHeader 
-                  item={item}
+        <div className="flex flex-col h-full">
+          {/* Área superior com imagem e conteúdo lado a lado */}
+          <div className="flex">
+            <div className="relative flex-shrink-0 w-24 h-20">
+              <BaseImage 
+                src={item.image} 
+                alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
+                isFavorited={isItemFavorite}
+                onToggleFavorite={handleFavoriteToggle}
+                isVertical={false}
+                showNewBadge={item.showNewBadge}
+                showFavoriteButton={false}
+                className="w-24 h-20 object-cover"
+              />
+            </div>
+            
+            <div className="flex-1 min-w-0 flex flex-col ml-3">
+              <div className="flex items-start justify-between">
+                <div className="flex-1 min-w-0">
+                  <BaseItemHeader 
+                    item={item}
+                    itemType={itemType}
+                    isVertical={false}
+                  />
+                </div>
+                
+                <button
+                  className={`flex-shrink-0 p-0 m-0 w-4 h-4 transition-colors ${
+                    isItemFavorite ? 'text-blue-500' : 'text-gray-400'
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFavoriteToggle();
+                  }}
+                  aria-label={isItemFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                >
+                  <Heart className={`w-4 h-4 ${isItemFavorite ? 'fill-current' : ''}`} />
+                </button>
+              </div>
+              
+              <div className="mt-1">
+                <BaseItemPrice 
+                  price={item.price}
+                  discount={item.discount}
                   itemType={itemType}
                   isVertical={false}
                 />
               </div>
-              
-              <button
-                className={`flex-shrink-0 p-0 m-0 w-4 h-4 transition-colors ${
-                  isItemFavorite ? 'text-blue-500' : 'text-gray-400'
-                }`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleFavoriteToggle();
-                }}
-                aria-label={isItemFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-              >
-                <Heart className={`w-4 h-4 ${isItemFavorite ? 'fill-current' : ''}`} />
-              </button>
             </div>
-            
-            <div className="mt-1">
-              <BaseItemPrice 
-                price={item.price}
-                discount={item.discount}
-                itemType={itemType}
+          </div>
+          
+          {/* Divider ocupando toda a largura */}
+          <Separator className="my-2" />
+          
+          {/* Conteúdo inferior ocupando toda a largura */}
+          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <div className="flex-shrink min-w-0">
+              <BaseBadges badges={item.badges} isVertical={false} />
+            </div>
+            <div className="flex-shrink-0 ml-auto">
+              <BaseDate 
+                date={item.date} 
                 isVertical={false}
+                href={(item as any).href || "#"}
               />
-            </div>
-            
-            <Separator className="my-2" />
-            
-            <div className="flex items-center gap-2 min-w-0 overflow-hidden">
-              <div className="flex-shrink min-w-0">
-                <BaseBadges badges={item.badges} isVertical={false} />
-              </div>
-              <div className="flex-shrink-0 ml-auto">
-                <BaseDate 
-                  date={item.date} 
-                  isVertical={false}
-                  href={(item as any).href || "#"}
-                />
-              </div>
             </div>
           </div>
         </div>
