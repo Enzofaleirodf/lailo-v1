@@ -61,11 +61,11 @@ export const LeiloeiroFilters = ({
           
           <div>
             <Label className="text-sm font-medium text-gray-700 mb-2 block">
-              Leilões Ativos
+              Status dos Leilões
             </Label>
             <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
               <SelectTrigger className="h-12">
-                <SelectValue placeholder="Leilões" />
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="todos">Todos</SelectItem>
@@ -88,27 +88,37 @@ export const LeiloeiroFilters = ({
             containerClassName="h-12"
           />
         </div>
-        <Select value={selectedState} onValueChange={setSelectedState}>
-          <SelectTrigger className="w-[200px] h-12">
-            <SelectValue placeholder="Filtrar por estado" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="todos">Todos os estados</SelectItem>
-            {estados.map(state => (
-              <SelectItem key={state} value={state}>{state}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-          <SelectTrigger className="w-[180px] h-12">
-            <SelectValue placeholder="Leilões ativos" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="todos">Todos</SelectItem>
-            <SelectItem value="com-leiloes">Com leilões</SelectItem>
-            <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex flex-col">
+          <Label className="text-sm font-medium text-gray-700 mb-2">
+            Estado
+          </Label>
+          <Select value={selectedState} onValueChange={setSelectedState}>
+            <SelectTrigger className="w-[200px] h-12">
+              <SelectValue placeholder="Filtrar por estado" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todos">Todos os estados</SelectItem>
+              {estados.map(state => (
+                <SelectItem key={state} value={state}>{state}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex flex-col">
+          <Label className="text-sm font-medium text-gray-700 mb-2">
+            Status dos Leilões
+          </Label>
+          <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
+            <SelectTrigger className="w-[180px] h-12">
+              <SelectValue placeholder="Status dos leilões" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todos">Todos</SelectItem>
+              <SelectItem value="com-leiloes">Com leilões</SelectItem>
+              <SelectItem value="sem-leiloes">Sem leilões</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </>
   );
