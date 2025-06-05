@@ -3,7 +3,6 @@ import { FileText, Download, Eye, Clock, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SettingsCard } from "../../components/settings/SettingsCard";
-import { FeatureList } from "../../components/settings/FeatureList";
 
 const ConfiguracoesLaudos = () => {
   const laudos = [
@@ -29,40 +28,8 @@ const ConfiguracoesLaudos = () => {
     }
   ];
 
-  const features = [
-    { name: "Análise detalhada dos documentos do leilão", included: true },
-    { name: "Verificação de pendências e riscos jurídicos", included: true },
-    { name: "Parecer emitido por advogados especializados", included: true },
-    { name: "Entrega em até 48 horas úteis", included: true }
-  ];
-
   return (
     <div className="space-y-4 md:space-y-6">
-      {/* Informações sobre Laudos */}
-      <SettingsCard
-        title="Como Funciona"
-        description="Entenda o serviço de laudos jurídicos"
-        icon={FileText}
-      >
-        <div className="space-y-4">
-          <FeatureList features={features} />
-          
-          <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-            <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-blue-600" />
-              <div>
-                <p className="text-sm font-medium text-blue-900">
-                  Preço por laudo: R$ 89,90
-                </p>
-                <p className="text-xs text-blue-700">
-                  Pagamento somente após a solicitação
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </SettingsCard>
-
       {/* Lista de Laudos */}
       <SettingsCard 
         title="Meus Laudos" 
