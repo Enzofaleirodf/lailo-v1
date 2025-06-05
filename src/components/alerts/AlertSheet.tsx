@@ -8,8 +8,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { SegmentedControl } from '../ui/segmented-control';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
-import { X, MapPin, Settings, Gavel } from 'lucide-react';
+import { X } from 'lucide-react';
 import { StateSelect } from '../search/location/StateSelect';
 import { CitySelect } from '../search/location/CitySelect';
 import { CategoryTypeFilters } from '../filters/CategoryTypeFilters';
@@ -196,132 +195,115 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
           </Button>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 overflow-hidden flex flex-col py-6 px-0">
-          {/* Nome e Tipo */}
-          <div className="space-y-4 mb-6 flex-shrink-0">
-            <div>
-              <Label htmlFor="name">Nome do Alerta</Label>
-              <Input
-                id="name"
-                {...register('name')}
-                placeholder="Ex: Casas em São Paulo até R$ 500k"
-                className="mt-1"
-              />
-              {errors.name && (
-                <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
-              )}
-            </div>
-
-            <div>
-              <Label>Tipo de Leilão</Label>
-              <SegmentedControl
-                options={typeOptions}
-                value={alertType}
-                onValueChange={handleTypeChange}
-                className="mt-1"
-              />
-            </div>
-          </div>
-
-          {/* Filtros em Tabs */}
-          <div className="flex-1 overflow-hidden">
-            <Tabs defaultValue="location" className="w-full flex flex-col flex-1 overflow-hidden">
-              <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
-                <TabsTrigger value="location" className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4" />
-                </TabsTrigger>
-                <TabsTrigger value="characteristics" className="flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                </TabsTrigger>
-                <TabsTrigger value="conditions" className="flex items-center gap-2">
-                  <Gavel className="h-4 w-4" />
-                </TabsTrigger>
-              </TabsList>
-
-              <div className="flex-1 overflow-hidden">
-                <TabsContent value="location" className="mt-0 h-full overflow-y-auto">
-                  <div className="pr-4 space-y-4 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                    <StateSelect 
-                      value={selectedState} 
-                      onChange={setSelectedState} 
-                      onClearCity={() => setSelectedCity('')} 
-                    />
-                    <CitySelect 
-                      value={selectedCity} 
-                      onChange={setSelectedCity} 
-                      selectedState={selectedState} 
-                    />
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="characteristics" className="mt-0 h-full overflow-y-auto">
-                  <div className="pr-4 space-y-6 pb-20" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                    <CategoryTypeFilters 
-                      itemType={alertType} 
-                      category={category} 
-                      type={type} 
-                      onCategoryChange={setCategory} 
-                      onTypeChange={setType} 
-                    />
-
-                    {alertType === 'property' ? (
-                      <PropertySpecificFilters 
-                        areaRange={areaRange} 
-                        onAreaRangeChange={setAreaRange} 
-                      />
-                    ) : (
-                      <VehicleSpecificFilters 
-                        brand={brand} 
-                        model={model} 
-                        color={color} 
-                        yearRange={yearRange} 
-                        vehicleType={type.toLowerCase()} 
-                        onBrandChange={setBrand} 
-                        onModelChange={setModel} 
-                        onColorChange={setColor} 
-                        onYearRangeChange={setYearRange} 
-                      />
-                    )}
-
-                    <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="conditions" className="mt-0 h-full overflow-y-auto">
-                  <div className="pr-4 space-y-6 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                    <FormatFilter itemType={alertType} />
-                    <OriginFilter itemType={alertType} />
-                    <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
-                  </div>
-                </TabsContent>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 overflow-y-auto py-6 px-0">
+          <div className="space-y-6 pr-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {/* Informações Básicas */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-gray-900 text-lg">Informações Básicas</h3>
+              
+              <div>
+                <Label htmlFor="name">Nome do Alerta</Label>
+                <Input
+                  id="name"
+                  {...register('name')}
+                  placeholder="Ex: Casas em São Paulo até R$ 500k"
+                  className="mt-1"
+                />
+                {errors.name && (
+                  <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+                )}
               </div>
-            </Tabs>
-          </div>
 
-          {/* Preview */}
-          {alertName && (
-            <div className="flex-shrink-0 mb-4">
+              <div>
+                <Label>Tipo de Leilão</Label>
+                <SegmentedControl
+                  options={typeOptions}
+                  value={alertType}
+                  onValueChange={handleTypeChange}
+                  className="mt-1"
+                />
+              </div>
+            </div>
+
+            {/* Localização */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-gray-900 text-lg">Localização</h3>
+              <StateSelect 
+                value={selectedState} 
+                onChange={setSelectedState} 
+                onClearCity={() => setSelectedCity('')} 
+              />
+              <CitySelect 
+                value={selectedCity} 
+                onChange={setSelectedCity} 
+                selectedState={selectedState} 
+              />
+            </div>
+
+            {/* Características */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-gray-900 text-lg">Características</h3>
+              <CategoryTypeFilters 
+                itemType={alertType} 
+                category={category} 
+                type={type} 
+                onCategoryChange={setCategory} 
+                onTypeChange={setType} 
+              />
+
+              {alertType === 'property' ? (
+                <PropertySpecificFilters 
+                  areaRange={areaRange} 
+                  onAreaRangeChange={setAreaRange} 
+                />
+              ) : (
+                <VehicleSpecificFilters 
+                  brand={brand} 
+                  model={model} 
+                  color={color} 
+                  yearRange={yearRange} 
+                  vehicleType={type.toLowerCase()} 
+                  onBrandChange={setBrand} 
+                  onModelChange={setModel} 
+                  onColorChange={setColor} 
+                  onYearRangeChange={setYearRange} 
+                />
+              )}
+
+              <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
+            </div>
+
+            {/* Condições */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-gray-900 text-lg">Condições</h3>
+              <FormatFilter itemType={alertType} />
+              <OriginFilter itemType={alertType} />
+              <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
+            </div>
+
+            {/* Preview */}
+            {alertName && (
               <AlertPreview
                 name={alertName}
                 type={alertType}
                 filters={filters}
                 filtersDisplay={formatFiltersForDisplay(filters, alertType)}
               />
-            </div>
-          )}
-
-          {/* Footer */}
-          <div className="border-t border-gray-100 pt-4 flex-shrink-0 bg-white">
-            <div className="flex gap-3">
-              <Button type="button" variant="outline" onClick={onClose} className="flex-1">
-                Cancelar
-              </Button>
-              <Button type="submit" className="flex-1">
-                {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
-              </Button>
-            </div>
+            )}
           </div>
         </form>
+
+        {/* Footer */}
+        <div className="border-t border-gray-100 pt-4 pb-6 flex-shrink-0 bg-white px-0">
+          <div className="flex gap-3">
+            <Button type="button" variant="outline" onClick={onClose} className="flex-1">
+              Cancelar
+            </Button>
+            <Button onClick={handleSubmit(onSubmit)} className="flex-1">
+              {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
+            </Button>
+          </div>
+        </div>
       </SheetContent>
     </Sheet>
   );
