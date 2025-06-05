@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
-import { BottomNavigation } from "../navigation/BottomNavigation";
+import { MobileNavigation } from "../navigation/MobileNavigation";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
@@ -9,6 +9,7 @@ import { SearchMainContent } from "./SearchMainContent";
 import { MobileTopBar } from "./MobileTopBar";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
+
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
   config: SearchConfig;
   items: SearchItem[];
@@ -20,6 +21,7 @@ interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'>
   resultsCount?: number;
   sitesCount?: number;
 }
+
 export const SearchPageLayout = ({
   config,
   items,
@@ -76,21 +78,47 @@ export const SearchPageLayout = ({
     </div>;
 
   // Mobile Layout Component
-  const MobileLayout = () => <div className="w-full min-h-screen bg-white">
-      <MobileTopBar isVertical={isVertical} onToggleLayout={onToggleLayout} onShowFilters={handleShowFilters} onShowSort={handleShowSort} itemType={config.type} />
+  const MobileLayout = () => (
+    <div className="w-full min-h-screen bg-white">
+      <MobileTopBar 
+        isVertical={isVertical} 
+        onToggleLayout={onToggleLayout} 
+        onShowFilters={handleShowFilters} 
+        onShowSort={handleShowSort} 
+        itemType={config.type} 
+      />
       
       <main className="w-full min-h-screen bg-white px-6 pb-20 pt-20 py-0">
         <div className="py-5">
-          <SearchStatusAndControls totalAuctions={finalResultsCount} totalSites={finalSitesCount} newAuctions={newAuctions} isVertical={isVertical} onToggleLayout={onToggleLayout} sortBy={sortBy} onSortChange={onSortChange} sortOptions={sortOptions} showControls={false} />
+          <SearchStatusAndControls 
+            totalAuctions={finalResultsCount} 
+            totalSites={finalSitesCount} 
+            newAuctions={newAuctions} 
+            isVertical={isVertical} 
+            onToggleLayout={onToggleLayout} 
+            sortBy={sortBy} 
+            onSortChange={onSortChange} 
+            sortOptions={sortOptions} 
+            showControls={false} 
+          />
           
-          <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+          <SearchMainContent 
+            items={items} 
+            isVertical={isVertical} 
+            config={config} 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+            onPageChange={onPageChange} 
+          />
         </div>
       </main>
       
       <div className="fixed bottom-0 left-0 right-0 z-50">
-        <BottomNavigation />
+        <MobileNavigation />
       </div>
-    </div>;
+    </div>
+  );
+
   return <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
