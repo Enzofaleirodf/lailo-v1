@@ -117,7 +117,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
       <BaseCard>
         <div className="flex flex-col h-full">
           <div className={`flex ${cardTokens.spacing.contentGap} items-stretch`}>
-            <div className="relative flex-shrink-0">
+            <div className="relative flex-shrink-0 w-24 h-full">
               <BaseImage 
                 src={item.image} 
                 alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -126,7 +126,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 isVertical={false}
                 showNewBadge={item.showNewBadge}
                 showFavoriteButton={false}
-                className="w-24 h-20 object-cover"
+                className="w-24 h-full object-cover"
               />
             </div>
             
@@ -154,7 +154,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 </button>
               </div>
               
-              <div className="mt-1.5">
+              <div className="mt-1">
                 <BaseItemPrice 
                   price={item.price}
                   discount={item.discount}
@@ -165,7 +165,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             </div>
           </div>
           
-          <Separator className="my-3" />
+          <Separator className={cardTokens.spacing.separatorMargin} />
           
           <div className="flex items-center gap-2 min-w-0 overflow-hidden">
             <div className="flex-shrink min-w-0">
