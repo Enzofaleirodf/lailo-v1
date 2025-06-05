@@ -264,7 +264,19 @@ const ConfiguracoesAlertas = () => {
       {/* Formulário de criação/edição */}
       {isCreating && (
         <SettingsCard 
-          title={editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'} 
+          title={
+            <div className="flex items-center justify-between w-full">
+              <span>{editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}</span>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={handleCancel}
+                className="h-6 w-6 text-gray-500 hover:text-gray-700"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          }
           description="Configure os filtros para receber notificações personalizadas"
           icon={Bell}
         >
