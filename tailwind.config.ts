@@ -97,8 +97,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			},
 			fontFamily: {
-				'sans': ['Inter', 'sans-serif'],
-				'inter': ['Inter', 'sans-serif'],
+				'sans': ['Geist', 'sans-serif'],
+				'geist': ['Geist', 'sans-serif'],
 				'urbanist': ['Urbanist', 'sans-serif']
 			},
 			boxShadow: {
