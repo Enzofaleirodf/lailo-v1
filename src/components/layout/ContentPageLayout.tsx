@@ -32,6 +32,17 @@ export const ContentPageLayout = ({
   return (
     <BasePageLayout containerClass="p-0">
       <div className={containerClass}>
+        {/* Mobile Title - no topo antes de tudo */}
+        {title && (
+          <div className="block md:hidden px-3 pt-6 pb-4">
+            <div className="flex items-center gap-3 mb-2">
+              {TitleIcon && <TitleIcon className="w-6 h-6 text-blue-600" />}
+              <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+            </div>
+            {subtitle && <p className="text-gray-600 text-sm">{subtitle}</p>}
+          </div>
+        )}
+
         {/* Header padronizado - desktop apenas */}
         {showHeader && title && (
           <div className="hidden md:block mb-8 px-6 pt-8">

@@ -1,3 +1,4 @@
+
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { vehicleSearchConfig } from "../config/searchConfigs";
@@ -58,6 +59,45 @@ const BuscadorVeiculos = () => {
       badges: ["Extrajudicial", "3ª Praça"],
       date: "22/05 às 09:15",
       image: "/lovable-uploads/4ee96d84-707d-45b1-83a8-50e28cd8f583.png",
+      showNewBadge: true
+    },
+    {
+      id: "search-vehicle-4",
+      name: "BMW X3",
+      color: "Azul",
+      year: "2022",
+      location: "Rio de Janeiro - RJ",
+      price: "R$ 180.000",
+      discount: "45% OFF",
+      badges: ["Particular", "Praça Única"],
+      date: "25/05 às 16:00",
+      image: "/lovable-uploads/48c2a9c3-fb59-4a44-a931-b3f36f6891fc.png",
+      showNewBadge: true
+    },
+    {
+      id: "search-vehicle-5",
+      name: "Ford Ranger",
+      color: "Prata",
+      year: "2021",
+      location: "Curitiba - PR",
+      price: "R$ 125.000",
+      discount: "35% OFF",
+      badges: ["Judicial", "2ª Praça"],
+      date: "28/05 às 11:30",
+      image: "/lovable-uploads/9b0b7577-0ba8-4200-abdf-15cdf93a0ba4.png",
+      showNewBadge: false
+    },
+    {
+      id: "search-vehicle-6",
+      name: "Chevrolet Onix",
+      color: "Vermelho",
+      year: "2024",
+      location: "Belo Horizonte - MG",
+      price: "R$ 65.000",
+      discount: "20% OFF",
+      badges: ["Extrajudicial", "1ª Praça"],
+      date: "30/05 às 15:45",
+      image: "/lovable-uploads/a72eb3d0-1625-45e6-8bf5-96615cf0e02a.png",
       showNewBadge: true
     }
   ];

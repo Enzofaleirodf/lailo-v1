@@ -51,15 +51,6 @@ const FavoritosVeiculos = () => {
         subtitle="Seus veículos favoritados aparecem aqui"
         titleIcon={Heart}
       >
-        {/* Header Mobile */}
-        <div className="block md:hidden mb-6 -mt-3">
-          <div className="flex items-center gap-3 mb-2">
-            <Heart className="w-6 h-6 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">Veículos Favoritos</h1>
-          </div>
-          <p className="text-gray-600 text-sm">Seus veículos favoritados aparecem aqui</p>
-        </div>
-
         <div className="p-12">
           <EmptyState
             icon={Heart}
@@ -85,15 +76,6 @@ const FavoritosVeiculos = () => {
         ) : null
       }
     >
-      {/* Header Mobile */}
-      <div className="block md:hidden mb-6 -mt-3">
-        <div className="flex items-center gap-3 mb-2">
-          <Heart className="w-6 h-6 text-blue-600" />
-          <h1 className="text-2xl font-bold text-gray-900">Veículos Favoritos ({favoriteVehicles.length})</h1>
-        </div>
-        <p className="text-gray-600 text-sm">Seus veículos favoritados aparecem aqui</p>
-      </div>
-
       {vehicleItems.length > 0 ? (
         <div className="p-6">
           <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3' : 'space-y-3'}`}>
