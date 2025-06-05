@@ -1,8 +1,6 @@
 
 import React from "react";
 import { SearchItem, ItemType } from "../../types/search";
-import { BaseBadges } from "./BaseBadges";
-import { designTokens } from "../../styles/design-tokens";
 import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseItemHeaderProps {
@@ -19,8 +17,19 @@ const getItemTitle = (item: SearchItem, itemType: ItemType): string => {
   }
 };
 
+const getItemSubtitle = (item: SearchItem, itemType: ItemType): string => {
+  if (itemType === 'vehicle') {
+    const vehicle = item as any;
+    return `${vehicle.color} • ${vehicle.year} • ${vehicle.location}`;
+  } else {
+    const property = item as any;
+    return `${property.area} • ${property.location}`;
+  }
+};
+
 export const BaseItemHeader = ({ item, itemType, isVertical = false }: BaseItemHeaderProps) => {
   const title = getItemTitle(item, itemType);
+  const subtitle = getItemSubtitle(item, itemType);
 
   return (
     <div className="w-full min-w-0">
@@ -31,12 +40,9 @@ export const BaseItemHeader = ({ item, itemType, isVertical = false }: BaseItemH
             {title}
           </h3>
           
-          <div className="mt-1">
-            <BaseBadges 
-              badges={item.badges} 
-              isVertical={true}
-            />
-          </div>
+          <p className={`${cardTokens.text.subtitle} text-gray-600 leading-tight truncate mt-1`}>
+            {subtitle}
+          </p>
         </div>
       )}
 
@@ -47,10 +53,9 @@ export const BaseItemHeader = ({ item, itemType, isVertical = false }: BaseItemH
             {title}
           </h3>
           
-          <BaseBadges 
-            badges={item.badges} 
-            isVertical={false}
-          />
+          <p className={`${cardTokens.text.subtitle} text-gray-600 leading-tight truncate`}>
+            {subtitle}
+          </p>
         </div>
       )}
     </div>
