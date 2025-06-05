@@ -263,133 +263,132 @@ const ConfiguracoesAlertas = () => {
 
       {/* Formulário de criação/edição */}
       {isCreating && (
-        <SettingsCard 
-          title={
-            <div className="flex items-center justify-between w-full">
-              <span>{editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}</span>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={handleCancel}
-                className="h-6 w-6 text-gray-500 hover:text-gray-700"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          }
-          description="Configure os filtros para receber notificações personalizadas"
-          icon={Bell}
-        >
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Informações Básicas */}
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="name">Nome do Alerta</Label>
-                <Input
-                  id="name"
-                  {...register('name')}
-                  placeholder="Ex: Casas em São Paulo até R$ 500k"
-                  className="mt-1"
+        <div className="relative">
+          <SettingsCard 
+            title={editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}
+            description="Configure os filtros para receber notificações personalizadas"
+            icon={Bell}
+          >
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={handleCancel}
+              className="absolute top-4 right-4 h-6 w-6 text-gray-500 hover:text-gray-700 z-10"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+            
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Informações Básicas */}
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="name">Nome do Alerta</Label>
+                  <Input
+                    id="name"
+                    {...register('name')}
+                    placeholder="Ex: Casas em São Paulo até R$ 500k"
+                    className="mt-1"
+                  />
+                  {errors.name && (
+                    <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <Label>Tipo de Leilão</Label>
+                  <SegmentedControl
+                    options={typeOptions}
+                    value={alertType}
+                    onValueChange={(value) => handleTypeChange(value as 'property' | 'vehicle')}
+                    className="mt-1"
+                  />
+                </div>
+              </div>
+
+              {/* Localização */}
+              <div className="space-y-4">
+                <h3 className="font-medium text-gray-900">Localização</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <StateSelect 
+                    value={selectedState} 
+                    onChange={setSelectedState} 
+                    onClearCity={() => setSelectedCity('')} 
+                  />
+                  <CitySelect 
+                    value={selectedCity} 
+                    onChange={setSelectedCity} 
+                    selectedState={selectedState} 
+                  />
+                </div>
+              </div>
+
+              {/* Características */}
+              <div className="space-y-4">
+                <h3 className="font-medium text-gray-900">Características</h3>
+                <CategoryTypeFilters 
+                  itemType={alertType} 
+                  category={category} 
+                  type={type} 
+                  onCategoryChange={setCategory} 
+                  onTypeChange={setType} 
                 />
-                {errors.name && (
-                  <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+
+                {alertType === 'property' ? (
+                  <PropertySpecificFilters 
+                    areaRange={areaRange} 
+                    onAreaRangeChange={setAreaRange}
+                    priceRange={priceRange}
+                    onPriceRangeChange={setPriceRange}
+                  />
+                ) : (
+                  <VehicleSpecificFilters 
+                    brand={brand} 
+                    model={model} 
+                    color={color} 
+                    yearRange={yearRange} 
+                    priceRange={priceRange}
+                    vehicleType={type.toLowerCase()} 
+                    onBrandChange={setBrand} 
+                    onModelChange={setModel} 
+                    onColorChange={setColor} 
+                    onYearRangeChange={setYearRange}
+                    onPriceRangeChange={setPriceRange}
+                  />
                 )}
               </div>
 
-              <div>
-                <Label>Tipo de Leilão</Label>
-                <SegmentedControl
-                  options={typeOptions}
-                  value={alertType}
-                  onValueChange={(value) => handleTypeChange(value as 'property' | 'vehicle')}
-                  className="mt-1"
-                />
+              {/* Condições - Layout lado a lado */}
+              <div className="space-y-4">
+                <h3 className="font-medium text-gray-900">Condições</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <FormatFilter itemType={alertType} />
+                  <OriginFilter itemType={alertType} />
+                  <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
+                </div>
               </div>
-            </div>
 
-            {/* Localização */}
-            <div className="space-y-4">
-              <h3 className="font-medium text-gray-900">Localização</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <StateSelect 
-                  value={selectedState} 
-                  onChange={setSelectedState} 
-                  onClearCity={() => setSelectedCity('')} 
-                />
-                <CitySelect 
-                  value={selectedCity} 
-                  onChange={setSelectedCity} 
-                  selectedState={selectedState} 
-                />
-              </div>
-            </div>
-
-            {/* Características */}
-            <div className="space-y-4">
-              <h3 className="font-medium text-gray-900">Características</h3>
-              <CategoryTypeFilters 
-                itemType={alertType} 
-                category={category} 
-                type={type} 
-                onCategoryChange={setCategory} 
-                onTypeChange={setType} 
-              />
-
-              {alertType === 'property' ? (
-                <PropertySpecificFilters 
-                  areaRange={areaRange} 
-                  onAreaRangeChange={setAreaRange}
-                  priceRange={priceRange}
-                  onPriceRangeChange={setPriceRange}
-                />
-              ) : (
-                <VehicleSpecificFilters 
-                  brand={brand} 
-                  model={model} 
-                  color={color} 
-                  yearRange={yearRange} 
-                  priceRange={priceRange}
-                  vehicleType={type.toLowerCase()} 
-                  onBrandChange={setBrand} 
-                  onModelChange={setModel} 
-                  onColorChange={setColor} 
-                  onYearRangeChange={setYearRange}
-                  onPriceRangeChange={setPriceRange}
+              {/* Preview */}
+              {alertName && (
+                <AlertPreview
+                  name={alertName}
+                  type={alertType}
+                  filters={filters}
+                  filtersDisplay={formatFiltersForDisplay(filters, alertType)}
                 />
               )}
-            </div>
 
-            {/* Condições - Layout lado a lado */}
-            <div className="space-y-4">
-              <h3 className="font-medium text-gray-900">Condições</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <FormatFilter itemType={alertType} />
-                <OriginFilter itemType={alertType} />
-                <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
+              {/* Botões */}
+              <div className="flex gap-3 pt-4 border-t border-gray-200">
+                <Button type="button" variant="outline" onClick={handleCancel} className="flex-1">
+                  Cancelar
+                </Button>
+                <Button type="submit" className="flex-1">
+                  {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
+                </Button>
               </div>
-            </div>
-
-            {/* Preview */}
-            {alertName && (
-              <AlertPreview
-                name={alertName}
-                type={alertType}
-                filters={filters}
-                filtersDisplay={formatFiltersForDisplay(filters, alertType)}
-              />
-            )}
-
-            {/* Botões */}
-            <div className="flex gap-3 pt-4 border-t border-gray-200">
-              <Button type="button" variant="outline" onClick={handleCancel} className="flex-1">
-                Cancelar
-              </Button>
-              <Button type="submit" className="flex-1">
-                {editingAlert ? 'Salvar Alterações' : 'Criar Alerta'}
-              </Button>
-            </div>
-          </form>
-        </SettingsCard>
+            </form>
+          </SettingsCard>
+        </div>
       )}
 
       {/* Preferências de Notificação */}
