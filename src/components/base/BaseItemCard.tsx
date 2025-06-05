@@ -115,66 +115,68 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <>
       <BaseCard>
-        <div className={`flex ${cardTokens.spacing.contentGap} items-stretch h-full`}>
-          <div className="relative flex-shrink-0 w-24 h-full">
-            <BaseImage 
-              src={item.image} 
-              alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
-              isFavorited={isItemFavorite}
-              onToggleFavorite={handleFavoriteToggle}
-              isVertical={false}
-              showNewBadge={item.showNewBadge}
-              showFavoriteButton={false}
-              className="w-24 h-full object-cover"
-            />
-          </div>
-          
-          <div className="flex-1 min-w-0 flex flex-col justify-between h-full">
-            <div className="flex items-start justify-between">
-              <div className="flex-1 min-w-0">
-                <BaseItemHeader 
-                  item={item}
+        <div className="flex flex-col h-full">
+          <div className={`flex ${cardTokens.spacing.contentGap} items-stretch`}>
+            <div className="relative flex-shrink-0 w-24 h-full">
+              <BaseImage 
+                src={item.image} 
+                alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
+                isFavorited={isItemFavorite}
+                onToggleFavorite={handleFavoriteToggle}
+                isVertical={false}
+                showNewBadge={item.showNewBadge}
+                showFavoriteButton={false}
+                className="w-24 h-full object-cover"
+              />
+            </div>
+            
+            <div className="flex-1 min-w-0 flex flex-col justify-between">
+              <div className="flex items-start justify-between">
+                <div className="flex-1 min-w-0">
+                  <BaseItemHeader 
+                    item={item}
+                    itemType={itemType}
+                    isVertical={false}
+                  />
+                </div>
+                
+                <button
+                  className={`flex-shrink-0 p-0 m-0 w-4 h-4 transition-colors ${
+                    isItemFavorite ? 'text-blue-500' : 'text-gray-400'
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFavoriteToggle();
+                  }}
+                  aria-label={isItemFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                >
+                  <Heart className={`w-4 h-4 ${isItemFavorite ? 'fill-current' : ''}`} />
+                </button>
+              </div>
+              
+              <div className="mt-1">
+                <BaseItemPrice 
+                  price={item.price}
+                  discount={item.discount}
                   itemType={itemType}
                   isVertical={false}
                 />
               </div>
-              
-              <button
-                className={`flex-shrink-0 p-0 m-0 w-4 h-4 transition-colors ${
-                  isItemFavorite ? 'text-blue-500' : 'text-gray-400'
-                }`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleFavoriteToggle();
-                }}
-                aria-label={isItemFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-              >
-                <Heart className={`w-4 h-4 ${isItemFavorite ? 'fill-current' : ''}`} />
-              </button>
             </div>
-            
-            <div className="mt-1">
-              <BaseItemPrice 
-                price={item.price}
-                discount={item.discount}
-                itemType={itemType}
+          </div>
+          
+          <Separator className={cardTokens.spacing.separatorMargin} />
+          
+          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <div className="flex-shrink min-w-0">
+              <BaseBadges badges={item.badges} isVertical={false} />
+            </div>
+            <div className="flex-shrink-0 ml-auto">
+              <BaseDate 
+                date={item.date} 
                 isVertical={false}
+                href={(item as any).href || "#"}
               />
-            </div>
-            
-            <Separator className={cardTokens.spacing.separatorMargin} />
-            
-            <div className="flex items-center gap-2 min-w-0 overflow-hidden mt-auto">
-              <div className="flex-shrink min-w-0">
-                <BaseBadges badges={item.badges} isVertical={false} />
-              </div>
-              <div className="flex-shrink-0 ml-auto">
-                <BaseDate 
-                  date={item.date} 
-                  isVertical={false}
-                  href={(item as any).href || "#"}
-                />
-              </div>
             </div>
           </div>
         </div>
