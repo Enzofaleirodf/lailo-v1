@@ -48,10 +48,9 @@ const Agenda = () => {
       titleIcon={Calendar}
       showFilters={true}
       filtersContent={filtersContent}
-      contentClass="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-3 md:p-6 md:mx-6 min-h-[400px]"
     >
-      {/* Mobile Layout */}
-      <div className="block md:hidden space-y-6">
+      {/* Mobile Layout - espaçamento otimizado */}
+      <div className="block md:hidden space-y-4">
         <CompactCalendar 
           auctions={upcomingAuctions} 
           onDateSelect={handleDateSelect}

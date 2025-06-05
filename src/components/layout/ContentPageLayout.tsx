@@ -32,14 +32,14 @@ export const ContentPageLayout = ({
   return (
     <BasePageLayout containerClass="p-0">
       <div className={containerClass}>
-        {/* Mobile Title - no topo antes de tudo */}
+        {/* Mobile Title - compacto no topo */}
         {title && (
-          <div className="block md:hidden px-3 pt-6 pb-4">
-            <div className="flex items-center gap-3 mb-2">
-              {TitleIcon && <TitleIcon className="w-6 h-6 text-blue-600" />}
-              <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+          <div className="block md:hidden px-4 pt-4 pb-2">
+            <div className="flex items-center gap-3 mb-1">
+              {TitleIcon && <TitleIcon className="w-5 h-5 text-blue-600" />}
+              <h1 className="text-xl font-bold text-gray-900">{title}</h1>
             </div>
-            {subtitle && <p className="text-gray-600 text-sm">{subtitle}</p>}
+            {subtitle && <p className="text-gray-600 text-xs">{subtitle}</p>}
           </div>
         )}
 
@@ -63,15 +63,15 @@ export const ContentPageLayout = ({
           </div>
         )}
 
-        {/* Filtros padronizados */}
+        {/* Filtros padronizados - espaçamento otimizado para mobile */}
         {showFilters && filtersContent && (
-          <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-3 md:p-6 mb-6 md:mx-6">
+          <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-3 md:p-6 mb-3 md:mb-6 md:mx-6">
             {filtersContent}
           </div>
         )}
 
-        {/* Conteúdo principal */}
-        <div className={contentClass}>
+        {/* Conteúdo principal - padding reduzido no mobile */}
+        <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-3 md:p-6 md:mx-6 min-h-[200px]">
           {children}
         </div>
       </div>

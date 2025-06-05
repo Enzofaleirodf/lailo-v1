@@ -73,21 +73,20 @@ const Leiloeiros = () => {
           estados={estados}
         />
       }
-      contentClass="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-4 md:p-6 md:mx-6 min-h-[400px]"
     >
       {totalLeiloeiros > 0 ? (
-        <div className="space-y-8">
+        <div className="space-y-4 md:space-y-8">
           {filteredAndGroupedLeiloeiros.map(({ state, leiloeiros }) => (
             <div key={state}>
-              {/* Título do Estado */}
-              <div className="mb-4">
-                <h2 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+              {/* Título do Estado - compacto no mobile */}
+              <div className="mb-3 md:mb-4">
+                <h2 className="text-base md:text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
                   {state} ({leiloeiros.length})
                 </h2>
               </div>
               
-              {/* Grid de Cards do Estado - 3 colunas no desktop */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {/* Grid de Cards do Estado - 1 coluna no mobile, 3 no desktop */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                 {leiloeiros.map((leiloeiro) => (
                   <LeiloeiroCard key={leiloeiro.id} leiloeiro={leiloeiro} />
                 ))}
