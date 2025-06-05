@@ -1,7 +1,9 @@
+
 import React from "react";
 import { SearchableCombobox } from "@/components/filters/SearchableCombobox";
 import { SimpleSelect } from "@/components/filters/SimpleSelect";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 interface AgendaFiltersProps {
   selectedState: string;
   onStateChange: (value: string) => void;
@@ -12,90 +14,43 @@ interface AgendaFiltersProps {
   selectedType: string;
   onTypeChange: (value: string) => void;
 }
-const states = [{
-  value: "todos",
-  label: "Todos os estados"
-}, {
-  value: "sp",
-  label: "São Paulo"
-}, {
-  value: "rj",
-  label: "Rio de Janeiro"
-}, {
-  value: "mg",
-  label: "Minas Gerais"
-}, {
-  value: "rs",
-  label: "Rio Grande do Sul"
-}, {
-  value: "pr",
-  label: "Paraná"
-}, {
-  value: "sc",
-  label: "Santa Catarina"
-}, {
-  value: "ba",
-  label: "Bahia"
-}, {
-  value: "go",
-  label: "Goiás"
-}, {
-  value: "pe",
-  label: "Pernambuco"
-}, {
-  value: "ce",
-  label: "Ceará"
-}];
-const cities = [{
-  value: "todas",
-  label: "Todas as cidades"
-}, {
-  value: "sao-paulo",
-  label: "São Paulo"
-}, {
-  value: "rio-de-janeiro",
-  label: "Rio de Janeiro"
-}, {
-  value: "belo-horizonte",
-  label: "Belo Horizonte"
-}, {
-  value: "porto-alegre",
-  label: "Porto Alegre"
-}, {
-  value: "curitiba",
-  label: "Curitiba"
-}, {
-  value: "florianopolis",
-  label: "Florianópolis"
-}, {
-  value: "salvador",
-  label: "Salvador"
-}, {
-  value: "goiania",
-  label: "Goiânia"
-}, {
-  value: "recife",
-  label: "Recife"
-}, {
-  value: "fortaleza",
-  label: "Fortaleza"
-}];
-const origins = [{
-  value: "todas",
-  label: "Todas as origens"
-}, {
-  value: "judicial",
-  label: "Judicial"
-}, {
-  value: "extrajudicial",
-  label: "Extrajudicial"
-}, {
-  value: "particular",
-  label: "Particular"
-}, {
-  value: "publico",
-  label: "Público"
-}];
+
+const states = [
+  { value: "todos", label: "Todos os estados" },
+  { value: "sp", label: "São Paulo" },
+  { value: "rj", label: "Rio de Janeiro" },
+  { value: "mg", label: "Minas Gerais" },
+  { value: "rs", label: "Rio Grande do Sul" },
+  { value: "pr", label: "Paraná" },
+  { value: "sc", label: "Santa Catarina" },
+  { value: "ba", label: "Bahia" },
+  { value: "go", label: "Goiás" },
+  { value: "pe", label: "Pernambuco" },
+  { value: "ce", label: "Ceará" }
+];
+
+const cities = [
+  { value: "todas", label: "Todas as cidades" },
+  { value: "sao-paulo", label: "São Paulo" },
+  { value: "rio-de-janeiro", label: "Rio de Janeiro" },
+  { value: "belo-horizonte", label: "Belo Horizonte" },
+  { value: "porto-alegre", label: "Porto Alegre" },
+  { value: "curitiba", label: "Curitiba" },
+  { value: "florianopolis", label: "Florianópolis" },
+  { value: "salvador", label: "Salvador" },
+  { value: "goiania", label: "Goiânia" },
+  { value: "recife", label: "Recife" },
+  { value: "fortaleza", label: "Fortaleza" }
+];
+
+const origins = [
+  { value: "todas", label: "Todas as origens" },
+  { value: "judicial", label: "Judicial" },
+  { value: "extrajudicial", label: "Extrajudicial" },
+  { value: "particular", label: "Particular" },
+  { value: "publico", label: "Público" }
+];
+
 export const AgendaFilters = ({
   selectedState,
   onStateChange,
@@ -106,7 +61,8 @@ export const AgendaFilters = ({
   selectedType,
   onTypeChange
 }: AgendaFiltersProps) => {
-  return <div className="space-y-4">
+  return (
+    <div className="space-y-4">
       {/* Mobile: Tipo no topo */}
       <div className="md:hidden">
         <Tabs value={selectedType} onValueChange={onTypeChange}>
@@ -119,10 +75,12 @@ export const AgendaFilters = ({
 
       {/* Desktop: Todos os filtros na mesma linha com larguras iguais */}
       <div className="hidden md:flex items-end gap-4">
-        <div className="w-1/4">
-          <Tabs value={selectedType} onValueChange={onTypeChange} className="h-full">
+        <div className="w-1/4 space-y-2">
+          {/* Label simulado invisível para manter a mesma altura dos outros filtros */}
+          <div className="text-sm font-medium text-transparent">Tipo</div>
+          <Tabs value={selectedType} onValueChange={onTypeChange}>
             <TabsList className="grid grid-cols-2 w-full h-[42px]">
-              
+              <TabsTrigger value="imoveis" className="h-full">Imóveis</TabsTrigger>
               <TabsTrigger value="veiculos" className="h-full">Veículos</TabsTrigger>
             </TabsList>
           </Tabs>
@@ -130,17 +88,33 @@ export const AgendaFilters = ({
 
         <div className="space-y-2 w-1/4">
           <label className="text-sm font-medium text-gray-700">Estado</label>
-          <SearchableCombobox options={states} selected={selectedState} onSelect={onStateChange} placeholder="Selecione um estado" />
+          <SearchableCombobox
+            options={states}
+            selected={selectedState}
+            onSelect={onStateChange}
+            placeholder="Selecione um estado"
+          />
         </div>
 
         <div className="space-y-2 w-1/4">
           <label className="text-sm font-medium text-gray-700">Cidade</label>
-          <SearchableCombobox options={cities} selected={selectedCity} onSelect={onCityChange} placeholder="Selecione uma cidade" disabled={selectedState === "todos"} />
+          <SearchableCombobox
+            options={cities}
+            selected={selectedCity}
+            onSelect={onCityChange}
+            placeholder="Selecione uma cidade"
+            disabled={selectedState === "todos"}
+          />
         </div>
         
         <div className="space-y-2 w-1/4">
           <label className="text-sm font-medium text-gray-700">Origem</label>
-          <SimpleSelect options={origins} selected={selectedOrigin} onSelect={onOriginChange} placeholder="Selecione uma origem" />
+          <SimpleSelect
+            options={origins}
+            selected={selectedOrigin}
+            onSelect={onOriginChange}
+            placeholder="Selecione uma origem"
+          />
         </div>
       </div>
 
@@ -149,19 +123,36 @@ export const AgendaFilters = ({
         <div className="grid grid-cols-1 gap-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">Estado</label>
-            <SearchableCombobox options={states} selected={selectedState} onSelect={onStateChange} placeholder="Selecione um estado" />
+            <SearchableCombobox
+              options={states}
+              selected={selectedState}
+              onSelect={onStateChange}
+              placeholder="Selecione um estado"
+            />
           </div>
           
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">Cidade</label>
-            <SearchableCombobox options={cities} selected={selectedCity} onSelect={onCityChange} placeholder="Selecione uma cidade" disabled={selectedState === "todos"} />
+            <SearchableCombobox
+              options={cities}
+              selected={selectedCity}
+              onSelect={onCityChange}
+              placeholder="Selecione uma cidade"
+              disabled={selectedState === "todos"}
+            />
           </div>
           
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">Origem</label>
-            <SimpleSelect options={origins} selected={selectedOrigin} onSelect={onOriginChange} placeholder="Selecione uma origem" />
+            <SimpleSelect
+              options={origins}
+              selected={selectedOrigin}
+              onSelect={onOriginChange}
+              placeholder="Selecione uma origem"
+            />
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
