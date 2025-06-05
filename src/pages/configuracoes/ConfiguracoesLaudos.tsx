@@ -1,8 +1,9 @@
 
-import { FileText, Download, Eye, Clock, CheckCircle, Crown } from "lucide-react";
+import { FileText, Download, Eye, Clock, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SettingsCard } from "../../components/settings/SettingsCard";
+import { FeatureList } from "../../components/settings/FeatureList";
 
 const ConfiguracoesLaudos = () => {
   const laudos = [
@@ -12,6 +13,7 @@ const ConfiguracoesLaudos = () => {
       tipo: "Imóvel",
       data: "15/12/2024",
       status: "Concluído",
+      preco: "R$ 89,90",
       icon: CheckCircle,
       iconColor: "text-green-600"
     },
@@ -20,18 +22,51 @@ const ConfiguracoesLaudos = () => {
       titulo: "Honda Civic 2020",
       tipo: "Veículo",
       data: "10/12/2024", 
-      status: "Processando",
+      status: "Em análise",
+      preco: "R$ 89,90",
       icon: Clock,
-      iconColor: "text-blue-600"
+      iconColor: "text-yellow-600"
     }
+  ];
+
+  const features = [
+    { name: "Análise detalhada dos documentos do leilão", included: true },
+    { name: "Verificação de pendências e riscos jurídicos", included: true },
+    { name: "Parecer emitido por advogados especializados", included: true },
+    { name: "Entrega em até 48 horas úteis", included: true }
   ];
 
   return (
     <div className="space-y-4 md:space-y-6">
+      {/* Informações sobre Laudos */}
+      <SettingsCard
+        title="Como Funciona"
+        description="Entenda o serviço de laudos jurídicos"
+        icon={FileText}
+      >
+        <div className="space-y-4">
+          <FeatureList features={features} />
+          
+          <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm font-medium text-blue-900">
+                  Preço por laudo: R$ 89,90
+                </p>
+                <p className="text-xs text-blue-700">
+                  Pagamento somente após a solicitação
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </SettingsCard>
+
       {/* Lista de Laudos */}
       <SettingsCard 
         title="Meus Laudos" 
-        description="Análises jurídicas automáticas por IA"
+        description="Histórico de laudos solicitados"
         icon={FileText}
       >
         {laudos.length === 0 ? (
@@ -51,7 +86,7 @@ const ConfiguracoesLaudos = () => {
                     <laudo.icon className={`w-5 h-5 mt-0.5 ${laudo.iconColor} shrink-0`} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start gap-2 mb-1">
-                        <h3 className="font-semibold text-sm text-gray-900 line-clamp-2 font-geist">{laudo.titulo}</h3>
+                        <h3 className="font-medium text-sm text-gray-900 line-clamp-2">{laudo.titulo}</h3>
                         <Badge 
                           variant={laudo.status === "Concluído" ? "default" : "secondary"}
                           className="shrink-0 text-xs"
@@ -59,12 +94,10 @@ const ConfiguracoesLaudos = () => {
                           {laudo.status}
                         </Badge>
                       </div>
-                      <p className="text-xs text-blue-600 mb-1 font-inter">{laudo.tipo}</p>
-                      <div className="flex items-center gap-3 text-xs text-gray-500 font-inter">
+                      <p className="text-xs text-blue-600 mb-1">{laudo.tipo}</p>
+                      <div className="flex items-center gap-3 text-xs text-gray-500">
                         <span>Solicitado em {laudo.data}</span>
-                        <Badge className="bg-green-100 text-green-700 text-xs">
-                          Incluído na assinatura
-                        </Badge>
+                        <span className="font-medium">{laudo.preco}</span>
                       </div>
                     </div>
                   </div>
@@ -83,9 +116,9 @@ const ConfiguracoesLaudos = () => {
                   </div>
                 ) : (
                   <div className="pt-2 border-t border-gray-100">
-                    <div className="flex items-center gap-2 text-xs text-blue-700 bg-blue-50 p-2 rounded font-inter">
+                    <div className="flex items-center gap-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded">
                       <Clock className="w-4 h-4" />
-                      <span>Análise automática em andamento - Será concluído em instantes</span>
+                      <span>Análise em andamento - Você será notificado quando estiver pronto</span>
                     </div>
                   </div>
                 )}

@@ -2,46 +2,29 @@
 @layer base {
   /* Padronização de tipografia com design tokens */
   h1, h2, h3, h4, h5, h6 {
-    @apply text-gray-900;
+    @apply text-gray-900 font-semibold;
     line-height: 1.25;
-    font-family: 'Geist', system-ui, sans-serif;
+    font-family: 'Urbanist', sans-serif;
   }
 
-  h1 { 
-    font-size: 1.5rem;      /* 24px */
-    font-weight: 700;
-  }
-  
-  h2 { 
-    font-size: 1.25rem;     /* 20px */
-    font-weight: 600;
-  }
-  
-  h3 { 
-    font-size: 1.125rem;    /* 18px */
-    font-weight: 600;
-  }
-  
-  h4, h5, h6 { 
-    font-size: 1rem;        /* 16px */
-    font-weight: 600;
-  }
+  h1 { font-size: 1.5rem; }      /* 24px */
+  h2 { font-size: 1.25rem; }     /* 20px */
+  h3 { font-size: 1.125rem; }    /* 18px */
+  h4, h5, h6 { font-size: 1rem; }  /* 16px */
 
   p, span, div {
     @apply text-gray-700;
     font-size: 1rem;
     line-height: 1.5;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 400;
+    font-family: 'Urbanist', sans-serif;
   }
 
   /* Labels padronizados */
   label {
-    @apply text-gray-700;
+    @apply text-gray-700 font-medium;
     font-size: 0.875rem;
     line-height: 1.25;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 500;
+    font-family: 'Urbanist', sans-serif;
   }
 
   /* Placeholders padronizados */
@@ -50,8 +33,7 @@
   select::placeholder {
     @apply text-gray-400;
     font-size: 0.875rem;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 400;
+    font-family: 'Urbanist', sans-serif;
   }
 
   /* Links padronizados */
@@ -59,8 +41,7 @@
     @apply text-blue-600 hover:text-blue-700;
     transition: color 0.2s ease-out;
     text-decoration: none;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 400;
+    font-family: 'Urbanist', sans-serif;
   }
 
   a:hover {

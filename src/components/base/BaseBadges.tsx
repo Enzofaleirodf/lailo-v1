@@ -19,10 +19,9 @@ export const BaseBadges = ({
       {badges.map((badge, index) => (
         <span 
           key={index} 
-          className={`px-2 py-1 ${textSize} font-medium rounded-md font-inter ${badgeColor} ${
+          className={`px-2 py-1 ${textSize} font-medium rounded-md font-urbanist ${badgeColor} ${
             index === 0 ? 'truncate flex-shrink min-w-0' : 'flex-shrink-0'
           }`}
-          style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: '500' }}
         >
           {badge}
         </span>
