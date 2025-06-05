@@ -1,7 +1,6 @@
 
 import { FileText, Download, Eye, Clock, CheckCircle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { SettingsCard } from "../../components/settings/SettingsCard";
 
 const ConfiguracoesLaudos = () => {
@@ -12,7 +11,6 @@ const ConfiguracoesLaudos = () => {
       tipo: "Imóvel",
       data: "15/12/2024",
       status: "Concluído",
-      preco: "R$ 89,90",
       icon: CheckCircle,
       iconColor: "text-green-600"
     },
@@ -22,7 +20,6 @@ const ConfiguracoesLaudos = () => {
       tipo: "Veículo",
       data: "10/12/2024", 
       status: "Em análise",
-      preco: "R$ 89,90",
       icon: Clock,
       iconColor: "text-yellow-600"
     }
@@ -57,62 +54,36 @@ const ConfiguracoesLaudos = () => {
                   <div className="flex items-start gap-3 flex-1 min-w-0">
                     <laudo.icon className={`w-5 h-5 mt-0.5 ${laudo.iconColor} shrink-0`} />
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-start gap-2 mb-1">
-                        <h3 className="font-medium text-sm text-gray-900 line-clamp-2">{laudo.titulo}</h3>
-                        <Badge 
-                          variant={laudo.status === "Concluído" ? "default" : "secondary"}
-                          className="shrink-0 text-xs"
-                        >
-                          {laudo.status}
-                        </Badge>
-                      </div>
+                      <h3 className="font-medium text-sm text-gray-900 line-clamp-2 mb-1">{laudo.titulo}</h3>
                       <p className="text-xs text-blue-600 mb-1">{laudo.tipo}</p>
-                      <div className="flex items-center gap-3 text-xs text-gray-500">
-                        <span>Solicitado em {laudo.data}</span>
-                        {laudo.preco}
-                      </div>
+                      <p className="text-xs text-gray-500">Solicitado em {laudo.data}</p>
                     </div>
                   </div>
                 </div>
                 
-                {laudo.status === "Concluído" ? (
-                  <div className="flex gap-2 pt-2 border-t border-gray-100">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Eye className="w-4 h-4 mr-1" />
-                      Visualizar
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Download className="w-4 h-4 mr-1" />
-                      Baixar PDF
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200"
-                      onClick={() => handleDelete(laudo.id)}
-                    >
-                      <Trash2 className="w-4 h-4 mr-1" />
-                      Excluir
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="pt-2 border-t border-gray-100">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded flex-1">
-                        <Clock className="w-4 h-4" />
-                        <span>Análise em andamento - Você será notificado quando estiver pronto</span>
-                      </div>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200 shrink-0"
-                        onClick={() => handleDelete(laudo.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
+                <div className="flex gap-2 pt-2 border-t border-gray-100">
+                  {laudo.status === "Concluído" ? (
+                    <>
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <Eye className="w-4 h-4 mr-1" />
+                        Visualizar
                       </Button>
-                    </div>
-                  </div>
-                )}
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <Download className="w-4 h-4 mr-1" />
+                        Baixar PDF
+                      </Button>
+                    </>
+                  ) : null}
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1 text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200"
+                    onClick={() => handleDelete(laudo.id)}
+                  >
+                    <Trash2 className="w-4 h-4 mr-1" />
+                    Excluir
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
