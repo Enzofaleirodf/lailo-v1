@@ -58,7 +58,7 @@ export const DesktopFilterSidebar = ({ itemType, onClearFilters }: DesktopFilter
   };
 
   return (
-    <div className="hidden md:block w-[488px] h-full bg-white border-r border-gray-200">
+    <div className="hidden md:block w-[512px] h-full bg-white border-r border-gray-200">
       <div 
         className="h-full overflow-y-auto invisible-scrollbar"
         style={{

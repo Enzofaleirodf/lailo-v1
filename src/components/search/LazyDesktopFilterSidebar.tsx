@@ -14,7 +14,7 @@ interface LazyDesktopFilterSidebarProps {
 
 // Fallback que mantém o layout exato da sidebar
 const SidebarLoadingFallback = () => (
-  <div className="hidden md:block w-[488px] h-full bg-white border-r border-gray-200">
+  <div className="hidden md:block w-[512px] h-full bg-white border-r border-gray-200">
     <div className="p-6">
       <div className="flex items-center justify-center h-32">
         <div className="flex flex-col items-center gap-3">
