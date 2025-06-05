@@ -20,7 +20,7 @@ export const PropertySpecificFilters = ({
   const isMobile = useIsMobile();
 
   return (
-    <div className={`space-y-6 ${!isMobile ? 'grid grid-cols-2 gap-6 space-y-0' : ''}`}>
+    <div className="space-y-6">
       <FilterSection title="Área Útil">
         <RangeSlider
           min={50}
