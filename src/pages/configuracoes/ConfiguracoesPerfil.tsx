@@ -27,7 +27,7 @@ const ConfiguracoesPerfil = () => {
   ];
 
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="space-y-3 md:space-y-4">
       {/* Estatísticas */}
       <div className="grid grid-cols-2 gap-3 md:gap-4">
         {stats.map((stat, index) => (
