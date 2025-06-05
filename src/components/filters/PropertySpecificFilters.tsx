@@ -2,7 +2,6 @@
 import React from 'react';
 import { FilterSection } from './FilterSection';
 import { RangeSlider } from './RangeSlider';
-import { useIsMobile } from '../../hooks/use-mobile';
 
 interface PropertySpecificFiltersProps {
   areaRange: [number, number];
@@ -17,10 +16,8 @@ export const PropertySpecificFilters = ({
   priceRange,
   onPriceRangeChange
 }: PropertySpecificFiltersProps) => {
-  const isMobile = useIsMobile();
-
   return (
-    <div className={`space-y-6 ${!isMobile ? 'grid grid-cols-2 gap-6 space-y-0' : ''}`}>
+    <div className="space-y-6">
       <FilterSection title="Área Útil">
         <RangeSlider
           min={50}
