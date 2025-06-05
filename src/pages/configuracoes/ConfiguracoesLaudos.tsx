@@ -1,5 +1,5 @@
 
-import { FileText, Download, Eye, Clock, CheckCircle } from "lucide-react";
+import { FileText, Download, Eye, Clock, CheckCircle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SettingsCard } from "../../components/settings/SettingsCard";
@@ -27,6 +27,11 @@ const ConfiguracoesLaudos = () => {
       iconColor: "text-yellow-600"
     }
   ];
+
+  const handleDelete = (id: number) => {
+    // Lógica para excluir o laudo
+    console.log('Excluir laudo:', id);
+  };
 
   return (
     <div className="space-y-4 md:space-y-6">
@@ -80,12 +85,31 @@ const ConfiguracoesLaudos = () => {
                       <Download className="w-4 h-4 mr-1" />
                       Baixar PDF
                     </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="flex-1 text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200"
+                      onClick={() => handleDelete(laudo.id)}
+                    >
+                      <Trash2 className="w-4 h-4 mr-1" />
+                      Excluir
+                    </Button>
                   </div>
                 ) : (
                   <div className="pt-2 border-t border-gray-100">
-                    <div className="flex items-center gap-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded">
-                      <Clock className="w-4 h-4" />
-                      <span>Análise em andamento - Você será notificado quando estiver pronto</span>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded flex-1">
+                        <Clock className="w-4 h-4" />
+                        <span>Análise em andamento - Você será notificado quando estiver pronto</span>
+                      </div>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200 shrink-0"
+                        onClick={() => handleDelete(laudo.id)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
                     </div>
                   </div>
                 )}
