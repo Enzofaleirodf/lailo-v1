@@ -83,7 +83,7 @@ export const CategoryGrid = ({
             )}
             <span 
               className={cn(
-                "text-sm leading-tight flex-1",
+                "text-xs leading-tight flex-1", // Reduzido de text-sm para text-xs (2px menor)
                 isSelected ? "text-blue-700 font-semibold" : "text-gray-700"
               )}
             >

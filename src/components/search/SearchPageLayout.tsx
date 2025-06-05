@@ -65,11 +65,11 @@ export const SearchPageLayout = ({
         <DesktopTopBar title={config.title} isLoading={isLoading} itemType={config.type} onItemTypeChange={handleItemTypeChange} />
       </div>
 
-      <div className="absolute left-12 top-20 w-[512px] h-[calc(100vh-5rem)] z-30">
+      <div className="absolute left-12 top-20 w-[488px] h-[calc(100vh-5rem)] z-30">
         <DesktopFilterSidebar itemType={config.type} onClearFilters={onClearFilters} />
       </div>
 
-      <main className="ml-12 pl-[512px] pt-20 min-h-screen bg-white px-6 pb-6">
+      <main className="ml-12 pl-[488px] pt-20 min-h-screen bg-white px-6 pb-6">
         <div className="px-6 py-5">
           <SearchStatusAndControls totalAuctions={finalResultsCount} totalSites={finalSitesCount} newAuctions={newAuctions} isVertical={isVertical} onToggleLayout={onToggleLayout} sortBy={sortBy} onSortChange={onSortChange} sortOptions={sortOptions} />
           
