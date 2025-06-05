@@ -115,8 +115,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <>
       <BaseCard>
-        <div className={`flex ${cardTokens.spacing.contentGap} items-start`}>
-          <div className="relative flex-shrink-0">
+        <div className={`flex ${cardTokens.spacing.contentGap} items-stretch`}>
+          <div className="relative flex-shrink-0 w-24">
             <BaseImage 
               src={item.image} 
               alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -125,10 +125,11 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={false}
               showNewBadge={item.showNewBadge}
               showFavoriteButton={false}
+              className="w-24 h-full"
             />
           </div>
           
-          <div className="flex-1 min-w-0 space-y-2">
+          <div className="flex-1 min-w-0 flex flex-col">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
                 <BaseItemHeader 
@@ -152,27 +153,29 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               </button>
             </div>
             
-            <BaseItemPrice 
-              price={item.price}
-              discount={item.discount}
-              itemType={itemType}
-              isVertical={false}
-            />
-          </div>
-        </div>
-        
-        <Separator className={cardTokens.spacing.separatorMargin} />
-        
-        <div className="flex items-center gap-2 min-w-0 overflow-hidden">
-          <div className="flex-shrink min-w-0">
-            <BaseBadges badges={item.badges} isVertical={false} />
-          </div>
-          <div className="flex-shrink-0 ml-auto">
-            <BaseDate 
-              date={item.date} 
-              isVertical={false}
-              href={(item as any).href || "#"}
-            />
+            <div className="mt-1">
+              <BaseItemPrice 
+                price={item.price}
+                discount={item.discount}
+                itemType={itemType}
+                isVertical={false}
+              />
+            </div>
+            
+            <Separator className={cardTokens.spacing.separatorMargin} />
+            
+            <div className="flex items-center gap-2 min-w-0 overflow-hidden mt-auto">
+              <div className="flex-shrink min-w-0">
+                <BaseBadges badges={item.badges} isVertical={false} />
+              </div>
+              <div className="flex-shrink-0 ml-auto">
+                <BaseDate 
+                  date={item.date} 
+                  isVertical={false}
+                  href={(item as any).href || "#"}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </BaseCard>

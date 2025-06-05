@@ -4,13 +4,13 @@ export const cardTokens = {
   spacing: {
     cardPadding: 'p-3',           // Padding único para todos os cards
     contentGap: 'gap-3',          // Gap padrão entre elementos
-    sectionSpacing: 'space-y-2',  // Espaçamento vertical entre seções
+    sectionSpacing: 'space-y-1',  // Reduzido de space-y-2 para space-y-1 (2px menos)
     separatorMargin: 'my-2',      // Margin do separator
   },
   
   // Tamanhos de imagem padronizados
   image: {
-    horizontal: 'w-24 h-18',      // Tamanho fixo para layout horizontal
+    horizontal: 'w-24 h-full',    // Altura total da div pai no horizontal
     vertical: 'w-full aspect-[4/3]', // Aspecto fixo para layout vertical
   },
   
