@@ -34,14 +34,20 @@ export const AlertFiltersForm = ({ type, filters, onFiltersChange }: AlertFilter
     { value: 'publico', label: 'Público' },
   ];
 
-  // Convert string arrays to chip options
+  // Convert string arrays to chip options with proper format
   const getTypeOptions = () => {
     if (type === 'property') {
       const category = filters.propertyCategory || 'residenciais';
-      return (propertyTypes[category] || []).map(type => ({ value: type.toLowerCase(), label: type }));
+      return (propertyTypes[category] || []).map(typeStr => ({ 
+        value: typeStr.toLowerCase().replace(/\s+/g, '-'), 
+        label: typeStr 
+      }));
     } else {
       const category = filters.vehicleCategory || 'leves';
-      return (vehicleTypes[category] || []).map(type => ({ value: type.toLowerCase(), label: type }));
+      return (vehicleTypes[category] || []).map(typeStr => ({ 
+        value: typeStr.toLowerCase().replace(/\s+/g, '-'), 
+        label: typeStr 
+      }));
     }
   };
 
