@@ -72,9 +72,18 @@ export const AgendaFilters = ({
         </Tabs>
       </div>
 
-      {/* Desktop: Todos os filtros na mesma linha */}
+      {/* Desktop: Todos os filtros na mesma linha com larguras iguais */}
       <div className="hidden md:flex items-end gap-4">
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 w-1/4">
+          <Tabs value={selectedType} onValueChange={onTypeChange}>
+            <TabsList className="grid grid-cols-2 w-full">
+              <TabsTrigger value="imoveis">Imóveis</TabsTrigger>
+              <TabsTrigger value="veiculos">Veículos</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+
+        <div className="space-y-2 w-1/4">
           <label className="text-sm font-medium text-gray-700">Estado</label>
           <SearchableCombobox
             options={states}
@@ -84,7 +93,7 @@ export const AgendaFilters = ({
           />
         </div>
 
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 w-1/4">
           <label className="text-sm font-medium text-gray-700">Cidade</label>
           <SearchableCombobox
             options={cities}
@@ -95,7 +104,7 @@ export const AgendaFilters = ({
           />
         </div>
         
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 w-1/4">
           <label className="text-sm font-medium text-gray-700">Origem</label>
           <SearchableCombobox
             options={origins}
@@ -103,15 +112,6 @@ export const AgendaFilters = ({
             onSelect={onOriginChange}
             placeholder="Selecione uma origem"
           />
-        </div>
-
-        <div className="space-y-2">
-          <Tabs value={selectedType} onValueChange={onTypeChange}>
-            <TabsList className="grid grid-cols-2">
-              <TabsTrigger value="imoveis">Imóveis</TabsTrigger>
-              <TabsTrigger value="veiculos">Veículos</TabsTrigger>
-            </TabsList>
-          </Tabs>
         </div>
       </div>
 

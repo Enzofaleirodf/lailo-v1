@@ -31,6 +31,11 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
     });
   };
 
+  // Remove CEP do endereço
+  const formatAddress = (address: string) => {
+    return address.replace(/,?\s*CEP:\s*\d{5}-?\d{3}/gi, '').trim();
+  };
+
   const getOriginBadgeColor = (origin: string) => {
     switch (origin.toLowerCase()) {
       case 'judicial':
@@ -55,11 +60,68 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-4">
-        <div className="space-y-3">
+        {/* Desktop Layout */}
+        <div className="hidden md:block space-y-3">
+          {/* Header com badges no topo direito */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-gray-900 text-base leading-tight mb-1">
+                {auction.title}
+              </h3>
+              <div className="flex items-center gap-1.5 text-gray-600">
+                <Building2 className="w-4 h-4 flex-shrink-0" />
+                <span className="text-sm">{auction.company}</span>
+              </div>
+            </div>
+            
+            {/* Badges no topo direito */}
+            <div className="flex flex-wrap gap-1.5 flex-shrink-0">
+              <Badge className={`text-xs ${getOriginBadgeColor(auction.origin)}`}>
+                {auction.origin}
+              </Badge>
+              {auction.types.map((type, index) => (
+                <Badge key={index} className={`text-xs ${getTypeBadgeColor(type)}`}>
+                  {type}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Data, horário e local na mesma linha */}
+          <div className="flex items-center gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-1.5">
+              <span className="font-medium">Data:</span>
+              <span>{formatDate(auction.date)}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Clock className="w-4 h-4 flex-shrink-0" />
+              <span>{auction.time}</span>
+            </div>
+            <div className="flex items-center gap-1.5 flex-1 min-w-0">
+              <MapPin className="w-4 h-4 flex-shrink-0" />
+              <span className="font-medium">Local:</span>
+              <span className="truncate">{formatAddress(auction.address)}</span>
+            </div>
+          </div>
+
+          {/* Botão na parte de baixo */}
+          <div className="flex justify-end">
+            <Button
+              size="sm"
+              onClick={() => window.open(auction.href, '_blank')}
+            >
+              Ver lotes
+              <ExternalLink className="w-3 h-3 ml-1" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Layout - mantém o layout original */}
+        <div className="md:hidden space-y-3">
           {/* Header */}
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              <h3 className="font-semibold text-gray-900 text-sm md:text-base leading-tight mb-1">
+              <h3 className="font-semibold text-gray-900 text-sm leading-tight mb-1">
                 {auction.title}
               </h3>
               <div className="flex items-center gap-1.5 text-gray-600">
@@ -73,33 +135,13 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
               onClick={() => window.open(auction.href, '_blank')}
               className="flex-shrink-0"
             >
-              <span className="hidden sm:inline">Ver lotes</span>
               <span className="sm:hidden">Ver</span>
               <ExternalLink className="w-3 h-3 ml-1" />
             </Button>
           </div>
 
-          {/* Desktop Layout - Informações em grid compacto */}
-          <div className="hidden md:block">
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-              <div className="flex items-center gap-1.5 text-gray-600">
-                <span className="font-medium">Data:</span>
-                <span>{formatDate(auction.date)}</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-gray-600">
-                <Clock className="w-4 h-4 flex-shrink-0" />
-                <span>{auction.time}</span>
-              </div>
-              <div className="col-span-2 flex items-start gap-1.5 text-gray-600">
-                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <span className="font-medium">Local:</span>
-                <span className="text-sm">{auction.address}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Layout - Informações empilhadas */}
-          <div className="md:hidden space-y-2">
+          {/* Informações empilhadas no mobile */}
+          <div className="space-y-2">
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div className="flex items-center gap-1.5 text-gray-600">
                 <span className="font-medium">Data:</span>
@@ -115,7 +157,7 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
               <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
               <div>
                 <span className="text-sm font-medium">Local:</span>
-                <p className="text-sm">{auction.address}</p>
+                <p className="text-sm">{formatAddress(auction.address)}</p>
               </div>
             </div>
           </div>
