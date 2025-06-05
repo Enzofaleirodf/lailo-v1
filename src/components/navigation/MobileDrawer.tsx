@@ -104,9 +104,9 @@ export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
           
           <Separator className="my-4" />
           
-          {/* Seção de configurações e ações */}
-          <div className="space-y-1">
-            {isAuthenticated && (
+          {/* Seção de configurações */}
+          {isAuthenticated && (
+            <div className="space-y-1">
               <Link
                 to="/configuracoes"
                 onClick={handleItemClick}
@@ -115,31 +115,31 @@ export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
                 <Settings className="w-5 h-5" />
                 <span>Configurações</span>
               </Link>
-            )}
-            
-            <Separator className="my-4" />
-            
-            {/* Auth section */}
-            {isAuthenticated ? (
-              <Button
-                variant="ghost"
-                onClick={handleLogout}
-                className="w-full justify-start gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg h-auto"
-              >
-                <LogOut className="w-5 h-5" />
-                <span>Sair</span>
-              </Button>
-            ) : (
-              <Link
-                to="/auth/login"
-                onClick={handleItemClick}
-                className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <LogIn className="w-5 h-5" />
-                <span>Entrar</span>
-              </Link>
-            )}
-          </div>
+            </div>
+          )}
+          
+          <Separator className="my-4" />
+          
+          {/* Auth section */}
+          {isAuthenticated ? (
+            <Button
+              variant="ghost"
+              onClick={handleLogout}
+              className="w-full justify-start gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg h-auto"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Sair</span>
+            </Button>
+          ) : (
+            <Link
+              to="/auth/login"
+              onClick={handleItemClick}
+              className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <LogIn className="w-5 h-5" />
+              <span>Entrar</span>
+            </Link>
+          )}
         </div>
       </SheetContent>
     </Sheet>
