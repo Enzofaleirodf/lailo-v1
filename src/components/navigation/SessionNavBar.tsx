@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -53,10 +52,8 @@ export const SessionNavBar = () => {
     { to: "/agenda", icon: "Calendar", label: "Agenda" },
   ];
 
-  // Items que só aparecem quando logado
-  const authenticatedItems = [
-    { to: "/configuracoes/perfil", icon: "User", label: "Perfil" },
-  ];
+  // Items que só aparecem quando logado - REMOVIDO O PERFIL
+  const authenticatedItems: any[] = [];
 
   // Items de admin
   const adminItems = isAdmin() ? [
