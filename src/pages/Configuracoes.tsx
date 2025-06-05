@@ -79,8 +79,8 @@ const Configuracoes = () => {
         {/* Mobile - Página principal de configurações */}
         {isMainConfigPage && (
           <div className="block md:hidden">
-            {/* Header principal mobile */}
-            <div className="px-4 py-4 border-b border-gray-100 bg-white">
+            {/* Header principal mobile - padding ajustado para 12px */}
+            <div className="px-3 py-4 border-b border-gray-100 bg-white">
               <div className="flex items-center gap-3">
                 <Settings className="w-6 h-6 text-blue-600" />
                 <div>
@@ -112,10 +112,10 @@ const Configuracoes = () => {
           </div>
         )}
 
-        {/* Mobile - Header das subpáginas com botão voltar */}
+        {/* Mobile - Header das subpáginas com botão voltar - padding ajustado para 12px */}
         {!isMainConfigPage && (
           <div className="block md:hidden">
-            <div className="px-4 py-3 border-b border-gray-100 bg-white">
+            <div className="px-3 py-3 border-b border-gray-100 bg-white">
               <div className="flex items-center gap-3">
                 <Link to="/configuracoes" className="p-1 -ml-1">
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -129,10 +129,10 @@ const Configuracoes = () => {
           </div>
         )}
 
-        {/* Conteúdo das subpáginas - apenas quando não é a página principal */}
+        {/* Conteúdo das subpáginas - apenas quando não é a página principal - padding ajustado para 12px */}
         {!isMainConfigPage && (
           <div className="bg-gray-50 min-h-screen md:min-h-0">
-            <div className="p-4 md:p-6">
+            <div className="p-3 md:p-6">
               <Outlet />
             </div>
           </div>

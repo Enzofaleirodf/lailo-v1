@@ -29,7 +29,7 @@ export const BasePageLayout = ({
         </div>
       </div>
 
-      {/* Mobile Layout - padding reduzido */}
+      {/* Mobile Layout - padding ajustado para 12px */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
           <main className="w-full min-h-screen flex flex-col px-3 py-2 pb-20">

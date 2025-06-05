@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { SettingsCard } from "../../components/settings/SettingsCard";
-import { SettingsListItem } from "../../components/settings/SettingsListItem";
 
 const ConfiguracoesAlertas = () => {
   const alertas = [
@@ -36,12 +35,6 @@ const ConfiguracoesAlertas = () => {
       title: 'WhatsApp',
       description: 'Receber alertas via WhatsApp',
       enabled: false
-    },
-    {
-      id: 'frequency',
-      title: 'Limite Diário',
-      description: 'Máximo de 1 notificação por dia',
-      enabled: true
     }
   ];
 
