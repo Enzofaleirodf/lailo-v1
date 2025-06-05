@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { SearchableCombobox } from './SearchableCombobox';
 import { SimpleSelect } from './SimpleSelect';
@@ -54,17 +55,15 @@ export const VehicleSpecificFilters = ({
             <div className="space-y-1">
               <SearchableCombobox
                 options={availableBrands}
-                value={brand}
-                onChange={onBrandChange}
+                selected={brand}
+                onSelect={onBrandChange}
                 placeholder="Selecione uma marca"
-                emptyText="Nenhuma marca encontrada"
               />
               <SearchableCombobox
                 options={availableModels}
-                value={model}
-                onChange={onModelChange}
+                selected={model}
+                onSelect={onModelChange}
                 placeholder="Selecione um modelo"
-                emptyText="Nenhum modelo encontrado"
                 disabled={brand === 'todas-marcas'}
               />
             </div>
@@ -76,8 +75,8 @@ export const VehicleSpecificFilters = ({
             </label>
             <SimpleSelect
               options={vehicleColors}
-              value={color}
-              onChange={onColorChange}
+              selected={color}
+              onSelect={onColorChange}
               placeholder="Selecione uma cor"
             />
           </div>
@@ -125,17 +124,15 @@ export const VehicleSpecificFilters = ({
         <div className="space-y-1">
           <SearchableCombobox
             options={availableBrands}
-            value={brand}
-            onChange={onBrandChange}
+            selected={brand}
+            onSelect={onBrandChange}
             placeholder="Selecione uma marca"
-            emptyText="Nenhuma marca encontrada"
           />
           <SearchableCombobox
             options={availableModels}
-            value={model}
-            onChange={onModelChange}
+            selected={model}
+            onSelect={onModelChange}
             placeholder="Selecione um modelo"
-            emptyText="Nenhum modelo encontrado"
             disabled={brand === 'todas-marcas'}
           />
         </div>
@@ -147,8 +144,8 @@ export const VehicleSpecificFilters = ({
         </label>
         <SimpleSelect
           options={vehicleColors}
-          value={color}
-          onChange={onColorChange}
+          selected={color}
+          onSelect={onColorChange}
           placeholder="Selecione uma cor"
         />
       </div>

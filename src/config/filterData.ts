@@ -1,3 +1,4 @@
+
 export const propertyCategories = [
   { value: 'residenciais', label: 'Residenciais', icon: 'home' },
   { value: 'comerciais', label: 'Comerciais', icon: 'building' },
@@ -333,6 +334,81 @@ export const motoBrandOptions = [
   { value: 'ventane', label: 'Ventane' },
   { value: 'vespa', label: 'Vespa' },
   { value: 'voltz', label: 'Voltz' }
+];
+
+// Agrupamento de marcas por tipo de veículo
+export const vehicleBrands = {
+  carro: carBrandOptions,
+  moto: motoBrandOptions
+};
+
+// Modelos por marca (simplificado para exemplo)
+export const vehicleModels = {
+  'todas-marcas': [{ value: 'todos-modelos', label: 'Todos os Modelos' }],
+  honda: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'civic', label: 'Civic' },
+    { value: 'city', label: 'City' },
+    { value: 'fit', label: 'Fit' },
+    { value: 'hr-v', label: 'HR-V' }
+  ],
+  toyota: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'corolla', label: 'Corolla' },
+    { value: 'etios', label: 'Etios' }
+  ],
+  volkswagen: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 't-cross', label: 'T-Cross' },
+    { value: 'gol', label: 'Gol' }
+  ],
+  chevrolet: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'onix', label: 'Onix' }
+  ],
+  ford: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'ka', label: 'Ka' }
+  ],
+  hyundai: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'hb20', label: 'HB20' }
+  ],
+  fiat: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'uno', label: 'Uno' },
+    { value: 'palio', label: 'Palio' }
+  ],
+  renault: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'sandero', label: 'Sandero' }
+  ],
+  nissan: [
+    { value: 'todos-modelos', label: 'Todos os Modelos' },
+    { value: 'march', label: 'March' }
+  ]
+};
+
+// Cores de veículos
+export const vehicleColors = [
+  { value: 'todas-cores', label: 'Todas as Cores' },
+  { value: 'amarelo', label: 'Amarelo' },
+  { value: 'azul', label: 'Azul' },
+  { value: 'bege', label: 'Bege' },
+  { value: 'branco', label: 'Branco' },
+  { value: 'bronze', label: 'Bronze' },
+  { value: 'cinza', label: 'Cinza' },
+  { value: 'dourado', label: 'Dourado' },
+  { value: 'grafite', label: 'Grafite' },
+  { value: 'laranja', label: 'Laranja' },
+  { value: 'marrom', label: 'Marrom' },
+  { value: 'prata', label: 'Prata' },
+  { value: 'preto', label: 'Preto' },
+  { value: 'rosa', label: 'Rosa' },
+  { value: 'roxo', label: 'Roxo' },
+  { value: 'verde', label: 'Verde' },
+  { value: 'vermelho', label: 'Vermelho' },
+  { value: 'vinho', label: 'Vinho' }
 ];
 
 // Opções antigas mantidas para compatibilidade
