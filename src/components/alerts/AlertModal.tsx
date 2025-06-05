@@ -189,19 +189,19 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto overflow-x-hidden">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
             {editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 min-w-0">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Informações Básicas */}
-          <div className="space-y-4 min-w-0">
+          <div className="space-y-4">
             <h3 className="font-medium text-gray-900 text-lg">Informações Básicas</h3>
             
-            <div className="min-w-0">
+            <div>
               <Label htmlFor="name">Nome do Alerta</Label>
               <Input
                 id="name"
@@ -214,42 +214,38 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
               )}
             </div>
 
-            <div className="min-w-0">
+            <div>
               <Label>Tipo de Leilão</Label>
               <SegmentedControl
                 options={typeOptions}
                 value={alertType}
-                onValueChange={handleTypeChange}
+                onValueChange={setAlertType}
                 className="mt-1 w-full"
               />
             </div>
           </div>
 
           {/* Localização */}
-          <div className="space-y-4 min-w-0">
+          <div className="space-y-4">
             <h3 className="font-medium text-gray-900 text-lg">Localização</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0">
-              <div className="min-w-0">
-                <StateSelect 
-                  value={selectedState} 
-                  onChange={setSelectedState} 
-                  onClearCity={() => setSelectedCity('')} 
-                />
-              </div>
-              <div className="min-w-0">
-                <CitySelect 
-                  value={selectedCity} 
-                  onChange={setSelectedCity} 
-                  selectedState={selectedState} 
-                />
-              </div>
+            <div className="space-y-3">
+              <StateSelect 
+                value={selectedState} 
+                onChange={setSelectedState} 
+                onClearCity={() => setSelectedCity('')} 
+              />
+              <CitySelect 
+                value={selectedCity} 
+                onChange={setSelectedCity} 
+                selectedState={selectedState} 
+              />
             </div>
           </div>
 
           {/* Características */}
-          <div className="space-y-4 min-w-0">
+          <div className="space-y-4">
             <h3 className="font-medium text-gray-900 text-lg">Características</h3>
-            <div className="min-w-0">
+            <div className="space-y-4">
               <CategoryTypeFilters 
                 itemType={alertType} 
                 category={category} 
@@ -257,9 +253,7 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
                 onCategoryChange={setCategory} 
                 onTypeChange={setType} 
               />
-            </div>
 
-            <div className="min-w-0">
               {alertType === 'property' ? (
                 <PropertySpecificFilters 
                   areaRange={areaRange} 
@@ -278,39 +272,29 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
                   onYearRangeChange={setYearRange} 
                 />
               )}
-            </div>
 
-            <div className="min-w-0">
               <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
             </div>
           </div>
 
           {/* Condições */}
-          <div className="space-y-4 min-w-0">
+          <div className="space-y-4">
             <h3 className="font-medium text-gray-900 text-lg">Condições</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 min-w-0">
-              <div className="min-w-0">
-                <FormatFilter itemType={alertType} />
-              </div>
-              <div className="min-w-0">
-                <OriginFilter itemType={alertType} />
-              </div>
-              <div className="min-w-0">
-                <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
-              </div>
+            <div className="space-y-3">
+              <FormatFilter itemType={alertType} />
+              <OriginFilter itemType={alertType} />
+              <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
             </div>
           </div>
 
           {/* Preview */}
           {alertName && (
-            <div className="min-w-0">
-              <AlertPreview
-                name={alertName}
-                type={alertType}
-                filters={filters}
-                filtersDisplay={formatFiltersForDisplay(filters, alertType)}
-              />
-            </div>
+            <AlertPreview
+              name={alertName}
+              type={alertType}
+              filters={filters}
+              filtersDisplay={formatFiltersForDisplay(filters, alertType)}
+            />
           )}
 
           <DialogFooter>

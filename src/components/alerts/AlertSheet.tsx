@@ -184,8 +184,8 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[98vh] rounded-t-3xl flex flex-col overflow-x-hidden">
-        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0 pt-6 px-0 py-0">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-3xl flex flex-col">
+        <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-4 flex-shrink-0">
           <SheetTitle className="text-lg font-semibold">
             {editingAlert ? 'Editar Alerta' : 'Criar Novo Alerta'}
           </SheetTitle>
@@ -194,13 +194,13 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
           </Button>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 overflow-y-auto overflow-x-hidden py-6 px-0">
-          <div className="space-y-6 pr-4 min-w-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="flex-1 overflow-y-auto py-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Informações Básicas */}
-            <div className="space-y-4 min-w-0">
+            <div className="space-y-4">
               <h3 className="font-medium text-gray-900 text-lg">Informações Básicas</h3>
               
-              <div className="min-w-0">
+              <div>
                 <Label htmlFor="name">Nome do Alerta</Label>
                 <Input
                   id="name"
@@ -213,28 +213,26 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
                 )}
               </div>
 
-              <div className="min-w-0">
+              <div>
                 <Label>Tipo de Leilão</Label>
                 <SegmentedControl
                   options={typeOptions}
                   value={alertType}
-                  onValueChange={handleTypeChange}
+                  onValueChange={setAlertType}
                   className="mt-1 w-full"
                 />
               </div>
             </div>
 
             {/* Localização */}
-            <div className="space-y-4 min-w-0">
+            <div className="space-y-4">
               <h3 className="font-medium text-gray-900 text-lg">Localização</h3>
-              <div className="min-w-0">
+              <div className="space-y-3">
                 <StateSelect 
                   value={selectedState} 
                   onChange={setSelectedState} 
                   onClearCity={() => setSelectedCity('')} 
                 />
-              </div>
-              <div className="min-w-0">
                 <CitySelect 
                   value={selectedCity} 
                   onChange={setSelectedCity} 
@@ -244,9 +242,9 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
             </div>
 
             {/* Características */}
-            <div className="space-y-4 min-w-0">
+            <div className="space-y-4">
               <h3 className="font-medium text-gray-900 text-lg">Características</h3>
-              <div className="min-w-0">
+              <div className="space-y-4">
                 <CategoryTypeFilters 
                   itemType={alertType} 
                   category={category} 
@@ -254,9 +252,7 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
                   onCategoryChange={setCategory} 
                   onTypeChange={setType} 
                 />
-              </div>
 
-              <div className="min-w-0">
                 {alertType === 'property' ? (
                   <PropertySpecificFilters 
                     areaRange={areaRange} 
@@ -275,44 +271,36 @@ export const AlertSheet = ({ isOpen, onClose, onSave, editingAlert }: AlertSheet
                     onYearRangeChange={setYearRange} 
                   />
                 )}
-              </div>
 
-              <div className="min-w-0">
                 <PriceFilter priceRange={priceRange} onPriceRangeChange={setPriceRange} />
               </div>
             </div>
 
             {/* Condições */}
-            <div className="space-y-4 min-w-0">
+            <div className="space-y-4">
               <h3 className="font-medium text-gray-900 text-lg">Condições</h3>
-              <div className="min-w-0">
+              <div className="space-y-3">
                 <FormatFilter itemType={alertType} />
-              </div>
-              <div className="min-w-0">
                 <OriginFilter itemType={alertType} />
-              </div>
-              <div className="min-w-0">
                 <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
               </div>
             </div>
 
             {/* Preview */}
             {alertName && (
-              <div className="min-w-0">
-                <AlertPreview
-                  name={alertName}
-                  type={alertType}
-                  filters={filters}
-                  filtersDisplay={formatFiltersForDisplay(filters, alertType)}
-                />
-              </div>
+              <AlertPreview
+                name={alertName}
+                type={alertType}
+                filters={filters}
+                filtersDisplay={formatFiltersForDisplay(filters, alertType)}
+              />
             )}
-          </div>
-        </form>
+          </form>
+        </div>
 
-        {/* Footer */}
-        <div className="border-t border-gray-100 pt-4 pb-6 flex-shrink-0 bg-white px-0 min-w-0">
-          <div className="flex gap-3 min-w-0">
+        {/* Footer fixo */}
+        <div className="border-t border-gray-100 pt-4 pb-6 flex-shrink-0 bg-white">
+          <div className="flex gap-3">
             <Button type="button" variant="outline" onClick={onClose} className="flex-1">
               Cancelar
             </Button>
