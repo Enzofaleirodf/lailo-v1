@@ -117,6 +117,11 @@ export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
               </Link>
             )}
             
+            {/* Separator entre configurações e logout */}
+            {isAuthenticated && (
+              <Separator className="my-2" />
+            )}
+            
             {/* Auth section */}
             {isAuthenticated ? (
               <Button
