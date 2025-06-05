@@ -1,9 +1,10 @@
 
-import { SessionNavBar } from "../components/SessionNavBar";
-import { BottomNavigation } from "../components/BottomNavigation";
+import { SessionNavBar } from "../components/navigation/SessionNavBar";
+import { MobileNavigation } from "../components/navigation/MobileNavigation";
 
 const Index = () => {
-  return <div className="w-full relative min-h-screen bg-white">
+  return (
+    <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
@@ -31,12 +32,11 @@ const Index = () => {
             </div>
           </main>
           
-          <div className="fixed bottom-0 left-0 right-0 z-50">
-            <BottomNavigation />
-          </div>
+          <MobileNavigation />
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
 
 export default Index;
