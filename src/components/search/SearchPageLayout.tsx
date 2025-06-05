@@ -1,8 +1,9 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
-import { MobileNavigation } from "../navigation/MobileNavigation";
+import { MobileHeader } from "../navigation/MobileHeader";
+import { MobileBottomNav } from "../navigation/MobileBottomNav";
+import { MobileDrawer } from "../navigation/MobileDrawer";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
@@ -40,6 +41,7 @@ export const SearchPageLayout = ({
   sortOptions
 }: SearchPageLayoutProps) => {
   const navigate = useNavigate();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
@@ -81,7 +83,8 @@ export const SearchPageLayout = ({
   // Mobile Layout Component
   const MobileLayout = () => (
     <div className="w-full min-h-screen bg-white">
-      <MobileNavigation />
+      <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
+      <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
       <MobileTopBar 
         isVertical={isVertical} 
@@ -91,7 +94,7 @@ export const SearchPageLayout = ({
         itemType={config.type} 
       />
       
-      <main className="w-full min-h-screen bg-white px-3 pt-14 pb-6">
+      <main className="w-full min-h-screen bg-white px-3 pt-28 pb-20">
         <div className="py-5">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
@@ -115,6 +118,8 @@ export const SearchPageLayout = ({
           />
         </div>
       </main>
+      
+      <MobileBottomNav />
     </div>
   );
 
