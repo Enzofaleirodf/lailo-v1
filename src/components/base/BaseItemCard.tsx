@@ -1,4 +1,5 @@
 
+
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -71,21 +72,23 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             />
           </div>
           
-          <div className={cardTokens.spacing.sectionSpacing}>
+          <div>
             <BaseItemHeader 
               item={item}
               itemType={itemType}
               isVertical={true}
             />
             
-            <BaseItemPrice 
-              price={item.price}
-              discount={item.discount}
-              itemType={itemType}
-              isVertical={true}
-            />
+            <div className="mt-3">
+              <BaseItemPrice 
+                price={item.price}
+                discount={item.discount}
+                itemType={itemType}
+                isVertical={true}
+              />
+            </div>
             
-            <Separator className={cardTokens.spacing.separatorMargin} />
+            <Separator className="my-2" />
             
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               <div className="flex-shrink min-w-0">

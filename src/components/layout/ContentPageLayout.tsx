@@ -34,7 +34,7 @@ export const ContentPageLayout = ({
       <div className={containerClass}>
         {/* Mobile Title - compacto no topo */}
         {title && (
-          <div className="block md:hidden px-4 pt-4 pb-2">
+          <div className="block md:hidden px-3 pt-4 pb-2">
             <div className="flex items-center gap-3 mb-1">
               {TitleIcon && <TitleIcon className="w-5 h-5 text-blue-600" />}
               <h1 className="text-xl font-bold text-gray-900">{title}</h1>
@@ -70,7 +70,7 @@ export const ContentPageLayout = ({
           </div>
         )}
 
-        {/* Conteúdo principal - padding reduzido no mobile */}
+        {/* Conteúdo principal - padding reduzido no mobile para 12px */}
         <div className="bg-white md:rounded-lg md:shadow-sm md:border md:border-gray-200 p-3 md:p-6 md:mx-6 min-h-[200px]">
           {children}
         </div>

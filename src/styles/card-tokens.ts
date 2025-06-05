@@ -4,8 +4,8 @@ export const cardTokens = {
   spacing: {
     cardPadding: 'p-3',           // Padding único para todos os cards
     contentGap: 'gap-3',          // Gap padrão entre elementos
-    sectionSpacing: 'space-y-1',  // Reduzido de space-y-2 para space-y-1 (2px menos)
-    separatorMargin: 'my-2',      // Margin do separator
+    priceMargin: 'mt-3',          // Margin top entre header e price
+    separatorMargin: 'my-2',      // Margin do separator (8px em cima e embaixo)
   },
   
   // Tamanhos de imagem padronizados

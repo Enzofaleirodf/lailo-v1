@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
@@ -88,7 +89,7 @@ export const SearchPageLayout = ({
         itemType={config.type} 
       />
       
-      <main className="w-full min-h-screen bg-white px-6 pb-20 pt-20 py-0">
+      <main className="w-full min-h-screen bg-white px-3 pb-20 pt-20 py-0">
         <div className="py-5">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
