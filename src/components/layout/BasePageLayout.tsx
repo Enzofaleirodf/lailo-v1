@@ -12,7 +12,7 @@ interface BasePageLayoutProps {
 export const BasePageLayout = ({ 
   children, 
   showBottomNav = true,
-  containerClass = "px-3 md:px-6 py-3 md:py-8"
+  containerClass = "px-4 md:px-6 py-3 md:py-8"
 }: BasePageLayoutProps) => {
   return (
     <div className="w-full relative min-h-screen bg-white overflow-x-hidden">
@@ -29,10 +29,10 @@ export const BasePageLayout = ({
         </div>
       </div>
 
-      {/* Mobile Layout - padding ajustado para 12px */}
+      {/* Mobile Layout - padding ajustado para 16px */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
-          <main className="w-full min-h-screen flex flex-col px-3 py-2 pb-20">
+          <main className="w-full min-h-screen flex flex-col px-4 py-2 pb-20">
             {children}
           </main>
           
