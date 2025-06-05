@@ -25,12 +25,9 @@ export const LeiloeiroFilters = ({
       {/* Mobile Layout */}
       <div className="block md:hidden space-y-4">
         <div>
-          <Label className="text-sm font-medium text-gray-700 mb-2 block">
-            Buscar Leiloeiro
-          </Label>
           <InputWithIcon
             icon={Search}
-            placeholder="Digite o link e descubra se o site é seguro"
+            placeholder="Descubra se um site é seguro"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             containerClassName="h-12"
@@ -60,7 +57,7 @@ export const LeiloeiroFilters = ({
         <div className="flex-1">
           <InputWithIcon
             icon={Search}
-            placeholder="Digite o link e descubra se o site é seguro"
+            placeholder="Descubra se um site é seguro"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             containerClassName="h-12"
