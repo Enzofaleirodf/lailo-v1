@@ -56,6 +56,10 @@ export const designTokens = {
   },
   
   typography: {
+    fonts: {
+      primary: 'Inter',      // Fonte principal do app
+      cards: 'Urbanist',     // Fonte específica para cards de imóveis/veículos
+    },
     sizes: {
       xs: '0.75rem',    // 12px
       sm: '0.875rem',   // 14px
