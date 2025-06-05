@@ -26,7 +26,7 @@ export const useAuctionCalendar = (auctions: AuctionEvent[]) => {
       const monthKey = date.toLocaleDateString('pt-BR', { 
         year: 'numeric', 
         month: 'long' 
-      });
+      }).replace(' De ', ' de ');
       
       if (!grouped[monthKey]) {
         grouped[monthKey] = [];

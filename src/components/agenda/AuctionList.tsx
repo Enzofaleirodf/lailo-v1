@@ -39,7 +39,7 @@ export const AuctionList = ({
       {hasAuctions ? (
         Object.entries(auctionsByMonth).map(([month, auctions]) => (
           <div key={month} className="space-y-4">
-            <h3 className="text-base md:text-lg font-medium text-gray-700 capitalize border-b border-gray-200 pb-2">
+            <h3 className="text-base md:text-lg font-medium text-blue-600 capitalize border-b border-gray-200 pb-2">
               {month}
             </h3>
             <div className="space-y-4">
