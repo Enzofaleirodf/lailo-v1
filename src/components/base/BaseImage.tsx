@@ -58,7 +58,7 @@ export const BaseImage = ({
           }}
           aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
         >
-          <Heart className="h-4 w-4 ${isFavorited ? 'fill-current' : ''}" />
+          <Heart className={`h-4 w-4 ${isFavorited ? 'fill-current' : ''}`} />
         </Button>
       )}
     </div>
