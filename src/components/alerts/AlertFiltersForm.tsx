@@ -8,7 +8,7 @@ import { SearchableCombobox } from '../filters/SearchableCombobox';
 import { RangeSlider } from '../filters/RangeSlider';
 import { ColorPopover } from '../filters/ColorPopover';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
-import { propertyCategories, propertyTypes, vehicleCategories, vehicleTypes } from '../../config/searchConfigs';
+import { propertyCategories, propertyTypes, vehicleCategories, vehicleTypes } from '../../config/alertsData';
 import { stateOptions, carBrandOptions, modelOptions, colorOptions } from '../../config/filterData';
 
 interface AlertFiltersFormProps {
@@ -34,6 +34,17 @@ export const AlertFiltersForm = ({ type, filters, onFiltersChange }: AlertFilter
     { value: 'publico', label: 'Público' },
   ];
 
+  // Convert string arrays to chip options
+  const getTypeOptions = () => {
+    if (type === 'property') {
+      const category = filters.propertyCategory || 'residenciais';
+      return (propertyTypes[category] || []).map(type => ({ value: type.toLowerCase(), label: type }));
+    } else {
+      const category = filters.vehicleCategory || 'leves';
+      return (vehicleTypes[category] || []).map(type => ({ value: type.toLowerCase(), label: type }));
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Localização */}
@@ -58,7 +69,7 @@ export const AlertFiltersForm = ({ type, filters, onFiltersChange }: AlertFilter
       {/* Categoria */}
       <FilterSection title="Categoria">
         <CategoryGrid
-          categories={type === 'property' ? propertyCategories : vehicleCategories}
+          options={type === 'property' ? propertyCategories : vehicleCategories}
           selected={type === 'property' ? (filters.propertyCategory || 'residenciais') : (filters.vehicleCategory || 'leves')}
           onSelect={(value) => {
             if (type === 'property') {
@@ -75,10 +86,7 @@ export const AlertFiltersForm = ({ type, filters, onFiltersChange }: AlertFilter
       {/* Tipo */}
       <FilterSection title="Tipo">
         <ChipSelector
-          options={type === 'property' 
-            ? propertyTypes[filters.propertyCategory || 'residenciais'] || []
-            : vehicleTypes[filters.vehicleCategory || 'leves'] || []
-          }
+          options={getTypeOptions()}
           selected={type === 'property' ? (filters.propertyType || 'todos') : (filters.vehicleType || 'carros')}
           onSelect={(value) => {
             if (type === 'property') {

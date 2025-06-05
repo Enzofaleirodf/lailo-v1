@@ -130,7 +130,7 @@ export const AlertModal = ({ isOpen, onClose, onSave, editingAlert }: AlertModal
             <SegmentedControl
               options={typeOptions}
               value={alertType}
-              onChange={handleTypeChange}
+              onValueChange={handleTypeChange}
               className="mt-1"
             />
           </div>
