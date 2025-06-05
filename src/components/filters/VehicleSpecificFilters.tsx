@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { SearchableCombobox } from './SearchableCombobox';
 import { SimpleSelect } from './SimpleSelect';
@@ -82,8 +81,8 @@ export const VehicleSpecificFilters = ({
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div>
+        <div className="flex flex-row gap-4">
+          <div className="flex-1">
             <label className="block text-sm font-medium text-gray-900 mb-3">
               Ano
             </label>
@@ -96,7 +95,7 @@ export const VehicleSpecificFilters = ({
             />
           </div>
 
-          <div>
+          <div className="flex-1">
             <label className="block text-sm font-medium text-gray-900 mb-3">
               Valor do Lance
             </label>

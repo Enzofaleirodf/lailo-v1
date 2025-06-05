@@ -26,8 +26,8 @@ export const PropertySpecificFilters = ({
 
   if (isAlert) {
     return (
-      <>
-        <div>
+      <div className="flex flex-row gap-4">
+        <div className="flex-1">
           <label className="block text-sm font-medium text-gray-900 mb-3">
             Área útil
           </label>
@@ -41,7 +41,7 @@ export const PropertySpecificFilters = ({
           />
         </div>
 
-        <div>
+        <div className="flex-1">
           <label className="block text-sm font-medium text-gray-900 mb-3">
             Valor do Lance
           </label>
@@ -55,7 +55,7 @@ export const PropertySpecificFilters = ({
             formatValue={formatCurrency}
           />
         </div>
-      </>
+      </div>
     );
   }
 
