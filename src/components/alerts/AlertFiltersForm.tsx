@@ -9,7 +9,6 @@ import { RangeSlider } from '../filters/RangeSlider';
 import { ColorPopover } from '../filters/ColorPopover';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
 import { propertyCategories, propertyTypes, vehicleCategories, vehicleTypes } from '../../config/alertsData';
-import { stateOptions, carBrandOptions, modelOptions, colorOptions } from '../../config/filterData';
 
 interface AlertFiltersFormProps {
   type: 'property' | 'vehicle';
@@ -32,6 +31,84 @@ export const AlertFiltersForm = ({ type, filters, onFiltersChange }: AlertFilter
     { value: 'judicial', label: 'Judicial' },
     { value: 'particular', label: 'Particular' },
     { value: 'publico', label: 'Público' },
+  ];
+
+  const stateOptions = [
+    { value: 'todos-estados', label: 'Todos os estados' },
+    { value: 'ac', label: 'Acre' },
+    { value: 'al', label: 'Alagoas' },
+    { value: 'ap', label: 'Amapá' },
+    { value: 'am', label: 'Amazonas' },
+    { value: 'ba', label: 'Bahia' },
+    { value: 'ce', label: 'Ceará' },
+    { value: 'df', label: 'Distrito Federal' },
+    { value: 'es', label: 'Espírito Santo' },
+    { value: 'go', label: 'Goiás' },
+    { value: 'ma', label: 'Maranhão' },
+    { value: 'mt', label: 'Mato Grosso' },
+    { value: 'ms', label: 'Mato Grosso do Sul' },
+    { value: 'mg', label: 'Minas Gerais' },
+    { value: 'pa', label: 'Pará' },
+    { value: 'pb', label: 'Paraíba' },
+    { value: 'pr', label: 'Paraná' },
+    { value: 'pe', label: 'Pernambuco' },
+    { value: 'pi', label: 'Piauí' },
+    { value: 'rj', label: 'Rio de Janeiro' },
+    { value: 'rn', label: 'Rio Grande do Norte' },
+    { value: 'rs', label: 'Rio Grande do Sul' },
+    { value: 'ro', label: 'Rondônia' },
+    { value: 'rr', label: 'Roraima' },
+    { value: 'sc', label: 'Santa Catarina' },
+    { value: 'sp', label: 'São Paulo' },
+    { value: 'se', label: 'Sergipe' },
+    { value: 'to', label: 'Tocantins' },
+  ];
+
+  const carBrandOptions = [
+    { value: 'todas-marcas', label: 'Todas as marcas' },
+    { value: 'audi', label: 'Audi' },
+    { value: 'bmw', label: 'BMW' },
+    { value: 'chevrolet', label: 'Chevrolet' },
+    { value: 'fiat', label: 'Fiat' },
+    { value: 'ford', label: 'Ford' },
+    { value: 'honda', label: 'Honda' },
+    { value: 'hyundai', label: 'Hyundai' },
+    { value: 'mercedes', label: 'Mercedes-Benz' },
+    { value: 'nissan', label: 'Nissan' },
+    { value: 'peugeot', label: 'Peugeot' },
+    { value: 'renault', label: 'Renault' },
+    { value: 'toyota', label: 'Toyota' },
+    { value: 'volkswagen', label: 'Volkswagen' },
+  ];
+
+  const modelOptions = [
+    { value: 'todos-modelos', label: 'Todos os modelos' },
+    { value: 'civic', label: 'Civic' },
+    { value: 'corolla', label: 'Corolla' },
+    { value: 'golf', label: 'Golf' },
+    { value: 'onix', label: 'Onix' },
+    { value: 'polo', label: 'Polo' },
+  ];
+
+  const colorOptions = [
+    { value: 'todas-cores', label: 'Todas as cores' },
+    { value: 'amarelo', label: 'Amarelo' },
+    { value: 'azul', label: 'Azul' },
+    { value: 'bege', label: 'Bege' },
+    { value: 'branco', label: 'Branco' },
+    { value: 'bronze', label: 'Bronze' },
+    { value: 'cinza', label: 'Cinza' },
+    { value: 'dourado', label: 'Dourado' },
+    { value: 'grafite', label: 'Grafite' },
+    { value: 'laranja', label: 'Laranja' },
+    { value: 'marrom', label: 'Marrom' },
+    { value: 'prata', label: 'Prata' },
+    { value: 'preto', label: 'Preto' },
+    { value: 'rosa', label: 'Rosa' },
+    { value: 'roxo', label: 'Roxo' },
+    { value: 'verde', label: 'Verde' },
+    { value: 'vermelho', label: 'Vermelho' },
+    { value: 'vinho', label: 'Vinho' },
   ];
 
   // Convert string arrays to chip options with proper format
