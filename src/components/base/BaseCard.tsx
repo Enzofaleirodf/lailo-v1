@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "../ui/card";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseCardProps {
   children: React.ReactNode;
@@ -18,7 +19,7 @@ export const BaseCard = ({
   return (
     <Card 
       className={`
-        group relative w-full max-w-none p-2 sm:p-4 font-urbanist
+        group relative w-full max-w-none ${cardTokens.spacing.cardPadding} font-urbanist
         bg-white border border-gray-100
         rounded-xl shadow-sm hover:shadow-md
         transition-all duration-200 ease-out

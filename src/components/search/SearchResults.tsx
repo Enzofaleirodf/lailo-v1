@@ -1,10 +1,11 @@
 
 import { BaseItemCard } from "../base/BaseItemCard";
 import { SearchResultsProps } from "../../types/search";
+import { cardTokens } from "../../styles/card-tokens";
 
 export const SearchResults = ({ items, isVertical, config }: SearchResultsProps) => {
   return (
-    <div className={`${isVertical ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}`}>
+    <div className={`${isVertical ? `grid ${cardTokens.grid.mobile} ${cardTokens.grid.tablet} ${cardTokens.grid.desktop} ${cardTokens.grid.gap}` : 'space-y-4'}`}>
       {items.map(item => (
         <BaseItemCard 
           key={item.id} 

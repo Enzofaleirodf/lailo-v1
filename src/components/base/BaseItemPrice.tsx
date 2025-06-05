@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Badge } from "../ui/badge";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseItemPriceProps {
   price: string;
@@ -15,17 +16,12 @@ export const BaseItemPrice = ({
   itemType,
   isVertical = false
 }: BaseItemPriceProps) => {
-  // Padronização: tamanho único para preço independente do layout
-  const priceClass = "font-bold text-gray-900 text-base font-urbanist";
-  // Padronização: badge com padding e tamanho únicos
-  const badgeClass = "bg-green-100 text-green-700 font-medium text-xs px-2 py-1 rounded-md font-urbanist";
-  
   return (
     <div className="flex items-center gap-2">
-      <span className={priceClass}>
+      <span className={`${cardTokens.text.price} text-gray-900 font-urbanist`}>
         {price}
       </span>
-      <Badge className={badgeClass}>
+      <Badge className="bg-green-100 text-green-700 font-medium text-xs px-2 py-1 rounded-md font-urbanist">
         {discount}
       </Badge>
     </div>

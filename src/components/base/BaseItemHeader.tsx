@@ -1,6 +1,7 @@
 
 import React from "react";
 import { SearchItem } from "../../types/search";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseItemHeaderProps {
   item: SearchItem;
@@ -13,23 +14,19 @@ export const BaseItemHeader = ({
   itemType,
   isVertical = false
 }: BaseItemHeaderProps) => {
-  // Padronização: tamanhos únicos para títulos e detalhes
-  const titleClass = "font-semibold text-gray-900 text-sm leading-tight font-urbanist mb-1";
-  const detailsClass = "text-xs font-medium";
-
   if (itemType === 'vehicle') {
     const vehicle = item as any;
     return (
-      <div className="space-y-1">
-        <h3 className={`${titleClass} truncate`}>
+      <div className={cardTokens.spacing.sectionSpacing}>
+        <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist mb-1 truncate`}>
           {vehicle.name}
         </h3>
         <div className="flex items-center gap-2 text-gray-500">
-          <span className={`${detailsClass} truncate flex-shrink`}>{vehicle.color}</span>
+          <span className={`${cardTokens.text.body} truncate flex-shrink`}>{vehicle.color}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
-          <span className={`${detailsClass} flex-shrink-0`}>{vehicle.year}</span>
+          <span className={`${cardTokens.text.body} flex-shrink-0`}>{vehicle.year}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
-          <span className={`${detailsClass} truncate flex-shrink min-w-0`}>{vehicle.location}</span>
+          <span className={`${cardTokens.text.body} truncate flex-shrink min-w-0`}>{vehicle.location}</span>
         </div>
       </div>
     );
@@ -37,18 +34,18 @@ export const BaseItemHeader = ({
 
   const property = item as any;
   return (
-    <div className="space-y-1">
+    <div className={cardTokens.spacing.sectionSpacing}>
       <div className="flex items-center gap-2">
-        <h3 className={`${titleClass} truncate flex-shrink min-w-0`}>
+        <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist truncate flex-shrink min-w-0`}>
           {property.type}
         </h3>
         <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
-        <span className={`${detailsClass} text-gray-500 flex-shrink-0`}>
+        <span className={`${cardTokens.text.body} text-gray-500 flex-shrink-0`}>
           {property.area}
         </span>
       </div>
       <div className="flex items-center gap-2 text-gray-500">
-        <span className={`${detailsClass} truncate`}>{property.location}</span>
+        <span className={`${cardTokens.text.body} truncate`}>{property.location}</span>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
 import React from "react";
 import { Heart } from "lucide-react";
 import { Button } from "../ui/button";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseImageProps {
   src: string;
@@ -24,7 +25,7 @@ export const BaseImage = ({
   className = "",
   showFavoriteButton = true
 }: BaseImageProps): JSX.Element => {
-  const imageClass = className || (isVertical ? 'w-full aspect-[4/3]' : 'w-24 h-16 md:w-28 md:h-20');
+  const imageClass = className || (isVertical ? cardTokens.image.vertical : cardTokens.image.horizontal);
   
   return (
     <div className={`relative ${imageClass}`}>

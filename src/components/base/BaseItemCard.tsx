@@ -14,6 +14,7 @@ import { Heart } from "lucide-react";
 import { useFavoriteAuth } from "../../hooks/useFavoriteAuth";
 import { FavoriteAuthModal } from "../auth/FavoriteAuthModal";
 import { useAuth } from "../../hooks/useAuth";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseItemCardProps {
   item: SearchItem;
@@ -42,11 +43,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
     const title = itemType === 'vehicle' ? (item as any).name : (item as any).type;
     
     if (isAuthenticated && isItemFavorite) {
-      // Usuário logado e item já favoritado - remover dos favoritos
       removeFavorite(item.id, itemType);
       showInfo("Removido dos favoritos", title);
     } else {
-      // Usuário não logado ou item não favoritado - tentar adicionar
       handleFavoriteClick({
         itemId: item.id,
         itemType: itemType,
@@ -61,7 +60,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
     return (
       <>
         <BaseCard className="overflow-hidden">
-          <div className="relative mb-3">
+          <div className={`relative ${cardTokens.spacing.contentGap.replace('gap-', 'mb-')}`}>
             <BaseImage 
               src={item.image} 
               alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -72,7 +71,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             />
           </div>
           
-          <div className="space-y-2">
+          <div className={cardTokens.spacing.sectionSpacing}>
             <BaseItemHeader 
               item={item}
               itemType={itemType}
@@ -86,7 +85,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               isVertical={true}
             />
             
-            <Separator className="!my-2" />
+            <Separator className={cardTokens.spacing.separatorMargin} />
             
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               <div className="flex-shrink min-w-0">
@@ -116,8 +115,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <>
       <BaseCard>
-        <div className="flex gap-3 items-start">
-          <div className="relative flex-shrink-0 w-20 h-16 md:w-28 md:h-20">
+        <div className={`flex ${cardTokens.spacing.contentGap} items-start`}>
+          <div className="relative flex-shrink-0">
             <BaseImage 
               src={item.image} 
               alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -125,14 +124,13 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               onToggleFavorite={handleFavoriteToggle}
               isVertical={false}
               showNewBadge={item.showNewBadge}
-              className="w-full h-full"
               showFavoriteButton={false}
             />
           </div>
           
           <div className="flex-1 min-w-0 space-y-2">
             <div className="flex items-start justify-between">
-              <div className="flex-1 min-w-0 pr-2">
+              <div className="flex-1 min-w-0">
                 <BaseItemHeader 
                   item={item}
                   itemType={itemType}
@@ -163,7 +161,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           </div>
         </div>
         
-        <Separator className="!my-2" />
+        <Separator className={cardTokens.spacing.separatorMargin} />
         
         <div className="flex items-center gap-2 min-w-0 overflow-hidden">
           <div className="flex-shrink min-w-0">
