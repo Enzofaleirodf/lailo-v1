@@ -10,7 +10,6 @@ import { leiloeiros } from "../data/leiloeiros";
 const Leiloeiros = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedState, setSelectedState] = useState("todos");
-  const [activeAuctionsFilter, setActiveAuctionsFilter] = useState("todos");
 
   // Estados únicos dos leiloeiros
   const estados = useMemo(() => {
@@ -35,13 +34,6 @@ const Leiloeiros = () => {
       );
     }
 
-    // Filtrar por presença de site
-    if (activeAuctionsFilter === "com-site") {
-      filtered = filtered.filter(l => l.website && l.website.trim() !== "");
-    } else if (activeAuctionsFilter === "sem-site") {
-      filtered = filtered.filter(l => !l.website || l.website.trim() === "");
-    }
-
     // Agrupar por estado
     const grouped = filtered.reduce((acc, leiloeiro) => {
       const state = leiloeiro.state;
@@ -62,7 +54,7 @@ const Leiloeiros = () => {
     });
 
     return result;
-  }, [selectedState, searchTerm, activeAuctionsFilter]);
+  }, [selectedState, searchTerm]);
 
   const totalLeiloeiros = filteredAndGroupedLeiloeiros.reduce((total, group) => total + group.leiloeiros.length, 0);
 
@@ -78,8 +70,6 @@ const Leiloeiros = () => {
           setSearchTerm={setSearchTerm}
           selectedState={selectedState}
           setSelectedState={setSelectedState}
-          activeAuctionsFilter={activeAuctionsFilter}
-          setActiveAuctionsFilter={setActiveAuctionsFilter}
           estados={estados}
         />
       }

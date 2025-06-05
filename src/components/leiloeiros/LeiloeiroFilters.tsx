@@ -10,8 +10,6 @@ interface LeiloeiroFiltersProps {
   setSearchTerm: (value: string) => void;
   selectedState: string;
   setSelectedState: (value: string) => void;
-  activeAuctionsFilter: string;
-  setActiveAuctionsFilter: (value: string) => void;
   estados: string[];
 }
 
@@ -20,8 +18,6 @@ export const LeiloeiroFilters = ({
   setSearchTerm,
   selectedState,
   setSelectedState,
-  activeAuctionsFilter,
-  setActiveAuctionsFilter,
   estados
 }: LeiloeiroFiltersProps) => {
   return (
@@ -34,46 +30,28 @@ export const LeiloeiroFilters = ({
           </Label>
           <InputWithIcon
             icon={Search}
-            placeholder="Pesquisar leiloeiro..."
+            placeholder="Digite o link e descubra se o site é seguro"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             containerClassName="h-12"
           />
         </div>
         
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <Label className="text-sm font-medium text-gray-700 mb-2 block">
-              Estado
-            </Label>
-            <Select value={selectedState} onValueChange={setSelectedState}>
-              <SelectTrigger className="h-12">
-                <SelectValue placeholder="Estado" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="todos">Todos</SelectItem>
-                {estados.map(state => (
-                  <SelectItem key={state} value={state}>{state}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label className="text-sm font-medium text-gray-700 mb-2 block">
-              Presença Online
-            </Label>
-            <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-              <SelectTrigger className="h-12">
-                <SelectValue placeholder="Site" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="todos">Todos</SelectItem>
-                <SelectItem value="com-site">Com site</SelectItem>
-                <SelectItem value="sem-site">Sem site</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        <div>
+          <Label className="text-sm font-medium text-gray-700 mb-2 block">
+            Estado
+          </Label>
+          <Select value={selectedState} onValueChange={setSelectedState}>
+            <SelectTrigger className="h-12">
+              <SelectValue placeholder="Estado" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todos">Todos</SelectItem>
+              {estados.map(state => (
+                <SelectItem key={state} value={state}>{state}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -82,7 +60,7 @@ export const LeiloeiroFilters = ({
         <div className="flex-1">
           <InputWithIcon
             icon={Search}
-            placeholder="Pesquisar por nome do leiloeiro ou website..."
+            placeholder="Digite o link e descubra se o site é seguro"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             containerClassName="h-12"
@@ -101,21 +79,6 @@ export const LeiloeiroFilters = ({
               {estados.map(state => (
                 <SelectItem key={state} value={state}>{state}</SelectItem>
               ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex flex-col">
-          <Label className="text-sm font-medium text-gray-700 mb-2">
-            Presença Online
-          </Label>
-          <Select value={activeAuctionsFilter} onValueChange={setActiveAuctionsFilter}>
-            <SelectTrigger className="w-[180px] h-12">
-              <SelectValue placeholder="Filtrar por site" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="todos">Todos</SelectItem>
-              <SelectItem value="com-site">Com site</SelectItem>
-              <SelectItem value="sem-site">Sem site</SelectItem>
             </SelectContent>
           </Select>
         </div>
