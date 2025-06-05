@@ -60,7 +60,7 @@ export const MobileNavigation = () => {
 
   return (
     <header className="md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-16">
-      <div className="flex items-center justify-center h-full px-4">
+      <div className="flex items-center justify-center h-full">
         {/* Main navigation items */}
         {mainItems.map((item) => {
           const Icon = item.icon;
