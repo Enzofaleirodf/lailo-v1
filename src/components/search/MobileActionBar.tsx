@@ -5,9 +5,10 @@ import {
   SlidersHorizontal,
   LayoutGrid,
   Rows,
+  Home,
+  Car,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ItemTypeToggle } from "./ItemTypeToggle"
 import { ItemType } from "../../types/search"
 
 interface MobileActionBarProps {
@@ -21,12 +22,30 @@ export function MobileActionBar({ itemType, onItemTypeChange }: MobileActionBarP
   return (
     <div className="w-full bg-white px-3 py-2 flex items-center gap-2 rounded-xl shadow-sm">
       
-      {/* Segmentado: Imóveis | Veículos - versão compacta */}
-      <div className="flex-shrink-0" style={{ maxWidth: '140px' }}>
-        <ItemTypeToggle 
-          currentType={itemType}
-          onTypeChange={onItemTypeChange}
-        />
+      {/* Segmentado: Imóveis | Veículos - versão mobile compacta */}
+      <div className="flex bg-gray-100 rounded-lg p-1">
+        <button
+          onClick={() => onItemTypeChange('property')}
+          className={`flex items-center gap-1 px-3 py-1.5 text-sm rounded-md transition-colors ${
+            itemType === 'property' 
+              ? 'bg-white text-blue-600 shadow-sm' 
+              : 'text-gray-600 hover:text-gray-900'
+          }`}
+        >
+          <Home className="h-4 w-4" />
+          Imóveis
+        </button>
+        <button
+          onClick={() => onItemTypeChange('vehicle')}
+          className={`flex items-center gap-1 px-3 py-1.5 text-sm rounded-md transition-colors ${
+            itemType === 'vehicle' 
+              ? 'bg-white text-blue-600 shadow-sm' 
+              : 'text-gray-600 hover:text-gray-900'
+          }`}
+        >
+          <Car className="h-4 w-4" />
+          Veículos
+        </button>
       </div>
 
       {/* Botões: Ordenar | Filtrar | Alternar layout */}

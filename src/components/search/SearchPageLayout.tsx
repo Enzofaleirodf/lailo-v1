@@ -52,7 +52,8 @@ export const SearchPageLayout = ({
   };
 
   // Desktop Layout Component
-  const DesktopLayout = () => <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+  const DesktopLayout = () => (
+    <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
       <div className="absolute left-0 top-0 h-full w-12 z-50">
         <SessionNavBar />
       </div>
@@ -72,7 +73,8 @@ export const SearchPageLayout = ({
           <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
         </div>
       </main>
-    </div>;
+    </div>
+  );
 
   // Mobile Layout Component
   const MobileLayout = () => (
@@ -83,7 +85,7 @@ export const SearchPageLayout = ({
       <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
         <div className="py-3">
           {/* Mobile Action Bar - acima do texto da listagem */}
-          <div className="mb-3">
+          <div className="mb-4">
             <MobileActionBar 
               itemType={config.type}
               onItemTypeChange={handleItemTypeChange}
@@ -115,7 +117,8 @@ export const SearchPageLayout = ({
     </div>
   );
 
-  return <div className="w-full relative min-h-screen bg-white">
+  return (
+    <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <DesktopLayout />
@@ -125,5 +128,6 @@ export const SearchPageLayout = ({
       <div className="block md:hidden">
         <MobileLayout />
       </div>
-    </div>;
+    </div>
+  );
 };
