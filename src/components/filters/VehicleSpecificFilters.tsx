@@ -3,6 +3,7 @@ import { SearchableCombobox } from './SearchableCombobox';
 import { SimpleSelect } from './SimpleSelect';
 import { RangeSlider } from './RangeSlider';
 import { vehicleBrands, vehicleModels, vehicleColors } from '../../config/filterData';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface VehicleSpecificFiltersProps {
   brand: string;
@@ -33,6 +34,7 @@ export const VehicleSpecificFilters = ({
   onPriceRangeChange,
   isAlert = false
 }: VehicleSpecificFiltersProps) => {
+  const isMobile = useIsMobile();
   const availableBrands = vehicleBrands[vehicleType] || [];
   const availableModels = brand !== 'todas-marcas' ? vehicleModels[brand] || [] : [];
 
@@ -81,8 +83,8 @@ export const VehicleSpecificFilters = ({
           </div>
         </div>
 
-        <div className="flex flex-row gap-4">
-          <div className="flex-1">
+        <div className={`${isMobile ? 'space-y-6' : 'flex flex-row gap-4'}`}>
+          <div className={isMobile ? '' : 'flex-1'}>
             <label className="block text-sm font-medium text-gray-900 mb-3">
               Ano
             </label>
@@ -95,7 +97,7 @@ export const VehicleSpecificFilters = ({
             />
           </div>
 
-          <div className="flex-1">
+          <div className={isMobile ? '' : 'flex-1'}>
             <label className="block text-sm font-medium text-gray-900 mb-3">
               Valor do Lance
             </label>
