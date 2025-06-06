@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
@@ -99,8 +100,7 @@ export const SearchPageLayout = ({
         />
       </div>
       
-      <main className="w-full min-h-screen bg-white px-3 pt-4 pb-6">
-        {/* SearchStatusAndControls com 16px de margin-top para separar da barra */}
+      <main className="w-full min-h-screen bg-white px-3 pt-18 pb-6">
         <SearchStatusAndControls 
           totalAuctions={finalResultsCount} 
           totalSites={finalSitesCount} 
@@ -113,7 +113,6 @@ export const SearchPageLayout = ({
           showControls={false}
         />
         
-        {/* SearchMainContent com 16px de margin-top para separar do título */}
         <div className="mt-4">
           <SearchMainContent 
             items={items} 
