@@ -29,10 +29,18 @@ const ConfiguracoesLaudos = () => {
 
   return (
     <div className="space-y-4 md:space-y-6">
+      {/* Header com título */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg md:text-xl font-bold text-gray-900">Meus Laudos</h2>
+          <p className="text-sm text-gray-600">Histórico de laudos solicitados</p>
+        </div>
+      </div>
+
       {/* Lista de Laudos */}
       <SettingsCard 
-        title="Meus Laudos" 
-        description="Histórico de laudos solicitados"
+        title="Laudos Jurídicos" 
+        description="Pareceres técnicos e jurídicos dos leilões"
         icon={FileText}
       >
         {laudos.length === 0 ? (

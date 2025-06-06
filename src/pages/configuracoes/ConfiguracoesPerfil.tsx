@@ -1,3 +1,4 @@
+
 import { User, Settings, Heart, Bell, Trash2, Shield, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "../../hooks/useAuth";
@@ -26,7 +27,15 @@ const ConfiguracoesPerfil = () => {
   ];
 
   return (
-    <div className="space-y-3 md:space-y-4">
+    <div className="space-y-4 md:space-y-6">
+      {/* Header com título */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg md:text-xl font-bold text-gray-900">Meu Perfil</h2>
+          <p className="text-sm text-gray-600">Informações pessoais e configurações da conta</p>
+        </div>
+      </div>
+
       {/* Estatísticas */}
       <div className="grid grid-cols-2 gap-3 md:gap-4">
         {stats.map((stat, index) => (

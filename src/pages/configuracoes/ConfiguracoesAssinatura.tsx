@@ -29,6 +29,14 @@ const ConfiguracoesAssinatura = () => {
 
   return (
     <div className="space-y-4 md:space-y-6">
+      {/* Header com título */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg md:text-xl font-bold text-gray-900">Minha Assinatura</h2>
+          <p className="text-sm text-gray-600">Gerencie seu plano e pagamentos</p>
+        </div>
+      </div>
+
       {/* Plano Atual */}
       <SettingsCard
         title="Plano Atual"
