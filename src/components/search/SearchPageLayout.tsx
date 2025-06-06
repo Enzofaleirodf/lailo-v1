@@ -82,6 +82,14 @@ export const SearchPageLayout = ({
       
       <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
         <div className="py-3">
+          {/* Mobile Action Bar - acima do texto da listagem */}
+          <div className="mb-3">
+            <MobileActionBar 
+              itemType={config.type}
+              onItemTypeChange={handleItemTypeChange}
+            />
+          </div>
+          
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
             totalSites={finalSitesCount} 
@@ -93,11 +101,6 @@ export const SearchPageLayout = ({
             sortOptions={sortOptions} 
             showControls={false} 
           />
-          
-          {/* Mobile Action Bar - apenas no mobile, acima da listagem */}
-          <div className="mb-4">
-            <MobileActionBar />
-          </div>
           
           <SearchMainContent 
             items={items} 
