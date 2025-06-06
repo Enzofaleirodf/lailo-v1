@@ -1,18 +1,26 @@
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 export function useScrollProgress(limit = 60) {
   const [progress, setProgress] = useState(0)
+  const ticking = useRef(false)
 
   useEffect(() => {
-    const onScroll = () => {
+    const updateProgress = () => {
       const scrollY = window.scrollY
       const ratio = Math.min(scrollY / limit, 1)
-      console.log('Progress:', ratio, 'ScrollY:', scrollY, 'Limit:', limit)
       setProgress(ratio)
+      ticking.current = false
     }
 
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => {
+      if (!ticking.current) {
+        requestAnimationFrame(updateProgress)
+        ticking.current = true
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [limit])
 
