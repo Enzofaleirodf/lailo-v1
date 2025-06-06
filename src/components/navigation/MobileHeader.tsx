@@ -27,9 +27,10 @@ export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
     <header 
       className="md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-14"
       style={isBuscador ? {
-        willChange: 'transform, opacity',
-        opacity: 1 - progress,
+        willChange: 'transform',
         transform: `translateY(-${progress * 100}%)`,
+        opacity: 1 - progress,
+        transition: "transform 0.1s linear, opacity 0.1s linear",
         pointerEvents: progress === 1 ? 'none' : 'auto',
       } : undefined}
     >
