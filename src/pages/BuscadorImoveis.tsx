@@ -1,5 +1,5 @@
-
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
+import { SearchStickyBar } from "../components/search/SearchStickyBar";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { propertySearchConfig } from "../config/searchConfigs";
 import { Property } from "../types/search";
@@ -101,22 +101,25 @@ const BuscadorImoveis = () => {
   };
 
   return (
-    <SearchPageLayout
-      config={propertySearchConfig}
-      items={properties}
-      isLoading={isLoading}
-      currentPage={currentPage}
-      totalPages={totalPages}
-      onPageChange={handlePageChange}
-      onClearFilters={handleClearFilters}
-      resultsCount={resultsCount}
-      sitesCount={sitesCount}
-      isVertical={isVertical}
-      onToggleLayout={handleLayoutToggle}
-      sortBy={sortBy}
-      onSortChange={handleSortChange}
-      sortOptions={propertySearchConfig.sortOptions}
-    />
+    <div>
+      <SearchStickyBar />
+      <SearchPageLayout
+        config={propertySearchConfig}
+        items={properties}
+        isLoading={isLoading}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        onClearFilters={handleClearFilters}
+        resultsCount={resultsCount}
+        sitesCount={sitesCount}
+        isVertical={isVertical}
+        onToggleLayout={handleLayoutToggle}
+        sortBy={sortBy}
+        onSortChange={handleSortChange}
+        sortOptions={propertySearchConfig.sortOptions}
+      />
+    </div>
   );
 };
 

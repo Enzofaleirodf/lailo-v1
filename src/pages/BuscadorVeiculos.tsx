@@ -1,5 +1,5 @@
-
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
+import { SearchStickyBar } from "../components/search/SearchStickyBar";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { vehicleSearchConfig } from "../config/searchConfigs";
 import { Vehicle } from "../types/search";
@@ -107,22 +107,25 @@ const BuscadorVeiculos = () => {
   };
 
   return (
-    <SearchPageLayout
-      config={vehicleSearchConfig}
-      items={vehicles}
-      isLoading={isLoading}
-      currentPage={currentPage}
-      totalPages={totalPages}
-      onPageChange={handlePageChange}
-      onClearFilters={handleClearFilters}
-      resultsCount={resultsCount}
-      sitesCount={sitesCount}
-      isVertical={isVertical}
-      onToggleLayout={handleLayoutToggle}
-      sortBy={sortBy}
-      onSortChange={handleSortChange}
-      sortOptions={vehicleSearchConfig.sortOptions}
-    />
+    <div>
+      <SearchStickyBar />
+      <SearchPageLayout
+        config={vehicleSearchConfig}
+        items={vehicles}
+        isLoading={isLoading}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        onClearFilters={handleClearFilters}
+        resultsCount={resultsCount}
+        sitesCount={sitesCount}
+        isVertical={isVertical}
+        onToggleLayout={handleLayoutToggle}
+        sortBy={sortBy}
+        onSortChange={handleSortChange}
+        sortOptions={vehicleSearchConfig.sortOptions}
+      />
+    </div>
   );
 };
 
