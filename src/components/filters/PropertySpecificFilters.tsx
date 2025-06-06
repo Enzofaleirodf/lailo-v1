@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { RangeSlider } from './RangeSlider';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface PropertySpecificFiltersProps {
   areaRange: [number, number];
@@ -17,6 +18,8 @@ export const PropertySpecificFilters = ({
   onPriceRangeChange,
   isAlert = false
 }: PropertySpecificFiltersProps) => {
+  const isMobile = useIsMobile();
+  
   const formatCurrency = (value: number) => {
     if (value >= 1000000) {
       return `R$ ${(value / 1000000).toFixed(1)}M`;
@@ -26,8 +29,8 @@ export const PropertySpecificFilters = ({
 
   if (isAlert) {
     return (
-      <div className="flex flex-row gap-4">
-        <div className="flex-1">
+      <div className={`${isMobile ? 'space-y-6' : 'flex flex-row gap-4'}`}>
+        <div className={isMobile ? '' : 'flex-1'}>
           <label className="block text-sm font-medium text-gray-900 mb-3">
             Área útil
           </label>
@@ -41,7 +44,7 @@ export const PropertySpecificFilters = ({
           />
         </div>
 
-        <div className="flex-1">
+        <div className={isMobile ? '' : 'flex-1'}>
           <label className="block text-sm font-medium text-gray-900 mb-3">
             Valor do Lance
           </label>
