@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
@@ -10,6 +9,7 @@ import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
+import { useScrollProgress } from "../../hooks/useScrollProgress";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
 
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
@@ -43,9 +43,12 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
+  const scrollProgress = useScrollProgress(60);
+  
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
+  
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
@@ -82,8 +85,14 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Mobile Action Bar - sticky no topo, trava quando header sai */}
-      <div className="sticky top-0 z-40 bg-white px-3 pt-3">
+      {/* Mobile Action Bar - sticky com posicionamento dinâmico */}
+      <div 
+        className="sticky z-40 bg-white px-3 pt-3"
+        style={{
+          top: scrollProgress === 1 ? '0px' : '56px', // 56px = altura do header (h-14)
+          transition: 'top 0.1s linear'
+        }}
+      >
         <MobileActionBar 
           itemType={config.type}
           onItemTypeChange={handleItemTypeChange}
