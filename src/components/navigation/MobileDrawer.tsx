@@ -104,21 +104,23 @@ export const MobileDrawer = ({ isOpen, onClose }: MobileDrawerProps) => {
           
           <Separator className="my-4" />
           
-          {/* Seção de configurações */}
+          {/* Seção de configurações - só aparece se autenticado */}
           {isAuthenticated && (
-            <div className="space-y-1">
-              <Link
-                to="/configuracoes"
-                onClick={handleItemClick}
-                className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <Settings className="w-5 h-5" />
-                <span>Configurações</span>
-              </Link>
-            </div>
+            <>
+              <div className="space-y-1">
+                <Link
+                  to="/configuracoes"
+                  onClick={handleItemClick}
+                  className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <Settings className="w-5 h-5" />
+                  <span>Configurações</span>
+                </Link>
+              </div>
+              
+              <Separator className="my-4" />
+            </>
           )}
-          
-          <Separator className="my-4" />
           
           {/* Auth section */}
           {isAuthenticated ? (
