@@ -4,13 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
 import { MobileHeader } from "../navigation/MobileHeader";
 import { MobileDrawer } from "../navigation/MobileDrawer";
-import { MobileActionBar } from "./MobileActionBar";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
-import { useScrollProgress } from "../../hooks/useScrollProgress";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
 
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
@@ -44,20 +42,16 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
-  const scrollProgress = useScrollProgress(100);
-  
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
-  
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
   };
 
   // Desktop Layout Component
-  const DesktopLayout = () => (
-    <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+  const DesktopLayout = () => <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
       <div className="absolute left-0 top-0 h-full w-12 z-50">
         <SessionNavBar />
       </div>
@@ -77,43 +71,28 @@ export const SearchPageLayout = ({
           <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
         </div>
       </main>
-    </div>
-  );
+    </div>;
 
   // Mobile Layout Component
   const MobileLayout = () => (
-    <div className="w-full min-h-screen bg-white overflow-x-hidden">
+    <div className="w-full min-h-screen bg-white">
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Mobile Action Bar - comportamento sticky que gruda no topo quando header some */}
-      <div 
-        className="sticky z-40 bg-white px-3 pt-3"
-        style={{
-          top: scrollProgress === 1 ? '0px' : '56px',
-          transition: 'top 0.1s linear'
-        }}
-      >
-        <MobileActionBar 
-          itemType={config.type}
-          onItemTypeChange={handleItemTypeChange}
-        />
-      </div>
-      
-      <main className="w-full min-h-screen bg-white px-3 pb-6 pt-4">
-        <SearchStatusAndControls 
-          totalAuctions={finalResultsCount} 
-          totalSites={finalSitesCount} 
-          newAuctions={newAuctions} 
-          isVertical={isVertical} 
-          onToggleLayout={onToggleLayout} 
-          sortBy={sortBy} 
-          onSortChange={onSortChange} 
-          sortOptions={sortOptions} 
-          showControls={false}
-        />
-        
-        <div className="mt-4">
+      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
+        <div className="py-3">
+          <SearchStatusAndControls 
+            totalAuctions={finalResultsCount} 
+            totalSites={finalSitesCount} 
+            newAuctions={newAuctions} 
+            isVertical={isVertical} 
+            onToggleLayout={onToggleLayout} 
+            sortBy={sortBy} 
+            onSortChange={onSortChange} 
+            sortOptions={sortOptions} 
+            showControls={false} 
+          />
+          
           <SearchMainContent 
             items={items} 
             isVertical={isVertical} 
@@ -127,8 +106,7 @@ export const SearchPageLayout = ({
     </div>
   );
 
-  return (
-    <div className="w-full relative min-h-screen bg-white">
+  return <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <DesktopLayout />
@@ -138,6 +116,5 @@ export const SearchPageLayout = ({
       <div className="block md:hidden">
         <MobileLayout />
       </div>
-    </div>
-  );
+    </div>;
 };

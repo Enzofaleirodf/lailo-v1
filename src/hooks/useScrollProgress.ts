@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react"
 
-export function useScrollProgress(limit = 100) {
+export function useScrollProgress(limit = 60) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
