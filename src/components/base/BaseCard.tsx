@@ -19,7 +19,7 @@ export const BaseCard = ({
   return (
     <Card 
       className={`
-        group relative w-full max-w-none p-4 font-urbanist
+        group relative w-full max-w-none ${isVertical ? 'p-4' : 'p-2'} font-urbanist
         bg-white border border-muted
         rounded-xl shadow-sm hover:shadow-md
         transition-shadow duration-200 ease-in-out
