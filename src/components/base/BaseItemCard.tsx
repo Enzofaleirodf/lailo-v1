@@ -89,11 +89,11 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             
             <Separator className="my-2.5" />
             
-            <div className="flex items-center gap-2 min-w-0 overflow-hidden">
-              <div className="flex-shrink min-w-0">
+            <div className="flex items-center justify-between gap-2 min-w-0">
+              <div className="flex-1 min-w-0">
                 <BaseBadges badges={item.badges} isVertical={true} />
               </div>
-              <div className="flex-shrink-0 ml-auto">
+              <div className="flex-shrink-0">
                 <BaseDate 
                   date={item.date} 
                   isVertical={true}
@@ -172,11 +172,11 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           <Separator className="my-2.5" />
           
           {/* Conteúdo inferior ocupando toda a largura */}
-          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
-            <div className="flex-shrink min-w-0">
+          <div className="flex items-center justify-between gap-2 min-w-0">
+            <div className="flex-1 min-w-0">
               <BaseBadges badges={item.badges} isVertical={false} />
             </div>
-            <div className="flex-shrink-0 ml-auto">
+            <div className="flex-shrink-0">
               <BaseDate 
                 date={item.date} 
                 isVertical={false}
