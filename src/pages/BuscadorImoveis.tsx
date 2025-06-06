@@ -1,5 +1,5 @@
+
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
-import { SearchStickyBar } from "../components/search/SearchStickyBar";
 import { MobileHeader } from "../components/navigation/MobileHeader";
 import { MobileDrawer } from "../components/navigation/MobileDrawer";
 import { useState } from "react";
@@ -110,7 +110,6 @@ const BuscadorImoveis = () => {
       <div className="block md:hidden">
         <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
         <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
-        <SearchStickyBar />
       </div>
 
       <SearchPageLayout

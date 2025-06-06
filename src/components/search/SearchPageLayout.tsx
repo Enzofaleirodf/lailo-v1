@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
 import { MobileDrawer } from "../navigation/MobileDrawer";
+import { SearchStickyBar } from "./SearchStickyBar";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
@@ -42,7 +43,7 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
-  const { shouldHideElements } = useScrollDirection();
+  const { isScrollingDown, scrollY } = useScrollDirection();
   
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
@@ -55,7 +56,7 @@ export const SearchPageLayout = ({
 
   // Calcular padding dinâmico baseado no estado do scroll
   const getMobilePaddingTop = () => {
-    if (shouldHideElements) {
+    if (isScrollingDown && scrollY > 100) {
       return '56px'; // Apenas altura da barra de ações (40px + 16px gap)
     }
     return '152px'; // Header (56px) + gap (16px) + toggle (40px) + ações (40px)
@@ -90,6 +91,9 @@ export const SearchPageLayout = ({
   const MobileLayout = () => (
     <div className="w-full min-h-screen bg-white">
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+      
+      {/* SearchStickyBar para mobile */}
+      <SearchStickyBar />
       
       {/* Main content with dynamic padding based on scroll state */}
       <main 
