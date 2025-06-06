@@ -8,6 +8,7 @@ import { EmptyState } from "../components/ui/EmptyState";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
 import { useAuth } from "../hooks/useAuth";
+import { formatCurrency } from "../lib/utils";
 
 const FavoritosVeiculos = () => {
   const [isVertical, setIsVertical] = useState(false);
@@ -21,13 +22,14 @@ const FavoritosVeiculos = () => {
     name: fav.title,
     color: "N/D",
     year: "N/D",
-    location: "N/D",
-    price: fav.price,
+    location: fav.location,
+    price: formatCurrency(fav.price),
     discount: "",
     badges: ["Favorito"],
     date: new Date(fav.createdAt).toLocaleDateString('pt-BR'),
     image: fav.image || "/lovable-uploads/c1eac822-7357-49b8-a4ce-a14e374e1167.png",
-    showNewBadge: false
+    showNewBadge: false,
+    href: fav.href
   }));
 
   if (isLoading) {

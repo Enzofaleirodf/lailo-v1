@@ -44,7 +44,5 @@ export interface SearchControlsProps {
 }
 
 export interface SearchResultsProps {
-  items: SearchItem[];
-  isVertical: boolean;
-  config: SearchConfig;
+  type: 'property' | 'vehicle';
 }

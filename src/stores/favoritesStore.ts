@@ -1,8 +1,11 @@
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export interface FavoriteItem {
   id: string;
+  itemId: string;
+  itemType: 'property' | 'vehicle';
   type: 'property' | 'vehicle';
   title: string;
   image: string;
@@ -10,6 +13,7 @@ export interface FavoriteItem {
   location: string;
   endDate: string;
   href: string;
+  createdAt: string;
 }
 
 interface FavoritesStore {

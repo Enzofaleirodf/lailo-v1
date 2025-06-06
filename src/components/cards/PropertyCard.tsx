@@ -12,7 +12,6 @@ import { BaseBadges } from '../base/BaseBadges';
 import { MockProperty } from '../../data/mockProperties';
 import { useFavoritesStore } from '../../stores/favoritesStore';
 import { cardTokens } from '../../styles/card-tokens';
-import { formatCurrency } from '../../lib/utils';
 
 interface PropertyCardProps {
   property: MockProperty;
@@ -20,15 +19,16 @@ interface PropertyCardProps {
 }
 
 export const PropertyCard = ({ property, isMobile = false }: PropertyCardProps) => {
-  const { favorites, addFavorite, removeFavorite } = useFavoritesStore();
-  const isFavorited = favorites.some(fav => fav.id === property.id && fav.type === 'property');
+  const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
+  const isFavorited = isFavorite(property.id, 'property');
 
   const handleFavoriteToggle = () => {
     if (isFavorited) {
       removeFavorite(property.id, 'property');
     } else {
       addFavorite({
-        id: property.id,
+        itemId: property.id,
+        itemType: 'property',
         type: 'property',
         title: property.title,
         image: property.image,
@@ -50,16 +50,13 @@ export const PropertyCard = ({ property, isMobile = false }: PropertyCardProps) 
     badges.push({ text: property.origin[0], variant: 'outline' as const });
   }
 
-  const imageLayout = isMobile ? 'vertical' : 'horizontal';
-
   return (
     <BaseCard className={cardTokens.spacing.cardPadding}>
       <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} ${cardTokens.spacing.contentGap}`}>
         <BaseImage
           src={property.image}
           alt={property.title}
-          layout={imageLayout}
-          className={cardTokens.image[imageLayout]}
+          className={isMobile ? "w-full aspect-[4/3]" : "w-24 h-full"}
         />
         
         <div className="flex-1 flex flex-col justify-between min-w-0">
