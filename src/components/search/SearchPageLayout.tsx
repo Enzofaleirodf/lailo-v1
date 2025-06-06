@@ -89,17 +89,17 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Nova barra de controles móvel */}
-      <MobileActionBar
-        currentType={config.type}
-        onTypeChange={handleItemTypeChange}
-        isVertical={isVertical}
-        onToggleLayout={onToggleLayout}
-        onShowSort={handleShowSort}
-        onShowFilters={handleShowFilters}
-      />
-      
       <main className="w-full min-h-screen bg-white px-3 pt-2 pb-6">
+        {/* Barra de controles móvel - agora dentro do main */}
+        <MobileActionBar
+          currentType={config.type}
+          onTypeChange={handleItemTypeChange}
+          isVertical={isVertical}
+          onToggleLayout={onToggleLayout}
+          onShowSort={handleShowSort}
+          onShowFilters={handleShowFilters}
+        />
+        
         <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
