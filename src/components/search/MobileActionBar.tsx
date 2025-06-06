@@ -22,7 +22,7 @@ export function MobileActionBar({ itemType, onItemTypeChange, className }: Mobil
   const [layout, setLayout] = useState<"horizontal" | "vertical">("horizontal")
 
   return (
-    <div className={cn("w-full bg-white px-3 py-2 flex items-center gap-2 rounded-xl shadow-sm", className)}>
+    <div className={cn("w-full bg-white px-3 py-2 flex items-center gap-2 rounded-xl border border-gray-200 shadow-md", className)}>
       
       {/* Segmentado: Imóveis | Veículos - versão mobile compacta */}
       <div className="flex bg-gray-100 rounded-lg p-1">

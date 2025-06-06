@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
@@ -43,7 +44,7 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
-  const scrollProgress = useScrollProgress(60);
+  const scrollProgress = useScrollProgress(100);
   
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
@@ -52,22 +53,6 @@ export const SearchPageLayout = ({
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
-  };
-
-  // Calcular padding-top dinâmico baseado na posição da barra
-  const calculateMainPadding = () => {
-    // Altura do header: 56px (h-14)
-    // Altura da MobileActionBar: ~60px (estimativa com padding)
-    // Gap entre header e barra: 12px (pt-3)
-    // Gap desejado entre barra e conteúdo: 16px
-    
-    if (scrollProgress === 1) {
-      // Header oculto, barra no topo
-      return 60 + 16; // altura da barra + gap = 76px
-    } else {
-      // Header visível, barra abaixo do header
-      return 56 + 12 + 60 + 16; // header + gap + barra + gap = 144px
-    }
   };
 
   // Desktop Layout Component
@@ -101,27 +86,15 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Mobile Action Bar - sticky com posicionamento dinâmico */}
-      <div 
-        className="sticky z-40 bg-white px-3 pt-3"
-        style={{
-          top: scrollProgress === 1 ? '0px' : '56px',
-          transition: 'top 0.1s linear'
-        }}
-      >
+      {/* Mobile Action Bar - sempre sticky no topo */}
+      <div className="sticky top-0 z-40 bg-white px-3 pt-3">
         <MobileActionBar 
           itemType={config.type}
           onItemTypeChange={handleItemTypeChange}
         />
       </div>
       
-      <main 
-        className="w-full min-h-screen bg-white px-3 pb-6"
-        style={{
-          paddingTop: `${calculateMainPadding()}px`,
-          transition: 'padding-top 0.1s linear'
-        }}
-      >
+      <main className="w-full min-h-screen bg-white px-3 pb-6" style={{ paddingTop: '64px' }}>
         <SearchStatusAndControls 
           totalAuctions={finalResultsCount} 
           totalSites={finalSitesCount} 
