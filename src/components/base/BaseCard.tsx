@@ -1,34 +1,38 @@
 
 import React from "react";
-import { Card } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseCardProps {
   children: React.ReactNode;
+  isVertical?: boolean;
   className?: string;
   onClick?: () => void;
 }
 
-export const BaseCard: React.FC<BaseCardProps> = ({
+export const BaseCard = ({
   children,
+  isVertical = false,
   className = "",
   onClick
-}) => {
+}: BaseCardProps): JSX.Element => {
   return (
     <Card 
       className={`
-        rounded-xl 
-        border border-muted 
-        bg-white 
-        shadow-sm hover:shadow-md 
-        transition-all duration-200 ease-in-out 
-        hover:bg-gray-50
-        p-4 
-        ${onClick ? 'cursor-pointer' : ''} 
+        group relative w-full max-w-none ${cardTokens.spacing.cardPadding} font-urbanist
+        bg-white border border-gray-100
+        rounded-xl shadow-sm hover:shadow-md
+        transition-all duration-200 ease-out
+        focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-200
+        ${onClick ? 'cursor-pointer hover:border-gray-200' : ''}
         ${className}
       `}
       onClick={onClick}
+      role="article"
     >
-      {children}
+      <CardContent className="relative p-0">
+        {children}
+      </CardContent>
     </Card>
   );
 };

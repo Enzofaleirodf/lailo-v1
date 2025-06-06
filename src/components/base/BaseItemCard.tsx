@@ -1,5 +1,4 @@
 
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -90,11 +89,11 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             
             <Separator className="my-2.5" />
             
-            <div className="flex items-center justify-between gap-2 min-w-0 mt-2">
-              <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+              <div className="flex-shrink min-w-0">
                 <BaseBadges badges={item.badges} isVertical={true} />
               </div>
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 ml-auto">
                 <BaseDate 
                   date={item.date} 
                   isVertical={true}
@@ -120,8 +119,8 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
       <BaseCard>
         <div className="flex flex-col">
           {/* Área superior com imagem e conteúdo lado a lado */}
-          <div className="flex items-start">
-            <div className="relative flex-shrink-0 w-28">
+          <div className="flex items-stretch">
+            <div className="relative flex-shrink-0 w-20">
               <BaseImage 
                 src={item.image} 
                 alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -130,7 +129,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 isVertical={false}
                 showNewBadge={item.showNewBadge}
                 showFavoriteButton={false}
-                className="w-28 h-full object-cover"
+                className="w-20 h-full object-cover"
               />
             </div>
             
@@ -158,7 +157,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 </button>
               </div>
               
-              <div className="mt-2">
+              <div className="mt-3">
                 <BaseItemPrice 
                   price={item.price}
                   discount={item.discount}
@@ -172,12 +171,12 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           {/* Divider ocupando toda a largura */}
           <Separator className="my-2.5" />
           
-          {/* Conteúdo inferior ocupando toda a largura com espaçamento reduzido em 2px */}
-          <div className="flex items-center justify-between gap-2 min-w-0 mt-0.5">
-            <div className="flex-1 min-w-0">
+          {/* Conteúdo inferior ocupando toda a largura */}
+          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <div className="flex-shrink min-w-0">
               <BaseBadges badges={item.badges} isVertical={false} />
             </div>
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 ml-auto">
               <BaseDate 
                 date={item.date} 
                 isVertical={false}
@@ -197,4 +196,3 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
     </>
   );
 };
-

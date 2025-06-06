@@ -32,7 +32,7 @@ export const BaseImage = ({
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover rounded-lg"
+        className="w-full h-full object-cover rounded-xl"
         loading="lazy"
       />
       

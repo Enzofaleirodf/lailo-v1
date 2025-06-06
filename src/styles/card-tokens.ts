@@ -29,11 +29,11 @@ export const cardTokens = {
     gap: 'gap-4',
   },
   
-  // Typography consistente com tamanhos mobile 2px maiores
+  // Typography consistente com tamanhos mobile 2x maiores
   text: {
-    title: 'text-xl md:text-sm font-semibold',        // mobile: 20px (+2px), desktop: 14px
-    subtitle: 'text-lg md:text-xs font-medium',       // mobile: 18px (+2px), desktop: 12px
-    body: 'text-lg md:text-xs',                       // mobile: 18px (+2px), desktop: 12px
-    price: 'text-3xl md:text-base font-bold',         // mobile: 30px (+6px), desktop: 16px
+    title: 'text-lg md:text-sm font-semibold',        // mobile: 18px, desktop: 14px
+    subtitle: 'text-base md:text-xs font-medium',     // mobile: 16px, desktop: 12px
+    body: 'text-base md:text-xs',                     // mobile: 16px, desktop: 12px
+    price: 'text-2xl md:text-base font-bold',         // mobile: 24px, desktop: 16px
   }
 } as const;

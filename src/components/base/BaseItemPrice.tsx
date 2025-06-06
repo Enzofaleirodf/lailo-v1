@@ -1,5 +1,7 @@
 
 import React from "react";
+import { Badge } from "../ui/badge";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseItemPriceProps {
   price: string;
@@ -16,12 +18,12 @@ export const BaseItemPrice = ({
 }: BaseItemPriceProps) => {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xl md:text-lg font-bold tracking-tight text-gray-900 font-urbanist leading-none mt-1">
+      <span className={`${cardTokens.text.price} text-gray-900 font-urbanist leading-none`}>
         {price}
       </span>
-      <div className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow-md font-urbanist">
+      <Badge className="bg-green-100 text-green-700 font-medium text-[11px] px-2 pt-0.5 pb-0 rounded-md font-urbanist flex items-center justify-center leading-none">
         {discount}
-      </div>
+      </Badge>
     </div>
   );
 };

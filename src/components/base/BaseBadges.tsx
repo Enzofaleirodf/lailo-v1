@@ -1,5 +1,6 @@
 
 import React from "react";
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseBadgesProps {
   badges: string[];
@@ -9,34 +10,21 @@ interface BaseBadgesProps {
 
 export const BaseBadges = ({
   badges,
-  badgeColor,
+  badgeColor = "bg-blue-50 text-blue-700 border border-blue-100",
   isVertical = false
 }: BaseBadgesProps): JSX.Element => {
   return (
-    <div className="flex gap-2 min-w-0">
-      {badges.map((badge, index) => {
-        // Badges de etapa e origem com cor azul
-        const isStageOrOrigin = badge.includes('Praça') || 
-                               badge === 'Extrajudicial' || 
-                               badge === 'Judicial' || 
-                               badge === 'Particular' || 
-                               badge === 'Público';
-        
-        const badgeClasses = isStageOrOrigin 
-          ? 'bg-blue-100 text-blue-700' 
-          : 'bg-gray-100 text-gray-600';
-        
-        return (
-          <span 
-            key={index} 
-            className={`text-sm md:text-xs rounded-full px-2 py-0.5 font-medium font-urbanist ${badgeClasses} ${
-              index === 0 ? 'truncate flex-shrink min-w-0' : 'flex-shrink-0'
-            }`}
-          >
-            {badge}
-          </span>
-        );
-      })}
+    <div className="flex items-center gap-1.5 min-w-0">
+      {badges.map((badge, index) => (
+        <span 
+          key={index} 
+          className={`px-2 py-1 text-sm md:text-[10px] font-medium rounded-md font-urbanist ${badgeColor} ${
+            index === 0 ? 'truncate flex-shrink min-w-0' : 'flex-shrink-0'
+          }`}
+        >
+          {badge}
+        </span>
+      ))}
     </div>
   );
 };
