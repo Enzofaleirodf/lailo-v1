@@ -23,7 +23,7 @@ export const SearchStatusAndControls = ({
   onSortChange,
   sortOptions,
   showControls = true,
-  statusClassName = "text-xs md:text-sm",
+  statusClassName = "",
   controlsClassName = "hidden md:flex items-center gap-4"
 }: SearchStatusAndControlsProps) => {
   return (
