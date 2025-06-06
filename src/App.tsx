@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { AppHeader } from "./components/AppHeader";
 import Index from "./pages/Index";
 import BuscadorImoveis from "./pages/BuscadorImoveis";
 import BuscadorVeiculos from "./pages/BuscadorVeiculos";
@@ -39,7 +38,6 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AppHeader />
         <Routes>
           {/* Página inicial */}
           <Route path="/" element={<Index />} />

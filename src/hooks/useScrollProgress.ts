@@ -8,6 +8,7 @@ export function useScrollProgress(limit = 60) {
     const onScroll = () => {
       const scrollY = window.scrollY
       const ratio = Math.min(scrollY / limit, 1)
+      console.log('Progress:', ratio, 'ScrollY:', scrollY, 'Limit:', limit)
       setProgress(ratio)
     }
 
