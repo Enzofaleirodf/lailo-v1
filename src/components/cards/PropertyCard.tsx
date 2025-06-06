@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Heart, MapPin, Calendar, ExternalLink } from 'lucide-react';
+import { Heart, Calendar, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { BaseCard } from '../base/BaseCard';
@@ -41,7 +41,7 @@ export const PropertyCard = ({ property, isMobile = false }: PropertyCardProps) 
   };
 
   const badges = [
-    { text: property.format, variant: property.format === 'Leilão' ? 'default' : 'secondary' as const },
+    { text: property.format, variant: (property.format === 'Leilão' ? 'default' : 'secondary') as const },
     { text: property.property_category, variant: 'outline' as const },
     { text: property.property_type, variant: 'outline' as const }
   ];
@@ -56,6 +56,9 @@ export const PropertyCard = ({ property, isMobile = false }: PropertyCardProps) 
         <BaseImage
           src={property.image}
           alt={property.title}
+          isFavorited={isFavorited}
+          onToggleFavorite={handleFavoriteToggle}
+          isVertical={isMobile}
           className={isMobile ? "w-full aspect-[4/3]" : "w-24 h-full"}
         />
         
@@ -64,7 +67,6 @@ export const PropertyCard = ({ property, isMobile = false }: PropertyCardProps) 
             <BaseItemHeader
               title={property.title}
               location={`${property.property_address}, ${property.city}`}
-              href={property.href}
             />
             
             <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">

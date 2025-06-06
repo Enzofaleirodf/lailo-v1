@@ -41,7 +41,7 @@ export const VehicleCard = ({ vehicle, isMobile = false }: VehicleCardProps) => 
   };
 
   const badges = [
-    { text: vehicle.format, variant: vehicle.format === 'Leilão' ? 'default' : 'secondary' as const },
+    { text: vehicle.format, variant: (vehicle.format === 'Leilão' ? 'default' : 'secondary') as const },
     { text: vehicle.vehicle_category, variant: 'outline' as const },
     { text: vehicle.vehicle_type, variant: 'outline' as const }
   ];
@@ -56,6 +56,9 @@ export const VehicleCard = ({ vehicle, isMobile = false }: VehicleCardProps) => 
         <BaseImage
           src={vehicle.image}
           alt={vehicle.title}
+          isFavorited={isFavorited}
+          onToggleFavorite={handleFavoriteToggle}
+          isVertical={isMobile}
           className={isMobile ? "w-full aspect-[4/3]" : "w-24 h-full"}
         />
         
@@ -64,7 +67,6 @@ export const VehicleCard = ({ vehicle, isMobile = false }: VehicleCardProps) => 
             <BaseItemHeader
               title={vehicle.title}
               location={`${vehicle.brand} ${vehicle.model} - ${vehicle.year}`}
-              href={vehicle.href}
             />
             
             <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
