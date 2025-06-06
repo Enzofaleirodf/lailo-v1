@@ -3,14 +3,12 @@ import React from 'react';
 import { Menu, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { cn } from '@/lib/utils';
 
 interface MobileHeaderProps {
   onMenuClick: () => void;
-  isVisible?: boolean;
 }
 
-export const MobileHeader = ({ onMenuClick, isVisible = true }: MobileHeaderProps) => {
+export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
   const { isAuthenticated } = useAuth();
 
   const handleNotificationsClick = () => {
@@ -19,12 +17,7 @@ export const MobileHeader = ({ onMenuClick, isVisible = true }: MobileHeaderProp
   };
 
   return (
-    <header 
-      className={cn(
-        "md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-14 transition-transform duration-300 ease-in-out",
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      )}
-    >
+    <header className="md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-14">
       <div className="flex items-center justify-between h-full px-4">
         <div className="flex items-center">
           <h1 className="text-lg font-bold text-gray-900">Lailo</h1>
