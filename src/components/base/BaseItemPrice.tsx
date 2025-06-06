@@ -21,7 +21,7 @@ export const BaseItemPrice = ({
       <span className={`${cardTokens.text.price} text-gray-900 font-urbanist leading-none`}>
         {price}
       </span>
-      <span className="bg-green-100 text-green-700 border border-green-100 rounded-full px-2 py-0.5 text-sm md:text-[10px] font-medium font-urbanist">
+      <span className="bg-green-700 text-white rounded-full px-2 py-0.5 text-sm md:text-[10px] font-medium font-urbanist">
         {discount}
       </span>
     </div>
