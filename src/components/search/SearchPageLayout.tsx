@@ -80,9 +80,9 @@ export const SearchPageLayout = ({
     <div className="w-full min-h-screen bg-white">
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Main content with proper spacing: header (56px) + gap (16px) + sticky bar (80px) + gap (12px) = 164px total */}
-      <main className="w-full min-h-screen bg-white px-3 pt-[164px] pb-6">
-        <div className="py-3">
+      {/* Main content with proper spacing: header (56px) + gap (16px) + sticky bar (80px) + gap (16px) = 168px total */}
+      <main className="w-full min-h-screen bg-white px-4 pt-[168px] pb-6">
+        <div className="space-y-4">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
             totalSites={finalSitesCount} 
