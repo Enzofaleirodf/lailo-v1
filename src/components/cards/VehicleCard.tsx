@@ -40,8 +40,9 @@ export const VehicleCard = ({ vehicle, isMobile = false }: VehicleCardProps) => 
     }
   };
 
+  const formatVariant = vehicle.format === 'Leilão' ? 'default' : 'secondary';
   const badges = [
-    { text: vehicle.format, variant: (vehicle.format === 'Leilão' ? 'default' : 'secondary') as const },
+    { text: vehicle.format, variant: formatVariant },
     { text: vehicle.vehicle_category, variant: 'outline' as const },
     { text: vehicle.vehicle_type, variant: 'outline' as const }
   ];

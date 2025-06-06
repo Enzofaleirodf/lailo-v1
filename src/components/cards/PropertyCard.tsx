@@ -40,8 +40,9 @@ export const PropertyCard = ({ property, isMobile = false }: PropertyCardProps) 
     }
   };
 
+  const formatVariant = property.format === 'Leilão' ? 'default' : 'secondary';
   const badges = [
-    { text: property.format, variant: (property.format === 'Leilão' ? 'default' : 'secondary') as const },
+    { text: property.format, variant: formatVariant },
     { text: property.property_category, variant: 'outline' as const },
     { text: property.property_type, variant: 'outline' as const }
   ];
