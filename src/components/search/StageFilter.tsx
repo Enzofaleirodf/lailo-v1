@@ -50,10 +50,10 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
   };
 
   const getDisplayText = () => {
-    if (selectedStages.length === 0) return 'Etapa';
+    if (selectedStages.length === 0) return 'Selecione uma etapa';
     if (selectedStages.length === 1) {
       const option = stageOptions.find(s => s.value === selectedStages[0]);
-      return option?.label || 'Etapa';
+      return option?.label || 'Selecione uma etapa';
     }
     return `${selectedStages.length} selecionadas`;
   };
@@ -61,7 +61,8 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
   const hasSelectedItems = selectedStages.length > 0;
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-2">
+      <Label>Etapa</Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

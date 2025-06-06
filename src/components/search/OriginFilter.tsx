@@ -49,10 +49,10 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
   };
 
   const getDisplayText = () => {
-    if (selectedOrigins.length === 0) return 'Origem';
+    if (selectedOrigins.length === 0) return 'Selecione uma origem';
     if (selectedOrigins.length === 1) {
       const option = originOptions.find(o => o.value === selectedOrigins[0]);
-      return option?.label || 'Origem';
+      return option?.label || 'Selecione uma origem';
     }
     return `${selectedOrigins.length} selecionadas`;
   };
@@ -60,7 +60,8 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
   const hasSelectedItems = selectedOrigins.length > 0;
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-2">
+      <Label>Origem</Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
