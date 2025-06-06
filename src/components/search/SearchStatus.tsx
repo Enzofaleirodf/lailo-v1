@@ -34,7 +34,7 @@ export const SearchStatus = ({
   };
 
   return (
-    <div className={`text-lg md:text-sm text-gray-600 whitespace-nowrap ${className}`}>
+    <div className={`text-base md:text-sm text-gray-600 whitespace-nowrap ${className}`}>
       {buildStatusText()}
     </div>
   );
