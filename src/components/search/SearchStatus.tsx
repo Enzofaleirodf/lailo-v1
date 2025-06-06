@@ -19,13 +19,18 @@ export const SearchStatus = ({
   };
 
   const buildStatusText = () => {
-    const baseText = `Encontramos ${formatNumber(totalAuctions)} leilões em ${formatNumber(totalSites)} sites`;
+    const formattedAuctions = formatNumber(totalAuctions);
+    const formattedSites = formatNumber(totalSites);
+    const formattedNewAuctions = formatNumber(newAuctions);
     
-    if (newAuctions > 0) {
-      return `${baseText} · ${formatNumber(newAuctions)} novos hoje`;
-    }
-    
-    return baseText;
+    return (
+      <>
+        Encontramos <span className="font-semibold">{formattedAuctions}</span> leilões em <span className="font-semibold">{formattedSites}</span> sites
+        {newAuctions > 0 && (
+          <> · <span className="font-semibold">{formattedNewAuctions}</span> novos hoje</>
+        )}
+      </>
+    );
   };
 
   return (
