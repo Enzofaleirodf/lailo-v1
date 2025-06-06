@@ -1,10 +1,15 @@
+
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { SearchStickyBar } from "../components/search/SearchStickyBar";
+import { MobileHeader } from "../components/navigation/MobileHeader";
+import { MobileDrawer } from "../components/navigation/MobileDrawer";
+import { useState } from "react";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { propertySearchConfig } from "../config/searchConfigs";
 import { Property } from "../types/search";
 
 const BuscadorImoveis = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const {
     isVertical,
     isLoading,
@@ -101,8 +106,17 @@ const BuscadorImoveis = () => {
   };
 
   return (
-    <div>
-      <SearchStickyBar />
+    <div className="w-full relative min-h-screen bg-white">
+      {/* Mobile Layout */}
+      <div className="block md:hidden">
+        <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
+        <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+        
+        <div className="fixed top-14 left-0 right-0 z-40">
+          <SearchStickyBar />
+        </div>
+      </div>
+
       <SearchPageLayout
         config={propertySearchConfig}
         items={properties}
