@@ -1,8 +1,7 @@
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { MobileHeader } from "../components/navigation/MobileHeader";
 import { MobileDrawer } from "../components/navigation/MobileDrawer";
-import { ItemTypeToggleBar } from "../components/search/ItemTypeToggleBar";
-import { ActionButtonsBar } from "../components/search/ActionButtonsBar";
+import { SearchStickyBar } from "../components/search/SearchStickyBar";
 import { useState } from "react";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { useScrollHide } from "../hooks/useScrollHide";
@@ -118,8 +117,8 @@ const BuscadorVeiculos = () => {
     console.log("Mostrar ordenação");
   };
 
-  // Calcular padding dinâmico baseado na visibilidade dos elementos
-  const topPadding = isHeaderVisible ? 'pt-[182px]' : 'pt-[58px]';
+  // Calcular padding baseado na visibilidade dos elementos
+  const topPadding = isHeaderVisible ? 'pt-[136px]' : 'pt-[96px]';
 
   return (
     <div className="w-full relative min-h-screen bg-white">
@@ -131,21 +130,16 @@ const BuscadorVeiculos = () => {
         />
         <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
         
-        <ItemTypeToggleBar 
+        <SearchStickyBar 
           currentType="vehicle"
           onTypeChange={() => {}}
-          isVisible={isHeaderVisible}
-        />
-        
-        <ActionButtonsBar 
           isVertical={isVertical}
           onToggleLayout={handleLayoutToggle}
           onShowSort={handleShowSort}
-          itemType="vehicle"
           isHeaderVisible={isHeaderVisible}
         />
         
-        {/* Main content with dynamic padding */}
+        {/* Main content with corrected padding */}
         <main className={`w-full min-h-screen bg-white px-4 pb-6 ${topPadding}`}>
           <div className="space-y-4">
             <SearchPageLayout

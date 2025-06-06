@@ -1,84 +1,121 @@
 
-'use client'
+import React, { useState } from 'react';
+import { Home, Car, SlidersHorizontal, ArrowDownUp, LayoutGrid, List } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { ItemType } from '../../types/search';
+import { MobileFiltersModal } from './MobileFiltersModal';
 
-import { useState } from 'react'
-import {
-  Home as HomeIcon,
-  Car as CarIcon,
-  SlidersHorizontal as SlidersHorizontalIcon,
-  ArrowDownUp as ArrowDownUpIcon,
-  LayoutGrid as LayoutGridIcon,
-  List as ListIcon,
-} from 'lucide-react'
+interface SearchStickyBarProps {
+  currentType: ItemType;
+  onTypeChange: (type: ItemType) => void;
+  isVertical: boolean;
+  onToggleLayout: (vertical: boolean) => void;
+  onShowSort: () => void;
+  isHeaderVisible: boolean;
+}
 
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+export const SearchStickyBar = ({
+  currentType,
+  onTypeChange,
+  isVertical,
+  onToggleLayout,
+  onShowSort,
+  isHeaderVisible
+}: SearchStickyBarProps) => {
+  const [showFiltersModal, setShowFiltersModal] = useState(false);
 
-export function SearchStickyBar() {
-  const [current, setCurrent] = useState<'imoveis' | 'veiculos'>('imoveis')
-  const [isVertical, setIsVertical] = useState(false)
+  const handleTypeChange = (type: ItemType) => {
+    const newPath = type === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
+    window.location.href = newPath;
+  };
+
+  const handleShowFilters = () => {
+    setShowFiltersModal(true);
+  };
+
+  // Calcular posição baseada na visibilidade do header
+  const topPosition = isHeaderVisible ? 'top-14' : 'top-0';
 
   return (
-    <div className="w-full px-3 md:hidden">
-      <div className="sticky top-14 z-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
-        {/* Linha 1 - Segmentado */}
-        <div className="grid grid-cols-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setCurrent('imoveis')}
+    <>
+      <div 
+        className={cn(
+          "fixed left-0 right-0 z-40 w-full px-4 transition-all duration-300 ease-in-out md:hidden",
+          topPosition
+        )}
+      >
+        <div className="w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+          {/* Primeira linha - Alternância Imóveis/Veículos */}
+          <div 
             className={cn(
-              'h-10 w-full rounded-none text-gray-700',
-              current === 'imoveis' && 'bg-blue-600 text-white hover:bg-blue-700'
+              "grid grid-cols-2 transition-transform duration-300 ease-in-out",
+              !isHeaderVisible && "-translate-y-full opacity-0"
             )}
           >
-            <HomeIcon className="h-5 w-5" />
-          </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleTypeChange('property')}
+              className={cn(
+                'h-10 w-full rounded-none text-gray-700',
+                currentType === 'property' && 'bg-blue-600 text-white hover:bg-blue-700'
+              )}
+            >
+              <Home className="h-5 w-5" />
+            </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setCurrent('veiculos')}
-            className={cn(
-              'h-10 w-full rounded-none text-gray-700',
-              current === 'veiculos' && 'bg-blue-600 text-white hover:bg-blue-700'
-            )}
-          >
-            <CarIcon className="h-5 w-5" />
-          </Button>
-        </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleTypeChange('vehicle')}
+              className={cn(
+                'h-10 w-full rounded-none text-gray-700',
+                currentType === 'vehicle' && 'bg-blue-600 text-white hover:bg-blue-700'
+              )}
+            >
+              <Car className="h-5 w-5" />
+            </Button>
+          </div>
 
-        {/* Linha 2 - Ações com dividers */}
-        <div className="grid grid-cols-3 divide-x divide-gray-200 border-t border-gray-200">
-          <Button
-            variant="ghost"
-            className="h-10 w-full rounded-none bg-white text-gray-700 hover:bg-gray-50"
-            onClick={() => alert('Filtrar')}
-          >
-            <SlidersHorizontalIcon className="h-5 w-5" />
-          </Button>
+          {/* Segunda linha - Ações (sempre visível) */}
+          <div className="grid grid-cols-3 divide-x divide-gray-200 border-t border-gray-200">
+            <Button
+              variant="ghost"
+              className="h-10 w-full rounded-none bg-white text-gray-700 hover:bg-gray-50"
+              onClick={handleShowFilters}
+            >
+              <SlidersHorizontal className="h-5 w-5" />
+            </Button>
 
-          <Button
-            variant="ghost"
-            className="h-10 w-full rounded-none bg-white text-gray-700 hover:bg-gray-50"
-            onClick={() => alert('Ordenar')}
-          >
-            <ArrowDownUpIcon className="h-5 w-5" />
-          </Button>
+            <Button
+              variant="ghost"
+              className="h-10 w-full rounded-none bg-white text-gray-700 hover:bg-gray-50"
+              onClick={onShowSort}
+            >
+              <ArrowDownUp className="h-5 w-5" />
+            </Button>
 
-          <Button
-            variant="ghost"
-            className="h-10 w-full rounded-none bg-white text-gray-700 hover:bg-gray-50"
-            onClick={() => setIsVertical(!isVertical)}
-          >
-            {isVertical ? (
-              <ListIcon className="h-5 w-5" />
-            ) : (
-              <LayoutGridIcon className="h-5 w-5" />
-            )}
-          </Button>
+            <Button
+              variant="ghost"
+              className="h-10 w-full rounded-none bg-white text-gray-700 hover:bg-gray-50"
+              onClick={() => onToggleLayout(!isVertical)}
+            >
+              {isVertical ? (
+                <List className="h-5 w-5" />
+              ) : (
+                <LayoutGrid className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+
+      <MobileFiltersModal 
+        isOpen={showFiltersModal} 
+        onClose={() => setShowFiltersModal(false)} 
+        itemType={currentType} 
+      />
+    </>
+  );
+};
