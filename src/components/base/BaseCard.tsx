@@ -19,11 +19,7 @@ export const BaseCard: React.FC<BaseCardProps> = ({
         rounded-xl 
         border border-muted 
         bg-white 
-        shadow-sm 
-        hover:shadow-sm 
-        hover:border 
-        hover:border-neutral-200
-        hover:shadow-[0_1px_4px_rgba(0,0,0,0.06)]
+        shadow-sm hover:shadow-md 
         transition-all duration-200 ease-in-out 
         hover:bg-muted
         p-4 
