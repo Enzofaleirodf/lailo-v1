@@ -15,9 +15,10 @@ import { designTokens } from '../../styles/design-tokens';
 interface StageFilterProps {
   itemType: ItemType;
   isEnabled: boolean;
+  isAlert?: boolean;
 }
 
-export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
+export const StageFilter = ({ itemType, isEnabled, isAlert }: StageFilterProps) => {
   const [selectedStages, setSelectedStages] = React.useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
 
@@ -62,6 +63,7 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
 
   return (
     <div className="w-full">
+      {isAlert && <Label className="mb-2 block">Etapa</Label>}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

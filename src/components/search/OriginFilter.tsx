@@ -14,9 +14,10 @@ import { designTokens } from '../../styles/design-tokens';
 
 interface OriginFilterProps {
   itemType: ItemType;
+  isAlert?: boolean;
 }
 
-export const OriginFilter = ({ itemType }: OriginFilterProps) => {
+export const OriginFilter = ({ itemType, isAlert }: OriginFilterProps) => {
   const [selectedOrigins, setSelectedOrigins] = React.useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
 
@@ -61,6 +62,7 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
 
   return (
     <div className="w-full">
+      {isAlert && <Label className="mb-2 block">Origem</Label>}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

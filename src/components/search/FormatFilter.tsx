@@ -7,14 +7,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { Label } from '../ui/label';
 import { ItemType } from '../../types/search';
 import { designTokens } from '../../styles/design-tokens';
 
 interface FormatFilterProps {
   itemType: ItemType;
+  isAlert?: boolean;
 }
 
-export const FormatFilter = ({ itemType }: FormatFilterProps) => {
+export const FormatFilter = ({ itemType, isAlert }: FormatFilterProps) => {
   const [selectedFormat, setSelectedFormat] = React.useState('Leilão');
 
   const formatOptions = [
@@ -24,6 +26,7 @@ export const FormatFilter = ({ itemType }: FormatFilterProps) => {
 
   return (
     <div className="w-full">
+      {isAlert && <Label className="mb-2 block">Formato</Label>}
       <Select value={selectedFormat} onValueChange={setSelectedFormat}>
         <SelectTrigger 
           className="w-full h-10 rounded-lg border-gray-200 hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-all"

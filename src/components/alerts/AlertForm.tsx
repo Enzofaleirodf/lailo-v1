@@ -264,9 +264,9 @@ export const AlertForm = ({ editingAlert, onSave, onCancel }: AlertFormProps) =>
 
           {/* Condições - Layout lado a lado */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <FormatFilter itemType={alertType} />
-            <OriginFilter itemType={alertType} />
-            <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
+            <FormatFilter itemType={alertType} isAlert={true} />
+            <OriginFilter itemType={alertType} isAlert={true} />
+            <StageFilter itemType={alertType} isEnabled={isStageEnabled} isAlert={true} />
           </div>
 
           {/* Preview */}
