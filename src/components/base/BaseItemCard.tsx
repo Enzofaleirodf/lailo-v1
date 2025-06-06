@@ -156,7 +156,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 </button>
               </div>
               
-              <div className="mt-auto mb-0.5">
+              <div className="mt-auto">
                 <BaseItemPrice 
                   price={item.price}
                   discount={item.discount}
