@@ -82,19 +82,32 @@ export const SearchPageLayout = ({
 
   // Mobile Layout Component
   const MobileLayout = () => (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full min-h-screen bg-white overflow-x-hidden">
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Mobile Action Bar - sempre sticky no topo */}
-      <div className="sticky top-0 z-40 bg-white px-3 pt-3">
+      {/* Mobile Action Bar - posição fixa dinâmica */}
+      <div 
+        className="fixed left-0 right-0 z-40 bg-white px-3"
+        style={{
+          top: scrollProgress === 1 ? '0px' : '56px',
+          transition: 'top 0.1s linear',
+          paddingTop: '12px',
+        }}
+      >
         <MobileActionBar 
           itemType={config.type}
           onItemTypeChange={handleItemTypeChange}
         />
       </div>
       
-      <main className="w-full min-h-screen bg-white px-3 pb-6" style={{ paddingTop: '64px' }}>
+      <main 
+        className="w-full min-h-screen bg-white px-3 pb-6"
+        style={{
+          paddingTop: scrollProgress === 1 ? '76px' : '132px',
+          transition: 'padding-top 0.1s linear'
+        }}
+      >
         <SearchStatusAndControls 
           totalAuctions={finalResultsCount} 
           totalSites={finalSitesCount} 

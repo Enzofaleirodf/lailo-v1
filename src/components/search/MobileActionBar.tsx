@@ -22,10 +22,10 @@ export function MobileActionBar({ itemType, onItemTypeChange, className }: Mobil
   const [layout, setLayout] = useState<"horizontal" | "vertical">("horizontal")
 
   return (
-    <div className={cn("w-full bg-white px-3 py-2 flex items-center gap-2 rounded-xl border border-gray-200 shadow-md", className)}>
+    <div className={cn("w-full max-w-full bg-white px-4 py-2 flex items-center gap-2 rounded-xl border border-gray-200 shadow-md", className)}>
       
       {/* Segmentado: Imóveis | Veículos - versão mobile compacta */}
-      <div className="flex bg-gray-100 rounded-lg p-1">
+      <div className="flex bg-gray-100 rounded-lg p-1 flex-shrink-0">
         <button
           onClick={() => onItemTypeChange('property')}
           className={`flex items-center gap-1 px-3 py-1.5 text-sm rounded-md transition-colors ${
@@ -51,12 +51,12 @@ export function MobileActionBar({ itemType, onItemTypeChange, className }: Mobil
       </div>
 
       {/* Botões: Ordenar | Filtrar | Alternar layout */}
-      <div className="flex flex-1 justify-end items-center gap-2">
+      <div className="flex flex-1 justify-end items-center gap-2 min-w-0">
         {/* Ordenar */}
         <Button
           variant="ghost"
           size="icon"
-          className="text-muted-foreground hover:bg-transparent hover:text-foreground"
+          className="text-muted-foreground hover:bg-transparent hover:text-foreground flex-shrink-0"
         >
           <ArrowDownUp className="h-5 w-5" />
         </Button>
@@ -65,7 +65,7 @@ export function MobileActionBar({ itemType, onItemTypeChange, className }: Mobil
         <Button
           variant="ghost"
           size="icon"
-          className="text-muted-foreground hover:bg-transparent hover:text-foreground"
+          className="text-muted-foreground hover:bg-transparent hover:text-foreground flex-shrink-0"
         >
           <SlidersHorizontal className="h-5 w-5" />
         </Button>
@@ -74,7 +74,7 @@ export function MobileActionBar({ itemType, onItemTypeChange, className }: Mobil
         <Button
           variant="ghost"
           size="icon"
-          className="text-muted-foreground hover:bg-transparent hover:text-foreground"
+          className="text-muted-foreground hover:bg-transparent hover:text-foreground flex-shrink-0"
           onClick={() =>
             setLayout(layout === "horizontal" ? "vertical" : "horizontal")
           }

@@ -13,7 +13,7 @@ interface MobileHeaderProps {
 export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
-  const progress = useScrollProgress(60);
+  const progress = useScrollProgress(100);
   
   // Verificar se estamos nas páginas de buscador
   const isBuscador = location.pathname === '/buscador/imoveis' || location.pathname === '/buscador/veiculos';
