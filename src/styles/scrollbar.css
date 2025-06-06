@@ -9,11 +9,6 @@
   display: none;  /* Safari and Chrome */
 }
 
-/* Evitar scroll lateral em toda a aplicação */
-html, body {
-  overflow-x: hidden;
-}
-
 /* Scroll suave para áreas de filtro */
 .filter-scroll {
   scroll-behavior: smooth;
@@ -30,9 +25,9 @@ html, body {
   outline-offset: 2px;
 }
 
-/* Transições suaves - otimizada para scroll progressivo */
+/* Transições suaves */
 .transition-smooth {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Estados de hover melhorados */
@@ -97,10 +92,4 @@ html, body {
 .custom-scrollbar {
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
-}
-
-/* Transição de scroll progressivo para header mobile */
-.mobile-header-scroll {
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
 }

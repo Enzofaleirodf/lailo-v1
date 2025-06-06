@@ -9,7 +9,6 @@ import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
-import { useScrollDirection } from "../../hooks/useScrollDirection";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
 
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
@@ -42,19 +41,14 @@ export const SearchPageLayout = ({
 }: SearchPageLayoutProps) => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { headerTransform } = useScrollDirection();
   const statusData = useAuctionStatus(items);
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
-  
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
   };
-
-  // Calcula o padding-top dinâmico baseado na posição do header
-  const dynamicPaddingTop = 64 + headerTransform; // 64px base + offset do header
 
   // Desktop Layout Component
   const DesktopLayout = () => <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
@@ -85,12 +79,7 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      <main 
-        className="w-full min-h-screen bg-white px-3 pb-6 transition-all duration-300 ease-out"
-        style={{
-          paddingTop: `${dynamicPaddingTop}px`
-        }}
-      >
+      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
         <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
@@ -117,7 +106,7 @@ export const SearchPageLayout = ({
     </div>
   );
 
-  return <div className="w-full relative min-h-screen bg-white overflow-x-hidden">
+  return <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <DesktopLayout />
