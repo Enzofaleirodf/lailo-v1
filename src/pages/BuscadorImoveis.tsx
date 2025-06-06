@@ -1,15 +1,18 @@
-
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
-import { SearchStickyBar } from "../components/search/SearchStickyBar";
 import { MobileHeader } from "../components/navigation/MobileHeader";
 import { MobileDrawer } from "../components/navigation/MobileDrawer";
+import { ItemTypeToggleBar } from "../components/search/ItemTypeToggleBar";
+import { ActionButtonsBar } from "../components/search/ActionButtonsBar";
 import { useState } from "react";
 import { useSearchPage } from "../hooks/useSearchPage";
+import { useScrollHide } from "../hooks/useScrollHide";
 import { propertySearchConfig } from "../config/searchConfigs";
 import { Property } from "../types/search";
 
 const BuscadorImoveis = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const isHeaderVisible = useScrollHide({ threshold: 10 });
+  
   const {
     isVertical,
     isLoading,
@@ -24,7 +27,7 @@ const BuscadorImoveis = () => {
   const totalPages = 8;
   const resultsCount = 2543;
   const sitesCount = 87;
-  const newAuctions = 15; // Novos leilões hoje
+  const newAuctions = 15;
 
   const properties: Property[] = [
     {
@@ -105,35 +108,79 @@ const BuscadorImoveis = () => {
     console.log("Resetar filtros - Imóveis");
   };
 
+  const handleShowSort = () => {
+    console.log("Mostrar ordenação");
+  };
+
+  // Calcular padding dinâmico baseado na visibilidade dos elementos
+  const topPadding = isHeaderVisible ? 'pt-[182px]' : 'pt-[58px]'; // 14px header + 16px gap + 40px toggle + 16px gap + 40px actions + 16px gap = 182px | apenas 40px actions + 16px gap = 58px
+
   return (
     <div className="w-full relative min-h-screen bg-white">
       {/* Mobile Layout */}
       <div className="block md:hidden">
-        <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
+        <MobileHeader 
+          onMenuClick={() => setIsDrawerOpen(true)} 
+          isVisible={isHeaderVisible}
+        />
         <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
         
-        {/* SearchStickyBar positioned with 16px gap from header (top-14 + mt-4 = 56px + 16px = 72px from top) */}
-        <div className="fixed top-14 mt-4 left-0 right-0 z-40">
-          <SearchStickyBar />
-        </div>
+        <ItemTypeToggleBar 
+          currentType="property"
+          onTypeChange={() => {}}
+          isVisible={isHeaderVisible}
+        />
+        
+        <ActionButtonsBar 
+          isVertical={isVertical}
+          onToggleLayout={handleLayoutToggle}
+          onShowSort={handleShowSort}
+          itemType="property"
+          isHeaderVisible={isHeaderVisible}
+        />
+        
+        {/* Main content with dynamic padding */}
+        <main className={`w-full min-h-screen bg-white px-4 pb-6 ${topPadding}`}>
+          <div className="space-y-4">
+            <SearchPageLayout
+              config={propertySearchConfig}
+              items={properties}
+              isLoading={isLoading}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              onClearFilters={handleClearFilters}
+              resultsCount={resultsCount}
+              sitesCount={sitesCount}
+              isVertical={isVertical}
+              onToggleLayout={handleLayoutToggle}
+              sortBy={sortBy}
+              onSortChange={handleSortChange}
+              sortOptions={propertySearchConfig.sortOptions}
+            />
+          </div>
+        </main>
       </div>
 
-      <SearchPageLayout
-        config={propertySearchConfig}
-        items={properties}
-        isLoading={isLoading}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        onClearFilters={handleClearFilters}
-        resultsCount={resultsCount}
-        sitesCount={sitesCount}
-        isVertical={isVertical}
-        onToggleLayout={handleLayoutToggle}
-        sortBy={sortBy}
-        onSortChange={handleSortChange}
-        sortOptions={propertySearchConfig.sortOptions}
-      />
+      {/* Desktop Layout - unchanged */}
+      <div className="hidden md:block">
+        <SearchPageLayout
+          config={propertySearchConfig}
+          items={properties}
+          isLoading={isLoading}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          onClearFilters={handleClearFilters}
+          resultsCount={resultsCount}
+          sitesCount={sitesCount}
+          isVertical={isVertical}
+          onToggleLayout={handleLayoutToggle}
+          sortBy={sortBy}
+          onSortChange={handleSortChange}
+          sortOptions={propertySearchConfig.sortOptions}
+        />
+      </div>
     </div>
   );
 };

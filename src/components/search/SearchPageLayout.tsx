@@ -75,36 +75,29 @@ export const SearchPageLayout = ({
     </div>
   );
 
-  // Mobile Layout Component
+  // Mobile Layout Component - Simplified, as mobile headers are now handled in pages
   const MobileLayout = () => (
     <div className="w-full min-h-screen bg-white">
-      <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+      <SearchStatusAndControls 
+        totalAuctions={finalResultsCount} 
+        totalSites={finalSitesCount} 
+        newAuctions={newAuctions} 
+        isVertical={isVertical} 
+        onToggleLayout={onToggleLayout} 
+        sortBy={sortBy} 
+        onSortChange={onSortChange} 
+        sortOptions={sortOptions} 
+        showControls={false} 
+      />
       
-      {/* Main content with proper spacing: header (56px) + gap (16px) + sticky bar (80px) + gap (16px) = 168px total */}
-      <main className="w-full min-h-screen bg-white px-4 pt-[168px] pb-6">
-        <div className="space-y-4">
-          <SearchStatusAndControls 
-            totalAuctions={finalResultsCount} 
-            totalSites={finalSitesCount} 
-            newAuctions={newAuctions} 
-            isVertical={isVertical} 
-            onToggleLayout={onToggleLayout} 
-            sortBy={sortBy} 
-            onSortChange={onSortChange} 
-            sortOptions={sortOptions} 
-            showControls={false} 
-          />
-          
-          <SearchMainContent 
-            items={items} 
-            isVertical={isVertical} 
-            config={config} 
-            currentPage={currentPage} 
-            totalPages={totalPages} 
-            onPageChange={onPageChange} 
-          />
-        </div>
-      </main>
+      <SearchMainContent 
+        items={items} 
+        isVertical={isVertical} 
+        config={config} 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={onPageChange} 
+      />
     </div>
   );
 
