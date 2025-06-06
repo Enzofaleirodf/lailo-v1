@@ -1,35 +1,43 @@
 
 import React from 'react';
+import { useMockPropertiesStats } from '../../hooks/useMockProperties';
+import { useMockVehiclesStats } from '../../hooks/useMockVehicles';
+import { useIsMobile } from '../../hooks/use-mobile';
 
 interface SearchStatusProps {
-  totalAuctions: number;
-  totalSites: number;
-  newAuctions: number;
-  className?: string;
+  type: 'property' | 'vehicle';
 }
 
-export const SearchStatus = ({ 
-  totalAuctions, 
-  totalSites, 
-  newAuctions, 
-  className = "" 
-}: SearchStatusProps) => {
-  const formatNumber = (num: number) => {
-    return num.toLocaleString('pt-BR');
-  };
+export const SearchStatus = ({ type }: SearchStatusProps) => {
+  const isMobile = useIsMobile();
+  
+  const { data: propertiesStats } = useMockPropertiesStats();
+  const { data: vehiclesStats } = useMockVehiclesStats();
+  
+  const stats = type === 'property' ? propertiesStats : vehiclesStats;
+  
+  if (!stats) {
+    return (
+      <div className={`${isMobile ? 'text-xs' : 'text-sm'} text-gray-600`}>
+        Carregando...
+      </div>
+    );
+  }
 
+  const { totalAuctions, totalSites, newAuctions } = stats;
+  
   const buildStatusText = () => {
-    const baseText = `Encontramos ${formatNumber(totalAuctions)} leilões em ${formatNumber(totalSites)} sites`;
+    let text = `Encontramos ${totalAuctions} leilões em ${totalSites} sites`;
     
     if (newAuctions > 0) {
-      return `${baseText} · ${formatNumber(newAuctions)} novos hoje`;
+      text += ` · ${newAuctions} novos hoje`;
     }
     
-    return baseText;
+    return text;
   };
 
   return (
-    <div className={`text-sm md:text-sm text-gray-600 whitespace-nowrap ${className}`}>
+    <div className={`${isMobile ? 'text-xs' : 'text-sm'} text-gray-600 whitespace-nowrap`}>
       {buildStatusText()}
     </div>
   );
