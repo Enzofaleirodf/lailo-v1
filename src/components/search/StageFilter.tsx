@@ -61,8 +61,7 @@ export const StageFilter = ({ itemType, isEnabled }: StageFilterProps) => {
   const hasSelectedItems = selectedStages.length > 0;
 
   return (
-    <div className="w-full space-y-2">
-      <Label>Etapa</Label>
+    <div className="w-full">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

@@ -60,8 +60,7 @@ export const OriginFilter = ({ itemType }: OriginFilterProps) => {
   const hasSelectedItems = selectedOrigins.length > 0;
 
   return (
-    <div className="w-full space-y-2">
-      <Label>Origem</Label>
+    <div className="w-full">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
