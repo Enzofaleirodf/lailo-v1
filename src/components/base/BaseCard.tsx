@@ -23,8 +23,9 @@ export const BaseCard = ({
         bg-white border border-muted
         rounded-xl shadow-sm hover:shadow-md
         transition-shadow duration-200 ease-in-out
+        hover:border-gray-200
         focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-200
-        ${onClick ? 'cursor-pointer hover:border-gray-200' : ''}
+        ${onClick ? 'cursor-pointer' : ''}
         ${className}
       `}
       onClick={onClick}
