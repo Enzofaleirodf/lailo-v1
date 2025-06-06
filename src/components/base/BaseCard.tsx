@@ -20,7 +20,8 @@ export const BaseCard: React.FC<BaseCardProps> = ({
         border border-muted 
         bg-white 
         shadow-sm hover:shadow-md 
-        transition-shadow duration-200 ease-in-out 
+        transition-all duration-200 ease-in-out 
+        hover:bg-muted
         p-4 
         ${onClick ? 'cursor-pointer' : ''} 
         ${className}
