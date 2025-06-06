@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -86,9 +87,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               />
             </div>
             
-            <Separator className="my-2.5" />
+            <Separator className="my-3.5" />
             
-            <div className="flex items-center justify-between gap-2 min-w-0 mt-2">
+            <div className="flex items-center justify-between gap-2 min-w-0 mt-0.5">
               <div className="flex-1 min-w-0">
                 <BaseBadges badges={item.badges} isVertical={true} />
               </div>
@@ -168,7 +169,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           </div>
           
           {/* Divider ocupando toda a largura */}
-          <Separator className="my-2.5" />
+          <Separator className="my-3.5" />
           
           {/* Conteúdo inferior ocupando toda a largura com espaçamento reduzido em 2px */}
           <div className="flex items-center justify-between gap-2 min-w-0 mt-0.5">
