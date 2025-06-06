@@ -29,11 +29,11 @@ export const cardTokens = {
     gap: 'gap-4',
   },
   
-  // Typography consistente
+  // Typography consistente com tamanhos mobile 2x maiores
   text: {
-    title: 'text-sm font-semibold',
-    subtitle: 'text-xs font-medium', 
-    body: 'text-xs',
-    price: 'text-base font-bold',
+    title: 'text-lg md:text-sm font-semibold',        // mobile: 18px, desktop: 14px
+    subtitle: 'text-base md:text-xs font-medium',     // mobile: 16px, desktop: 12px
+    body: 'text-base md:text-xs',                     // mobile: 16px, desktop: 12px
+    price: 'text-2xl md:text-base font-bold',         // mobile: 24px, desktop: 16px
   }
 } as const;
