@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
 import { MobileHeader } from "../navigation/MobileHeader";
 import { MobileDrawer } from "../navigation/MobileDrawer";
+import { MobileActionBar } from "./MobileActionBar";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
@@ -92,6 +93,11 @@ export const SearchPageLayout = ({
             sortOptions={sortOptions} 
             showControls={false} 
           />
+          
+          {/* Mobile Action Bar - apenas no mobile, acima da listagem */}
+          <div className="mb-4">
+            <MobileActionBar />
+          </div>
           
           <SearchMainContent 
             items={items} 
