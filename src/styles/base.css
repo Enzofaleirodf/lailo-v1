@@ -52,4 +52,21 @@
   [class*="absolute"], [class*="fixed"] {
     max-width: 100%;
   }
+
+  /* Desabilitar links automáticos criados pelo navegador */
+  [data-no-link="true"] a,
+  [data-no-link="true"] a:hover,
+  [data-no-link="true"] a:visited,
+  [data-no-link="true"] a:active {
+    color: inherit !important;
+    text-decoration: none !important;
+    pointer-events: none !important;
+  }
+
+  /* Remover detecção automática de telefone/endereço */
+  [data-no-link="true"] {
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: text !important;
+    pointer-events: auto !important;
+  }
 }

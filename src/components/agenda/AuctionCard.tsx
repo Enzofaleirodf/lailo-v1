@@ -91,16 +91,16 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
           <div className="flex items-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-1.5">
               <span className="font-medium">Data:</span>
-              <span>{formatDate(auction.date)}</span>
+              <span data-no-link="true">{formatDate(auction.date)}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Clock className="w-4 h-4 flex-shrink-0" />
-              <span>{auction.time}</span>
+              <span data-no-link="true">{auction.time}</span>
             </div>
             <div className="flex items-center gap-1.5 flex-1 min-w-0">
               <MapPin className="w-4 h-4 flex-shrink-0" />
               <span className="font-medium">Local:</span>
-              <span className="truncate">{formatAddress(auction.address)}</span>
+              <span className="truncate" data-no-link="true">{formatAddress(auction.address)}</span>
             </div>
             <Button
               size="sm"
@@ -133,17 +133,17 @@ export const AuctionCard = ({ auction }: AuctionCardProps) => {
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div className="flex items-center gap-1.5 text-gray-600">
                 <span className="font-medium">Data:</span>
-                <span>{formatDate(auction.date)}</span>
+                <span data-no-link="true">{formatDate(auction.date)}</span>
               </div>
               <div className="flex items-center gap-1.5 text-gray-600">
                 <Clock className="w-4 h-4 flex-shrink-0" />
-                <span>{auction.time}</span>
+                <span data-no-link="true">{auction.time}</span>
               </div>
             </div>
             
             <div className="flex items-start gap-1.5 text-gray-600">
               <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-              <p className="text-[10px]">{formatAddress(auction.address)}</p>
+              <p className="text-[10px]" data-no-link="true">{formatAddress(auction.address)}</p>
             </div>
           </div>
 
