@@ -82,14 +82,15 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
-        {/* Mobile Action Bar com 12px de separação do header */}
+      {/* Mobile Action Bar - sticky no topo, trava quando header sai */}
+      <div className="sticky top-0 z-40 bg-white px-3 pt-3">
         <MobileActionBar 
           itemType={config.type}
           onItemTypeChange={handleItemTypeChange}
-          className="mt-3"
         />
-        
+      </div>
+      
+      <main className="w-full min-h-screen bg-white px-3 pt-4 pb-6">
         {/* SearchStatusAndControls com 16px de margin-top para separar da barra */}
         <SearchStatusAndControls 
           totalAuctions={finalResultsCount} 
@@ -101,7 +102,6 @@ export const SearchPageLayout = ({
           onSortChange={onSortChange} 
           sortOptions={sortOptions} 
           showControls={false}
-          className="mt-4"
         />
         
         {/* SearchMainContent com 16px de margin-top para separar do título */}
