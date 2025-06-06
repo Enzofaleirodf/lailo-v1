@@ -24,7 +24,9 @@ export const SearchMainContent = ({
   return (
     <>
       <SearchResults
-        type={config.type}
+        items={items}
+        isVertical={isVertical}
+        config={config}
       />
 
       <SearchPagination

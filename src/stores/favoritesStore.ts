@@ -6,13 +6,9 @@ export interface FavoriteItem {
   id: string;
   itemId: string;
   itemType: 'property' | 'vehicle';
-  type: 'property' | 'vehicle';
   title: string;
-  image: string;
-  price: number;
-  location: string;
-  endDate: string;
-  href: string;
+  price: string;
+  image?: string;
   createdAt: string;
 }
 

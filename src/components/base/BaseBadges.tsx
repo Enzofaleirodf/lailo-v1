@@ -1,33 +1,29 @@
 
 import React from "react";
-import { Badge } from "../ui/badge";
-
-interface BadgeItem {
-  text: string;
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline';
-}
+import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseBadgesProps {
-  badges: BadgeItem[];
-  className?: string;
+  badges: string[];
+  badgeColor?: string;
+  isVertical?: boolean;
 }
 
 export const BaseBadges = ({
   badges,
-  className = ""
+  badgeColor = "bg-blue-50 text-blue-700 border border-blue-100",
+  isVertical = false
 }: BaseBadgesProps): JSX.Element => {
   return (
-    <div className={`flex items-center gap-1.5 min-w-0 ${className}`}>
+    <div className="flex items-center gap-1.5 min-w-0">
       {badges.map((badge, index) => (
-        <Badge 
+        <span 
           key={index} 
-          variant={badge.variant || 'outline'}
-          className={`text-[10px] font-medium font-urbanist ${
+          className={`px-2 py-1 text-[10px] font-medium rounded-md font-urbanist ${badgeColor} ${
             index === 0 ? 'truncate flex-shrink min-w-0' : 'flex-shrink-0'
           }`}
         >
-          {badge.text}
-        </Badge>
+          {badge}
+        </span>
       ))}
     </div>
   );

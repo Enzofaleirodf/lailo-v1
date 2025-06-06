@@ -23,18 +23,7 @@ export const useFavoriteAuth = () => {
   const handleFavoriteClick = useCallback((item: PendingFavoriteAction) => {
     if (isAuthenticated) {
       // Usuário logado - executar ação diretamente
-      const favoriteItem = {
-        itemId: item.itemId,
-        itemType: item.itemType,
-        type: item.itemType,
-        title: item.title,
-        image: item.image || '',
-        price: parseFloat(item.price.replace(/[^\d,]/g, '').replace(',', '.')),
-        location: '',
-        endDate: new Date().toISOString(),
-        href: '#'
-      };
-      addFavorite(favoriteItem);
+      addFavorite(item);
       showSuccess("Adicionado aos favoritos", item.title);
       return;
     }
@@ -90,18 +79,7 @@ export const useFavoriteAuth = () => {
   // Executar ação pendente após login
   const executePendingAction = useCallback(() => {
     if (pendingAction && isAuthenticated) {
-      const favoriteItem = {
-        itemId: pendingAction.itemId,
-        itemType: pendingAction.itemType,
-        type: pendingAction.itemType,
-        title: pendingAction.title,
-        image: pendingAction.image || '',
-        price: parseFloat(pendingAction.price.replace(/[^\d,]/g, '').replace(',', '.')),
-        location: '',
-        endDate: new Date().toISOString(),
-        href: '#'
-      };
-      addFavorite(favoriteItem);
+      addFavorite(pendingAction);
       showSuccess("Adicionado aos favoritos", pendingAction.title);
       setPendingAction(null);
     }

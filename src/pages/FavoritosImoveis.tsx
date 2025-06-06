@@ -8,7 +8,6 @@ import { EmptyState } from "../components/ui/EmptyState";
 import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { useFavoritesStore } from "../stores/favoritesStore";
 import { useAuth } from "../hooks/useAuth";
-import { formatCurrency } from "../lib/utils";
 
 const FavoritosImoveis = () => {
   const [isVertical, setIsVertical] = useState(false);
@@ -21,14 +20,13 @@ const FavoritosImoveis = () => {
     id: fav.itemId,
     type: fav.title,
     area: "N/D",
-    location: fav.location,
-    price: formatCurrency(fav.price),
+    location: "N/D",
+    price: fav.price,
     discount: "",
     badges: ["Favorito"],
     date: new Date(fav.createdAt).toLocaleDateString('pt-BR'),
     image: fav.image || "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop&auto=format",
-    showNewBadge: false,
-    href: fav.href
+    showNewBadge: false
   }));
 
   if (isLoading) {

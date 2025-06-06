@@ -56,15 +56,6 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
     }
   };
 
-  // Convert badges from string[] to BadgeItem[]
-  const badgeItems = item.badges.map(badge => ({ text: badge, variant: 'outline' as const }));
-
-  // Get title and location based on item type
-  const title = itemType === 'vehicle' ? (item as any).name : (item as any).type;
-  const location = itemType === 'vehicle' 
-    ? (item as any).location 
-    : `${(item as any).area} • ${(item as any).location}`;
-
   if (isVertical) {
     return (
       <>
@@ -72,7 +63,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           <div className={`relative ${cardTokens.spacing.contentGap.replace('gap-', 'mb-')}`}>
             <BaseImage 
               src={item.image} 
-              alt={title}
+              alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
               isFavorited={isItemFavorite}
               onToggleFavorite={handleFavoriteToggle}
               isVertical={true}
@@ -82,14 +73,17 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           
           <div>
             <BaseItemHeader 
-              title={title}
-              location={location}
+              item={item}
+              itemType={itemType}
+              isVertical={true}
             />
             
             <div className="mt-3">
               <BaseItemPrice 
-                currentPrice={parseFloat(item.price.replace(/[^\d,]/g, '').replace(',', '.'))}
-                originalPrice={item.discount ? parseFloat(item.price.replace(/[^\d,]/g, '').replace(',', '.')) * 1.5 : undefined}
+                price={item.price}
+                discount={item.discount}
+                itemType={itemType}
+                isVertical={true}
               />
             </div>
             
@@ -97,11 +91,12 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               <div className="flex-shrink min-w-0">
-                <BaseBadges badges={badgeItems} />
+                <BaseBadges badges={item.badges} isVertical={true} />
               </div>
               <div className="flex-shrink-0 ml-auto">
                 <BaseDate 
-                  endDate={new Date().toISOString()}
+                  date={item.date} 
+                  isVertical={true}
                   href={(item as any).href || "#"}
                 />
               </div>
@@ -128,7 +123,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
             <div className="relative flex-shrink-0 w-20 h-16">
               <BaseImage 
                 src={item.image} 
-                alt={title}
+                alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
                 isFavorited={isItemFavorite}
                 onToggleFavorite={handleFavoriteToggle}
                 isVertical={false}
@@ -142,8 +137,9 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <BaseItemHeader 
-                    title={title}
-                    location={location}
+                    item={item}
+                    itemType={itemType}
+                    isVertical={false}
                   />
                 </div>
                 
@@ -163,8 +159,10 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               
               <div className="mt-3">
                 <BaseItemPrice 
-                  currentPrice={parseFloat(item.price.replace(/[^\d,]/g, '').replace(',', '.'))}
-                  originalPrice={item.discount ? parseFloat(item.price.replace(/[^\d,]/g, '').replace(',', '.')) * 1.5 : undefined}
+                  price={item.price}
+                  discount={item.discount}
+                  itemType={itemType}
+                  isVertical={false}
                 />
               </div>
             </div>
@@ -176,11 +174,12 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
           {/* Conteúdo inferior ocupando toda a largura */}
           <div className="flex items-center gap-2 min-w-0 overflow-hidden">
             <div className="flex-shrink min-w-0">
-              <BaseBadges badges={badgeItems} />
+              <BaseBadges badges={item.badges} isVertical={false} />
             </div>
             <div className="flex-shrink-0 ml-auto">
               <BaseDate 
-                endDate={new Date().toISOString()}
+                date={item.date} 
+                isVertical={false}
                 href={(item as any).href || "#"}
               />
             </div>

@@ -1,5 +1,5 @@
 
-import React from "react";
+import React from 'react';
 
 interface SearchStatusProps {
   totalAuctions: number;
@@ -12,17 +12,25 @@ export const SearchStatus = ({
   totalAuctions, 
   totalSites, 
   newAuctions, 
-  className = "text-xs md:text-sm" 
+  className = "" 
 }: SearchStatusProps) => {
   const formatNumber = (num: number) => {
     return num.toLocaleString('pt-BR');
   };
 
-  const statusText = `Encontramos ${formatNumber(totalAuctions)} leilões em ${formatNumber(totalSites)} sites${newAuctions > 0 ? ` · ${formatNumber(newAuctions)} novos hoje` : ''}`;
+  const buildStatusText = () => {
+    const baseText = `Encontramos ${formatNumber(totalAuctions)} leilões em ${formatNumber(totalSites)} sites`;
+    
+    if (newAuctions > 0) {
+      return `${baseText} · ${formatNumber(newAuctions)} novos hoje`;
+    }
+    
+    return baseText;
+  };
 
   return (
-    <p className={`text-gray-600 font-urbanist whitespace-nowrap ${className}`}>
-      {statusText}
-    </p>
+    <div className={`text-sm md:text-sm text-gray-600 whitespace-nowrap ${className}`}>
+      {buildStatusText()}
+    </div>
   );
 };
