@@ -17,6 +17,9 @@ export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
   
   // Verificar se estamos nas páginas de buscador
   const isBuscador = location.pathname === '/buscador/imoveis' || location.pathname === '/buscador/veiculos';
+  
+  // Debug logs
+  console.log('Header renderizado, progress:', progress, 'isBuscador:', isBuscador);
 
   const handleNotificationsClick = () => {
     // TODO: Implementar lógica de notificações
@@ -25,12 +28,11 @@ export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
 
   return (
     <header 
-      className="md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-14"
+      className="md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-14 transition-all duration-200"
       style={isBuscador ? {
         opacity: 1 - progress,
-        transform: `translateY(-${progress * 56}px)`,
-        pointerEvents: progress >= 0.95 ? 'none' : 'auto',
-        willChange: 'transform, opacity',
+        transform: `translateY(-${progress * 100}%)`,
+        pointerEvents: progress === 1 ? 'none' : 'auto',
       } : undefined}
     >
       <div className="flex items-center justify-between h-full px-4">
