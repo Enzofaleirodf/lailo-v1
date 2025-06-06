@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
 import { MobileHeader } from "../navigation/MobileHeader";
 import { MobileDrawer } from "../navigation/MobileDrawer";
+import { MobileActionBar } from "./MobileActionBar";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
@@ -45,9 +46,18 @@ export const SearchPageLayout = ({
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
+
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
+  };
+
+  const handleShowSort = () => {
+    console.log('Abrir modal de ordenação');
+  };
+
+  const handleShowFilters = () => {
+    console.log('Abrir modal de filtros');
   };
 
   // Desktop Layout Component
@@ -79,7 +89,17 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
+      {/* Nova barra de controles móvel */}
+      <MobileActionBar
+        currentType={config.type}
+        onTypeChange={handleItemTypeChange}
+        isVertical={isVertical}
+        onToggleLayout={onToggleLayout}
+        onShowSort={handleShowSort}
+        onShowFilters={handleShowFilters}
+      />
+      
+      <main className="w-full min-h-screen bg-white px-3 pt-2 pb-6">
         <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
