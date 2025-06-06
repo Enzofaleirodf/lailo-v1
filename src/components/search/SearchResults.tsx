@@ -45,7 +45,7 @@ export const SearchResults = ({ type }: SearchResultsProps) => {
     return (
       <ErrorMessage 
         title="Erro ao carregar dados"
-        description="Não foi possível carregar os leilões. Tente novamente."
+        message="Não foi possível carregar os leilões. Tente novamente."
       />
     );
   }
@@ -55,7 +55,7 @@ export const SearchResults = ({ type }: SearchResultsProps) => {
       <EmptyState
         title="Nenhum leilão encontrado"
         description="Tente ajustar os filtros para encontrar mais resultados."
-        actionText="Limpar filtros"
+        actionLabel="Limpar filtros"
         onAction={() => console.log('Clear filters')}
       />
     );

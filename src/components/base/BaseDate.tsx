@@ -1,29 +1,40 @@
 
 import React from "react";
 import { Clock, ArrowUpRight } from "lucide-react";
-import { cardTokens } from "../../styles/card-tokens";
 
 interface BaseDateProps {
-  date: string;
-  isVertical?: boolean;
+  endDate: string;
   href?: string;
+  className?: string;
 }
 
 export const BaseDate = ({
-  date,
-  isVertical = false,
-  href = "#"
+  endDate,
+  href = "#",
+  className = ""
 }: BaseDateProps): JSX.Element => {
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     window.open(href, '_blank', 'noopener,noreferrer');
   };
 
+  // Formatar a data para exibição
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
-    <div className={`flex items-center gap-2 text-gray-500 text-[10px] font-urbanist`}>
+    <div className={`flex items-center gap-2 text-gray-500 text-[10px] font-urbanist ${className}`}>
       <div className="flex items-center gap-1">
         <Clock className="h-3 w-3" />
-        <span>{date}</span>
+        <span>Encerra em {formatDate(endDate)}</span>
       </div>
       
       <button 

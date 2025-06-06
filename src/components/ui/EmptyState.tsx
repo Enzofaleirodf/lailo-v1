@@ -1,10 +1,10 @@
 
 import React from "react";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, Search } from "lucide-react";
 import { Button } from "./button";
 
 interface EmptyStateProps {
-  icon: LucideIcon;
+  icon?: LucideIcon;
   title: string;
   description: string;
   actionLabel?: string;
@@ -13,7 +13,7 @@ interface EmptyStateProps {
 }
 
 export const EmptyState = ({
-  icon: Icon,
+  icon: Icon = Search,
   title,
   description,
   actionLabel,
