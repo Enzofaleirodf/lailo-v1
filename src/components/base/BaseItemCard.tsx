@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -120,7 +119,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
         <div className="flex flex-col">
           {/* Área superior com imagem e conteúdo lado a lado */}
           <div className="flex items-start">
-            <div className="relative flex-shrink-0 w-26 h-20">
+            <div className="relative flex-shrink-0 w-28 h-20">
               <BaseImage 
                 src={item.image} 
                 alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -129,7 +128,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 isVertical={false}
                 showNewBadge={item.showNewBadge}
                 showFavoriteButton={false}
-                className="w-26 h-20 object-cover"
+                className="w-28 h-20 object-cover"
               />
             </div>
             
@@ -157,7 +156,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
                 </button>
               </div>
               
-              <div className="mt-2">
+              <div className="mt-1.5">
                 <BaseItemPrice 
                   price={item.price}
                   discount={item.discount}
