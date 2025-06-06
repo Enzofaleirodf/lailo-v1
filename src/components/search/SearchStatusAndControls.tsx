@@ -11,6 +11,7 @@ interface SearchStatusAndControlsProps extends Omit<SearchControlsProps, 'result
   showControls?: boolean;
   statusClassName?: string;
   controlsClassName?: string;
+  className?: string;
 }
 
 export const SearchStatusAndControls = ({
@@ -24,10 +25,11 @@ export const SearchStatusAndControls = ({
   sortOptions,
   showControls = true,
   statusClassName = "",
-  controlsClassName = "hidden md:flex items-center gap-4"
+  controlsClassName = "hidden md:flex items-center gap-4",
+  className = "flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between"
 }: SearchStatusAndControlsProps) => {
   return (
-    <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between">
+    <div className={className}>
       <SearchStatus
         totalAuctions={totalAuctions}
         totalSites={totalSites}

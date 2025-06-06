@@ -89,29 +89,31 @@ export const SearchPageLayout = ({
             onItemTypeChange={handleItemTypeChange}
           />
           
-          {/* SearchStatusAndControls com 16px de margin-top para separar da barra */}
+          {/* SearchStatusAndControls com 16px de margin-top para separar da barra, sem margin-bottom */}
+          <SearchStatusAndControls 
+            totalAuctions={finalResultsCount} 
+            totalSites={finalSitesCount} 
+            newAuctions={newAuctions} 
+            isVertical={isVertical} 
+            onToggleLayout={onToggleLayout} 
+            sortBy={sortBy} 
+            onSortChange={onSortChange} 
+            sortOptions={sortOptions} 
+            showControls={false}
+            className="mt-4"
+          />
+          
+          {/* SearchMainContent com 16px de margin-top para separar do título */}
           <div className="mt-4">
-            <SearchStatusAndControls 
-              totalAuctions={finalResultsCount} 
-              totalSites={finalSitesCount} 
-              newAuctions={newAuctions} 
+            <SearchMainContent 
+              items={items} 
               isVertical={isVertical} 
-              onToggleLayout={onToggleLayout} 
-              sortBy={sortBy} 
-              onSortChange={onSortChange} 
-              sortOptions={sortOptions} 
-              showControls={false} 
+              config={config} 
+              currentPage={currentPage} 
+              totalPages={totalPages} 
+              onPageChange={onPageChange} 
             />
           </div>
-          
-          <SearchMainContent 
-            items={items} 
-            isVertical={isVertical} 
-            config={config} 
-            currentPage={currentPage} 
-            totalPages={totalPages} 
-            onPageChange={onPageChange} 
-          />
         </div>
       </main>
     </div>
