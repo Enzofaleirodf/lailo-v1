@@ -19,10 +19,10 @@ export const BaseCard = ({
   return (
     <Card 
       className={`
-        group relative w-full max-w-none ${cardTokens.spacing.cardPadding} font-urbanist
-        bg-white border border-gray-100
+        group relative w-full max-w-none p-4 font-urbanist
+        bg-white border border-muted
         rounded-xl shadow-sm hover:shadow-md
-        transition-all duration-200 ease-out
+        transition-shadow duration-200 ease-in-out
         focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-200
         ${onClick ? 'cursor-pointer hover:border-gray-200' : ''}
         ${className}
