@@ -1,7 +1,6 @@
 
 import { SessionNavBar } from "../components/navigation/SessionNavBar";
-import { MobileHeader } from "../components/navigation/MobileHeader";
-import { MobileBottomNav } from "../components/navigation/MobileBottomNav";
+import { MobileNavigation } from "../components/navigation/MobileNavigation";
 import { MobileDrawer } from "../components/navigation/MobileDrawer";
 import { useState } from "react";
 
@@ -28,10 +27,10 @@ const Index = () => {
       {/* Mobile Layout */}
       <div className="block md:hidden">
         <div className="w-full min-h-screen bg-white">
-          <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
+          <MobileNavigation />
           <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
           
-          <main className="w-full min-h-screen flex flex-col pt-14 pb-16 px-3">
+          <main className="w-full min-h-screen flex flex-col pt-16 px-3">
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">
                 <h1 className="text-2xl font-bold text-gray-900 mb-4">Em construção</h1>
@@ -39,8 +38,6 @@ const Index = () => {
               </div>
             </div>
           </main>
-          
-          <MobileBottomNav />
         </div>
       </div>
     </div>
