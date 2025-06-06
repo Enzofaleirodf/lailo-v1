@@ -43,7 +43,7 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
-  const { isScrollingDown, scrollY } = useScrollDirection();
+  const { scrollDirection, scrollY } = useScrollDirection();
   
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
@@ -56,7 +56,7 @@ export const SearchPageLayout = ({
 
   // Calcular padding dinâmico baseado no estado do scroll
   const getMobilePaddingTop = () => {
-    if (isScrollingDown && scrollY > 100) {
+    if (scrollDirection === 'down' && scrollY > 100) {
       return '56px'; // Apenas altura da barra de ações (40px + 16px gap)
     }
     return '152px'; // Header (56px) + gap (16px) + toggle (40px) + ações (40px)
