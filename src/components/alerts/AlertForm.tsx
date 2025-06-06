@@ -203,7 +203,6 @@ export const AlertForm = ({ editingAlert, onSave, onCancel }: AlertFormProps) =>
             </div>
 
             <div>
-              <Label>Tipo de Leilão</Label>
               <SegmentedControl
                 options={typeOptions}
                 value={alertType}
@@ -214,25 +213,21 @@ export const AlertForm = ({ editingAlert, onSave, onCancel }: AlertFormProps) =>
           </div>
 
           {/* Localização */}
-          <div className="space-y-4">
-            <h3 className="font-medium text-gray-900">Localização</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <StateSelect 
-                value={selectedState} 
-                onChange={setSelectedState} 
-                onClearCity={() => setSelectedCity('')} 
-              />
-              <CitySelect 
-                value={selectedCity} 
-                onChange={setSelectedCity} 
-                selectedState={selectedState} 
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <StateSelect 
+              value={selectedState} 
+              onChange={setSelectedState} 
+              onClearCity={() => setSelectedCity('')} 
+            />
+            <CitySelect 
+              value={selectedCity} 
+              onChange={setSelectedCity} 
+              selectedState={selectedState} 
+            />
           </div>
 
           {/* Características */}
           <div className="space-y-4">
-            <h3 className="font-medium text-gray-900">Características</h3>
             <CategoryTypeFilters 
               itemType={alertType} 
               category={category} 
@@ -242,43 +237,36 @@ export const AlertForm = ({ editingAlert, onSave, onCancel }: AlertFormProps) =>
             />
 
             {alertType === 'property' ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <PropertySpecificFilters 
-                  areaRange={areaRange} 
-                  onAreaRangeChange={setAreaRange}
-                  priceRange={priceRange}
-                  onPriceRangeChange={setPriceRange}
-                  isAlert={true}
-                />
-              </div>
+              <PropertySpecificFilters 
+                areaRange={areaRange} 
+                onAreaRangeChange={setAreaRange}
+                priceRange={priceRange}
+                onPriceRangeChange={setPriceRange}
+                isAlert={true}
+              />
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <VehicleSpecificFilters 
-                  brand={brand} 
-                  model={model} 
-                  color={color} 
-                  yearRange={yearRange} 
-                  priceRange={priceRange}
-                  vehicleType={type.toLowerCase()} 
-                  onBrandChange={setBrand} 
-                  onModelChange={setModel} 
-                  onColorChange={setColor} 
-                  onYearRangeChange={setYearRange}
-                  onPriceRangeChange={setPriceRange}
-                  isAlert={true}
-                />
-              </div>
+              <VehicleSpecificFilters 
+                brand={brand} 
+                model={model} 
+                color={color} 
+                yearRange={yearRange} 
+                priceRange={priceRange}
+                vehicleType={type.toLowerCase()} 
+                onBrandChange={setBrand} 
+                onModelChange={setModel} 
+                onColorChange={setColor} 
+                onYearRangeChange={setYearRange}
+                onPriceRangeChange={setPriceRange}
+                isAlert={true}
+              />
             )}
           </div>
 
           {/* Condições - Layout lado a lado */}
-          <div className="space-y-4">
-            <h3 className="font-medium text-gray-900">Condições</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <FormatFilter itemType={alertType} />
-              <OriginFilter itemType={alertType} />
-              <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <FormatFilter itemType={alertType} />
+            <OriginFilter itemType={alertType} />
+            <StageFilter itemType={alertType} isEnabled={isStageEnabled} />
           </div>
 
           {/* Preview */}
