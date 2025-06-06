@@ -22,7 +22,7 @@ export const BaseItemHeader = ({
           {vehicle.name}
         </h3>
         <div className="flex items-center gap-2 text-gray-500 mt-1">
-          <span className="text-sm md:text-xs truncate flex-shrink" data-no-link="true">{vehicle.color}</span>
+          <span className="text-sm md:text-xs flex-shrink-0" data-no-link="true">{vehicle.color}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
           <span className="text-sm md:text-xs flex-shrink-0" data-no-link="true">{vehicle.year}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
