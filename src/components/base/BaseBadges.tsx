@@ -29,7 +29,7 @@ export const BaseBadges = ({
         return (
           <span 
             key={index} 
-            className={`text-xs rounded-full px-2 py-0.5 font-medium font-urbanist ${badgeClasses} ${
+            className={`text-sm md:text-xs rounded-full px-2 py-0.5 font-medium font-urbanist ${badgeClasses} ${
               index === 0 ? 'truncate flex-shrink min-w-0' : 'flex-shrink-0'
             }`}
           >
