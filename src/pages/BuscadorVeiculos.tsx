@@ -118,7 +118,8 @@ const BuscadorVeiculos = () => {
         <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
         <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
         
-        <div className="fixed top-14 left-0 right-0 z-40">
+        {/* SearchStickyBar positioned with 16px gap from header (top-14 + mt-4 = 56px + 16px = 72px from top) */}
+        <div className="fixed top-14 mt-4 left-0 right-0 z-40">
           <SearchStickyBar />
         </div>
       </div>

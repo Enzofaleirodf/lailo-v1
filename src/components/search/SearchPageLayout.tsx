@@ -44,13 +44,15 @@ export const SearchPageLayout = ({
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
+  
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
   };
 
   // Desktop Layout Component
-  const DesktopLayout = () => <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+  const DesktopLayout = () => (
+    <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
       <div className="absolute left-0 top-0 h-full w-12 z-50">
         <SessionNavBar />
       </div>
@@ -70,14 +72,16 @@ export const SearchPageLayout = ({
           <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
         </div>
       </main>
-    </div>;
+    </div>
+  );
 
   // Mobile Layout Component
   const MobileLayout = () => (
     <div className="w-full min-h-screen bg-white">
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      <main className="w-full min-h-screen bg-white px-3 pt-[94px] pb-6">
+      {/* Main content with proper spacing: header (56px) + gap (16px) + sticky bar (80px) + gap (12px) = 164px total */}
+      <main className="w-full min-h-screen bg-white px-3 pt-[164px] pb-6">
         <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
@@ -104,7 +108,8 @@ export const SearchPageLayout = ({
     </div>
   );
 
-  return <div className="w-full relative min-h-screen bg-white">
+  return (
+    <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <DesktopLayout />
@@ -114,5 +119,6 @@ export const SearchPageLayout = ({
       <div className="block md:hidden">
         <MobileLayout />
       </div>
-    </div>;
+    </div>
+  );
 };
