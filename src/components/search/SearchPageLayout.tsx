@@ -8,6 +8,7 @@ import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
+import { useScrollDirection } from "../../hooks/useScrollDirection";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
 
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
@@ -41,6 +42,8 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
+  const { shouldHideElements } = useScrollDirection();
+  
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
@@ -48,6 +51,14 @@ export const SearchPageLayout = ({
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
+  };
+
+  // Calcular padding dinâmico baseado no estado do scroll
+  const getMobilePaddingTop = () => {
+    if (shouldHideElements) {
+      return '56px'; // Apenas altura da barra de ações (40px + 16px gap)
+    }
+    return '152px'; // Header (56px) + gap (16px) + toggle (40px) + ações (40px)
   };
 
   // Desktop Layout Component
@@ -80,8 +91,11 @@ export const SearchPageLayout = ({
     <div className="w-full min-h-screen bg-white">
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Main content with proper spacing: header (56px) + gap (16px) + sticky bar (80px) + gap (16px) = 168px total */}
-      <main className="w-full min-h-screen bg-white px-4 pt-[168px] pb-6">
+      {/* Main content with dynamic padding based on scroll state */}
+      <main 
+        className="w-full min-h-screen bg-white px-4 pb-6 transition-all duration-300 ease-out"
+        style={{ paddingTop: getMobilePaddingTop() }}
+      >
         <div className="space-y-4">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 

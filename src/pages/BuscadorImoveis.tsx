@@ -1,4 +1,3 @@
-
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
 import { SearchStickyBar } from "../components/search/SearchStickyBar";
 import { MobileHeader } from "../components/navigation/MobileHeader";
@@ -111,11 +110,7 @@ const BuscadorImoveis = () => {
       <div className="block md:hidden">
         <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
         <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
-        
-        {/* SearchStickyBar positioned with 16px gap from header (top-14 + mt-4 = 56px + 16px = 72px from top) */}
-        <div className="fixed top-14 mt-4 left-0 right-0 z-40">
-          <SearchStickyBar />
-        </div>
+        <SearchStickyBar />
       </div>
 
       <SearchPageLayout

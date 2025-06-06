@@ -3,6 +3,7 @@ import React from 'react';
 import { Menu, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
 
 interface MobileHeaderProps {
   onMenuClick: () => void;
@@ -10,6 +11,7 @@ interface MobileHeaderProps {
 
 export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
   const { isAuthenticated } = useAuth();
+  const { isHeaderVisible } = useScrollDirection();
 
   const handleNotificationsClick = () => {
     // TODO: Implementar lógica de notificações
@@ -17,7 +19,11 @@ export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
   };
 
   return (
-    <header className="md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-14">
+    <header 
+      className={`md:hidden fixed top-0 left-0 right-0 w-full bg-white border-b border-gray-200 z-50 h-14 transition-transform duration-300 ease-out ${
+        isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       <div className="flex items-center justify-between h-full px-4">
         <div className="flex items-center">
           <h1 className="text-lg font-bold text-gray-900">Lailo</h1>
