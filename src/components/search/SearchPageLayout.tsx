@@ -43,7 +43,7 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
-  const { scrollDirection, scrollY } = useScrollDirection();
+  const { getContentPadding } = useScrollDirection();
   
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
@@ -52,14 +52,6 @@ export const SearchPageLayout = ({
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
-  };
-
-  // Calcular padding dinâmico baseado no estado do scroll
-  const getMobilePaddingTop = () => {
-    if (scrollDirection === 'down' && scrollY > 100) {
-      return '56px'; // Apenas altura da barra de ações (40px + 16px gap)
-    }
-    return '152px'; // Header (56px) + gap (16px) + toggle (40px) + ações (40px)
   };
 
   // Desktop Layout Component
@@ -89,7 +81,7 @@ export const SearchPageLayout = ({
 
   // Mobile Layout Component
   const MobileLayout = () => (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full min-h-screen bg-white overflow-x-hidden">
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
       {/* SearchStickyBar para mobile */}
@@ -98,7 +90,10 @@ export const SearchPageLayout = ({
       {/* Main content with dynamic padding based on scroll state */}
       <main 
         className="w-full min-h-screen bg-white px-4 pb-6 transition-all duration-300 ease-out"
-        style={{ paddingTop: getMobilePaddingTop() }}
+        style={{ 
+          paddingTop: `${getContentPadding()}px`,
+          transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }}
       >
         <div className="space-y-4">
           <SearchStatusAndControls 
@@ -127,7 +122,7 @@ export const SearchPageLayout = ({
   );
 
   return (
-    <div className="w-full relative min-h-screen bg-white">
+    <div className="w-full relative min-h-screen bg-white overflow-x-hidden">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <DesktopLayout />

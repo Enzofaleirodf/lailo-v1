@@ -18,16 +18,23 @@ import { useScrollDirection } from '@/hooks/useScrollDirection'
 export function SearchStickyBar() {
   const [current, setCurrent] = useState<'imoveis' | 'veiculos'>('imoveis')
   const [isVertical, setIsVertical] = useState(false)
-  const { isTypeToggleVisible, shouldHideElements } = useScrollDirection()
+  const { getToggleOpacity, getActionsTop } = useScrollDirection()
+
+  const toggleOpacity = getToggleOpacity()
+  const actionsTop = getActionsTop()
 
   return (
-    <div className="w-full px-3 md:hidden">
-      {/* Container para o toggle de tipos - some com scroll */}
+    <div className="w-full md:hidden">
+      {/* Container para o toggle de tipos */}
       <div 
-        className={`fixed left-3 right-3 z-40 transition-transform duration-300 ease-out ${
-          isTypeToggleVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-        style={{ top: '72px' }} // 56px (header) + 16px (gap)
+        className="fixed left-0 right-0 z-40 px-3"
+        style={{ 
+          top: '72px',
+          opacity: toggleOpacity,
+          transform: `translateY(0px)`,
+          transition: 'opacity 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          pointerEvents: toggleOpacity < 0.1 ? 'none' : 'auto'
+        }}
       >
         <div className="overflow-hidden rounded-t-lg border border-gray-200 bg-gray-100">
           <div className="grid grid-cols-2">
@@ -58,14 +65,16 @@ export function SearchStickyBar() {
         </div>
       </div>
 
-      {/* Container para os botões de ação - sempre visível quando necessário */}
+      {/* Container para os botões de ação */}
       <div 
-        className={`fixed left-3 right-3 z-40 transition-all duration-300 ease-out ${
-          shouldHideElements ? 'top-0' : 'top-[112px]' // 72px + 40px (altura do toggle)
-        }`}
+        className="fixed left-0 right-0 z-40 px-3"
+        style={{ 
+          top: `${actionsTop}px`,
+          transition: 'top 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }}
       >
         <div className={`overflow-hidden border border-gray-200 bg-gray-100 ${
-          shouldHideElements ? 'rounded-lg' : 'rounded-b-lg border-t-0'
+          toggleOpacity > 0.1 ? 'rounded-b-lg border-t-0' : 'rounded-lg'
         }`}>
           <div className="grid grid-cols-3 divide-x divide-gray-200">
             <Button
