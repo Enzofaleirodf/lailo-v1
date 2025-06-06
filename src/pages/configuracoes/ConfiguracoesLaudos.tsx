@@ -2,8 +2,11 @@
 import { FileText, Download, Eye, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SettingsCard } from "../../components/settings/SettingsCard";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ConfiguracoesLaudos = () => {
+  const isMobile = useIsMobile();
+  
   const laudos = [
     {
       id: 1,
@@ -55,22 +58,33 @@ const ConfiguracoesLaudos = () => {
                 </div>
                 
                 <div className="flex gap-2 pt-2 border-t border-gray-100">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Eye className="w-4 h-4 mr-1" />
-                    Visualizar
-                  </Button>
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Download className="w-4 h-4 mr-1" />
-                    Baixar PDF
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={isMobile ? "" : "flex-1"}
+                    title="Visualizar laudo"
+                  >
+                    <Eye className="w-4 h-4" />
+                    {!isMobile && <span className="ml-1">Visualizar</span>}
                   </Button>
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="flex-1 text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200"
-                    onClick={() => handleDelete(laudo.id)}
+                    className={isMobile ? "" : "flex-1"}
+                    title="Baixar PDF"
                   >
-                    <Trash2 className="w-4 h-4 mr-1" />
-                    Excluir
+                    <Download className="w-4 h-4" />
+                    {!isMobile && <span className="ml-1">Baixar PDF</span>}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={`${isMobile ? "" : "flex-1"} text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200`}
+                    onClick={() => handleDelete(laudo.id)}
+                    title="Excluir laudo"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    {!isMobile && <span className="ml-1">Excluir</span>}
                   </Button>
                 </div>
               </div>
