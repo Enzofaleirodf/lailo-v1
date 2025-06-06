@@ -21,12 +21,12 @@ export const cardTokens = {
     lg: '1024px',  // Large devices
   },
   
-  // Grid responsivo padronizado com espaçamento 16px no mobile
+  // Grid responsivo padronizado
   grid: {
     mobile: 'grid-cols-1',
     tablet: 'sm:grid-cols-2', 
     desktop: 'lg:grid-cols-3',
-    gap: 'gap-4',  // 16px de gap entre cards
+    gap: 'gap-4',
   },
   
   // Typography consistente com tamanhos mobile 2x maiores

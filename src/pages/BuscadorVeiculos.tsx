@@ -1,14 +1,10 @@
 
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
-import { MobileHeader } from "../components/navigation/MobileHeader";
-import { MobileDrawer } from "../components/navigation/MobileDrawer";
-import { useState } from "react";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { vehicleSearchConfig } from "../config/searchConfigs";
 import { Vehicle } from "../types/search";
 
 const BuscadorVeiculos = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const {
     isVertical,
     isLoading,
@@ -111,30 +107,22 @@ const BuscadorVeiculos = () => {
   };
 
   return (
-    <div className="w-full relative min-h-screen bg-white">
-      {/* Mobile Layout */}
-      <div className="block md:hidden">
-        <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
-        <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
-      </div>
-
-      <SearchPageLayout
-        config={vehicleSearchConfig}
-        items={vehicles}
-        isLoading={isLoading}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        onClearFilters={handleClearFilters}
-        resultsCount={resultsCount}
-        sitesCount={sitesCount}
-        isVertical={isVertical}
-        onToggleLayout={handleLayoutToggle}
-        sortBy={sortBy}
-        onSortChange={handleSortChange}
-        sortOptions={vehicleSearchConfig.sortOptions}
-      />
-    </div>
+    <SearchPageLayout
+      config={vehicleSearchConfig}
+      items={vehicles}
+      isLoading={isLoading}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={handlePageChange}
+      onClearFilters={handleClearFilters}
+      resultsCount={resultsCount}
+      sitesCount={sitesCount}
+      isVertical={isVertical}
+      onToggleLayout={handleLayoutToggle}
+      sortBy={sortBy}
+      onSortChange={handleSortChange}
+      sortOptions={vehicleSearchConfig.sortOptions}
+    />
   );
 };
 

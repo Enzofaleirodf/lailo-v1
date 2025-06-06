@@ -2,14 +2,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
+import { MobileHeader } from "../navigation/MobileHeader";
 import { MobileDrawer } from "../navigation/MobileDrawer";
-import { SearchStickyBar } from "./SearchStickyBar";
 import { DesktopTopBar } from "./DesktopTopBar";
 import { DesktopFilterSidebar } from "./DesktopFilterSidebar";
 import { SearchStatusAndControls } from "./SearchStatusAndControls";
 import { SearchMainContent } from "./SearchMainContent";
 import { useAuctionStatus } from "../../hooks/useAuctionStatus";
-import { useScrollDirection } from "../../hooks/useScrollDirection";
 import { SearchConfig, SearchItem, SearchControlsProps } from "../../types/search";
 
 interface SearchPageLayoutProps extends Omit<SearchControlsProps, 'resultsText'> {
@@ -43,20 +42,16 @@ export const SearchPageLayout = ({
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const statusData = useAuctionStatus(items);
-  const { getContentPadding } = useScrollDirection();
-  
   const finalResultsCount = resultsCount ?? statusData.totalAuctions;
   const finalSitesCount = sitesCount ?? statusData.totalSites;
   const newAuctions = statusData.newAuctions;
-  
   const handleItemTypeChange = (newType: 'property' | 'vehicle') => {
     const newPath = newType === 'property' ? '/buscador/imoveis' : '/buscador/veiculos';
     navigate(newPath);
   };
 
   // Desktop Layout Component
-  const DesktopLayout = () => (
-    <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
+  const DesktopLayout = () => <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
       <div className="absolute left-0 top-0 h-full w-12 z-50">
         <SessionNavBar />
       </div>
@@ -76,26 +71,16 @@ export const SearchPageLayout = ({
           <SearchMainContent items={items} isVertical={isVertical} config={config} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
         </div>
       </main>
-    </div>
-  );
+    </div>;
 
   // Mobile Layout Component
   const MobileLayout = () => (
-    <div className="w-full min-h-screen bg-white overflow-x-hidden">
+    <div className="w-full min-h-screen bg-white">
+      <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* SearchStickyBar para mobile */}
-      <SearchStickyBar />
-      
-      {/* Main content with dynamic padding based on scroll state */}
-      <main 
-        className="w-full min-h-screen bg-white px-4 pb-6 transition-all duration-300 ease-out"
-        style={{ 
-          paddingTop: `${getContentPadding()}px`,
-          transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-        }}
-      >
-        <div className="space-y-4">
+      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
+        <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
             totalSites={finalSitesCount} 
@@ -121,8 +106,7 @@ export const SearchPageLayout = ({
     </div>
   );
 
-  return (
-    <div className="w-full relative min-h-screen bg-white overflow-x-hidden">
+  return <div className="w-full relative min-h-screen bg-white">
       {/* Desktop Layout */}
       <div className="hidden md:block">
         <DesktopLayout />
@@ -132,6 +116,5 @@ export const SearchPageLayout = ({
       <div className="block md:hidden">
         <MobileLayout />
       </div>
-    </div>
-  );
+    </div>;
 };

@@ -1,14 +1,10 @@
 
 import { SearchPageLayout } from "../components/search/SearchPageLayout";
-import { MobileHeader } from "../components/navigation/MobileHeader";
-import { MobileDrawer } from "../components/navigation/MobileDrawer";
-import { useState } from "react";
 import { useSearchPage } from "../hooks/useSearchPage";
 import { propertySearchConfig } from "../config/searchConfigs";
 import { Property } from "../types/search";
 
 const BuscadorImoveis = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const {
     isVertical,
     isLoading,
@@ -105,30 +101,22 @@ const BuscadorImoveis = () => {
   };
 
   return (
-    <div className="w-full relative min-h-screen bg-white">
-      {/* Mobile Layout */}
-      <div className="block md:hidden">
-        <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
-        <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
-      </div>
-
-      <SearchPageLayout
-        config={propertySearchConfig}
-        items={properties}
-        isLoading={isLoading}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        onClearFilters={handleClearFilters}
-        resultsCount={resultsCount}
-        sitesCount={sitesCount}
-        isVertical={isVertical}
-        onToggleLayout={handleLayoutToggle}
-        sortBy={sortBy}
-        onSortChange={handleSortChange}
-        sortOptions={propertySearchConfig.sortOptions}
-      />
-    </div>
+    <SearchPageLayout
+      config={propertySearchConfig}
+      items={properties}
+      isLoading={isLoading}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={handlePageChange}
+      onClearFilters={handleClearFilters}
+      resultsCount={resultsCount}
+      sitesCount={sitesCount}
+      isVertical={isVertical}
+      onToggleLayout={handleLayoutToggle}
+      sortBy={sortBy}
+      onSortChange={handleSortChange}
+      sortOptions={propertySearchConfig.sortOptions}
+    />
   );
 };
 
