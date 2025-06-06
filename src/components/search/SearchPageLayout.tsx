@@ -86,13 +86,12 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      {/* Mobile Action Bar - posição fixa dinâmica */}
+      {/* Mobile Action Bar - comportamento sticky que gruda no topo quando header some */}
       <div 
-        className="fixed left-0 right-0 z-40 bg-white px-3"
+        className="sticky z-40 bg-white px-3 pt-3"
         style={{
           top: scrollProgress === 1 ? '0px' : '56px',
-          transition: 'top 0.1s linear',
-          paddingTop: '12px',
+          transition: 'top 0.1s linear'
         }}
       >
         <MobileActionBar 
@@ -101,13 +100,7 @@ export const SearchPageLayout = ({
         />
       </div>
       
-      <main 
-        className="w-full min-h-screen bg-white px-3 pb-6"
-        style={{
-          paddingTop: scrollProgress === 1 ? '76px' : '132px',
-          transition: 'padding-top 0.1s linear'
-        }}
-      >
+      <main className="w-full min-h-screen bg-white px-3 pb-6 pt-4">
         <SearchStatusAndControls 
           totalAuctions={finalResultsCount} 
           totalSites={finalSitesCount} 
