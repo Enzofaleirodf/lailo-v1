@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BaseCard } from "./BaseCard";
 import { BaseImage } from "./BaseImage";
@@ -117,10 +116,10 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
   return (
     <>
       <BaseCard>
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col">
           {/* Área superior com imagem e conteúdo lado a lado */}
-          <div className="flex h-16">
-            <div className="relative flex-shrink-0 w-20 h-16">
+          <div className="flex">
+            <div className="relative flex-shrink-0 w-20">
               <BaseImage 
                 src={item.image} 
                 alt={itemType === 'vehicle' ? (item as any).name : (item as any).type}
@@ -133,7 +132,7 @@ export const BaseItemCard: React.FC<BaseItemCardProps> = ({
               />
             </div>
             
-            <div className="flex-1 min-w-0 flex flex-col ml-3 h-16">
+            <div className="flex-1 min-w-0 flex flex-col ml-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <BaseItemHeader 
