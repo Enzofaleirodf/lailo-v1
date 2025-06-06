@@ -13,7 +13,7 @@ export const BaseBadges = ({
   isVertical = false
 }: BaseBadgesProps): JSX.Element => {
   return (
-    <div className="flex gap-2 mt-2 min-w-0">
+    <div className="flex gap-2 min-w-0">
       {badges.map((badge, index) => (
         <span 
           key={index} 
