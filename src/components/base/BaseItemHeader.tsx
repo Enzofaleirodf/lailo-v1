@@ -17,7 +17,7 @@ export const BaseItemHeader = ({
     const vehicle = item as any;
     return (
       <div>
-        <h3 className={`${isVertical ? 'text-lg' : 'text-sm'} md:text-base font-semibold text-gray-900 leading-tight font-urbanist mb-1 truncate`}>
+        <h3 className={`${isVertical ? 'text-lg' : 'text-base'} md:text-base font-semibold text-gray-900 leading-tight font-urbanist mb-1 truncate`}>
           {vehicle.name}
         </h3>
         <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mt-1">
@@ -35,7 +35,7 @@ export const BaseItemHeader = ({
   return (
     <div>
       <div className="flex items-center gap-2">
-        <h3 className={`${isVertical ? 'text-lg' : 'text-sm'} md:text-base font-semibold text-gray-900 leading-tight font-urbanist truncate flex-shrink min-w-0`}>
+        <h3 className={`${isVertical ? 'text-lg' : 'text-base'} md:text-base font-semibold text-gray-900 leading-tight font-urbanist truncate flex-shrink min-w-0`}>
           {property.type}
         </h3>
         <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
