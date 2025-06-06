@@ -23,7 +23,7 @@ export const MobileActionBar = ({
   onShowFilters
 }: MobileActionBarProps) => {
   return (
-    <div className="md:hidden sticky top-0 z-30 px-3 py-2 bg-white">
+    <div className="md:hidden sticky top-[56px] z-30 px-3 py-2 bg-white">
       <div className="bg-white border border-neutral-200 rounded-xl shadow-sm px-3 py-2 flex items-center justify-between gap-2">
         {/* Segmentado Imóveis/Veículos - compacto para mobile */}
         <div className="flex-1 max-w-[140px]">
