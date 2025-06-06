@@ -99,14 +99,8 @@ export const SearchPageLayout = ({
         />
       </div>
       
-      {/* Conteúdo principal com padding-top dinâmico */}
-      <main 
-        className="w-full min-h-screen bg-white px-3 pb-6"
-        style={{
-          paddingTop: scrollProgress === 1 ? '88px' : '16px', // 72px (altura da barra) + 16px (espaçamento) quando no topo
-          transition: 'padding-top 0.1s linear'
-        }}
-      >
+      <main className="w-full min-h-screen bg-white px-3 pt-4 pb-6">
+        {/* SearchStatusAndControls com 16px de margin-top para separar da barra */}
         <SearchStatusAndControls 
           totalAuctions={finalResultsCount} 
           totalSites={finalSitesCount} 
@@ -119,6 +113,7 @@ export const SearchPageLayout = ({
           showControls={false}
         />
         
+        {/* SearchMainContent com 16px de margin-top para separar do título */}
         <div className="mt-4">
           <SearchMainContent 
             items={items} 
