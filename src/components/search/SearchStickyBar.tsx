@@ -20,7 +20,7 @@ export function SearchStickyBar() {
 
   return (
     <div className="w-full px-3 md:hidden">
-      <div className="sticky top-0 z-50 w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+      <div className="sticky top-14 z-40 w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
         {/* Linha 1 - Segmentado */}
         <div className="grid grid-cols-2">
           <Button
