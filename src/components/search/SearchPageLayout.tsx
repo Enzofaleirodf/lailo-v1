@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
@@ -55,6 +54,22 @@ export const SearchPageLayout = ({
     navigate(newPath);
   };
 
+  // Calcular padding-top dinâmico baseado na posição da barra
+  const calculateMainPadding = () => {
+    // Altura do header: 56px (h-14)
+    // Altura da MobileActionBar: ~60px (estimativa com padding)
+    // Gap entre header e barra: 12px (pt-3)
+    // Gap desejado entre barra e conteúdo: 16px
+    
+    if (scrollProgress === 1) {
+      // Header oculto, barra no topo
+      return 60 + 16; // altura da barra + gap = 76px
+    } else {
+      // Header visível, barra abaixo do header
+      return 56 + 12 + 60 + 16; // header + gap + barra + gap = 144px
+    }
+  };
+
   // Desktop Layout Component
   const DesktopLayout = () => (
     <div className="max-w-[1440px] mx-auto w-full relative min-h-screen bg-white">
@@ -90,7 +105,7 @@ export const SearchPageLayout = ({
       <div 
         className="sticky z-40 bg-white px-3 pt-3"
         style={{
-          top: scrollProgress === 1 ? '0px' : '56px', // 56px = altura do header (h-14)
+          top: scrollProgress === 1 ? '0px' : '56px',
           transition: 'top 0.1s linear'
         }}
       >
@@ -100,7 +115,13 @@ export const SearchPageLayout = ({
         />
       </div>
       
-      <main className="w-full min-h-screen bg-white px-3 pt-18 pb-6">
+      <main 
+        className="w-full min-h-screen bg-white px-3 pb-6"
+        style={{
+          paddingTop: `${calculateMainPadding()}px`,
+          transition: 'padding-top 0.1s linear'
+        }}
+      >
         <SearchStatusAndControls 
           totalAuctions={finalResultsCount} 
           totalSites={finalSitesCount} 
