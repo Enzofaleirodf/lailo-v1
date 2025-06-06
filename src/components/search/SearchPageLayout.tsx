@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionNavBar } from "../navigation/SessionNavBar";
@@ -82,38 +83,37 @@ export const SearchPageLayout = ({
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
       <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
-        <div className="pt-3">
-          {/* Mobile Action Bar - 12px do header, sem margin-bottom */}
-          <MobileActionBar 
-            itemType={config.type}
-            onItemTypeChange={handleItemTypeChange}
-          />
-          
-          {/* SearchStatusAndControls com 16px de margin-top para separar da barra, sem margin-bottom */}
-          <SearchStatusAndControls 
-            totalAuctions={finalResultsCount} 
-            totalSites={finalSitesCount} 
-            newAuctions={newAuctions} 
+        {/* Mobile Action Bar com 12px de separação do header */}
+        <MobileActionBar 
+          itemType={config.type}
+          onItemTypeChange={handleItemTypeChange}
+          className="mt-3"
+        />
+        
+        {/* SearchStatusAndControls com 16px de margin-top para separar da barra */}
+        <SearchStatusAndControls 
+          totalAuctions={finalResultsCount} 
+          totalSites={finalSitesCount} 
+          newAuctions={newAuctions} 
+          isVertical={isVertical} 
+          onToggleLayout={onToggleLayout} 
+          sortBy={sortBy} 
+          onSortChange={onSortChange} 
+          sortOptions={sortOptions} 
+          showControls={false}
+          className="mt-4"
+        />
+        
+        {/* SearchMainContent com 16px de margin-top para separar do título */}
+        <div className="mt-4">
+          <SearchMainContent 
+            items={items} 
             isVertical={isVertical} 
-            onToggleLayout={onToggleLayout} 
-            sortBy={sortBy} 
-            onSortChange={onSortChange} 
-            sortOptions={sortOptions} 
-            showControls={false}
-            className="mt-4"
+            config={config} 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+            onPageChange={onPageChange} 
           />
-          
-          {/* SearchMainContent com 16px de margin-top para separar do título */}
-          <div className="mt-4">
-            <SearchMainContent 
-              items={items} 
-              isVertical={isVertical} 
-              config={config} 
-              currentPage={currentPage} 
-              totalPages={totalPages} 
-              onPageChange={onPageChange} 
-            />
-          </div>
         </div>
       </main>
     </div>

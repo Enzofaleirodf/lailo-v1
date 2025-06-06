@@ -10,17 +10,19 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ItemType } from "../../types/search"
+import { cn } from "@/lib/utils"
 
 interface MobileActionBarProps {
   itemType: ItemType;
   onItemTypeChange: (type: ItemType) => void;
+  className?: string;
 }
 
-export function MobileActionBar({ itemType, onItemTypeChange }: MobileActionBarProps) {
+export function MobileActionBar({ itemType, onItemTypeChange, className }: MobileActionBarProps) {
   const [layout, setLayout] = useState<"horizontal" | "vertical">("horizontal")
 
   return (
-    <div className="w-full bg-white px-3 py-2 flex items-center gap-2 rounded-xl shadow-sm">
+    <div className={cn("w-full bg-white px-3 py-2 flex items-center gap-2 rounded-xl shadow-sm", className)}>
       
       {/* Segmentado: Imóveis | Veículos - versão mobile compacta */}
       <div className="flex bg-gray-100 rounded-lg p-1">
