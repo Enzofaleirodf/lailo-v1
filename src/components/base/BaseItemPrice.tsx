@@ -1,6 +1,5 @@
 
 import React from "react";
-import { Badge } from "../ui/badge";
 
 interface BaseItemPriceProps {
   price: string;
@@ -20,9 +19,9 @@ export const BaseItemPrice = ({
       <span className="text-xl md:text-lg font-bold tracking-tight text-gray-900 font-urbanist leading-none mt-1">
         {price}
       </span>
-      <Badge className="bg-green-100 text-green-700 font-medium text-sm md:text-xs px-2 pt-0.5 pb-0 rounded-md font-urbanist flex items-center justify-center leading-none">
+      <div className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow-md font-urbanist">
         {discount}
-      </Badge>
+      </div>
     </div>
   );
 };
