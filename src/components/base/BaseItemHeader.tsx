@@ -18,15 +18,15 @@ export const BaseItemHeader = ({
     const vehicle = item as any;
     return (
       <div>
-        <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist mb-1`}>
+        <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist mb-1 truncate`}>
           {vehicle.name}
         </h3>
         <div className="flex items-center gap-2 text-gray-500 mt-1">
-          <span className="text-sm md:text-xs flex-shrink-0" data-no-link="true">{vehicle.color}</span>
+          <span className="text-sm md:text-xs truncate flex-shrink" data-no-link="true">{vehicle.color}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
           <span className="text-sm md:text-xs flex-shrink-0" data-no-link="true">{vehicle.year}</span>
           <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
-          <span className="text-sm md:text-xs flex-shrink min-w-0" data-no-link="true">{vehicle.location}</span>
+          <span className="text-sm md:text-xs truncate flex-shrink min-w-0" data-no-link="true">{vehicle.location}</span>
         </div>
       </div>
     );
@@ -36,7 +36,7 @@ export const BaseItemHeader = ({
   return (
     <div>
       <div className="flex items-center gap-2">
-        <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist flex-shrink min-w-0`}>
+        <h3 className={`${cardTokens.text.title} text-gray-900 leading-tight font-urbanist truncate flex-shrink min-w-0`}>
           {property.type}
         </h3>
         <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
@@ -45,11 +45,7 @@ export const BaseItemHeader = ({
         </span>
       </div>
       <div className="flex items-center gap-2 text-gray-500 mt-1">
-        <span className="text-sm md:text-xs flex-shrink min-w-0" data-no-link="true">{property.location.split(' - ').slice(0, -2).join(' - ')}</span>
-        <span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0" />
-        <span className="text-sm md:text-xs flex-shrink-0 whitespace-nowrap" data-no-link="true">
-          {property.location.split(' - ').slice(-2).join(' - ')}
-        </span>
+        <span className="text-sm md:text-xs truncate" data-no-link="true">{property.location}</span>
       </div>
     </div>
   );
