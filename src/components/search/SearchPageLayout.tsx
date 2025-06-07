@@ -89,16 +89,17 @@ export const SearchPageLayout = ({
       <MobileHeader onMenuClick={() => setIsDrawerOpen(true)} />
       <MobileDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       
-      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">
-        <MobileActionBar
-          currentType={config.type}
-          onTypeChange={handleItemTypeChange}
-          onShowSort={handleShowSort}
-          onShowFilters={handleShowFilters}
-          isVertical={isVertical}
-          onToggleLayout={onToggleLayout}
-        />
-        
+      {/* Mobile Action Bar - agora fixed e controlada por scroll */}
+      <MobileActionBar
+        currentType={config.type}
+        onTypeChange={handleItemTypeChange}
+        onShowSort={handleShowSort}
+        onShowFilters={handleShowFilters}
+        isVertical={isVertical}
+        onToggleLayout={onToggleLayout}
+      />
+      
+      <main className="w-full min-h-screen bg-white px-3 pt-16 pb-6">        
         <div className="py-3">
           <SearchStatusAndControls 
             totalAuctions={finalResultsCount} 
