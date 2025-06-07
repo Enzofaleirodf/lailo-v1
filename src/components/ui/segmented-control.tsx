@@ -22,12 +22,12 @@ export const SegmentedControl = ({
 }: SegmentedControlProps) => {
   return (
     <div className={cn(
-      "relative flex items-center bg-gray-50 p-1 rounded-xl border border-gray-200/50 shadow-sm backdrop-blur-sm w-full",
+      "relative flex items-center bg-gray-50 p-1 rounded-lg border border-gray-200/50 shadow-sm backdrop-blur-sm w-full",
       className
     )}>
       {/* Background indicator */}
       <motion.div
-        className="absolute bg-white rounded-lg shadow-md border border-gray-200/30"
+        className="absolute bg-white rounded-md shadow-md border border-gray-200/30"
         layoutId="segmented-indicator"
         style={{
           left: `${(options.findIndex(opt => opt.value === value) * 100) / options.length}%`,
@@ -47,7 +47,7 @@ export const SegmentedControl = ({
           key={option.value}
           onClick={() => onValueChange(option.value)}
           className={cn(
-            "relative flex items-center justify-center gap-2 px-3 py-3 text-sm font-medium transition-all duration-200 z-10 rounded-lg flex-1 whitespace-nowrap",
+            "relative flex items-center justify-center gap-1.5 px-2 py-2 text-sm font-medium transition-all duration-200 z-10 rounded-md flex-1 whitespace-nowrap",
             value === option.value
               ? "text-gray-900 shadow-sm"
               : "text-gray-600 hover:text-gray-800"
