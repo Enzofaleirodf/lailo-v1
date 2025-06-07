@@ -32,7 +32,7 @@ export const MobileActionBar = ({
   };
 
   return (
-    <div className="md:hidden sticky top-0 z-30 bg-white border border-neutral-200 rounded-xl shadow-sm px-3 py-2 mb-4">
+    <div className="md:hidden sticky top-0 z-30 bg-white border border-neutral-200 rounded-xl shadow-sm px-3 py-2 mt-3 mb-2">
       <div className="flex justify-between items-center">
         {/* Segmented Button - Imóveis/Veículos */}
         <div className="flex-1">
