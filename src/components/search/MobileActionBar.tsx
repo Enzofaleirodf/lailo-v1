@@ -5,7 +5,6 @@ import { ArrowDownUp, SlidersHorizontal, LayoutGrid, Rows } from 'lucide-react';
 import { ItemTypeToggle } from './ItemTypeToggle';
 import { ItemType } from '../../types/search';
 import { Button } from '../ui/button';
-import { useScrollVisibility } from '../../hooks/useScrollVisibility';
 
 interface MobileActionBarProps {
   currentType: ItemType;
@@ -25,7 +24,6 @@ export const MobileActionBar = ({
   onToggleLayout
 }: MobileActionBarProps) => {
   const navigate = useNavigate();
-  const isVisible = useScrollVisibility({ threshold: 80 });
 
   const handleTypeChange = (type: ItemType) => {
     onTypeChange(type);
@@ -34,18 +32,7 @@ export const MobileActionBar = ({
   };
 
   return (
-    <div 
-      className={`
-        md:hidden fixed top-[56px] left-0 right-0 w-full z-40 
-        bg-white border border-neutral-200 rounded-xl shadow-sm 
-        px-3 py-2 mx-3
-        transition-all duration-200 ease-in-out
-        ${isVisible 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 -translate-y-8 pointer-events-none'
-        }
-      `}
-    >
+    <div className="md:hidden sticky top-0 z-30 bg-white border border-neutral-200 rounded-xl shadow-sm px-3 py-2 mb-4">
       <div className="flex justify-between items-center">
         {/* Segmented Button - Imóveis/Veículos */}
         <div className="flex-1">
