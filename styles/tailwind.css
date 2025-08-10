@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:is(.dark *));
-
 /* Configuração do Design System Lailo */
 @theme {
   /* Cores principais */
