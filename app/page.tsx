@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { Button } from "components/Button/Button"
+import { Counter } from "components/Counter/Counter"
 
 import { LP_GRID_ITEMS } from "lp-items"
 
@@ -58,6 +59,16 @@ export default function Web() {
                 <p className="text-gray-500 dark:text-gray-400">{singleItem.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+      <section className="bg-gray-50 dark:bg-gray-800 py-16">
+        <div className="mx-auto max-w-(--breakpoint-xl) px-4">
+          <div className="flex flex-col items-center justify-center">
+            <h2 className="mb-8 text-3xl font-bold text-gray-900 dark:text-white">
+              Zustand State Management Demo
+            </h2>
+            <Counter />
           </div>
         </div>
       </section>

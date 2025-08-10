@@ -18,7 +18,12 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "types": ["node", "vitest/globals", "@testing-library/jest-dom"],
+    "paths": {
+      "@/*": ["./*"],
+      "@/design-system": ["./src/design-system"],
+      "@/design-system/*": ["./src/design-system/*"]
+    },
+    "types": ["node", "@testing-library/jest-dom"],
     "plugins": [
       {
         "name": "next"
