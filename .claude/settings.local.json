@@ -12,7 +12,9 @@
       "mcp__context7__get-library-docs",
       "Bash(npx:*)",
       "Bash(mkdir:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": []
   }
