@@ -5,19 +5,15 @@ import { Counter } from "components/Counter/Counter"
 import { LP_GRID_ITEMS } from "lp-items"
 
 export const metadata: Metadata = {
-  title: "Next.js Enterprise Boilerplate",
+  title: "Lailo v1 - Sistema de Leilões",
+  description: "Plataforma moderna para leilões de imóveis e veículos",
   twitter: {
     card: "summary_large_image",
   },
   openGraph: {
-    url: "https://next-enterprise.vercel.app/",
-    images: [
-      {
-        width: 1200,
-        height: 630,
-        url: "https://raw.githubusercontent.com/Blazity/next-enterprise/main/.github/assets/project-logo.png",
-      },
-    ],
+    url: "https://github.com/Enzofaleirodf/lailo-v1",
+    title: "Lailo v1 - Sistema de Leilões",
+    description: "Sistema de leilões de imóveis e veículos com Next.js 15 e Design System completo",
   },
 }
 
@@ -28,21 +24,20 @@ export default function Web() {
         <div className="mx-auto grid max-w-(--breakpoint-xl) px-4 py-8 text-center lg:py-16">
           <div className="mx-auto place-self-center">
             <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-              Next.js Enterprise Boilerplate
+              Lailo v1 🏡🚗
             </h1>
             <p className="mb-6 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
-              Jumpstart your enterprise project with our feature-packed, high-performance Next.js boilerplate!
-              Experience rapid UI development, AI-powered code reviews, and an extensive suite of tools for a smooth and
-              enjoyable development process.
+              Sistema moderno e completo para leilões de imóveis e veículos. 
+              Desenvolvido com Next.js 15, TypeScript e um design system robusto para máxima performance e experiência do usuário.
             </p>
-            <Button href="https://github.com/Blazity/next-enterprise" className="mr-3">
-              Get started
+            <Button href="https://github.com/Enzofaleirodf/lailo-v1" className="mr-3">
+              Ver no GitHub
             </Button>
             <Button
-              href="https://vercel.com/new/git/external?repository-url=https://github.com/Blazity/next-enterprise"
+              href="#"
               intent="secondary"
             >
-              Deploy Now
+              Demo (Em breve)
             </Button>
           </div>
         </div>
@@ -66,7 +61,7 @@ export default function Web() {
         <div className="mx-auto max-w-(--breakpoint-xl) px-4">
           <div className="flex flex-col items-center justify-center">
             <h2 className="mb-8 text-3xl font-bold text-gray-900 dark:text-white">
-              Zustand State Management Demo
+              Demo - Gerenciamento de Estado
             </h2>
             <Counter />
           </div>
