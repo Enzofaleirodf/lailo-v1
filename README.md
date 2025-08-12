@@ -7,12 +7,27 @@ Uma plataforma moderna e robusta para leilões desenvolvida com Next.js 15, Type
 ## 🚀 Tecnologias
 
 ### Frontend
-- **Next.js 15** - Framework React com App Directory
-- **TypeScript** - Tipagem estática rigorosa
-- **Tailwind CSS v4** - Framework CSS utility-first
-- **Radix UI** - Componentes primitivos acessíveis
-- **Lucide React** - Biblioteca de ícones moderna
-- **Zustand** - Gerenciamento de estado leve
+- **Next.js 15** - Framework React com App Directory e Turbo
+- **TypeScript 5.8** - Tipagem estática rigorosa
+- **Tailwind CSS v4** - Framework CSS utility-first moderno
+- **React 19** - Biblioteca UI com recursos mais recentes
+- **Radix UI** - Componentes primitivos acessíveis (15+ componentes)
+- **Lucide React** - Biblioteca de ícones moderna e otimizada
+- **React Icons** - Conjunto adicional de ícones
+- **Heroicons** - Ícones SVG criados pela Tailwind CSS
+
+### Estado & Dados
+- **Zustand** - Gerenciamento de estado leve e performático
+- **TanStack Query (React Query)** - Cache e sincronização de dados server-state
+- **Zod** - Validação de schemas TypeScript-first
+
+### UI & Styling
+- **Class Variance Authority (CVA)** - Sistema de variants consistente
+- **cn function** - Merge inteligente de classes Tailwind
+- **Tailwind Merge** - Otimização de classes conflitantes
+- **Next Themes** - Sistema de tema dark/light
+- **Sonner** - Toast notifications elegantes
+- **CMDK** - Interface de comandos
 
 ### Design System
 - **Design Tokens** - Sistema de cores, tipografia e espaçamento
@@ -21,10 +36,13 @@ Uma plataforma moderna e robusta para leilões desenvolvida com Next.js 15, Type
 - **cn function** - Merge inteligente de classes Tailwind
 
 ### DevEx & Qualidade
-- **ESLint 9** + **Prettier** - Consistência de código
-- **Jest** + **React Testing Library** - Testes unitários
-- **Playwright** - Testes E2E
-- **PNPM** - Gerenciador de pacotes rápido
+- **PNPM 10** - Gerenciador de pacotes rápido e eficiente
+- **TypeScript ESLint 8** + **Prettier 3** - Linting e formatação
+- **Jest 29** + **React Testing Library** - Testes unitários robustos
+- **Playwright** - Testes E2E multi-browser automatizados
+- **Cross-env** - Variáveis de ambiente cross-platform
+- **Total TypeScript Reset** - Tipos TypeScript otimizados
+- **PostCSS** + **Tailwind Plugin** - Processamento CSS avançado
 - **CLAUDE.md** - Documentação para AI assistants
 
 ## 🎨 Design System
@@ -102,13 +120,22 @@ pnpm e2e:ui       # Testes E2E com interface
 
 ### Estrutura do Projeto
 ```
-├── app/                 # Next.js App Router
+├── app/                     # Next.js 15 App Router
+│   ├── api/                # API Routes
+│   ├── layout.tsx          # Layout raiz
+│   └── page.tsx            # Página principal
 ├── src/
-│   └── design-system/   # Sistema de design completo
-├── components/          # Componentes legados
-├── store/              # Gerenciamento de estado
-├── styles/             # Estilos globais
-└── e2e/                # Testes E2E
+│   └── design-system/      # Sistema de design completo
+│       ├── components/     # Componentes principais
+│       │   └── ui/        # 80+ componentes UI base
+│       ├── tokens/        # Design tokens (cores, tipografia)
+│       └── utils/         # Utilitários (cn function)
+├── components/             # Componentes legados (Button, Counter)
+├── store/                  # Zustand stores
+├── styles/                 # Tailwind CSS global
+├── e2e/                   # Playwright E2E tests
+├── lib/                   # Utilitários gerais
+└── Comps/                 # Componentes específicos do domínio
 ```
 
 ## 📦 Componentes Principais
@@ -140,10 +167,15 @@ pnpm e2e:ui       # Testes E2E com interface
 
 ### Melhorias Técnicas
 - [ ] Testes de cobertura 100%
-- [ ] Storybook para documentação
-- [ ] Performance otimization
-- [ ] PWA capabilities
-- [ ] SEO enhancement
+- [ ] Storybook para documentação de componentes
+- [ ] Server Actions para operações server-side
+- [ ] React Server Components otimizados
+- [ ] Performance optimization (bundle analysis)
+- [ ] PWA capabilities (service workers)
+- [ ] SEO enhancement (metadata dinâmico)
+- [ ] Integração completa TanStack Query
+- [ ] Sistema de cache avançado
+- [ ] Internacionalização (i18n)
 
 ## 📄 Licença
 
@@ -151,4 +183,4 @@ MIT License - Veja [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
-⚡ **Desenvolvido com Next.js 15 + TypeScript + Design System completo**
+⚡ **Desenvolvido com Next.js 15 + React 19 + TypeScript 5.8 + TanStack Query + Design System completo**
