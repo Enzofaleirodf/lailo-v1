@@ -22,9 +22,10 @@ Uma plataforma moderna e robusta para leilões desenvolvida com Next.js 15, Type
 
 ### DevEx & Qualidade
 - **ESLint 9** + **Prettier** - Consistência de código
-- **Vitest** + **React Testing Library** - Testes unitários
+- **Jest** + **React Testing Library** - Testes unitários
 - **Playwright** - Testes E2E
-- **GitHub Actions** - CI/CD automático
+- **PNPM** - Gerenciador de pacotes rápido
+- **CLAUDE.md** - Documentação para AI assistants
 
 ## 🎨 Design System
 
@@ -77,20 +78,26 @@ git clone https://github.com/Enzofaleirodf/lailo-v1.git
 cd lailo-v1
 
 # Instale as dependências
-npm install
+pnpm install
 
 # Inicie o servidor de desenvolvimento
-npm run dev
+pnpm dev
 ```
 
 ### Scripts Disponíveis
 ```bash
-npm run dev          # Servidor de desenvolvimento
-npm run build        # Build de produção
-npm run start        # Servidor de produção
-npm run lint         # Verificação de lint
-npm run test         # Testes unitários
-npm run e2e:headless # Testes E2E
+pnpm dev          # Servidor de desenvolvimento (com Turbo)
+pnpm build        # Build de produção
+pnpm start        # Servidor de produção
+pnpm lint         # Verificação de lint
+pnpm lint:fix     # Correção automática de lint
+pnpm prettier     # Verificação de formatação
+pnpm prettier:fix # Correção automática de formatação
+pnpm test         # Testes unitários (Jest)
+pnpm test:watch   # Testes em modo watch
+pnpm test:coverage # Cobertura de testes
+pnpm e2e:headless # Testes E2E (Playwright)
+pnpm e2e:ui       # Testes E2E com interface
 ```
 
 ### Estrutura do Projeto
